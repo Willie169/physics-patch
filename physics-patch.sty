@@ -1,0 +1,131 @@
+\ProvidesPackage{physics-patch}
+% physics-patched 1.0
+% This material is subject to the LaTeX Project Public License
+% See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html for the details of that license
+%
+% This package is created by Willie Shen
+% Repository: https://github.com/Willie169/physics-patch
+% Last update: Feb 11, 2025
+% Some content of this package is modified from the physics package created by Sergio C. de la Barrera
+%
+% This package solves the weird definition of \dv, and \pdv of physics package
+% and optionally overloads the definition of \qty in siunitx and physics packages together
+% This package requires xparse, etoolbox, and amsmath package
+% If you want to load both siunitx and physics, please load siunitx first, physics next, and physics-patch last
+% If you want to load physics but not siunitx, please load physics first, and then physics-patch
+% You can also load this package separately to use commands defined in this package
+% The commands defined in this package will silently overwrite previous commands with the same name, if such commands exist
+
+\RequirePackage{xparse}
+\RequirePackage{etoolbox}
+\RequirePackage{amsmath}
+
+% override: override \qty to \patchedqty (default)
+% nooverride: not override \qty to \patchedqty
+\newif\ifoverride
+\DeclareOption{override}{\overridetrue}
+\DeclareOption{nooverride}{\overridefalse}
+\ExecuteOptions{override}
+\ProcessOptions\relax
+
+\IfPackageLoadedTF{siunitx}
+{
+  \DeclareDocumentCommand\siqty{o m m}{
+    \IfValueTF{#1}{\SI[#1]{#2}{#3}}{\SI{#2}{#3}}
+  }
+}{
+  \let\siqty\relax
+}
+\DeclareDocumentCommand{\@patchedquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g g }
+{
+  \IfValueTF{#9}
+  {
+    \IfValueTF{#5}
+    {\siqty[#5]{#8}{#9}}
+    {\siqty{#8}{#9}}
+  }
+  {
+    \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
+      \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
+        \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
+          \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
+        }
+      }
+    }
+    \IfNoValueTF{#5}{
+      \IfNoValueTF{#6}{
+        \IfNoValueTF{#7}{
+          \IfNoValueTF{#8}{
+            \IfBooleanTF{#1}{\big}{
+              \IfBooleanTF{#2}{\Big}{
+                \IfBooleanTF{#3}{\bigg}{
+                  \IfBooleanTF{#4}{\Bigg}{}
+                }
+              }
+            }
+          }
+          {\ltag\lbrace#8\rtag\rbrace}
+        }{
+          \ltag\lvert{#7}\rtag\rvert
+          \IfNoValueTF{#8}{}{#8}
+        }
+      }{
+          \ltag(#6\rtag)
+          \IfNoValueTF{#7}{}{|#7|}
+          \IfNoValueTF{#8}{}{#8}
+      }
+    }{
+      \ltag[#5\rtag]
+      \IfNoValueTF{#6}{}{(#6)}
+      \IfNoValueTF{#7}{}{|#7|}
+      \IfNoValueTF{#8}{}{#8}
+    }
+  }
+}
+\DeclareDocumentCommand\patchedquantity{}{\@patchedquantity}
+\DeclareDocumentCommand\patchedqty{}{\patchedquantity}
+\DeclareDocumentCommand\ptqty{}{\patchedquantity}
+\ifoverride\DeclareDocumentCommand\qty{}{\patchedquantity}\fi
+\DeclareDocumentCommand\derivative{ s o m g d() }
+{ % Total derivative
+	% s: star for \flatfrac flat derivative
+	% o: optional n for nth derivative
+	% m: mandatory (x in df/dx)
+	% g: optional (f in df/dx)
+	% d: long-form d/dx(...)
+	\IfBooleanTF{#1}
+	{\let\fractype\flatfrac}
+	{\let\fractype\frac}
+	\IfNoValueTF{#4}
+	{
+		\IfNoValueTF{#5}
+		{\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}}}{\diffd #3\IfNoValueTF{#2}{}{^{#2}}}}
+		{\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}}}{\diffd #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
+	}
+	{\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}} #3}{\diffd #4\IfNoValueTF{#2}{}{^{#2}}}}
+	\IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+}
+\DeclareDocumentCommand\partialderivative{ s o m g g d() }
+{ % Partial derivative
+	% s: star for \flatfrac flat derivative
+	% o: optional n for nth derivative
+	% m: mandatory (x in df/dx)
+	% g: optional (f in df/dx)
+	% g: optional (y in d^2f/dxdy)
+	% d: long-form d/dx(...)
+	\IfBooleanTF{#1}
+	{\let\fractype\flatfrac}
+	{\let\fractype\frac}
+	\IfNoValueTF{#4}
+	{
+		\IfNoValueTF{#6}
+		{\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}}}
+		{\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#6\argclose)}
+	}
+	{
+		\IfNoValueTF{#5}
+		{\fractype{\partial \IfNoValueTF{#2}{}{^{#2}} #3}{\partial #4\IfNoValueTF{#2}{}{^{#2}}}}
+		{\fractype{\partial^2 #3}{\partial #4 \partial #5}}
+		\IfNoValueTF{#6}{}{\argopen(#6\argclose)}
+	}
+}
