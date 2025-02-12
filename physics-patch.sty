@@ -8,7 +8,7 @@
 % Last update: Feb 11, 2025
 % Some content of this package is modified from the physics package created by Sergio C. de la Barrera
 %
-% This package solves the weird definition of \dv, and \pdv of physics package
+% This package solves the weird definition of \qty, \dv, and \pdv of physics package
 % and optionally overloads the definition of \qty in siunitx and physics packages together
 % This package requires xparse, etoolbox, and amsmath package
 % If you want to load both siunitx and physics, please load siunitx first, physics next, and physics-patch last
@@ -28,104 +28,144 @@
 \ExecuteOptions{override}
 \ProcessOptions\relax
 
+\DeclareDocumentCommand\patchedphysicsquantity
+{
+  \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
+    \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
+      \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
+        \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
+      }
+    }
+  }
+  \IfNoValueTF{#5}{
+    \IfNoValueTF{#6}{
+      \IfNoValueTF{#7}{
+        \IfNoValueTF{#8}{
+          \IfBooleanTF{#1}{\big}{
+            \IfBooleanTF{#2}{\Big}{
+              \IfBooleanTF{#3}{\bigg}{
+                \IfBooleanTF{#4}{\Bigg}{}
+              }
+            }
+          }
+        }
+        {\ltag\lbrace#8\rtag\rbrace}
+      }{
+        \ltag\lvert{#7}\rtag\rvert
+        \IfNoValueTF{#8}{}{#8}
+      }
+    }{
+        \ltag(#6\rtag)
+        \IfNoValueTF{#7}{}{|#7|}
+        \IfNoValueTF{#8}{}{#8}
+    }
+  }{
+    \ltag[#5\rtag]
+    \IfNoValueTF{#6}{}{(#6)}
+    \IfNoValueTF{#7}{}{|#7|}
+    \IfNoValueTF{#8}{}{#8}
+  }
+}
 \IfPackageLoadedTF{siunitx}
 {
   \DeclareDocumentCommand\siqty{o m m}{
     \IfValueTF{#1}{\SI[#1]{#2}{#3}}{\SI{#2}{#3}}
   }
-}{
-  \let\siqty\relax
-}
-\DeclareDocumentCommand{\@patchedquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g g }
-{
-  \IfValueTF{#9}
+  \DeclareDocumentCommand{\integratedquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g g }
   {
-    \IfValueTF{#5}
-    {\siqty[#5]{#8}{#9}}
-    {\siqty{#8}{#9}}
-  }
-  {
-    \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
-      \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
-        \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
-          \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
+    \IfValueTF{#9}
+    {
+      \IfValueTF{#5}
+      {\siqty[#5]{#8}{#9}}
+      {\siqty{#8}{#9}}
+    }{
+      \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
+        \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
+          \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
+            \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
+          }
         }
       }
-    }
-    \IfNoValueTF{#5}{
-      \IfNoValueTF{#6}{
-        \IfNoValueTF{#7}{
-          \IfNoValueTF{#8}{
-            \IfBooleanTF{#1}{\big}{
-              \IfBooleanTF{#2}{\Big}{
-                \IfBooleanTF{#3}{\bigg}{
-                  \IfBooleanTF{#4}{\Bigg}{}
+      \IfNoValueTF{#5}{
+        \IfNoValueTF{#6}{
+          \IfNoValueTF{#7}{
+            \IfNoValueTF{#8}{
+              \IfBooleanTF{#1}{\big}{
+                \IfBooleanTF{#2}{\Big}{
+                  \IfBooleanTF{#3}{\bigg}{
+                    \IfBooleanTF{#4}{\Bigg}{}
+                  }
                 }
               }
             }
+            {\ltag\lbrace#8\rtag\rbrace}
+          }{
+            \ltag\lvert{#7}\rtag\rvert
+            \IfNoValueTF{#8}{}{#8}
           }
-          {\ltag\lbrace#8\rtag\rbrace}
         }{
-          \ltag\lvert{#7}\rtag\rvert
-          \IfNoValueTF{#8}{}{#8}
+            \ltag(#6\rtag)
+            \IfNoValueTF{#7}{}{|#7|}
+            \IfNoValueTF{#8}{}{#8}
         }
       }{
-          \ltag(#6\rtag)
-          \IfNoValueTF{#7}{}{|#7|}
-          \IfNoValueTF{#8}{}{#8}
+        \ltag[#5\rtag]
+        \IfNoValueTF{#6}{}{(#6)}
+        \IfNoValueTF{#7}{}{|#7|}
+        \IfNoValueTF{#8}{}{#8}
       }
-    }{
-      \ltag[#5\rtag]
-      \IfNoValueTF{#6}{}{(#6)}
-      \IfNoValueTF{#7}{}{|#7|}
-      \IfNoValueTF{#8}{}{#8}
     }
   }
+  \let\patchedquantity\integratedquantity
+  \let\iqty\integratedquantity
+}{
+  \let\patchedquantity\patchedphysicsquantity
 }
-\DeclareDocumentCommand\patchedquantity{}{\@patchedquantity}
-\DeclareDocumentCommand\patchedqty{}{\patchedquantity}
-\DeclareDocumentCommand\ptqty{}{\patchedquantity}
+\let\pqty\patchedquantity
+\let\ppqty\patchedphysicsquantity
 \ifoverride\DeclareDocumentCommand\qty{}{\patchedquantity}\fi
 \DeclareDocumentCommand\derivative{ s o m g d() }
-{ % Total derivative
-	% s: star for \flatfrac flat derivative
-	% o: optional n for nth derivative
-	% m: mandatory (x in df/dx)
-	% g: optional (f in df/dx)
-	% d: long-form d/dx(...)
-	\IfBooleanTF{#1}
-	{\let\fractype\flatfrac}
-	{\let\fractype\frac}
-	\IfNoValueTF{#4}
-	{
-		\IfNoValueTF{#5}
-		{\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}}}{\diffd #3\IfNoValueTF{#2}{}{^{#2}}}}
-		{\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}}}{\diffd #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
-	}
-	{\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}} #3}{\diffd #4\IfNoValueTF{#2}{}{^{#2}}}}
-	\IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+{
+    % Total derivative
+  % s: star for \flatfrac flat derivative
+  % o: optional n for nth derivative
+  % m: mandatory (x in df/dx)
+  % g: optional (f in df/dx)
+  % d: long-form d/dx(...)
+  \IfBooleanTF{#1}
+  {\let\fractype\flatfrac}
+  {\let\fractype\frac}
+  \IfNoValueTF{#4}
+  {
+    \IfNoValueTF{#5}
+    {\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}}}{\diffd #3\IfNoValueTF{#2}{}{^{#2}}}}
+    {\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}}}{\diffd #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
+  }
+  {\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}} #3}{\diffd #4\IfNoValueTF{#2}{}{^{#2}}}}
+  \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
 }
 \DeclareDocumentCommand\partialderivative{ s o m g g d() }
-{ % Partial derivative
-	% s: star for \flatfrac flat derivative
-	% o: optional n for nth derivative
-	% m: mandatory (x in df/dx)
-	% g: optional (f in df/dx)
-	% g: optional (y in d^2f/dxdy)
-	% d: long-form d/dx(...)
-	\IfBooleanTF{#1}
-	{\let\fractype\flatfrac}
-	{\let\fractype\frac}
-	\IfNoValueTF{#4}
-	{
-		\IfNoValueTF{#6}
-		{\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}}}
-		{\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#6\argclose)}
-	}
-	{
-		\IfNoValueTF{#5}
-		{\fractype{\partial \IfNoValueTF{#2}{}{^{#2}} #3}{\partial #4\IfNoValueTF{#2}{}{^{#2}}}}
-		{\fractype{\partial^2 #3}{\partial #4 \partial #5}}
-		\IfNoValueTF{#6}{}{\argopen(#6\argclose)}
-	}
+{
+    % Partial derivative
+  % s: star for \flatfrac flat derivative
+  % o: optional n for nth derivative
+  % m: mandatory (x in df/dx)
+  % g: optional (f in df/dx)
+  % g: optional (y in d^2f/dxdy)
+  % d: long-form d/dx(...)
+  \IfBooleanTF{#1}
+  {\let\fractype\flatfrac}
+  {\let\fractype\frac}
+  \IfNoValueTF{#4}
+  {
+    \IfNoValueTF{#6}
+    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}}}
+    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#6\argclose)}
+  }
+  {
+    \IfNoValueTF{#5}
+    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}} #3}{\partial #4\IfNoValueTF{#2}{}{^{#2}}}}
+    {\fractype{\partial^2 #3}{\partial #4 \partial #5}}
+    \IfNoValueTF{#6}{}{\argopen(#6\argclose)}
+  }
 }
