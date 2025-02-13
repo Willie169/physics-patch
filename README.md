@@ -9,7 +9,9 @@ Patches for physics package and integration of physics and siunitx packages
 
 ## Introduction
 
-The `physics-patch` package fixes issues in the `physics` package and improves compatibility between `physics` and `siunitx`. It provides improved versions of `\qty`, `\dv`, and `\pdv` and introduces new macros.
+The `physics-patch` package fixes issues in the `physics` package and improves compatibility between `physics` and `siunitx`.
+
+It provides improved versions of `\qty`, `\dv`, and `\pdv` and introduces new macros.
 
 ## Usage
 
