@@ -33,8 +33,8 @@ By default, `physics-patch` overrides `\qty` with an improved version. To disabl
 ## Communication Channels
 
 * **Bug tracker:** <https://github.com/Willie169/physics-patch/issues>
+* **Announcements:** <https://github.com/Willie169/physics-patch/releases>
 * **Repository:** <https://github.com/Willie169/physics-patch>
-* **Announcement:** <https://github.com/Willie169/physics-patch/releases>
 
 ## License and Credit
 
