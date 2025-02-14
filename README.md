@@ -46,4 +46,4 @@ See <https://ctan.org/pkg/physics> for details on that package.
 
 ## Documentation
 
-<**physics-patch.pdf**>
+[**physics-patch.pdf**](**physics-patch.pdf**)
