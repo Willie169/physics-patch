@@ -4,8 +4,8 @@ Patches for physics package and integration of physics and siunitx packages
 
 * Author: **Willie Shen (Willie169)**
 * Repository: <https://github.com/Willie169/physics-patch>
-* Latest version: 1.0
-* Last update: Feb 13, 2025
+* Latest version: 2.0
+* Last update: Feb 14, 2025
 
 ## Introduction
 
@@ -46,4 +46,5 @@ See <https://ctan.org/pkg/physics> for details on that package.
 
 ## Documentation
 
-[**physics-patch.pdf**](**physics-patch.pdf**)
+* [**physics-patch.tex**](physics-patch.tex)
+* [**physics-patch.pdf**](physics-patch.pdf)
