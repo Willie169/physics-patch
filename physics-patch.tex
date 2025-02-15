@@ -36,9 +36,12 @@
 \date{Version 2.0}
 \begin{document}
 \onehalfspacing\thispagestyle{empty}\Needspace{1\textheight}\maketitle\setcounter{page}{1}\Needspace{1\textheight}\tableofcontents\Needspace{1\textheight}\setcounter{page}{1}
-\section{Before you start}
-\subsection{The purpose of this package}
-The goal of this package is to make typesetting equations for physics simpler, faster, and more human-readable. To that end, the commands included in this package have names that make the purpose of each command immediately obvious and remove any ambiguity while reading and editing \texttt{physics} code. From a practical standpoint, it is handy to have a well-defined set of shortcuts for accessing the long-form of each of these commands. The commands listed below are therefore defined in terms of their long-form names and then shown explicitly in terms of the default shorthand command sequences. These shorthand commands are meant make it easy to remember both the shorthand names and what each one represents.
+\section{Preface}
+\paragraph*{Since version 2.0, the \texttt{physics-patch} package has evolved from merely patching the \texttt{physics} package to fully replacing it, encompassing all its commands. While preserving the original goal—simplifying mathematical and physics typesetting for greater readability and efficiency—this package refines the design by addressing unconventional behaviors, extending commands, and introducing additional macros.}
+\paragraph*{Like the original, this package provides commands with intuitive names and well-defined shorthands, ensuring both clarity and ease of recall.}
+\paragraph*{A key motivation for its development was to resolve unintuitive behaviors in \texttt{physics}. For instance, in the original package, suffix parentheses and their contents in expressions like \verb|\dv{f}{x}(\typical)| are ignored.}
+\paragraph*{Beyond refining existing functionality, this package extends commands for broader applicability—such as enabling \verb|\xmat| to support ellipses—and introduces entirely new macros, such as \verb|\omat|.}
+\section{Usage}
 \subsection{Other required packages}
 The \texttt{physics} package requires \texttt{xparse} and \texttt{amsmath} to work properly in your \LaTeX~document. The \texttt{amsmath} package comes standard with most \LaTeX~distributions and is loaded by \texttt{physics} for your convenience. You may also already have \texttt{xparse} installed on your system as it is a popular package for defining \LaTeX macros, however, if you are unsure you can either install it again using your local package manager (comes with most distributions) or by visiting the \href{http://www.ctan.org/}{CTAN} online package database, or you could even just try to use \texttt{physics} without worrying about it. Many modern \LaTeX compilers will locate and offer to download missing packages for you.
 \subsection{Using \texttt{physics} in your \LaTeX~document}
@@ -53,6 +56,8 @@ To use the \texttt{physics} package, simply insert \verb|\usepackage{physics}| i
 \end{document}
 \end{verbatim}
 \section{List of commands}
+The commands listed below are defined in terms of their long-form names and then shown explicitly in terms of the default shorthand command sequences.
+
 \subsection{Automatic bracing}
 \begin{longtable}[l]{ l l p{6cm} }
 \verb|\quantity| & \verb|\qty(\typical)| $\displaystyle\rightarrow \qty(\typical)$ & automatic $\qty(\;)$ braces \\
