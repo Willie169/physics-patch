@@ -1,0 +1,193 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{fullpage,parskip,fontspec,xparse,etoolbox,amsmath,physics,xcolor,array,longtable,multirow,needspace,setspace,titling,xstring,amssymb,array,float}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\setmainfont{TeX Gyre Termes}[Ligatures=TeX]
+\setsansfont{TeX Gyre Heros}[Ligatures=TeX]
+\setmonofont{TeX Gyre Cursor}[Ligatures=TeX]
+\DeclareDocumentCommand{\patchedphysicsquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g }
+{ % Flexible automatic bracketing of an expression in () or [] or {} or ||
+  % Handles manual override of sizing
+  \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
+    \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
+      \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
+        \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
+      }
+    }
+  }
+  % Handles actual bracketing
+  \IfNoValueTF{#5}{
+    \IfNoValueTF{#6}{
+      \IfNoValueTF{#7}{
+        \IfNoValueTF{#8}{
+          \IfBooleanTF{#1}{\big}{
+            \IfBooleanTF{#2}{\Big}{
+              \IfBooleanTF{#3}{\bigg}{
+                \IfBooleanTF{#4}{\Bigg}{}
+              }
+            }
+          }
+        }
+        {\ltag\lbrace#8\rtag\rbrace}
+      }{
+        \ltag\lvert{#7}\rtag\rvert
+        \IfNoValueTF{#8}{}{#8}
+      }
+    }{
+        \ltag(#6\rtag)
+        \IfNoValueTF{#7}{}{|#7|}
+        \IfNoValueTF{#8}{}{#8}
+    }
+  }{
+    \ltag[#5\rtag]
+    \IfNoValueTF{#6}{}{(#6)}
+    \IfNoValueTF{#7}{}{|#7|}
+    \IfNoValueTF{#8}{}{#8}
+  }
+}
+\let\ppqty\patchedphysicsquantity
+\let\patchedquantity\patchedphysicsquantity
+\let\ptqty\patchedquantity
+\let\qty\patchedquantity
+\DeclareDocumentCommand\derivative{ s o m g d() }
+{ % Total derivative
+  % s: star for \flatfrac flat derivative
+  % o: optional n for nth derivative
+  % m: mandatory (x in df/dx)
+  % g: optional (f in df/dx)
+  % d: long-form d/dx(...)
+  \IfBooleanTF{#1}
+  {\let\fractype\flatfrac}
+  {\let\fractype\frac}
+  \IfNoValueTF{#4}
+  {
+    \IfNoValueTF{#5}
+    {\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}}}{\diffd #3\IfNoValueTF{#2}{}{^{#2}}}}
+    {\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}}}{\diffd #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
+  }
+  {\fractype{\diffd \IfNoValueTF{#2}{}{^{#2}} #3}{\diffd #4\IfNoValueTF{#2}{}{^{#2}}}}
+  \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+}
+\let\dv\derivative
+\DeclareDocumentCommand\partialderivative{ s o m g g d() }
+{ % Partial derivative
+  % s: star for \flatfrac flat derivative
+  % o: optional n for nth derivative
+  % m: mandatory (x in df/dx)
+  % g: optional (f in df/dx)
+  % g: optional (y in d^2f/dxdy)
+  % d: long-form d/dx(...)
+  \IfBooleanTF{#1}
+  {\let\fractype\flatfrac}
+  {\let\fractype\frac}
+  \IfNoValueTF{#4}
+  {
+    \IfNoValueTF{#6}
+    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}}}
+    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#6\argclose)}
+  }
+  {
+    \IfNoValueTF{#5}
+    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}} #3}{\partial #4\IfNoValueTF{#2}{}{^{#2}}}}
+    {\fractype{\partial^2 #3}{\partial #4 \partial #5}}
+    \IfNoValueTF{#6}{}{\argopen(#6\argclose)}
+  }
+}
+\let\pdv\partialderivative
+\newcommand{\cbox}[2][cyan]
+{\mathchoice
+	{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\displaystyle#2$}}
+	{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\textstyle#2$}}
+	{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\scriptstyle#2$}}
+	{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\scriptscriptstyle#2$}}
+}
+
+\newcommand{\typical}{\cbox{\phantom{A}}}
+\newcommand{\tall}{\cbox{\phantom{A^{\vphantom{x^x}}_x}}}
+\newcommand{\grande}{\cbox{\phantom{\frac{1}{xx}}}}
+\renewcommand{\maketitle}{
+\begin{titlepage}
+\begin{center}
+\vspace*{\fill}
+{\huge \bfseries \thetitle\par}
+\vskip 1.5em
+{\Large \theauthor\par}
+\vskip 1em
+{\large \thedate\par}
+\vspace*{\fill}
+\end{center}
+\end{titlepage}
+}
+\title{{\huge physics-patch}\\\mbox{}\\{\Large\textnormal{Patches for physics package and integration of physics and siunitx packages}}}
+\author{{\LARGE\mbox{}\\Willie Shen (Willie169)}\\\mbox{}\\{\Large https://github.com/Willie169/physics-patch}}
+\date{\Large\mbox{}\\Version 1.0, February 13, 2025}
+\begin{document}
+\thispagestyle{empty}\Needspace{1\textheight}\maketitle\Needspace{1\textheight}\setcounter{page}{1}
+\section{Introduction}
+The \texttt{physics-patch} package fixes issues in the \texttt{physics} package and improves compatibility between \texttt{physics} and \texttt{siunitx}.\\
+It provides improved versions of \verb|\qty|, \verb|\dv|, and \verb|\pdv| and introduces new macros.
+\section{Usage}
+This package requires \texttt{xparse}, \texttt{etoolbox}, and \texttt{amsmath} package.\\
+Optionally, load \texttt{physics} and/or \texttt{siunitx} before this package.
+\begin{verbatim}
+\usepackage{physics} % Optional
+\usepackage{siunitx} % Optional
+\usepackage{physics-patch}
+\end{verbatim}
+By default, \texttt{physics-patch} overrides \verb|\qty| with an improved version. To disable this, use the \texttt{nooverride} option:
+\begin{verbatim}
+\usepackage[nooverride]{physics-patch}
+\end{verbatim}
+\section{Communication Channels}
+\begin{itemize}
+\item \textbf{Bug tracker:} \href{https://github.com/Willie169/physics-patch/issues}{https://github.com/Willie169/physics-patch/issues}.
+\item \textbf{Announcements:} \href{https://github.com/Willie169/physics-patch/releases}{https://github.com/Willie169/physics-patch/releases}.
+\item \textbf{Repository:} \href{https://github.com/Willie169/physics-patch}{https://github.com/Willie169/physics-patch}.
+\end{itemize}
+\section{License and Credit}
+\begin{itemize}
+\item
+This package is released under the \textbf{LaTeX Project Public License (LPPL) 1.3c.}\\
+See \href{https://www.latex-project.org/lppl/lppl-1-3c}{https://www.latex-project.org/lppl/lppl-1-3c} for the details of that license.
+\item Some parts of this package are modified from the \texttt{physics} package, created by \textbf{Sergio C. de la Barrera} and licenced under \textbf{LPPL 1.3}.\\
+See \href{https://ctan.org/pkg/physics}{https://ctan.org/pkg/physics} for the details of that package.
+\end{itemize}
+\section{List of Commands}
+{\fontsize{6pt}{8pt}\selectfont
+\begin{longtable}[l]{ p{0.2\textwidth} l p{0.3\textwidth} l p{0.3\textwidth} }
+\verb|\patchedphysicsquantity| or \verb|\ppqty| & \verb|\ppqty(\typical)| $\displaystyle\rightarrow \ppqty(\typical)$ & automatic $\ppqty(\;)$ braces \\
+& \verb|\ppqty(\tall)| $\displaystyle\rightarrow \ppqty(\tall)$ & \\
+& \verb|\ppqty(\grande)| $\displaystyle\rightarrow \ppqty(\grande)$ & \\
+& \verb|\ppqty[\typical]| $\rightarrow \ppqty[\typical]$ & automatic $\ppqty[\;]$ braces \\
+& \verb+\ppqty|\typical|+ $\rightarrow \ppqty|\typical|$ & automatic $\ppqty|\;|$ braces \\
+& \verb|\ppqty{\typical}| $\rightarrow \ppqty{\typical}$ & automatic $\ppqty{\;}$ braces \\
+& \verb|\ppqty\big{}| $\rightarrow \ppqty\big{}$ & \multirow{2}{*}{\parbox{0.3\textwidth}{manual sizing (works with any of the above bracket types)}} \\
+& \verb|\ppqty\Big{}| $\rightarrow \ppqty\Big{}$ & \\
+& \verb|\ppqty\bigg{}| $\rightarrow \ppqty\bigg{}$ & \\
+& \verb|\ppqty\Bigg{}| $\rightarrow \ppqty\Bigg{}$ & \\
+\verb|\siqty| if \texttt{siunitx} loaded & & same as \verb|\SI| in \texttt{siunitx}\\
+\verb|\siqty| if \texttt{siunitx} not loaded & & not defined in this package\\
+\verb|\integratedquantity| or \verb|\iqty| if \texttt{siunitx} loaded & \verb|\iqty[]{}{}| & same as \verb|\SI| in \texttt{siunitx}\\
+& \verb|\iqty{}{}| & same as \verb|\SI| in \texttt{siunitx}\\
+& same as \verb|\patchedphysicsquantity| & same as \verb|\patchedphysicsquantity|\\
+\verb|\integratedquantity| or \verb|\iqty| if \texttt{siunitx} not loaded & & not defined in this package\\
+\verb|\patchedquantity| or \verb|\ptqty| if \texttt{siunitx} loaded & & same as \verb|\integratedquantity|\\
+\verb|\patchedquantity| or \verb|\ptqty| if \texttt{siunitx} not loaded & & same as \verb|\patchedphysicsquantity|\\
+\verb|\qty| if without \texttt{nooverride} option & & same as \verb|\patchedquantity|\\
+\verb|\qty| if with \texttt{nooverride} option & & not defined in this package\\
+\verb|\derivative| & \verb|\dv{x}| $\displaystyle\rightarrow \dv{x}$ & one argument \\
+& \verb|\dv{f}{x}| $\displaystyle\rightarrow \dv{f}{x}$ & two arguments \\
+& \verb|\dv[n]{f}{x}| $\displaystyle\rightarrow \dv[n]{f}{x}$ & optional power \\
+& \verb|\dv{x}(\grande)| $\displaystyle\rightarrow \dv{x}(\grande)$ & long-form; automatic braces, spacing \\
+& \verb|\dv*{f}{x}| $\displaystyle\rightarrow \dv*{f}{x}$ & inline form using \verb|\flatfrac| \\
+& \verb|\dv{f}{x}(\grande)| $\displaystyle\rightarrow \dv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\dv{f}{x}(\grande)| $\displaystyle\rightarrow \dv{f}{x}$\\
+\verb|\partialderivative| & \verb|\pderivative{x}| $\displaystyle\rightarrow \pderivative{x}$ & alternate name \\
+& \verb|\pdv{x}| $\displaystyle\rightarrow \pdv{x}$ & shorthand name \\
+& \verb|\pdv{f}{x}| $\displaystyle\rightarrow \pdv{f}{x}$ & two arguments \\
+& \verb|\pdv[n]{f}{x}| $\displaystyle\rightarrow \pdv[n]{f}{x}$ & optional power \\
+& \verb|\pdv{x}(\grande)| $\displaystyle\rightarrow \pdv{x}(\grande)$ & long-form \\
+& \verb|\pdv{f}{x}{y}| $\displaystyle\rightarrow \pdv{f}{x}{y}$ & mixed partial \\
+& \verb|\pdv*{f}{x}| $\displaystyle\rightarrow \pdv*{f}{x}$ & inline form using \verb|\flatfrac| \\
+& \verb|\pdv{f}{x}(\grande)| $\displaystyle\rightarrow \pdv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\pdv{f}{x}(\grande)| $\displaystyle\rightarrow \pdv{f}{x}$
+\end{longtable}
+}
+\end{document}
