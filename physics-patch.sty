@@ -6,16 +6,16 @@
 % Many parts of this package are modified from the physics package, created by Sergio C. de la Barrera and licenced under LPPL 1.3
 % See https://ctan.org/pkg/physics for the details of that package
 %
-% This package requires amsmath, etoolbox, xcolor, xparse, and xstring package
-% There's no need to load physics because physics-patch has covered all commands in physics since version 2.0
-% Load physics after this package will override the commands in this package and ruin this package
-% It is ok but not recommended to load physics before this package
-% Optionally load this package after siuitx and set siintegrate option to integrate \qty from siunitx into \qty in this package (not recommended)
-% By default or when the override option is used, this package overrides macros in physics with an improved version. To disable this, use the nooverride option (not recommended)
+% This package requires amsmath, etoolbox, xcolor, xparse, and xstring package.
+% Commands that have different definitions come with PT in the beginning of their name (e.g. \PTmqty).
+% physics-patch has covered all commands in physics since version 2.0, so there's no need to load physics.
+% It is ok to load physics before this package. This package will silently overrides macros in physics with an improved version. To use the original version provided by physics, load physics before this package and use the nooverride option (not recommended).
+% This package pretends that physics package is loaded so that this package won't be overriden if \@onefilewithoptions{physics} is called afterward (e.g. by \usepackage{physics}) and packages loaded afterward that checks whether physics is loaded to determine its behavior (e.g. siunitx) work correctly. To disable this, use the nopretend option (not recommended).
+% If siuitx is loaded before this package, this package will define \ITquantity and \ITqty as the integration of the improved definition of physics's \qty (in \PHquantity and \PHqty) and siuitx's \SI. You can optionally set siintegrate option to override \PTquantity and \PTqty with \ITqty (not recommended).
 %
 % Author: Willie Shen (Willie169)
 % Repository: https://github.com/Willie169/physics-patch
-% Last update: Feb 15 2025
+% Last update: Feb 15, 2025
 
 
 \RequirePackage{amsmath}
@@ -28,9 +28,12 @@
 \newif\ifoverride
 \DeclareOption{override}{\overridetrue} % Override macros in physics to patched ones. (default) This option can be set no matter whether physics is loaded
 \DeclareOption{nooverride}{\overridefalse} % Not override macros in physics to patched ones. (not recommended) Fall back to override if physics is not loaded
+\newif\ifpretend
+\DeclareOption{pretend}{\pretendtrue} % Pretend that physics package is loaded so that this package won't be overriden if \@onefilewithoptions{physics} is called afterward (e.g. \usepackage{physics}) and packages loaded afterward that checks whether physics is loaded to determine its behavior (e.g. siunitx) work correctly (default)
+\DeclareOption{nopretend}{\pretendfalse} % Not pretend that physics package is loaded
 \newif\ifsiintegrate
-\DeclareOption{siintegrate}{\siintegratetrue} % Integrate \qty in siunitx package into \qty in this package. (not recommended) Fall back to nosiintegrate if siunitx is not loaded
-\DeclareOption{nosiintegrate}{\siintegratefalse} % Not integrate \qty in siunitx package into \qty in this package (default)
+\DeclareOption{siintegrate}{\siintegratetrue} % Override \PTquantity and \PTqty with \ITqty (not recommended). Fall back to nosiintegrate if siunitx is not loaded
+\DeclareOption{nosiintegrate}{\siintegratefalse} % Not override \PTquantity and \PTqty with \ITqty (default)
 \newif\iforiginaldiv
 \DeclareOption{originaldiv}{\originaldivtrue} % Let \div be division symbol (default)
 \DeclareOption{nooriginaldiv}{\originaldivfalse} % Let \div be \divergence
@@ -40,10 +43,15 @@
 \DeclareOption{italicdiff}{\def\diffd{d}} % Italic differentials
 \DeclareOption{bolddel}{\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}} % Vector bold \nabla symbol (default)
 \DeclareOption{arrowdel}{\DeclareDocumentCommand\vnabla{}{\vec{\boldsymbol\nabla}}} % Vector arrow \nabla symbol
-\ExecuteOptions{override,nosiintegrate,originaldiv,trig,uprightdiff,bolddel}
+\ExecuteOptions{override,pretend,nosiintegrate,originaldiv,trig,uprightdiff,bolddel}
 \ProcessOptions\relax
 
 \IfPackageLoadedTF{physics}{}{\overridetrue}
+\ifpretend{
+  \makeatletter
+  \@namedef{ver@physics.sty}{9999/99/99}
+  \makeatother
+}{}
 
 % Symbols
 \ProvideDocumentCommand\varE{}{\mathcal{E}} % Curly 'E'
@@ -54,7 +62,7 @@
 \newcommand{\cbox}[2][cyan]{\mathchoice{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\displaystyle#2$}}{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\textstyle#2$}}{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\scriptstyle#2$}}{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\scriptscriptstyle#2$}}}
 
 % Brackets and braces
-\DeclareDocumentCommand{\physicsquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g }
+\DeclareDocumentCommand{\PHquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g }
 { % Flexible automatic bracketing of an expression in () or [] or {} or ||
   % Handles manual override of sizing
   \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
@@ -94,67 +102,64 @@
   \IfNoValueTF{#8}{}{#8}
   }
 }
-\let\PHqty\physicsquantity
+\let\PHqty\PHquantity
 \IfPackageLoadedTF{siunitx}
 {
-  \ifsiintegrate
-  {
-  \DeclareDocumentCommand\siqty{o m m}{
-    \IfValueTF{#1}{\SI[#1]{#2}{#3}}{\SI{#2}{#3}}
-  }
-    \DeclareDocumentCommand{\integratedquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g g }
-    { % integrate \qty from siunitx into \qty
-      \IfValueTF{#9}
-      { % \qty from siunitx
-      \IfValueTF{#5}
-      {\siqty[#5]{#8}{#9}}
-      {\siqty{#8}{#9}}
-      }{ % \qty from physics
-      % Handles manual override of sizing
-      \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
-        \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
-        \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
-          \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
-        }
-        }
-      }
-      % Handles actual bracketing
-      \IfNoValueTF{#5}{
-        \IfNoValueTF{#6}{
-        \IfNoValueTF{#7}{
-          \IfNoValueTF{#8}{
-          \IfBooleanTF{#1}{\big}{
-            \IfBooleanTF{#2}{\Big}{
-            \IfBooleanTF{#3}{\bigg}{
-              \IfBooleanTF{#4}{\Bigg}{}
-            }
-            }
-          }
-          }
-          {\ltag\lbrace#8\rtag\rbrace}
-        }{
-          \ltag\lvert{#7}\rtag\rvert
-          \IfNoValueTF{#8}{}{#8}
-        }
-        }{
-        \ltag(#6\rtag)
-        \IfNoValueTF{#7}{}{|#7|}
-        \IfNoValueTF{#8}{}{#8}
-        }
-      }{
-        \ltag[#5\rtag]
-        \IfNoValueTF{#6}{}{(#6)}
-        \IfNoValueTF{#7}{}{|#7|}
-        \IfNoValueTF{#8}{}{#8}
+  \DeclareDocumentCommand{\ITquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g g }
+  { % integrate \qty from siunitx into \qty
+    \IfValueTF{#9}
+    { % \qty from siunitx
+    \IfValueTF{#5}
+    {\SI[#5]{#8}{#9}}
+    {\SI{#8}{#9}}
+    }{ % \qty from physics
+    % Handles manual override of sizing
+    \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
+      \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
+      \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
+        \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
       }
       }
     }
-    \let\PTquantity\integratedquantity
-    \let\ITqty\integratedquantity
-  }{
-    \let\PTquantity\physicsquantity
+    % Handles actual bracketing
+    \IfNoValueTF{#5}{
+      \IfNoValueTF{#6}{
+      \IfNoValueTF{#7}{
+        \IfNoValueTF{#8}{
+        \IfBooleanTF{#1}{\big}{
+          \IfBooleanTF{#2}{\Big}{
+          \IfBooleanTF{#3}{\bigg}{
+            \IfBooleanTF{#4}{\Bigg}{}
+          }
+          }
+        }
+        }
+        {\ltag\lbrace#8\rtag\rbrace}
+      }{
+        \ltag\lvert{#7}\rtag\rvert
+        \IfNoValueTF{#8}{}{#8}
+      }
+      }{
+      \ltag(#6\rtag)
+      \IfNoValueTF{#7}{}{|#7|}
+      \IfNoValueTF{#8}{}{#8}
+      }
+    }{
+      \ltag[#5\rtag]
+      \IfNoValueTF{#6}{}{(#6)}
+      \IfNoValueTF{#7}{}{|#7|}
+      \IfNoValueTF{#8}{}{#8}
+    }
+    }
   }
-}{\let\PTquantity\physicsquantity}
+  \let\ITqty\ITquantity
+  \ifsiintegrate
+  {
+    \let\PTquantity\ITquantity
+  }{
+    \let\PTquantity\PHquantity
+  }
+}{\let\PTquantity\PHquantity}
 \let\PTqty\PTquantity
 \ifoverride
   \let\qty\PTquantity
@@ -172,40 +177,35 @@
 \DeclareDocumentCommand\Pmqty{m}{\left\lgroup\begin{matrix}#1\end{matrix}\right\rgroup}
   \DeclareDocumentCommand\bmqty{m}{\begin{bmatrix}#1\end{bmatrix}}
   \DeclareDocumentCommand\vmqty{m}{\begin{vmatrix}#1\end{vmatrix}}
-  \DeclareDocumentCommand\PTmatrixquantity{ t\mathord s g o d() d|| }
+  \DeclareDocumentCommand\PTmatrixquantity{ s g o d() d|| }
+{
+  \IfNoValueTF{#2}
   {
-  \IfValueTF{#1}
-  {\let\mathordornot\mathord}
-  {\newcommand{\mathordornot}[1]{#1}}
-  \mathordornot{
     \IfNoValueTF{#3}
     {
-    \IfNoValueTF{#4}
-    {
+      \IfNoValueTF{#4}
+      {
       \IfNoValueTF{#5}
-      {
-      \IfNoValueTF{#6}
       {()}
-      {\vmqy{#6}}
+      {\vmqy{#5}}
       }
       {
-      \IfBooleanTF{#2}
-      {\Pmqty{#5}}
-      {\pmqty{#5}}
-      \IfNoValueTF{#6}{}{|#6|}
+      \IfBooleanTF{#1}
+      {\Pmqty{#4}}
+      {\pmqty{#4}}
+      \IfNoValueTF{#5}{}{|#5|}
       }
     }
     {
-      \bmqty{#4}
-      \IfNoValueTF{#5}{}{(#5)}
-      \IfNoValueTF{#6}{}{|#6|}}
+      \bmqty{#3}
+      \IfNoValueTF{#4}{}{(#4)}
+      \IfNoValueTF{#5}{}{|#5|}}
     }
-    {
-    \omqty{#3}
-    \IfNoValueTF{#4}{}{[#4]}
-    \IfNoValueTF{#5}{}{(#5)}
-    \IfNoValueTF{#6}{}{|#6|}}
-  }
+  {
+    \omqty{#2}
+    \IfNoValueTF{#3}{}{[#3]}
+    \IfNoValueTF{#4}{}{(#4)}
+    \IfNoValueTF{#5}{}{|#5|}
   }
 }
 \let\PTmqty\PTmatrixquantity
@@ -221,41 +221,36 @@
 \DeclareDocumentCommand\sPmqty{m}{\left\lgroup\begin{smallmatrix}#1\end{smallmatrix}\right\rgroup}
 \DeclareDocumentCommand\sbmqty{m}{\bqty{\begin{smallmatrix}#1\end{smallmatrix}}}
 \DeclareDocumentCommand\svmqty{m}{\vqty{\begin{smallmatrix}#1\end{smallmatrix}}}
-\DeclareDocumentCommand\PTsmallmatrixquantity{ t\mathord s g o d() d|| }
+\DeclareDocumentCommand\PTsmallmatrixquantity{ s g o d() d|| }
 {
-  \IfValueTF{#1}
-  {\let\mathordornot\mathord}
-  {\newcommand{\mathordornot}[1]{#1}}
-  \mathordornot{
-  \IfNoValueTF{#3}
+  \IfNoValueTF{#2}
   {
-    \IfNoValueTF{#4}
+    \IfNoValueTF{#3}
     {
-    \IfNoValueTF{#5}
-    {
-      \IfNoValueTF{#6}
+      \IfNoValueTF{#4}
+      {
+      \IfNoValueTF{#5}
       {()}
-      {\svmqy{#6}}
+      {\vmqy{#5}}
+      }
+      {
+      \IfBooleanTF{#1}
+      {\sPmqty{#4}}
+      {\spmqty{#4}}
+      \IfNoValueTF{#5}{}{|#5|}
+      }
     }
     {
-      \IfBooleanTF{#2}
-      {\sPmqty{#5}}
-      {\spmqty{#5}}
-      \IfNoValueTF{#6}{}{|#6|}
+      \sbmqty{#3}
+      \IfNoValueTF{#4}{}{(#4)}
+      \IfNoValueTF{#5}{}{|#5|}}
     }
-    }
-    {
-    \sbmqty{#4}
-    \IfNoValueTF{#5}{}{(#5)}
-    \IfNoValueTF{#6}{}{|#6|}}
-  }
   {
-    \somqty{#3}
-    \IfNoValueTF{#4}{}{[#4]}
-    \IfNoValueTF{#5}{}{(#5)}
-    \IfNoValueTF{#6}{}{|#6|}}
+    \somqty{#2}
+    \IfNoValueTF{#3}{}{[#3]}
+    \IfNoValueTF{#4}{}{(#4)}
+    \IfNoValueTF{#5}{}{|#5|}
   }
-}
 }
 \let\PTsmqty\PTsmallmatrixquantity
 \ifoverride\let\smqty\PTsmallmatrixquantity\fi
@@ -613,7 +608,11 @@
   }
 }
 \let\PTpdv\PTpartialderivative
-\ifoverride\let\pdv\PTpartialderivative\fi
+\let\PTpderivative\PTpartialderivative
+\ifoverride
+  \let\pderivative\PTpartialderivative
+  \let\pdv\PTpartialderivative
+\fi
 
 \DeclareDocumentCommand\variation{ o g d() }{ % Functional variation
   % o: optional n for nth differential
@@ -787,112 +786,136 @@
 }
 \DeclareDocumentCommand\imat{}{\identitymatrix}
 
-\DeclareDocumentCommand\PTxmatrix{ s m m m o o g g }
+\DeclareDocumentCommand\PTxmatrix{ s o m m m o o g g }
 {
-{
-\newtoks\matrixtoks
-\global\matrixtoks = {}
-\newcount\colcount
-\newcount\actualcol
-\newcount\coldots
-\IfValueTF{#6}{
-  \actualcol=#6
-  \IfBlankTF{#4}{
-  \coldots=\numexpr\actualcol-1\relax
-  }{
-  \ifnum\actualcol=#4
-    \coldots=0
-  \else
-    \coldots=\numexpr\actualcol-1\relax
-  \fi
-  }
-}{
-  \IfBlankTF{#4}{
-  \actualcol=1
-  }{
-  \actualcol=#4
-  }
-  \coldots=0
-}
-\newcount\rowcount
-\newcount\actualrow
-\newcount\rowdots
-\IfValueTF{#5}{
-  \actualrow=#5
-  \IfBlankTF{#3}{
-  \rowdots=\numexpr\actualrow-1\relax
-  }{
-  \ifnum\actualrow=#3
-    \rowdots=0
-  \else
-    \rowdots=\numexpr\actualrow-1\relax
-  \fi
-  }
-}{
-  \IfBlankTF{#3}{
-  \actualrow=1
-  }{
-  \actualrow=#3
-  }
-  \rowdots=0
-}
-\loop
-\colcount = 0
-\advance \rowcount by 1
   {
-  \loop
-  \advance \colcount by 1
-  \edef\addtoks{
-    \ifnum\colcount = 1
-    \else &
-    \fi
-    \ifnum\colcount=\coldots
-    \ifnum\rowcount=\rowdots
-      \ddots
-    \else
-      \ldots
-    \fi
-    \else
-    \ifnum\rowcount=\rowdots
-      \vdots
-    \else
-      #2
-      \IfBooleanTF{#1}{_{
-        \ifnum\actualrow=\rowcount
-          \IfValueTF{#7}{#7}{
-          \IfBlankTF{#3}{}{
-            \ifnum #3 > 1
-            #3
+    \newtoks\matrixtoks
+    \global\matrixtoks = {}
+    \newcount\colcount
+    \newcount\actualcol
+    \newcount\coldots
+
+    \IfValueTF{#7}{
+      \actualcol = #7
+      \IfValueTF{#2}{
+        \IfStrEqCase{#2}{2}
+        {\coldots = \numexpr\actualcol\relax}
+        {
+          \IfStrEqCase{#2}{0}
+          {\coldots = \numexpr\actualcol\relax}
+          {\coldots = \numexpr\actualcol-1\relax}
+         }
+      }{
+        \IfBlankTF{#5}
+        {\coldots = \numexpr\actualcol-1\relax}
+        {
+          \ifnum\actualcol = #5
+            \coldots = 0
+          \else
+            \coldots = \numexpr\actualcol-1\relax
+          \fi
+        }
+      }
+    }{
+      \IfBlankTF{#5}{
+        \actualcol = 1
+      }{
+        \actualcol = #5
+      }
+      \coldots = 0
+    }
+
+    \newcount\rowcount
+    \newcount\actualrow
+    \newcount\rowdots
+
+    \IfValueTF{#6}{
+      \actualrow = #6
+      \IfValueTF{#2}{
+        \IfStrEqCase{#2}{1}
+        {\rowdots = \numexpr\actualrow\relax}
+        {
+          \IfStrEqCase{#2}{0}
+          {\rowdots = \numexpr\actualrow\relax}
+          {\rowdots = \numexpr\actualrow-1\relax}
+         }
+      }{
+        \IfBlankTF{#4}
+        {\rowdots = \numexpr\actualrow-1\relax}
+        {
+          \ifnum\actualrow = #4
+            \rowdots = 0
+          \else
+            \rowdots = \numexpr\actualrow-1\relax
+          \fi
+        }
+      }
+    }{
+      \IfBlankTF{#4}{
+        \actualrow = 1
+      }{
+        \actualrow = #4
+      }
+      \rowdots = 0
+    }
+
+    \loop
+      \colcount = 0
+      \advance \rowcount by 1
+      {
+        \loop
+          \advance \colcount by 1
+          \edef\addtoks{
+            \ifnum\colcount = 1
+            \else &
+            \fi
+            \ifnum\colcount = \coldots
+              \ifnum\rowcount = \rowdots
+                \ddots
+              \else
+                \ldots
+              \fi
+            \else
+              \ifnum\rowcount = \rowdots
+                \vdots
+              \else
+                #3
+                \IfBooleanTF{#1}{_{
+                  \ifnum\actualrow = \rowcount
+                    \IfValueTF{#8}{#8}{
+                      \IfBlankTF{#4}{}{
+                        \ifnum #4 > 1
+                          #4
+                        \fi
+                      }
+                    }
+                  \else
+                    \the\rowcount
+                  \fi
+                  \ifnum\actualcol = \colcount
+                    \IfValueTF{#9}{#9}{
+                      \IfBlankTF{#5}{}{
+                        \ifnum #5 > 1
+                          #5
+                        \fi
+                      }
+                    }
+                  \else
+                    \the\colcount
+                  \fi
+                }}{}
+              \fi
             \fi
           }
-          }
-        \else
-          \the\rowcount
-        \fi
-        \ifnum\actualcol=\colcount
-          \IfValueTF{#8}{#8}{
-          \IfBlankTF{#4}{}{
-            \ifnum #4 > 1
-            #4
-            \fi
-          }
-          }
-        \else
-          \the\colcount
-        \fi
-        }}{}
-    \fi
-    \fi
+          \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks\addtoks}
+        \ifnum \colcount < \actualcol
+        \repeat
+      }
+      \ifnum \rowcount < \actualrow
+        \global\matrixtoks = \expandafter{\the\matrixtoks \\ }
+    \repeat
   }
-  \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks\addtoks}
-  \ifnum \colcount < \actualcol
-  \repeat
-  }
-\ifnum \rowcount < \actualrow
-\global\matrixtoks = \expandafter{\the\matrixtoks \\ }
-\repeat
-}
-\the\matrixtoks
+  \the\matrixtoks
 }
 \let\PTxmat\PTxmatrix
 \ifoverride\let\xmat\PTxmatrix\fi
