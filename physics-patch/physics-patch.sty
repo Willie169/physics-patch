@@ -1,5 +1,5 @@
 \ProvidesPackage{physics-patch}
-% physics-patch 2.0
+% physics-patch 2.1
 %
 % Improved version of the physics package
 %
@@ -46,21 +46,222 @@
 \DeclareOption{italicdiff}{\def\diffd{d}} % Italic differentials
 \DeclareOption{bolddel}{\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}} % Vector bold \nabla symbol (default)
 \DeclareOption{arrowdel}{\DeclareDocumentCommand\vnabla{}{\vec{\boldsymbol\nabla}}} % Vector arrow \nabla symbol
-\ExecuteOptions{override,pretend,nosiintegrate,originaldiv,trig,uprightdiff,bolddel}
+\newif\ifshortgreek
+\DeclareOption{shortgreek}{\shortgreektrue} % Define shorthands for Greek letters
+\DeclareOption{noshortgreek}{\shortgreekfalse} % Not define shorthands for Greek letters (default)
+\DeclareOption*{}
+\ExecuteOptions{override,pretend,nosiintegrate,originaldiv,trig,uprightdiff,bolddel,noshortgreek,noshortalphabet}
 \ProcessOptions\relax
 
 \newif\ifphysics
 \IfPackageLoadedTF{physics}{\physicstrue}{\overridetrue\physicsfalse}
-\ifpretend{
+
+\ifpretend
   \makeatletter
   \@namedef{ver@physics.sty}{9999/99/99}
   \makeatother
-}{}
+\fi
+
+% Shorthands for Greek letters
+\ifshortgreek
+\DeclareDocumentCommand{\tgAlpha}{O{}}{\text{\textAlpha}}
+\DeclareDocumentCommand{\tgBeta}{O{}}{\text{\textBeta}}
+\DeclareDocumentCommand{\tgGamma}{O{}}{\text{\textGamma}}
+\DeclareDocumentCommand{\tgDelta}{O{}}{\text{\textDelta}}
+\DeclareDocumentCommand{\tgEpsilon}{O{}}{\text{\textEpsilon}}
+\DeclareDocumentCommand{\tgZeta}{O{}}{\text{\textZeta}}
+\DeclareDocumentCommand{\tgEta}{O{}}{\text{\textEta}}
+\DeclareDocumentCommand{\tgTheta}{O{}}{\text{\textTheta}}
+\DeclareDocumentCommand{\tgIota}{O{}}{\text{\textIota}}
+\DeclareDocumentCommand{\tgKappa}{O{}}{\text{\textKappa}}
+\DeclareDocumentCommand{\tgLambda}{O{}}{\text{\textLambda}}
+\DeclareDocumentCommand{\tgMu}{O{}}{\text{\textMu}}
+\DeclareDocumentCommand{\tgNu}{O{}}{\text{\textNu}}
+\DeclareDocumentCommand{\tgXi}{O{}}{\text{\textXi}}
+\DeclareDocumentCommand{\tgOmicron}{O{}}{\text{\textOmicron}}
+\DeclareDocumentCommand{\tgPi}{O{}}{\text{\textPi}}
+\DeclareDocumentCommand{\tgRho}{O{}}{\text{\textRho}}
+\DeclareDocumentCommand{\tgSigma}{O{}}{\text{\textSigma}}
+\DeclareDocumentCommand{\tgTau}{O{}}{\text{\textTau}}
+\DeclareDocumentCommand{\tgUpsilon}{O{}}{\text{\textUpsilon}}
+\DeclareDocumentCommand{\tgPhi}{O{}}{\text{\textPhi}}
+\DeclareDocumentCommand{\tgChi}{O{}}{\text{\textChi}}
+\DeclareDocumentCommand{\tgPsi}{O{}}{\text{\textPsi}}
+\DeclareDocumentCommand{\tgOmega}{O{}}{\text{\textOmega}}
+\DeclareDocumentCommand{\tgalpha}{O{}}{\text{\textalpha}}
+\DeclareDocumentCommand{\tgbeta}{O{}}{\text{\textbeta}}
+\DeclareDocumentCommand{\tggamma}{O{}}{\text{\textgamma}}
+\DeclareDocumentCommand{\tgdelta}{O{}}{\text{\textdelta}}
+\DeclareDocumentCommand{\tgepsilon}{O{}}{\text{\textepsilon}}
+\DeclareDocumentCommand{\tgzeta}{O{}}{\text{\textzeta}}
+\DeclareDocumentCommand{\tgeta}{O{}}{\text{\texteta}}
+\DeclareDocumentCommand{\tgtheta}{O{}}{\text{\texttheta}}
+\DeclareDocumentCommand{\tgiota}{O{}}{\text{\textiota}}
+\DeclareDocumentCommand{\tgkappa}{O{}}{\text{\textkappa}}
+\DeclareDocumentCommand{\tglambda}{O{}}{\text{\textlambda}}
+\DeclareDocumentCommand{\tgmu}{O{}}{\text{\textmu}}
+\DeclareDocumentCommand{\tgnu}{O{}}{\text{\textnu}}
+\DeclareDocumentCommand{\tgxi}{O{}}{\text{\textxi}}
+\DeclareDocumentCommand{\tgomicron}{O{}}{\text{\textomicron}}
+\DeclareDocumentCommand{\tgpi}{O{}}{\text{\textpi}}
+\DeclareDocumentCommand{\tgrho}{O{}}{\text{\textrho}}
+\DeclareDocumentCommand{\tgsigma}{O{}}{\text{\textsigma}}
+\DeclareDocumentCommand{\tgtau}{O{}}{\text{\texttau}}
+\DeclareDocumentCommand{\tgupsilon}{O{}}{\text{\textupsilon}}
+\DeclareDocumentCommand{\tgphi}{O{}}{\text{\textphi}}
+\DeclareDocumentCommand{\tgchi}{O{}}{\text{\textchi}}
+\DeclareDocumentCommand{\tgpsi}{O{}}{\text{\textpsi}}
+\DeclareDocumentCommand{\tgomega}{O{}}{\text{\textomega}}
+\DeclareDocumentCommand{\vAlpha}{}{\varAlpha}
+\DeclareDocumentCommand{\vBeta}{}{\varBeta}
+\DeclareDocumentCommand{\vGamma}{}{\varGamma}
+\DeclareDocumentCommand{\vDelta}{}{\varDelta}
+\DeclareDocumentCommand{\vEpsilon}{}{\varEpsilon}
+\DeclareDocumentCommand{\vZeta}{}{\varZeta}
+\DeclareDocumentCommand{\vEta}{}{\varEta}
+\DeclareDocumentCommand{\vTheta}{}{\varTheta}
+\DeclareDocumentCommand{\vIota}{}{\varIota}
+\DeclareDocumentCommand{\vKappa}{}{\varKappa}
+\DeclareDocumentCommand{\vLambda}{}{\varLambda}
+\DeclareDocumentCommand{\vMu}{}{\varMu}
+\DeclareDocumentCommand{\vNu}{}{\varNu}
+\DeclareDocumentCommand{\vXi}{}{\varXi}
+\DeclareDocumentCommand{\vOmicron}{}{\varOmicron}
+\DeclareDocumentCommand{\vPi}{}{\varPi}
+\DeclareDocumentCommand{\vRho}{}{\varRho}
+\DeclareDocumentCommand{\vSigma}{}{\varSigma}
+\DeclareDocumentCommand{\vTau}{}{\varTau}
+\DeclareDocumentCommand{\vUpsilon}{}{\varUpsilon}
+\DeclareDocumentCommand{\vPhi}{}{\varPhi}
+\DeclareDocumentCommand{\vChi}{}{\varChi}
+\DeclareDocumentCommand{\vPsi}{}{\varPsi}
+\DeclareDocumentCommand{\vOmega}{}{\varOmega}
+\DeclareDocumentCommand{\valpha}{}{\varalpha}
+\DeclareDocumentCommand{\vbeta}{}{\varbeta}
+\DeclareDocumentCommand{\vgamma}{}{\vargamma}
+\DeclareDocumentCommand{\vdelta}{}{\vardelta}
+\DeclareDocumentCommand{\vepsilon}{}{\varepsilon}
+\DeclareDocumentCommand{\vzeta}{}{\varzeta}
+\DeclareDocumentCommand{\veta}{}{\vareta}
+\DeclareDocumentCommand{\vtheta}{}{\vartheta}
+\DeclareDocumentCommand{\viota}{}{\variota}
+\DeclareDocumentCommand{\vkappa}{}{\varkappa}
+\DeclareDocumentCommand{\vlambda}{}{\varlambda}
+\DeclareDocumentCommand{\vmu}{}{\varmu}
+\DeclareDocumentCommand{\vnu}{}{\varnu}
+\DeclareDocumentCommand{\vxi}{}{\varxi}
+\DeclareDocumentCommand{\vomicron}{}{\varomicron}
+\DeclareDocumentCommand{\vpi}{}{\varpi}
+\DeclareDocumentCommand{\vrho}{}{\varrho}
+\DeclareDocumentCommand{\vsigma}{}{\varsigma}
+\DeclareDocumentCommand{\vtau}{}{\vartau}
+\DeclareDocumentCommand{\vupsilon}{}{\varupsilon}
+\DeclareDocumentCommand{\vphi}{}{\varphi}
+\DeclareDocumentCommand{\vchi}{}{\varchi}
+\DeclareDocumentCommand{\vpsi}{}{\varpsi}
+\DeclareDocumentCommand{\vomega}{}{\varomega}
+\DeclareDocumentCommand{\uAlpha}{}{\upAlpha}
+\DeclareDocumentCommand{\uBeta}{}{\upBeta}
+\DeclareDocumentCommand{\uGamma}{}{\upGamma}
+\DeclareDocumentCommand{\uDelta}{}{\upDelta}
+\DeclareDocumentCommand{\uEpsilon}{}{\upEpsilon}
+\DeclareDocumentCommand{\uZeta}{}{\upZeta}
+\DeclareDocumentCommand{\uEta}{}{\upEta}
+\DeclareDocumentCommand{\uTheta}{}{\upTheta}
+\DeclareDocumentCommand{\uIota}{}{\upIota}
+\DeclareDocumentCommand{\uKappa}{}{\upKappa}
+\DeclareDocumentCommand{\uLambda}{}{\upLambda}
+\DeclareDocumentCommand{\uMu}{}{\upMu}
+\DeclareDocumentCommand{\uNu}{}{\upNu}
+\DeclareDocumentCommand{\uXi}{}{\upXi}
+\DeclareDocumentCommand{\uOmicron}{}{\upOmicron}
+\DeclareDocumentCommand{\uPi}{}{\upPi}
+\DeclareDocumentCommand{\uRho}{}{\upRho}
+\DeclareDocumentCommand{\uSigma}{}{\upSigma}
+\DeclareDocumentCommand{\uTau}{}{\upTau}
+\DeclareDocumentCommand{\uUpsilon}{}{\upUpsilon}
+\DeclareDocumentCommand{\uPhi}{}{\upPhi}
+\DeclareDocumentCommand{\uChi}{}{\upChi}
+\DeclareDocumentCommand{\uPsi}{}{\upPsi}
+\DeclareDocumentCommand{\uOmega}{}{\upOmega}
+\DeclareDocumentCommand{\ualpha}{}{\upalpha}
+\DeclareDocumentCommand{\ubeta}{}{\upbeta}
+\DeclareDocumentCommand{\ugamma}{}{\upgamma}
+\DeclareDocumentCommand{\udelta}{}{\updelta}
+\DeclareDocumentCommand{\uepsilon}{}{\upepsilon}
+\DeclareDocumentCommand{\uzeta}{}{\upzeta}
+\DeclareDocumentCommand{\ueta}{}{\upeta}
+\DeclareDocumentCommand{\utheta}{}{\uptheta}
+\DeclareDocumentCommand{\uiota}{}{\upiota}
+\DeclareDocumentCommand{\ukappa}{}{\upkappa}
+\DeclareDocumentCommand{\ulambda}{}{\uplambda}
+\DeclareDocumentCommand{\umu}{}{\upmu}
+\DeclareDocumentCommand{\unu}{}{\upnu}
+\DeclareDocumentCommand{\uxi}{}{\upxi}
+\DeclareDocumentCommand{\uomicron}{}{\upomicron}
+\DeclareDocumentCommand{\upi}{}{\uppi}
+\DeclareDocumentCommand{\urho}{}{\uprho}
+\DeclareDocumentCommand{\usigma}{}{\upsigma}
+\DeclareDocumentCommand{\utau}{}{\uptau}
+\DeclareDocumentCommand{\uupsilon}{}{\upupsilon}
+\DeclareDocumentCommand{\uphi}{}{\upphi}
+\DeclareDocumentCommand{\uchi}{}{\upchi}
+\DeclareDocumentCommand{\upsi}{}{\uppsi}
+\DeclareDocumentCommand{\uomega}{}{\upomega}
+\DeclareDocumentCommand{\uvAlpha}{}{\upvarAlpha}
+\DeclareDocumentCommand{\uvBeta}{}{\upvarBeta}
+\DeclareDocumentCommand{\uvGamma}{}{\upvarGamma}
+\DeclareDocumentCommand{\uvDelta}{}{\upvarDelta}
+\DeclareDocumentCommand{\uvEpsilon}{}{\upvarEpsilon}
+\DeclareDocumentCommand{\uvZeta}{}{\upvarZeta}
+\DeclareDocumentCommand{\uvEta}{}{\upvarEta}
+\DeclareDocumentCommand{\uvTheta}{}{\upvarTheta}
+\DeclareDocumentCommand{\uvIota}{}{\upvarIota}
+\DeclareDocumentCommand{\uvKappa}{}{\upvarKappa}
+\DeclareDocumentCommand{\uvLambda}{}{\upvarLambda}
+\DeclareDocumentCommand{\uvMu}{}{\upvarMu}
+\DeclareDocumentCommand{\uvNu}{}{\upvarNu}
+\DeclareDocumentCommand{\uvXi}{}{\upvarXi}
+\DeclareDocumentCommand{\uvOmicron}{}{\upvarOmicron}
+\DeclareDocumentCommand{\uvPi}{}{\upvarPi}
+\DeclareDocumentCommand{\uvRho}{}{\upvarRho}
+\DeclareDocumentCommand{\uvSigma}{}{\upvarSigma}
+\DeclareDocumentCommand{\uvTau}{}{\upvarTau}
+\DeclareDocumentCommand{\uvUpsilon}{}{\upvarUpsilon}
+\DeclareDocumentCommand{\uvPhi}{}{\upvarPhi}
+\DeclareDocumentCommand{\uvChi}{}{\upvarChi}
+\DeclareDocumentCommand{\uvPsi}{}{\upvarPsi}
+\DeclareDocumentCommand{\uvOmega}{}{\upvarOmega}
+\DeclareDocumentCommand{\uvalpha}{}{\upvaralpha}
+\DeclareDocumentCommand{\uvbeta}{}{\upvarbeta}
+\DeclareDocumentCommand{\uvgamma}{}{\upvargamma}
+\DeclareDocumentCommand{\uvdelta}{}{\upvardelta}
+\DeclareDocumentCommand{\uvepsilon}{}{\upvarepsilon}
+\DeclareDocumentCommand{\uvzeta}{}{\upvarzeta}
+\DeclareDocumentCommand{\uveta}{}{\upvareta}
+\DeclareDocumentCommand{\uvtheta}{}{\upvartheta}
+\DeclareDocumentCommand{\uviota}{}{\upvariota}
+\DeclareDocumentCommand{\uvkappa}{}{\upvarkappa}
+\DeclareDocumentCommand{\uvlambda}{}{\upvarlambda}
+\DeclareDocumentCommand{\uvmu}{}{\upvarmu}
+\DeclareDocumentCommand{\uvnu}{}{\upvarnu}
+\DeclareDocumentCommand{\uvxi}{}{\upvarxi}
+\DeclareDocumentCommand{\uvomicron}{}{\upvaromicron}
+\DeclareDocumentCommand{\uvpi}{}{\upvarpi}
+\DeclareDocumentCommand{\uvrho}{}{\upvarrho}
+\DeclareDocumentCommand{\uvsigma}{}{\upvarsigma}
+\DeclareDocumentCommand{\uvtau}{}{\upvartau}
+\DeclareDocumentCommand{\uvupsilon}{}{\upvarupsilon}
+\DeclareDocumentCommand{\uvphi}{}{\upvarphi}
+\DeclareDocumentCommand{\uvchi}{}{\upvarchi}
+\DeclareDocumentCommand{\uvpsi}{}{\upvarpsi}
+\DeclareDocumentCommand{\uvomega}{}{\upvaromega}
+\fi
 
 % Others
-\ProvideDocumentCommand{\autommode}{m}{\relax\ifmmode #1\else\(#1\)\fi}
+\DeclareDocumentCommand{\autommode}{m}{\relax\ifmmode #1\else\(#1\)\fi}
 \let\amm\autommode
-\ProvideDocumentCommand{\mathcolorbox}{ m m }{
+\DeclareDocumentCommand{\mathcolorbox}{ m m }{
   \begingroup
   \setlength{\fboxsep}{0pt}
   \mathchoice
@@ -71,25 +272,25 @@
   \endgroup
 }
 \let\mcbox\mathcolorbox
-\ProvideDocumentCommand{\autocolorbox}{m m}{
+\DeclareDocumentCommand{\autocolorbox}{m m}{
   \relax\ifmmode \mathcolorbox{#1}{#2}\else\colorbox{#1}{#2}\fi
 }
 \let\acbox\autocolorbox
 \let\cbox\autocolorbox
-\ProvideDocumentCommand{\tentothepowerof}{m}{\relax\ifmmode 10^{#1}\else\(10^{#1}\)\fi}
+\DeclareDocumentCommand{\tentothepowerof}{m}{\relax\ifmmode 10^{#1}\else\(10^{#1}\)\fi}
 \let\tenpow\tentothepowerof
-\ProvideDocumentCommand{\scientificnotation}{m m}{\relax\ifmmode #1\times 10^{#2}\else\(#1\times 10^{#2}\)\fi}
+\DeclareDocumentCommand{\scientificnotation}{m m}{\relax\ifmmode #1\times 10^{#2}\else\(#1\times 10^{#2}\)\fi}
 \let\scinote\scientificnotation
 
 % Symbols
-\ProvideDocumentCommand\lparen{}{(} % Left parenthesis
-\ProvideDocumentCommand\rparen{}{)} % Right parenthesis
-\ProvideDocumentCommand\ordersymbol{}{\mathcal{O}} % Order symbol --> O(x^2)
-\ProvideDocumentCommand{\typical}{}{\cbox{cyan}{\phantom{A}}}
-\ProvideDocumentCommand{\tall}{}{\cbox{cyan}{\phantom{A^{\vphantom{x^x}}_x}}}
-\ProvideDocumentCommand{\grande}{}{\cbox{cyan}{\phantom{\frac{1}{xx}}}}
-\ProvideDocumentCommand{\venti}{}{\cbox{cyan}{\phantom{\sum_x^x}}}
-\ProvideDocumentCommand\Vtextvisiblespace{O{.3em}}{\mbox{\kern.06em\vrule height.3ex}\vbox{\hrule width#1}\hbox{\vrule height.3ex}}
+\DeclareDocumentCommand\lparen{}{(} % Left parenthesis
+\DeclareDocumentCommand\rparen{}{)} % Right parenthesis
+\DeclareDocumentCommand\ordersymbol{}{\mathcal{O}} % Order symbol --> O(x^2)
+\DeclareDocumentCommand{\typical}{}{\cbox{cyan}{\phantom{A}}}
+\DeclareDocumentCommand{\tall}{}{\cbox{cyan}{\phantom{A^{\vphantom{x^x}}_x}}}
+\DeclareDocumentCommand{\grande}{}{\cbox{cyan}{\phantom{\frac{1}{xx}}}}
+\DeclareDocumentCommand{\venti}{}{\cbox{cyan}{\phantom{\sum_x^x}}}
+\DeclareDocumentCommand\Vtextvisiblespace{O{.3em}}{\mbox{\kern.06em\vrule height.3ex}\vbox{\hrule width#1}\hbox{\vrule height.3ex}}
 
 % Brackets and braces
 \DeclareDocumentCommand{\PHquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g }
@@ -954,8 +1155,7 @@
 }
 \DeclareDocumentCommand\pmat{}{\paulimatrix}
 
-\DeclareDocumentCommand\diagonalmatrix{O{} >{\SplitList{,}}m }{\@dmat{#1}#2}
-\DeclareDocumentCommand\@dmat{mmggggggg}
+\DeclareDocumentCommand\PTdmat{ m m g g g g g g g }
 {
 \newtoks\matrixtoks
 \global\matrixtoks = {}
@@ -988,10 +1188,10 @@
 }
 \the\matrixtoks
 }
+\DeclareDocumentCommand\diagonalmatrix{O{} >{\SplitList{,}}m }{\PTdmat{#1}#2}
 \DeclareDocumentCommand\dmat{}{\diagonalmatrix}
 
-\DeclareDocumentCommand\antidiagonalmatrix{O{} >{\SplitList{,}}m }{\@admat{#1}#2}
-\DeclareDocumentCommand\@admat{mmggggggg}
+\DeclareDocumentCommand\PTadmat{mmggggggg}
 {
 \newtoks\matrixtoks
 \global\matrixtoks = {}
@@ -1024,6 +1224,7 @@
 }
 \the\matrixtoks
 }
+\DeclareDocumentCommand\antidiagonalmatrix{O{} >{\SplitList{,}}m }{\PTadmat{#1}#2}
 \DeclareDocumentCommand\admat{}{\antidiagonalmatrix}
 
 % Misc
