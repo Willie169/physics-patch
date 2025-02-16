@@ -1,6 +1,8 @@
 \ProvidesPackage{physics-patch}
 % physics-patch 2.0
+%
 % Improved version of the physics package
+%
 % This package is released under the LaTeX Project Public License (LPPL) 1.3c
 % See https://www.latex-project.org/lppl/lppl-1-3c for the details of that license
 % Many parts of this package are modified from the physics package, created by Sergio C. de la Barrera and licenced under LPPL 1.3
@@ -10,13 +12,14 @@
 % Commands that have different definitions come with PT in the beginning of their name (e.g. \PTmqty).
 % physics-patch has covered all commands in physics since version 2.0, so there's no need to load physics.
 % It is ok to load physics before this package. This package will silently overrides macros in physics with an improved version. To use the original version provided by physics, load physics before this package and use the nooverride option (not recommended).
-% This package pretends that physics package is loaded so that this package won't be overriden if \@onefilewithoptions{physics} is called afterward (e.g. by \usepackage{physics}) and packages loaded afterward that checks whether physics is loaded to determine its behavior (e.g. siunitx) work correctly. To disable this, use the nopretend option (not recommended).
+% This package pretends that physics package is loaded so that this package won't be overriden if loading physics is called afterward and packages loaded afterward that checks whether physics is loaded to determine its behavior (e.g. siunitx) work correctly. To disable this, use the nopretend option (not recommended).
 % If siuitx is loaded before this package, this package will define \ITquantity and \ITqty as the integration of the improved definition of physics's \qty (in \PHquantity and \PHqty) and siuitx's \SI. You can optionally set siintegrate option to override \PTquantity and \PTqty with \ITqty (not recommended).
 %
 % Author: Willie Shen (Willie169)
 % Repository: https://github.com/Willie169/physics-patch
-% Last update: Feb 15, 2025
-
+% Last update: Feb 16, 2025
+%
+% For documentation, see physics-patch.pdf
 
 \RequirePackage{amsmath}
 \RequirePackage{etoolbox}
@@ -46,35 +49,62 @@
 \ExecuteOptions{override,pretend,nosiintegrate,originaldiv,trig,uprightdiff,bolddel}
 \ProcessOptions\relax
 
-\IfPackageLoadedTF{physics}{}{\overridetrue}
+\newif\ifphysics
+\IfPackageLoadedTF{physics}{\physicstrue}{\overridetrue\physicsfalse}
 \ifpretend{
   \makeatletter
   \@namedef{ver@physics.sty}{9999/99/99}
   \makeatother
 }{}
 
+% Others
+\ProvideDocumentCommand{\autommode}{m}{\relax\ifmmode #1\else\(#1\)\fi}
+\let\amm\autommode
+\ProvideDocumentCommand{\mathcolorbox}{ m m }{
+  \begingroup
+  \setlength{\fboxsep}{0pt}
+  \mathchoice
+    {\colorbox{#1}{$\displaystyle#2$}}
+    {\colorbox{#1}{$\textstyle#2$}}
+    {\colorbox{#1}{$\scriptstyle#2$}}
+    {\colorbox{#1}{$\scriptscriptstyle#2$}}
+  \endgroup
+}
+\let\mcbox\mathcolorbox
+\ProvideDocumentCommand{\autocolorbox}{m m}{
+  \relax\ifmmode \mathcolorbox{#1}{#2}\else\colorbox{#1}{#2}\fi
+}
+\let\acbox\autocolorbox
+\let\cbox\autocolorbox
+\ProvideDocumentCommand{\tentothepowerof}{m}{\relax\ifmmode 10^{#1}\else\(10^{#1}\)\fi}
+\let\tenpow\tentothepowerof
+\ProvideDocumentCommand{\scientificnotation}{m m}{\relax\ifmmode #1\times 10^{#2}\else\(#1\times 10^{#2}\)\fi}
+\let\scinote\scientificnotation
+
 % Symbols
-\ProvideDocumentCommand\varE{}{\mathcal{E}} % Curly 'E'
-\ProvideDocumentCommand\ordersymbol{}{\mathcal{O}} % Order symbol --> O(x^2)
 \ProvideDocumentCommand\lparen{}{(} % Left parenthesis
 \ProvideDocumentCommand\rparen{}{)} % Right parenthesis
-
-\newcommand{\cbox}[2][cyan]{\mathchoice{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\displaystyle#2$}}{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\textstyle#2$}}{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\scriptstyle#2$}}{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\scriptscriptstyle#2$}}}
+\ProvideDocumentCommand\ordersymbol{}{\mathcal{O}} % Order symbol --> O(x^2)
+\ProvideDocumentCommand{\typical}{}{\cbox{cyan}{\phantom{A}}}
+\ProvideDocumentCommand{\tall}{}{\cbox{cyan}{\phantom{A^{\vphantom{x^x}}_x}}}
+\ProvideDocumentCommand{\grande}{}{\cbox{cyan}{\phantom{\frac{1}{xx}}}}
+\ProvideDocumentCommand{\venti}{}{\cbox{cyan}{\phantom{\sum_x^x}}}
+\ProvideDocumentCommand\Vtextvisiblespace{O{.3em}}{\mbox{\kern.06em\vrule height.3ex}\vbox{\hrule width#1}\hbox{\vrule height.3ex}}
 
 % Brackets and braces
 \DeclareDocumentCommand{\PHquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g }
 { % Flexible automatic bracketing of an expression in () or [] or {} or ||
   % Handles manual override of sizing
   \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
-  \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
-    \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
-    \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
+    \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
+      \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
+        \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
+      }
     }
-  }
   }
   % Handles actual bracketing
   \IfNoValueTF{#5}{
-  \IfNoValueTF{#6}{
+    \IfNoValueTF{#6}{
     \IfNoValueTF{#7}{
     \IfNoValueTF{#8}{
       \IfBooleanTF{#1}{\big}{
@@ -154,11 +184,10 @@
   }
   \let\ITqty\ITquantity
   \ifsiintegrate
-  {
     \let\PTquantity\ITquantity
-  }{
+  \else
     \let\PTquantity\PHquantity
-  }
+  \fi
 }{\let\PTquantity\PHquantity}
 \let\PTqty\PTquantity
 \ifoverride
@@ -170,14 +199,13 @@
 \DeclareDocumentCommand\Bqty{ l m }{\braces#1{\lbrace}{\rbrace}{#2}}
 \DeclareDocumentCommand\vqty{ l m }{\braces#1{\lvert}{\rvert}{#2}}
  \DeclareDocumentCommand\omqty{m}{\begin{matrix}#1\end{matrix}}
-  \DeclareDocumentCommand\pmqty{m}{\begin{pmatrix}#1\end{pmatrix}}
-\DeclareDocumentCommand\PTpmqty{s m}{\IfNoValue{#1}{\begin{pmatrix}#2\end{pmatrix}}{\left\lgroup\begin{matrix}#2\end{matrix}\right\rgroup}}
-\let\PTpmqty\PTpmqty
+\DeclareDocumentCommand\pmqty{m}{\begin{pmatrix}#1\end{pmatrix}}
+\DeclareDocumentCommand\PTpmqty{s m}{\IfNoValueTF{#1}{\begin{pmatrix}#2\end{pmatrix}}{\left\lgroup\begin{matrix}#2\end{matrix}\right\rgroup}}
 \ifoverride\let\pmqty\PTpmqty\fi
 \DeclareDocumentCommand\Pmqty{m}{\left\lgroup\begin{matrix}#1\end{matrix}\right\rgroup}
-  \DeclareDocumentCommand\bmqty{m}{\begin{bmatrix}#1\end{bmatrix}}
-  \DeclareDocumentCommand\vmqty{m}{\begin{vmatrix}#1\end{vmatrix}}
-  \DeclareDocumentCommand\PTmatrixquantity{ s g o d() d|| }
+\DeclareDocumentCommand\bmqty{m}{\begin{bmatrix}#1\end{bmatrix}}
+\DeclareDocumentCommand\vmqty{m}{\begin{vmatrix}#1\end{vmatrix}}
+\DeclareDocumentCommand\PTmatrixquantity{ s g o d() d|| }
 {
   \IfNoValueTF{#2}
   {
@@ -185,15 +213,13 @@
     {
       \IfNoValueTF{#4}
       {
-      \IfNoValueTF{#5}
-      {()}
-      {\vmqy{#5}}
+        \vmqty{#5}
       }
       {
-      \IfBooleanTF{#1}
-      {\Pmqty{#4}}
-      {\pmqty{#4}}
-      \IfNoValueTF{#5}{}{|#5|}
+        \IfBooleanTF{#1}
+        {\Pmqty{#4}}
+        {\pmqty{#4}}
+        \IfNoValueTF{#5}{}{|#5|}
       }
     }
     {
@@ -215,8 +241,7 @@
 
 \DeclareDocumentCommand\somqty{m}{\begin{smallmatrix}#1\end{smallmatrix}}
 \DeclareDocumentCommand\spmqty{m}{\pqty{\begin{smallmatrix}#1\end{smallmatrix}}}
-\DeclareDocumentCommand\PTspmqty{s m}{\IfNoValue{#1}{\pqty{\begin{smallmatrix}#2\end{smallmatrix}}}{\left\lgroup\begin{smallmatrix}#2\end{smallmatrix}\right\rgroup}}
-\let\PTspmqty\PTspmqty
+\DeclareDocumentCommand\PTspmqty{s m}{\IfNoValueTF{#1}{\pqty{\begin{smallmatrix}#2\end{smallmatrix}}}{\left\lgroup\begin{smallmatrix}#2\end{smallmatrix}\right\rgroup}}
 \ifoverride\let\spmqty\PTspmqty\fi
 \DeclareDocumentCommand\sPmqty{m}{\left\lgroup\begin{smallmatrix}#1\end{smallmatrix}\right\rgroup}
 \DeclareDocumentCommand\sbmqty{m}{\bqty{\begin{smallmatrix}#1\end{smallmatrix}}}
@@ -229,15 +254,13 @@
     {
       \IfNoValueTF{#4}
       {
-      \IfNoValueTF{#5}
-      {()}
-      {\vmqy{#5}}
+        \svmqty{#5}
       }
       {
-      \IfBooleanTF{#1}
-      {\sPmqty{#4}}
-      {\spmqty{#4}}
-      \IfNoValueTF{#5}{}{|#5|}
+        \IfBooleanTF{#1}
+        {\sPmqty{#4}}
+        {\spmqty{#4}}
+        \IfNoValueTF{#5}{}{|#5|}
       }
     }
     {
@@ -375,22 +398,22 @@
   }
   {\vnabla \vdot #1 \IfNoValueTF{#2}{}{[#2]} \IfNoValueTF{#3}{}{(#3)}}
 }
-\iforiginaldiv{
-  \IfPackageLoadedTF{physics}{
-  \let\div\divisionsymbol
-  \let\divg\divergence
-  }{
-  \let\divisionsymbol\div
-  \let\divg\divergence
-  }
-}{
-  \IfPackageLoadedTF{physics}{
-  \let\div\divergence
-  }{
-  \let\divisionsymbol\div % Rename \div [division symbol] in order to free up control sequence for \divergence
-  \let\div\divergence
-  }
-}
+\let\divg\divergence
+\iforiginaldiv
+  \ifphysics
+    \let\div\divisionsymbol
+    \let\divg\divergence
+  \else
+    \let\divisionsymbol\div
+  \fi
+\else
+  \ifphysics
+    \let\div\divergence
+  \else
+    \let\divisionsymbol\div % Rename \div [division symbol] in order to free up control sequence for \divergence
+    \let\div\divergence
+  \fi
+\fi
 
 \DeclareDocumentCommand\curl{ g o d() }{ % Curl
   \IfNoValueTF{#1}{
@@ -791,54 +814,16 @@
   {
     \newtoks\matrixtoks
     \global\matrixtoks = {}
-    \newcount\colcount
-    \newcount\actualcol
-    \newcount\coldots
-
-    \IfValueTF{#7}{
-      \actualcol = #7
-      \IfValueTF{#2}{
-        \IfStrEqCase{#2}{2}
-        {\coldots = \numexpr\actualcol\relax}
-        {
-          \IfStrEqCase{#2}{0}
-          {\coldots = \numexpr\actualcol\relax}
-          {\coldots = \numexpr\actualcol-1\relax}
-         }
-      }{
-        \IfBlankTF{#5}
-        {\coldots = \numexpr\actualcol-1\relax}
-        {
-          \ifnum\actualcol = #5
-            \coldots = 0
-          \else
-            \coldots = \numexpr\actualcol-1\relax
-          \fi
-        }
-      }
-    }{
-      \IfBlankTF{#5}{
-        \actualcol = 1
-      }{
-        \actualcol = #5
-      }
-      \coldots = 0
-    }
 
     \newcount\rowcount
     \newcount\actualrow
     \newcount\rowdots
-
     \IfValueTF{#6}{
       \actualrow = #6
       \IfValueTF{#2}{
-        \IfStrEqCase{#2}{1}
-        {\rowdots = \numexpr\actualrow\relax}
-        {
-          \IfStrEqCase{#2}{0}
-          {\rowdots = \numexpr\actualrow\relax}
-          {\rowdots = \numexpr\actualrow-1\relax}
-         }
+        \IfStrEq{#2}{1}{\rowdots = \numexpr\actualrow\relax}{
+          \IfStrEq{#2}{0}{\rowdots = \numexpr\actualrow\relax}{\rowdots = \numexpr\actualrow-1\relax}
+        }
       }{
         \IfBlankTF{#4}
         {\rowdots = \numexpr\actualrow-1\relax}
@@ -859,6 +844,35 @@
       \rowdots = 0
     }
 
+    \newcount\colcount
+    \newcount\actualcol
+    \newcount\coldots
+    \IfValueTF{#7}{
+      \actualcol = #7
+      \IfValueTF{#2}{
+        \IfStrEq{#2}{2}{\coldots = \numexpr\actualcol\relax}{
+          \IfStrEq{#2}{0}{\coldots = \numexpr\actualcol\relax}{\coldots = \numexpr\actualcol-1\relax}
+        }
+      }{
+        \IfBlankTF{#5}
+        {\coldots = \numexpr\actualcol-1\relax}
+        {
+          \ifnum\actualcol = #5
+            \coldots = 0
+          \else
+            \coldots = \numexpr\actualcol-1\relax
+          \fi
+        }
+      }
+    }{
+      \IfBlankTF{#5}{
+        \actualcol = 1
+      }{
+        \actualcol = #5
+      }
+      \coldots = 0
+    }
+    
     \loop
       \colcount = 0
       \advance \rowcount by 1
@@ -867,7 +881,8 @@
           \advance \colcount by 1
           \edef\addtoks{
             \ifnum\colcount = 1
-            \else &
+            \else
+              &
             \fi
             \ifnum\colcount = \coldots
               \ifnum\rowcount = \rowdots
@@ -907,20 +922,20 @@
               \fi
             \fi
           }
-          \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks\addtoks}
+        \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks\addtoks}
         \ifnum \colcount < \actualcol
-        \repeat
+          \repeat
       }
-      \ifnum \rowcount < \actualrow
-        \global\matrixtoks = \expandafter{\the\matrixtoks \\ }
-    \repeat
+    \ifnum \rowcount < \actualrow
+      \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks \\}
+      \repeat
   }
   \the\matrixtoks
 }
 \let\PTxmat\PTxmatrix
 \ifoverride\let\xmat\PTxmatrix\fi
 
-\DeclareDocumentCommand\zeromatrix{ m g }{\IfNoValueTF{#2}{\xmatrix{0}{#1}{#1}}{\xmatrix{0}{#1}{#2}}}
+\DeclareDocumentCommand\zeromatrix{ m g }{\IfNoValueTF{#2}{\PTxmatrix{0}{#1}{#1}}{\PTxmatrix{0}{#1}{#2}}}
 \DeclareDocumentCommand\zmat{}{\zeromatrix}
 
 \DeclareDocumentCommand\paulixmatrix{}{0&1\\1&0}
@@ -948,23 +963,23 @@
 {#2}
 {
   \IfNoValueTF{#4}
-  {\global\matrixtoks = \expandafter{\mqty{#2}&#1\\#1&\mqty{#3}}}
+  {\global\matrixtoks = \expandafter{\PTmqty{#2}&#1\\#1&\PTmqty{#3}}}
   {
   \IfNoValueTF{#5}
-  {\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1\\#1&\mqty{#3}&#1\\#1&#1&\mqty{#4}}}
+  {\global\matrixtoks = \expandafter{\PTmqty{#2}&#1&#1\\#1&\PTmqty{#3}&#1\\#1&#1&\PTmqty{#4}}}
   {
     \IfNoValueTF{#6}
-    {\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1\\#1&\mqty{#3}&#1&#1\\#1&#1&\mqty{#4}&#1\\#1&#1&#1&\mqty{#5}}}
+    {\global\matrixtoks = \expandafter{\PTmqty{#2}&#1&#1&#1\\#1&\PTmqty{#3}&#1&#1\\#1&#1&\PTmqty{#4}&#1\\#1&#1&#1&\PTmqty{#5}}}
     {
     \IfNoValueTF{#7}
-    {\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1&#1\\#1&\mqty{#3}&#1&#1&#1\\#1&#1&\mqty{#4}&#1&#1\\#1&#1&#1&\mqty{#5}&#1\\#1&#1&#1&#1&\mqty{#6}}}
+    {\global\matrixtoks = \expandafter{\PTmqty{#2}&#1&#1&#1&#1\\#1&\PTmqty{#3}&#1&#1&#1\\#1&#1&\PTmqty{#4}&#1&#1\\#1&#1&#1&\PTmqty{#5}&#1\\#1&#1&#1&#1&\PTmqty{#6}}}
     {
       \IfNoValueTF{#8}
-      {\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1&#1&#1\\#1&\mqty{#3}&#1&#1&#1&#1\\#1&#1&\mqty{#4}&#1&#1&#1\\#1&#1&#1&\mqty{#5}&#1&#1\\#1&#1&#1&#1&\mqty{#6}&#1\\#1&#1&#1&#1&#1&\mqty{#7}}}
+      {\global\matrixtoks = \expandafter{\PTmqty{#2}&#1&#1&#1&#1&#1\\#1&\PTmqty{#3}&#1&#1&#1&#1\\#1&#1&\PTmqty{#4}&#1&#1&#1\\#1&#1&#1&\PTmqty{#5}&#1&#1\\#1&#1&#1&#1&\PTmqty{#6}&#1\\#1&#1&#1&#1&#1&\PTmqty{#7}}}
       {
       \IfNoValueTF{#9}
-      {\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1&#1&#1&#1\\#1&\mqty{#3}&#1&#1&#1&#1&#1\\#1&#1&\mqty{#4}&#1&#1&#1&#1\\#1&#1&#1&\mqty{#5}&#1&#1&#1\\#1&#1&#1&#1&\mqty{#6}&#1&#1\\#1&#1&#1&#1&#1&\mqty{#7}&#1\\#1&#1&#1&#1&#1&#1&\mqty{#8}}}
-      {\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1&#1&#1&#1&#1\\#1&\mqty{#3}&#1&#1&#1&#1&#1&#1\\#1&#1&\mqty{#4}&#1&#1&#1&#1&#1\\#1&#1&#1&\mqty{#5}&#1&#1&#1&#1\\#1&#1&#1&#1&\mqty{#6}&#1&#1&#1\\#1&#1&#1&#1&#1&\mqty{#7}&#1&#1\\#1&#1&#1&#1&#1&#1&\mqty{#8}&#1\\#1&#1&#1&#1&#1&#1&#1&\mqty{#9}}}
+      {\global\matrixtoks = \expandafter{\PTmqty{#2}&#1&#1&#1&#1&#1&#1\\#1&\PTmqty{#3}&#1&#1&#1&#1&#1\\#1&#1&\PTmqty{#4}&#1&#1&#1&#1\\#1&#1&#1&\PTmqty{#5}&#1&#1&#1\\#1&#1&#1&#1&\PTmqty{#6}&#1&#1\\#1&#1&#1&#1&#1&\PTmqty{#7}&#1\\#1&#1&#1&#1&#1&#1&\PTmqty{#8}}}
+      {\global\matrixtoks = \expandafter{\PTmqty{#2}&#1&#1&#1&#1&#1&#1&#1\\#1&\PTmqty{#3}&#1&#1&#1&#1&#1&#1\\#1&#1&\PTmqty{#4}&#1&#1&#1&#1&#1\\#1&#1&#1&\PTmqty{#5}&#1&#1&#1&#1\\#1&#1&#1&#1&\PTmqty{#6}&#1&#1&#1\\#1&#1&#1&#1&#1&\PTmqty{#7}&#1&#1\\#1&#1&#1&#1&#1&#1&\PTmqty{#8}&#1\\#1&#1&#1&#1&#1&#1&#1&\PTmqty{#9}}}
       }
     }
     }
@@ -984,23 +999,23 @@
 {#2}
 {
   \IfNoValueTF{#4}
-  {\global\matrixtoks = \expandafter{#1&\mqty{#2}\\\mqty{#3}&#1}}
+  {\global\matrixtoks = \expandafter{#1&\PTmqty{#2}\\\PTmqty{#3}&#1}}
   {
   \IfNoValueTF{#5}
-  {\global\matrixtoks = \expandafter{#1&#1&\mqty{#2}\\#1&\mqty{#3}&#1\\\mqty{#4}&#1&#1}}
+  {\global\matrixtoks = \expandafter{#1&#1&\PTmqty{#2}\\#1&\PTmqty{#3}&#1\\\PTmqty{#4}&#1&#1}}
   {
     \IfNoValueTF{#6}
-    {\global\matrixtoks = \expandafter{#1&#1&#1&\mqty{#2}\\#1&#1&\mqty{#3}&#1\\#1&\mqty{#4}&#1&#1\\\mqty{#5}&#1&#1&#1}}
+    {\global\matrixtoks = \expandafter{#1&#1&#1&\PTmqty{#2}\\#1&#1&\PTmqty{#3}&#1\\#1&\PTmqty{#4}&#1&#1\\\PTmqty{#5}&#1&#1&#1}}
     {
     \IfNoValueTF{#7}
-    {\global\matrixtoks = \expandafter{#1&#1&#1&#1&\mqty{#2}\\#1&#1&#1&\mqty{#3}&#1\\#1&#1&\mqty{#4}&#1&#1\\#1&\mqty{#5}&#1&#1&#1\\\mqty{#6}&#1&#1&#1&#1}}
+    {\global\matrixtoks = \expandafter{#1&#1&#1&#1&\PTmqty{#2}\\#1&#1&#1&\PTmqty{#3}&#1\\#1&#1&\PTmqty{#4}&#1&#1\\#1&\PTmqty{#5}&#1&#1&#1\\\PTmqty{#6}&#1&#1&#1&#1}}
     {
       \IfNoValueTF{#8}
-      {\global\matrixtoks = \expandafter{#1&#1&#1&#1&#1&\mqty{#2}\\#1&#1&#1&#1&\mqty{#3}&#1\\#1&#1&#1&\mqty{#4}&#1&#1\\#1&#1&\mqty{#5}&#1&#1&#1\\#1&\mqty{#6}&#1&#1&#1&#1\\\mqty{#7}&#1&#1&#1&#1&#1}}
+      {\global\matrixtoks = \expandafter{#1&#1&#1&#1&#1&\PTmqty{#2}\\#1&#1&#1&#1&\PTmqty{#3}&#1\\#1&#1&#1&\PTmqty{#4}&#1&#1\\#1&#1&\PTmqty{#5}&#1&#1&#1\\#1&\PTmqty{#6}&#1&#1&#1&#1\\\PTmqty{#7}&#1&#1&#1&#1&#1}}
       {
       \IfNoValueTF{#9}
-      {\global\matrixtoks = \expandafter{#1&#1&#1&#1&#1&#1&\mqty{#2}\\#1&#1&#1&#1&#1&\mqty{#3}&#1\\#1&#1&#1&#1&\mqty{#4}&#1&#1\\#1&#1&#1&\mqty{#5}&#1&#1&#1\\#1&#1&\mqty{#6}&#1&#1&#1&#1\\#1&\mqty{#7}&#1&#1&#1&#1&#1\\\mqty{#8}&#1&#1&#1&#1&#1&#1}}
-      {\global\matrixtoks = \expandafter{#1&#1&#1&#1&#1&#1&#1&\mqty{#2}\\#1&#1&#1&#1&#1&#1&\mqty{#3}&#1\\#1&#1&#1&#1&#1&\mqty{#4}&#1&#1\\#1&#1&#1&#1&\mqty{#5}&#1&#1&#1\\#1&#1&#1&\mqty{#6}&#1&#1&#1&#1\\#1&#1&\mqty{#7}&#1&#1&#1&#1&#1\\#1&\mqty{#8}&#1&#1&#1&#1&#1&#1\\\mqty{#9}&#1&#1&#1&#1&#1&#1&#1}}
+      {\global\matrixtoks = \expandafter{#1&#1&#1&#1&#1&#1&\PTmqty{#2}\\#1&#1&#1&#1&#1&\PTmqty{#3}&#1\\#1&#1&#1&#1&\PTmqty{#4}&#1&#1\\#1&#1&#1&\PTmqty{#5}&#1&#1&#1\\#1&#1&\PTmqty{#6}&#1&#1&#1&#1\\#1&\PTmqty{#7}&#1&#1&#1&#1&#1\\\PTmqty{#8}&#1&#1&#1&#1&#1&#1}}
+      {\global\matrixtoks = \expandafter{#1&#1&#1&#1&#1&#1&#1&\PTmqty{#2}\\#1&#1&#1&#1&#1&#1&\PTmqty{#3}&#1\\#1&#1&#1&#1&#1&\PTmqty{#4}&#1&#1\\#1&#1&#1&#1&\PTmqty{#5}&#1&#1&#1\\#1&#1&#1&\PTmqty{#6}&#1&#1&#1&#1\\#1&#1&\PTmqty{#7}&#1&#1&#1&#1&#1\\#1&\PTmqty{#8}&#1&#1&#1&#1&#1&#1\\\PTmqty{#9}&#1&#1&#1&#1&#1&#1&#1}}
       }
     }
     }

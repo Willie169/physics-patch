@@ -1,5 +1,6 @@
 \documentclass[a4paper,12pt]{article}
-\usepackage{amsmath,amssymb,array,etoolbox,float,fontspec,fullpage,longtable,multirow,needspace,parskip,setspace,titling,xcolor,xparse,xstring}
+\usepackage[margin=1.27cm,foot=0.77cm]{geometry}
+\usepackage{amsmath,amssymb,array,etoolbox,fontspec,longtable,multirow,needspace,parskip,setspace,titling,xcolor,xparse,xstring}
 \usepackage{physics-patch}
 \usepackage[colorlinks,urlcolor=blue]{hyperref}
 \setmainfont{TeX Gyre Termes}[Ligatures=TeX]
@@ -7,13 +8,6 @@
 \setmonofont{TeX Gyre Cursor}[Ligatures=TeX]
 \newcolumntype{M}{>{$\displaystyle}c<{$}}
 \newcolumntype{L}{>{$\displaystyle}l<{$}}
-\newcommand\Vtextvisiblespace[1][.3em]
-{\mbox{\kern.06em\vrule height.3ex}\vbox{\hrule width#1}\hbox{\vrule height.3ex}}
-\newcommand{\cbox}[2][cyan]{\mathchoice{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\displaystyle#2$}}{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\textstyle#2$}}{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\scriptstyle#2$}}{\setlength{\fboxsep}{0pt}\colorbox{#1}{$\scriptscriptstyle#2$}}}
-\newcommand{\typical}{\cbox{\phantom{A}}}
-\newcommand{\tall}{\cbox{\phantom{A^{\vphantom{x^x}}_x}}}
-\newcommand{\grande}{\cbox{\phantom{\frac{1}{xx}}}}
-\newcommand{\venti}{\cbox{\phantom{\sum_x^x}}}
 \renewcommand{\maketitle}{
 \begin{titlepage}
 \begin{center}
@@ -27,16 +21,17 @@
 \end{center}
 \end{titlepage}
 }
+\renewcommand{\arraystretch}{2}
 \title{The \texttt{physics-patch} package\\\mbox{}\\\textnormal{\large Improved version of the physics package}}
 \author{\mbox{}\\Willie Shen (Willie169)}
-\date{Version 2.0\\\textnormal{Last update: Feb. 15, 2025}}
+\date{Version 2.0\\\textnormal{Last update: Feb. 16, 2025}}
 \begin{document}
 \onehalfspacing\thispagestyle{empty}\Needspace{1\textheight}\maketitle\setcounter{page}{1}\Needspace{1\textheight}\tableofcontents\Needspace{1\textheight}\setcounter{page}{1}
 \section{Preface}
-\paragraph*{Since version 2.0, the \texttt{physics-patch} package has evolved from merely patching the \texttt{physics} package to fully replacing it, covering all its commands. While preserving the original goal—simplifying mathematical and physics typesetting for greater readability and efficiency—this package refines the design by addressing unconventional behaviors, extending commands, and introducing additional macros.}
-\paragraph*{Like the original, this package provides commands with intuitive names and well-defined shorthands, ensuring both clarity and ease of recall.}
-\paragraph*{This package resolved the unintuitive definitions and behaviors in \texttt{physics} without changing the command names and intended behaviors. For instance, in the original package, suffix parentheses and their contents in expressions like \verb|\dv{f}{x}(\typical)| are ignored.}
-\paragraph*{Beyond refining existing functionality, this package extends commands for broader applicability—such as enabling \verb|\xmat| to support ellipses—and introduces entirely new macros, such as \verb|\omat|.}
+Since version 2.0, the \texttt{physics-patch} package has evolved from merely patching the \texttt{physics} package to fully replacing it, covering all its commands. While preserving the original goal—simplifying mathematical and physics typesetting for greater readability and efficiency—this package refines the design by addressing unconventional behaviors, extending commands, and introducing additional macros.\\\\
+Like the original, this package provides commands with intuitive names and well-defined shorthands, ensuring both clarity and ease of recall.\\\\
+This package resolved the unintuitive definitions and behaviors in \texttt{physics} without changing the command names and intended behaviors. For instance, in the original package, suffix parentheses and their contents in expressions like \verb|\dv{f}{x}(\typical)| are ignored.\\\\
+Beyond refining existing functionality, this package extends commands for broader applicability—such as enabling \verb|\xmat| to support ellipses—and introduces entirely new macros, such as \verb|\omat|.
 \section{Usage}
 \subsection{Required packages}
 The \texttt{physics-patch} package requires \texttt{amsmath}, \texttt{etoolbox}, \texttt{xcolor}, \texttt{xparse}, and \texttt{xstring} package to work properly in your \LaTeX~document. If you are unsure whether you've had them installed, you can either install it again using your local package manager (comes with most distributions) or by visiting the \href{http://www.ctan.org}{CTAN} online package database, or even just try to use \texttt{physics-patch} package without worrying about it. Many modern \LaTeX compilers will locate and offer to download missing required packages for you.
@@ -54,7 +49,7 @@ content...
 \begin{itemize}
 \item \texttt{physics-patch} has covered all commands in \texttt{physics} since version 2.0, so there's no need to load \texttt{physics}.
 \item It is ok to load \texttt{physics} before this package. This package will silently overrides macros in \texttt{physics} with an improved version. To use the original version provided by \texttt{physics}, load \texttt{physics} before this package and use the \texttt{nooverride} option (not recommended). \texttt{nooverride} falls back to \texttt{override} if physics is not loaded.
-\item This package pretends that \texttt{physics} package is loaded so that this package won't be overriden if \verb|\@onefilewithoptions{physics}| is called afterward (e.g. by \verb|\usepackage{physics}|) and packages loaded afterward that checks whether \texttt{physics} is loaded to determine its behavior (e.g. \texttt{siunitx}) work correctly. To disable this, use the \texttt{nopretend} option (not recommended).
+\item This package pretends that \texttt{physics} package is loaded so that this package won't be overriden if loading \texttt{physics} is called afterward and packages loaded afterward that checks whether \texttt{physics} is loaded to determine its behavior (e.g. \texttt{siunitx}) work correctly. To disable this, use the \texttt{nopretend} option (not recommended).
 \item If \texttt{siuitx} is loaded before this package, this package will define \verb|\ITquantity| and \verb|\ITqty| as the integration of the improved definition of \texttt{physics}'s \verb|\qty| (in \verb|\PHquantity| and \verb|\PHqty|) and \texttt{siuitx}'s \verb|\SI|. You can optionally set \texttt{siintegrate} option to override \verb|\PTquantity| and \verb|\PTqty| with \verb|\ITqty| (not recommended). \texttt{siintegrate} falls back to \texttt{nosiintegrate} if \texttt{siunitx} is not loaded.
 \end{itemize}
 \section{Communication Channels}
@@ -72,11 +67,12 @@ See \href{https://www.latex-project.org/lppl/lppl-1-3c}{https://www.latex-projec
 See \href{https://ctan.org/pkg/physics}{https://ctan.org/pkg/physics} for the details of that package.
 \end{itemize}
 \section{List of Commands}
-\paragraph*{In the commands listed below, the left column is long-form names with non-default alternate names (if any), the middle column is default shorthand commands with detailed syntaxes and explanations.}
-\paragraph*{Commands that have different definitions come with \texttt{PT} in the beginning of their name (e.g. \verb|\PTmqty|). If \texttt{nooverride} is not used or the \texttt{physics} package is not loaded before this package, the commands without \texttt{PT} will be silent overriden to be the same as the ones with \texttt{PT}.}
+In the commands listed below, the left column is long-form names with non-default alternate names (if any), the middle column is default shorthand commands with detailed syntaxes and explanations.\\
+Commands that have different definitions come with \texttt{PT} in the beginning of their name (e.g. \verb|\PTmqty|). If \texttt{nooverride} is not used or the \texttt{physics} package is not loaded before this package, the commands without \texttt{PT} will be silent overriden to be the same as the ones with \texttt{PT}.
+{\fontsize{6pt}{9pt}\selectfont
 \subsection{Automatic bracing}
-\begin{longtable}[l]{ l l p{6cm} }
-\verb|\PTquantity| or \verb|\PPquantity| or \verb|\PHqty| & \verb|\PTqty(\typical)| $\displaystyle\rightarrow \PTqty(\typical)$ & automatic $\PTqty(\;)$ braces \\
+\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
+\verb|\PTquantity| or \verb|\PHquantity| or \verb|\PHqty| & \verb|\PTqty(\typical)| $\displaystyle\rightarrow \PTqty(\typical)$ & automatic $\PTqty(\;)$ braces \\
 & \verb|\PTqty(\tall)| $\displaystyle\rightarrow \PTqty(\tall)$ & \\
 & \verb|\PTqty(\grande)| $\displaystyle\rightarrow \PTqty(\grande)$ & \\
 & \verb|\PTqty[\typical]| $\rightarrow \PTqty[\typical]$ & automatic $\PTqty[\;]$ braces \\
@@ -111,8 +107,11 @@ See \href{https://ctan.org/pkg/physics}{https://ctan.org/pkg/physics} for the de
 \verb|\poissonbracket| & \verb|\pb{A}{B}| $\rightarrow \pb{A}{B}$ & same as \verb|\anticommutator|
 \end{longtable}
 \subsection{Vector notation}
-The default del symbol $\vnabla$ used in \texttt{physics} vector notation can be switched to appear with an arrow $\vec{\vnabla}$ by including the option \texttt{arrowdel} in the document preamble $\rightarrow$ \verb|\usepackage[arrowdel]{physics-patch}|.
-\begin{longtable}[l]{ l l p{6cm} }
+The default del symbol $\vnabla$ used in \texttt{physics-patch} vector notation can be switched to appear with an arrow $\vec{\vnabla}$ by including the option \texttt{arrowdel} in the document preamble:
+\begin{verbatim}
+\usepackage[arrowdel]{physics-patch}
+\end{verbatim}
+\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
 \verb|\vectorbold| & \verb|\vb{a}| $\rightarrow \vb{a}$ & upright/no Greek \\
 & \verb|\vb*{a}|, \verb|\vb*{\theta}| $\rightarrow \vb*{a}$, $\vb*{\theta}$ & italic/Greek \\
 \verb|\vectorarrow| & \verb|\va{a}| $\rightarrow \va{a}$ & upright/no Greek \\
@@ -127,7 +126,7 @@ The default del symbol $\vnabla$ used in \texttt{physics} vector notation can be
 & \verb|\grad(\Psi+\tall)| $\displaystyle\rightarrow \grad(\Psi+\tall)$ & long-form (like \verb|\PTqty| but also handles spacing) \\
 & \verb|\grad[\Psi+\tall]| $\displaystyle\rightarrow \grad[\Psi+\tall]$ & \\
 \verb|\divergence| & \verb|\divg| $\rightarrow \divg$ & note: if \texttt{nooriginaldiv} option is used, \verb|\div| will be overriden as $\divg$ too (not recommended) \\
-\verb|\divisionsymbol| & \verb|\divisionsymbol| $\rightarrow \divisionsymbol$ & 
+\verb|\divisionsymbol| & \verb|\divisionsymbol| $\rightarrow \divisionsymbol$ &  \\
 & \verb|\divg{\vb{a}}| $\rightarrow \divg{\vb{a}}$ & default mode \\
 & \verb|\divg(\vb{a}+\tall)| $\displaystyle\rightarrow \divg(\vb{a}+\tall)$ & long-form \\
 & \verb|\divg[\vb{a}+\tall]| $\displaystyle\rightarrow \divg[\vb{a}+\tall]$ & \\
@@ -141,47 +140,50 @@ The default del symbol $\vnabla$ used in \texttt{physics} vector notation can be
 & \verb|\laplacian[\Psi+\tall]| $\displaystyle\rightarrow \laplacian[\Psi+\tall]$ &
 \end{longtable}
 \subsection{Operators}
-The standard set of trig functions is redefined in \texttt{physics-patch} to provide automatic braces that behave like \verb|\PTqty()|. In addition, an optional power argument is provided. This behavior can be switched off by including the option \texttt{notrig} in the preamble $\rightarrow$ \verb|\usepackage[notrig]{physics-patch}|.
-\begin{tabular}[l]{ l l p{8cm} }
+The standard set of trig functions is redefined in \texttt{physics-patch} to provide automatic braces that behave like \verb|\PTqty()|. In addition, an optional power argument is provided. This behavior can be switched off by including the option \texttt{notrig} in the preamble:
+\begin{verbatim}
+\usepackage[notrig]{physics-patch}
+\end{verbatim}
+\begin{longtable}[l]{ l l p{8cm} }
 \multicolumn{3}{l}{Example trig redefinitions:} \\
 \verb|\sin| & \verb|\sin(\grande)| $\displaystyle\rightarrow \sin(\grande)$ & automatic braces; old \verb|\sin| renamed \verb|\sine| \\
 & \verb|\sin[2](x)| $\rightarrow \sin[2](x)$ & optional power \\
 & \verb|\sin x| $\rightarrow \sin x$ & can still use without an argument
-\end{tabular}
-The full set of available trig functions in \texttt{physics} includes:
-\begin{tabular}{llll}
+\end{longtable}
+The full set of available trig functions in \texttt{physics-patch} includes:
+\begin{longtable}{llll}
 \verb|\sin(x)| & \verb|\sinh(x)| & \verb|\arcsin(x)| & \verb|\asin(x)| \\
 \verb|\cos(x)| & \verb|\cosh(x)| & \verb|\arccos(x)| & \verb|\acos(x)| \\
 \verb|\tan(x)| & \verb|\tanh(x)| & \verb|\arctan(x)| & \verb|\atan(x)| \\
 \verb|\csc(x)| & \verb|\csch(x)| & \verb|\arccsc(x)| & \verb|\acsc(x)| \\
 \verb|\sec(x)| & \verb|\sech(x)| & \verb|\arcsec(x)| & \verb|\asec(x)| \\
 \verb|\cot(x)| & \verb|\coth(x)| & \verb|\arccot(x)| & \verb|\acot(x)|
-\end{tabular}$\Rightarrow$
-\begin{tabular}{MMMM}
+\end{longtable}$\Rightarrow$
+\begin{longtable}{MMMM}
 \sin(x) & \sinh(x) & \arcsin(x) & \asin(x) \\
 \cos(x) & \cosh(x) & \arccos(x) & \acos(x) \\
 \tan(x) & \tanh(x) & \arctan(x) & \atan(x) \\
 \csc(x) & \csch(x) & \arccsc(x) & \acsc(x) \\
 \sec(x) & \sech(x) & \arcsec(x) & \asec(x) \\
 \cot(x) & \coth(x) & \arccot(x) & \acot(x)
-\end{tabular}
+\end{longtable}
 The standard trig functions (plus a few that are missing in \texttt{amsmath}) are available without any automatic bracing under a new set of longer names:
-\begin{tabular}{llll}
+\begin{longtable}{llll}
 \verb|\sine| & \verb|\hypsine| & \verb|\arcsine| & \verb|\asine| \\
 \verb|\cosine| & \verb|\hypcosine| & \verb|\arccosine| & \verb|\acosine| \\
 \verb|\tangent| & \verb|\hyptangent| & \verb|\arctangent| & \verb|\atangent| \\
 \verb|\cosecant| & \verb|\hypcosecant| & \verb|\arccosecant| & \verb|\acosecant| \\
 \verb|\secant| & \verb|\hypsecant| & \verb|\arcsecant| & \verb|\asecant| \\
 \verb|\cotangent| & \verb|\hypcotangent| & \verb|\arccotangent| & \verb|\acotangent|
-\end{tabular}
+\end{longtable}
 Similar behavior has also been extended to the following functions:
-\begin{tabular}{l>{$}l<{$}ll}
+\begin{longtable}{l>{$}l<{$}ll}
 \verb|\exp(\tall)| & \exp(\tall) & & \verb|\exponential| \\
 \verb|\log(\tall)| & \log(\tall) & & \verb|\logarithm| \\
 \verb|\ln(\tall)| & \ln(\tall) & old definitions $\Rightarrow$ & \verb|\naturallogarithm| \\
 \verb|\det(\tall)| & \det(\tall) & & \verb|\determinant| \\
 \verb|\Pr(\tall)| & \Pr(\tall) & & \verb|\Probability|
-\end{tabular}
+\end{longtable}
 \begin{longtable}[l]{ l l p{8cm} }
 \multicolumn{3}{l}{New operators:} \\
 \verb|\trace| or \verb|\tr| & \verb|\tr\rho| $\rightarrow \tr\rho$ also \verb|\tr(\tall)| $\rightarrow \tr(\tall)$  & trace; same bracing as trig functions \\
@@ -196,12 +198,12 @@ Similar behavior has also been extended to the following functions:
 \end{longtable}
 \subsection{Quick quad text}
 This set of commands produces text in math-mode padded by \verb|\quad| spacing on either side. This is meant to provide a quick way to insert simple words or phrases in a sequence of equations. Each of the following commands includes a starred version which pads the text only on the right side with \verb|\quad| for use in aligned environments such as \texttt{cases}.
-\begin{tabular}[l]{ l l p{6cm} }
+\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
 General text: & & \\
 \verb|\qqtext| & \verb|\qq{}| & general quick quad text with argument \\
 & \verb|\qq{word or phrase}| $\rightarrow$\Vtextvisiblespace[1em]$\text{word or phrase}$\Vtextvisiblespace[1em] & normal mode; left and right \verb|\quad| \\
 & \verb|\qq*{word or phrase}| $\rightarrow \text{word or phrase}$\Vtextvisiblespace[1em] & starred mode; right \verb|\quad| only
-\end{tabular}
+\end{longtable}
 \begin{longtable}[l]{ l l }
 Special macros: & \\
 \verb|\qcomma| or \verb|\qc| $\rightarrow ,$\Vtextvisiblespace[1em] & right \verb|\quad| only \\
@@ -214,8 +216,11 @@ Similar to \verb|\qif|: \\
 \verb|\qlet|, \verb|\qfor|, \verb|\qall|, \verb|\qeven|, \verb|\qodd|, \verb|\qinteger|, \verb|\qand|, \verb|\qor|, \verb|\qas|, \verb|\qin|
 \end{longtable}
 \subsection{Derivatives}
-The default differential symbol $\dd$ which is used in \verb|\differential| and \verb|\derivative| can be switched to an italic form $d$ by including the option \texttt{italicdiff} in the preamble $\rightarrow$ \verb|\usepackage[italicdiff]{physics-patch}|.
-\begin{longtable}[l]{ l l p{6cm} }
+The default differential symbol $\dd$ which is used in \verb|\differential| and \verb|\derivative| can be switched to an italic form $d$ by including the option \texttt{italicdiff} in the preamble:
+\begin{verbatim}
+\usepackage[italicdiff]{physics-patch}
+\end{verbatim}
+\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
 \verb|\differential| & \verb|\dd| $\rightarrow \dd$ & \\
 & \verb|\dd x| $\rightarrow \dd x$ & no spacing (not recommended) \\
 & \verb|\dd{x}| $\rightarrow$ \textvisiblespace\,$\dd{x}$\textvisiblespace & automatic spacing based on neighbors \\
@@ -242,7 +247,7 @@ The default differential symbol $\dd$ which is used in \verb|\differential| and 
 & \verb|\fdv*{F}{x}| $\displaystyle\rightarrow \fdv*{F}{x}$ & inline form using \verb|\flatfrac|
 \end{longtable}
 \subsection{Dirac bra-ket notation}
-The following collection of macros for Dirac notation contains two fundamental commands, \verb|\bra| and \verb|\ket|, along with a set of more specialized macros which are essentially combinations of the fundamental pair. The specialized macros are both useful and descriptive from the perspective of generating \texttt{physics} code, however, the fundamental commands are designed to contract with one another algebraically when appropriate and are thus suggested for general use. For instance, the following code renders correctly\footnote{Note the lack of a space between the bra and ket commands. This is necessary is order for the bra to find the corresponding ket and form a contraction.}
+The following collection of macros for Dirac notation contains two fundamental commands, \verb|\bra| and \verb|\ket|, along with a set of more specialized macros which are essentially combinations of the fundamental pair. The fundamental commands are designed to contract with one another algebraically when appropriate and are thus suggested for general use. For instance, the following code renders correctly\footnote{Note the lack of a space between the bra and ket commands. This is necessary in order for the bra to find the corresponding ket and form a contraction.}
 \begin{displaymath}
 \verb|\bra{\phi}\ket{\psi}| \rightarrow \bra{\phi}\ket{\psi} \qq{as opposed to} \bra{\phi} \ket{\psi}
 \end{displaymath}
@@ -255,40 +260,41 @@ On the other hand, the correct output can be generated by sticking to the fundam
 \verb|\bra{\phi}\ket{\psi}\bra{\xi}| \rightarrow \bra{\phi}\ket{\psi}\bra{\xi}
 \end{displaymath}
 allowing the user to type out complicated quantum mechanical expressions without worrying about bra-ket contractions. That being said, the high-level macros do have a place in convenience and readability, as long as the user is aware of rendering issues that may arise due to an absence of automatic contractions.
-\begin{longtable}[l]{ l L p{6cm} }
-\verb|\ket| & \verb|\ket{\tall}| \rightarrow \ket{\tall} & automatic sizing \\
-& \verb|\ket*{\tall}| \rightarrow \ket*{\tall} & no resize \\
-\verb|\bra| & \verb|\bra{\tall}| \rightarrow \bra{\tall} & automatic sizing \\
-& \verb|\bra*{\tall}| \rightarrow \bra*{\tall} & no resize \\
-& \verb|\bra{\phi}\ket{\psi}| \rightarrow \bra{\phi}\ket{\psi} & automatic contraction \\
-& \verb|\bra{\phi}\ket{\tall}| \rightarrow \bra{\phi}\ket{\tall} & contraction inherits automatic sizing \\
-& \verb|\bra{\phi}\ket*{\tall}| \rightarrow \bra{\phi}\ket*{\tall} & \multirow{2}{*}{\parbox{6cm}{a star on either term in the contraction prohibits resizing}} \\
-& \verb|\bra*{\phi}\ket{\tall}| \rightarrow \bra*{\phi}\ket{\tall} & \\
-& \verb|\bra*{\phi}\ket*{\tall}| \rightarrow \bra*{\phi}\ket*{\tall} & \\
-\verb|\innerproduct| & \verb|\braket{a}{b}| \rightarrow \braket{a}{b} & two-argument braket \\
-& \verb|\braket{a}| \rightarrow \braket{a} & one-argument (norm) \\
-& \verb|\braket{a}{\tall}| \rightarrow \braket{a}{\tall} & automatic sizing \\
-& \verb|\braket*{a}{\tall}| \rightarrow \braket*{a}{\tall} & no resize \\
-& \verb|\ip{a}{b}| \rightarrow \ip{a}{b} & shorthand name \\
-\verb|\outerproduct| & \verb|\dyad{a}{b}| \rightarrow \dyad{a}{b} & two-argument dyad \\
-& \verb|\dyad{a}| \rightarrow \dyad{a} & one-argument (projector) \\
-& \verb|\dyad{a}{\tall}| \rightarrow \dyad{a}{\tall} & automatic sizing \\
-& \verb|\dyad*{a}{\tall}| \rightarrow \dyad*{a}{\tall} & no resize \\
-& \verb|\ketbra{a}{b}| \rightarrow \ketbra{a}{b} & alternative name \\
-& \verb|\op{a}{b}| \rightarrow \op{a}{b} & shorthand name \\
-\verb|\expectationvalue| & \verb|\expval{A}| \rightarrow \expval{A} & implicit form \\
-& \verb|\expval{A}{\Psi}| \rightarrow \expval{A}{\Psi} & explicit form \\
-& \verb|\ev{A}{\Psi}| \rightarrow \ev{A}{\Psi} & shorthand name \\
-& \verb|\ev{\grande}{\Psi}| \rightarrow \ev{\grande}{\Psi} & default sizing ignores middle argument \\
-& \verb|\ev*{\grande}{\tall}| \rightarrow \ev*{\grande}{\tall} & single star does no resizing whatsoever \\
-& \verb|\ev**{\grande}{\Psi}| \rightarrow \ev**{\grande}{\Psi} & double star resizes based on all parts \\
-\verb|\matrixelement| & \verb|\matrixel{n}{A}{m}| \rightarrow \matrixel{n}{A}{m} & requires all three arguments \\
-& \verb|\mel{n}{A}{m}| \rightarrow \mel{n}{A}{m} & shorthand name \\
-& \verb|\mel{n}{\grande}{m}| \rightarrow \mel{n}{\grande}{m} & default sizing ignores middle argument \\
-& \verb|\mel*{n}{\grande}{\tall}| \rightarrow \mel*{n}{\grande}{\tall} & single star does no resizing whatsoever \\
-& \verb|\mel**{n}{\grande}{m}| \rightarrow \mel**{n}{\grande}{m} & double star resizes based on all parts
+\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
+\verb|\ket| & \verb|\ket{\tall}| $\rightarrow \ket{\tall}$ & automatic sizing \\
+& \verb|\ket*{\tall}| $\rightarrow \ket*{\tall}$ & no resize \\
+\verb|\bra| & \verb|\bra{\tall}| $\rightarrow \bra{\tall}$ & automatic sizing \\
+& \verb|\bra*{\tall}| $\rightarrow \bra*{\tall}$ & no resize \\
+& \verb|\bra{\phi}\ket{\psi}| $\rightarrow \bra{\phi}\ket{\psi}$ & automatic contraction \\
+& \verb|\bra{\phi}\ket{\tall}| $\rightarrow \bra{\phi}\ket{\tall}$ & contraction inherits automatic sizing \\
+& \verb|\bra{\phi}\ket*{\tall}| $\rightarrow \bra{\phi}\ket*{\tall}$ & \multirow{2}{*}{\parbox{6cm}{a star on either term in the contraction prohibits resizing}} \\
+& \verb|\bra*{\phi}\ket{\tall}| $\rightarrow \bra*{\phi}\ket{\tall}$ & \\
+& \verb|\bra*{\phi}\ket*{\tall}| $\rightarrow \bra*{\phi}\ket*{\tall}$ & \\
+\verb|\innerproduct| & $\verb|\braket{a}{b}| \rightarrow \braket{a}{b}$ & two-argument braket \\
+& \verb|\braket{a}| $\rightarrow \braket{a}$ & one-argument (norm) \\
+& \verb|\braket{a}{\tall}| $\rightarrow \braket{a}{\tall}$ & automatic sizing \\
+& \verb|\braket*{a}{\tall}| $\rightarrow \braket*{a}{\tall}$ & no resize \\
+& \verb|\ip{a}{b}| $\rightarrow \ip{a}{b}$ & shorthand name \\
+\verb|\outerproduct| & \verb|\dyad{a}{b}| $\rightarrow \dyad{a}{b}$ & two-argument dyad \\
+& \verb|\dyad{a}| $\rightarrow \dyad{a}$ & one-argument (projector) \\
+& \verb|\dyad{a}{\tall}| $\rightarrow \dyad{a}{\tall}$ & automatic sizing \\
+& \verb|\dyad*{a}{\tall}| $\rightarrow \dyad*{a}{\tall}$ & no resize \\
+& \verb|\ketbra{a}{b}| $\rightarrow \ketbra{a}{b}$ & alternative name \\
+& \verb|\op{a}{b}| $\rightarrow \op{a}{b}$ & shorthand name \\
+\verb|\expectationvalue| & \verb|\expval{A}| $\rightarrow \expval{A}$ & implicit form \\
+& \verb|\expval{A}{\Psi}| $\rightarrow \expval{A}{\Psi}$ & explicit form \\
+& \verb|\ev{A}{\Psi}| $\rightarrow \ev{A}{\Psi}$ & shorthand name \\
+& \verb|\ev{\grande}{\Psi}| $\rightarrow \ev{\grande}{\Psi}$ & default sizing ignores middle argument \\
+& \verb|\ev*{\grande}{\tall}| $\rightarrow \ev*{\grande}{\tall}$ & single star does no resizing whatsoever \\
+& \verb|\ev**{\grande}{\Psi}| $\rightarrow \ev**{\grande}{\Psi}$ & double star resizes based on all parts \\
+\verb|\matrixelement| & \verb|\matrixel{n}{A}{m}| $\rightarrow \matrixel{n}{A}{m}$ & requires all three arguments \\
+& \verb|\mel{n}{A}{m}| $\rightarrow \mel{n}{A}{m}$ & shorthand name \\
+& \verb|\mel{n}{\grande}{m}| $\rightarrow \mel{n}{\grande}{m}$ & default sizing ignores middle argument \\
+& \verb|\mel*{n}{\grande}{\tall}| $\rightarrow \mel*{n}{\grande}{\tall}$ & single star does no resizing whatsoever \\
+& \verb|\mel**{n}{\grande}{m}| $\rightarrow \mel**{n}{\grande}{m}$ & double star resizes based on all parts
 \end{longtable}
 \subsection{Matrix macros}
+{\fontsize{4pt}{6pt}\selectfont
 Note: \verb|\mqty| and \verb|\smqty| in \texttt{physics} uses \verb|\mathord|, while \verb|\PTmqty| and \verb|\PTsmqty| in \texttt{physics-patch} don't.\\\\
 The following matrix macros produce unformatted rows and columns of matrix elements for use as separate matrices as well as blocks within larger matrices. For example, the command \verb|\identitymatrix{2}| which has also has the shortcut \verb|\imat{2}| produces the elements of a $2 \times 2$ identity matrix $\PTsmqty{\imat{2}}$ without braces or grouping. This allows the command to also be used within another matrix, as in:
 \begin{minipage}{3cm}
@@ -322,7 +328,7 @@ To specify elements on the right of left sides of our \verb|\imat{2}| sub-matrix
 \end{pmatrix}
 \end{displaymath}
 \end{minipage}
-The extra \verb|\PTmqty| groups were required in this case in order to get the $a$ and $b$ elements to behave as a single element, since \verb|\PTmqty{\imat{2}}| also acts like a single matrix element (the same can be said of the grouped $c$ and $d$ elements). Finally, the outermost \texttt{pmatrix} environment could have also been replaced with the \texttt{physics} macro \verb|\PTmqty()|, allowing the above example to be written on one line:
+The extra \verb|\PTmqty| groups were required in this case in order to get the $a$ and $b$ elements to behave as a single element, since \verb|\PTmqty{\imat{2}}| also acts like a single matrix element (the same can be said of the grouped $c$ and $d$ elements). Finally, the outermost \texttt{pmatrix} environment could have also been replaced with the \texttt{physics-patch} macro \verb|\PTmqty()|, allowing the above example to be written on one line:
 \begin{minipage}{9cm}
 \begin{verbatim}
 \PTmqty(\PTmqty{\imat{2}} & \PTmqty{a\\b} \\ \PTmqty{c & d} & e)
@@ -334,68 +340,91 @@ The extra \verb|\PTmqty| groups were required in this case in order to get the $
 \PTmqty(\PTmqty{\imat{2}} & \PTmqty{a\\b} \\ \PTmqty{c & d} & e)
 \end{displaymath}
 \end{minipage}
-\begin{longtable}[l]{ l L p{6cm} }
-\verb|\PTmatrixquantity| & \verb|\PTmqty{a & b \\ c & d}| \rightarrow \PTmqty{a & b \\ c & d} & groups a set of matrix elements into a single object \\
-& \verb|\PTmqty(a & b \\ c & d)| \rightarrow {\PTmqty(a & b \\ c & d)} & parentheses \\
-& \verb|\PTmqty*(a & b \\ c & d)| \rightarrow {\PTmqty*(a & b \\ c & d)} & alternate parentheses \\
-& \verb|\PTmqty[a & b \\ c & d]| \rightarrow {\PTmqty[a & b \\ c & d]} & square brackets \\
-& \verb|\PTmqty| \texttt{|} \verb|a & b \\ c & d| \texttt{|} \rightarrow {\PTmqty|a & b \\ c & d|} & vertical bars \\
-& \verb|\omqty{}| \leftrightarrow \verb|\PTmqty{}| & \multirow{2}{*}{\parbox{6cm}{alternative syntax; robust and more \LaTeX-friendly}} \\
-& \verb|\pmqty{}| \leftrightarrow \verb|\PTmqty()| & \\
-& \verb|\PTpmqty{}| \leftrightarrow \verb|\PTmqty()| & \\
-& \verb|\PTpmqty*{}| \leftrightarrow \verb|\PTmqty*{}| & \\
-& \verb|\Pmqty{}| \leftrightarrow \verb|\PTmqty*()| & \\
-& \verb|\bmqty{}| \leftrightarrow \verb|\PTmqty[]| & \\
-& \verb|\vmqty{}| \leftrightarrow \verb+\PTmqty||+ & \\
-\verb|\PTsmallmatrixquantity| & \verb|\PTsmqty{a & b \\ c & d}| \rightarrow \PTsmqty{a & b \\ c & d} & the \texttt{smallmatrix} form of \verb|\PTmqty| \\
+\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
+\verb|\PTmatrixquantity| & \verb|\PTmqty{a & b \\ c & d}| $\rightarrow \PTmqty{a & b \\ c & d}$ & groups a set of matrix elements into a single object \\
+& \verb|\PTmqty(a & b \\ c & d)| $\rightarrow {\PTmqty(a & b \\ c & d)}$ & parentheses \\
+& \verb|\PTmqty*(a & b \\ c & d)| $\rightarrow {\PTmqty*(a & b \\ c & d)}$ & alternate parentheses \\
+& \verb|\PTmqty[a & b \\ c & d]| $\rightarrow {\PTmqty[a & b \\ c & d]}$ & square brackets \\
+& \verb|\PTmqty| \texttt{|} \verb|a & b \\ c & d| \texttt{|} $\rightarrow {\PTmqty|a & b \\ c & d|}$ & vertical bars \\
+& \verb|\omqty{}| $\leftrightarrow$ \verb|\PTmqty{}| & \multirow{2}{*}{\parbox{6cm}{alternative syntax; robust and more \LaTeX-friendly}} \\
+& \verb|\pmqty{}| $\leftrightarrow$ \verb|\PTmqty()| & \\
+& \verb|\PTpmqty{}| $\leftrightarrow$ \verb|\PTmqty()| & \\
+& \verb|\PTpmqty*{}| $\leftrightarrow$ \verb|\PTmqty*{}| & \\
+& \verb|\Pmqty{}| $\leftrightarrow$ \verb|\PTmqty*()| & \\
+& \verb|\bmqty{}| $\leftrightarrow$ \verb|\PTmqty[]| & \\
+& \verb|\vmqty{}| $\leftrightarrow$ \verb+\PTmqty||+ & \\
+\verb|\PTsmallmatrixquantity| & \verb|\PTsmqty{a & b \\ c & d}| $\rightarrow \PTsmqty{a & b \\ c & d}$ & the \texttt{smallmatrix} form of \verb|\PTmqty| \\
 & \verb|\PTsmqty()| \qor \verb|\spmqty{}| \qor \verb|\PTspmqty{}| & small version of \verb|\PTmqty()| \\
 & \verb|\PTsmqty*()| \qor \verb|\sPmqty{}| \qor \verb|\PTspmqty*{}| & small version of \verb|\PTmqty*()|\\
 & \verb|\PTsmqty[]| \qor \verb|\sbmqty{}| & small version of \verb|\PTmqty[]| \\
 & \verb+\PTsmqty||+ \qor \verb|\svmqty{}| & small version of \verb+\PTmqty||+ \\
-\verb|\matrixdeterminant| & \verb|\mdet{a & b \\ c & d}| \rightarrow {\mdet{a & b \\ c & d}} & matrix determinant \\
-& \verb|\smdet{a & b \\ c & d}| \rightarrow {\smdet{a & b \\ c & d}} & small matrix determinant \\
+\verb|\matrixdeterminant| & \verb|\mdet{a & b \\ c & d}| $\rightarrow {\mdet{a & b \\ c & d}}$ & matrix determinant \\
+& \verb|\smdet{a & b \\ c & d}| $\rightarrow {\smdet{a & b \\ c & d}}$ & small matrix determinant \\
 \verb|\identitymatrix| & \verb|\imat{n}| & elements of $n \times n$ identity matrix \\
-& \verb|\PTsmqty(\imat{3})| \rightarrow \PTsmqty(\imat{3}) & formatted with \verb|\PTmqty| or \verb|\PTsmqty| \\
-\verb|\PTxmatrix| & \verb|\PTxmat{x}{n}{m}| & elements of $n \times m$ matrix filled with $x$, if not provided, $1$ is used \\
-& \verb|\PTxmat{x}{3}{3}| \rightarrow \PTxmat{x}{3}{3} & example \\
-& \verb|\PTxmat{x}{}{3}| \rightarrow \PTxmat{x}{}{3} & example for $n$ not provided \\
-& \verb|\PTxmat{x}{3}{}| \rightarrow \PTxmat{x}{3}{} & example for $m$ not provided \\
-& \verb|\PTxmat*{x}{n}{m}| & star for element indices, skip row/column indices $n=1$/$m=1$ \\
-& \verb|\PTxmat*{x}{3}{3}| \rightarrow \PTxmat*{x}{3}{3} & example \\
-& \verb|\PTxmat*{x}{1}{3}| \rightarrow \PTxmat*{x}{1}{3} & example for $n=1$ \\
-& \verb|\PTxmat*{x}{3}{1}| \rightarrow \PTxmat*{x}{3}{1} & example for $m=1$ \\
-& \verb|\PTxmat{x}{n}{m}[p]| & only show $p$ rows (including $\vdots$ row) with skipped rows indicated by $\vdots$. If $n$ isn't provided, $p$ is used \\
-& \verb|\PTxmat{x}{5}{3}[3]| \rightarrow \PTxmat{x}{5}{3}[3] & example \\
-& \verb|\PTxmat{x}{3}{3}[3]| \rightarrow \PTxmat{x}{3}{3}[3] & example for $n=p$ \\
-& \verb|\PTxmat{x}{}{3}[3]| \rightarrow \PTxmat{x}{}{3}[3] & example for $n$ not provided \\
-& \verb|\PTxmat{x}{n}{m}[p][q]| & only show $p$ rows (including $\vdots$ row) and $q$ columns (including $\ldots$ column) with skipped rows indicated by $\vdots$, skipped columns indicated by $\ldots$, intersection of $\vdots$ row and $\ldots$ column being $\ddots$. If $n$/$m$ isn't provided, $p$/$q$ is used \\
-& \verb|\PTxmat{x}{5}{5}[3][3]| \rightarrow \PTxmat{x}{5}{5}[3][3] & example \\
-& \verb|\PTxmat{x}{5}{3}[3][3]| \rightarrow \PTxmat{x}{5}{3}[3][3] & example for $m=q$ \\
-& \verb|\PTxmat{x}{3}{3}[3][3]| \rightarrow \PTxmat{x}{3}{3}[3][3] & example for $n=p$ and $m=q$ \\
-& \verb|\PTxmat{x}{5}{}[3][3]| \rightarrow \PTxmat{x}{5}{}[3][3] & example for $m$ not provided \\
-& \verb|\PTxmat{x}{}{}[3][3]| \rightarrow \PTxmat{x}{}{}[3][3] & example for $n$ and $m$ not provided \\
-& \verb|\PTxmat*{x}{n}{m}{g}| & customize last row's element indices to $g$ \\
-& \verb|\PTxmat*{x}{3}{3}{A}| \rightarrow \PTxmat*{x}{3}{3}{A} & example \\
-& \verb|\PTxmat*{x}{5}{5}[3][3]{A}| \rightarrow \PTxmat*{x}{5}{5}[3][3]{A} & example with $p$ and $q$ \\
-& \verb|\PTxmat*{x}{n}{m}{g}{h}| & customize last row's element indices to $g$ and last column's element indices to $h$ \\
-& \verb|\PTxmat*{x}{3}{3}{A}{B}| \rightarrow \PTxmat*{x}{3}{3}{A}{B} & example \\
-& \verb|\PTxmat*{x}{5}{5}[3][3]{A}{B}| \rightarrow \PTxmat*{x}{5}{5}[3][3]{A}{B} & example with $p$ and $q$ \\
-& \verb|\PTxmat[0 or 1 or 2]{x}{n}{m}[p][q]| & Change the $\vdots$ row/$\ldots$ column from the second last one to last one, 0 for both, 1 for row only, 2 for column only. Only work when corresponding $p$/$q$ is provided and do not change the behavior of element indices \\
-& \verb|\PTxmat[0]{x}{5}{5}[3][3]| \rightarrow \PTxmat[0]{x}{5}{5}[3][3] & example \\
-& \verb|\PTxmat[1]{x}{5}{5}[3][3]| \rightarrow \PTxmat[1]{x}{5}{5}[3][3] & example \\
-& \verb|\PTxmat[2]{x}{5}{5}[3][3]| \rightarrow \PTxmat[2]{x}{5}{5}[3][3] & example \\
-\verb|\zeromatrix| & \verb|\zmat{n}{m}| & $n \times m$ matrix filled with zeros, equivalent to \verb|\xmat{0}{n}{m}| \\
-& \verb|\zmat{2}{2})| \rightarrow \zmat{2}{2} & example \\
+& \verb|\PTsmqty(\imat{3})| $\rightarrow \PTsmqty(\imat{3})$ & formatted with \verb|\PTmqty| or \verb|\PTsmqty| \\
+\verb|\PTxmatrix| & \verb|\PTxmat{x}{n}{m}| & \multirow{4}{*}{\parbox{6cm}{elements of $n \times m$ matrix filled with $x$, if not provided, $1$ is used}} \\
+& \verb|\PTsmqty(\PTxmat{x}{3}{3})| $\rightarrow \PTsmqty(\PTxmat{x}{3}{3})$ & \\
+& \verb|\PTsmqty(\PTxmat{x}{}{3})| $\rightarrow \PTsmqty(\PTxmat{x}{}{3})$ & \\
+& \verb|\PTsmqty(\PTxmat{x}{3}{})| $\rightarrow \PTsmqty(\PTxmat{x}{3}{})$ & \\
+& \verb|\PTxmat*{x}{n}{m}| & \multirow{4}{*}{\parbox{6cm}{star for element indices, skip row/column indices $n=1$/$m=1$}} \\
+& \verb|\PTsmqty(\PTxmat*{x}{3}{3})| $\rightarrow \PTsmqty(\PTxmat*{x}{3}{3})$ & \\
+& \verb|\PTsmqty(\PTxmat*{x}{1}{3})| $\rightarrow \PTsmqty(\PTxmat*{x}{1}{3})$ & \\
+& \verb|\PTsmqty(\PTxmat*{x}{3}{1})| $\rightarrow \PTsmqty(\PTxmat*{x}{3}{1})$ & \\
+& \verb|\PTxmat{x}{n}{m}[p]| & \multirow{4}{*}{\parbox{6cm}{only show $p$ rows (including $\vdots$ row) with skipped rows indicated by $\vdots$. If $n$ isn't provided, $p$ is used}} \\
+& \verb|\PTsmqty(\PTxmat{x}{5}{3}[3])| $\rightarrow \PTsmqty(\PTxmat{x}{5}{3}[3])$ & \\
+& \verb|\PTsmqty(\PTxmat{x}{3}{3}[3])| $\rightarrow \PTsmqty(\PTxmat{x}{3}{3}[3])$ & \\
+& \verb|\PTsmqty(\PTxmat{x}{}{3}[3])| $\rightarrow \PTsmqty(\PTxmat{x}{}{3}[3])$ & \\
+& \verb|\PTxmat{x}{n}{m}[p][q]| & \multirow{6}{*}{\parbox{6cm}{only show $p$ rows (including $\vdots$ row) and $q$ columns (including $\ldots$ column) with skipped rows indicated by $\vdots$, skipped columns indicated by $\ldots$, intersection of $\vdots$ row and $\ldots$ column being $\ddots$. If $n$/$m$ isn't provided, $p$/$q$ is used. No indices will be added for ellipses even if star is given}} \\
+& \verb|\PTsmqty(\PTxmat{x}{5}{5}[3][3])| $\rightarrow \PTsmqty(\PTxmat{x}{5}{5}[3][3])$ & \\
+& \verb|\PTsmqty(\PTxmat{x}{5}{3}[3][3])| $\rightarrow \PTsmqty(\PTxmat{x}{5}{3}[3][3])$ & \\
+& \verb|\PTsmqty(\PTxmat{x}{3}{3}[3][3])| $\rightarrow \PTsmqty(\PTxmat{x}{3}{3}[3][3])$ & \\
+& \verb|\PTsmqty(\PTxmat{x}{5}{}[3][3])| $\rightarrow \PTsmqty(\PTxmat{x}{5}{}[3][3])$ & \\
+& \verb|\PTsmqty(\PTxmat{x}{}{}[3][3])| $\rightarrow \PTsmqty(\PTxmat{x}{}{}[3][3])$ & \\
+& \verb|\PTxmat*{x}{n}{m}{g}| & \multirow{3}{*}{\parbox{6cm}{customize last row's element indices to $g$}} \\
+& \verb|\PTsmqty(\PTxmat*{x}{3}{3}{A})| $\rightarrow \PTsmqty(\PTxmat*{x}{3}{3}{A})$ & \\
+& \verb|\PTsmqty(\PTxmat*{x}{5}{5}[3][3]{A})| $\rightarrow \PTsmqty(\PTxmat*{x}{5}{5}[3][3]{A})$ & \\
+& \verb|\PTxmat*{x}{n}{m}{g}{h}| & \multirow{3}{*}{\parbox{6cm}{customize last row's element indices to $g$ and last column's element indices to $h$}} \\
+& \verb|\PTsmqty(\PTxmat*{x}{3}{3}{A}{B})| $\rightarrow \PTsmqty(\PTxmat*{x}{3}{3}{A}{B})$ & \\
+& \verb|\PTsmqty(\PTxmat*{x}{5}{5}[3][3]{A}{B})| $\rightarrow \PTsmqty(\PTxmat*{x}{5}{5}[3][3]{A}{B})$ & \\
+& \verb|\PTxmat[0 or 1 or 2]{x}{n}{m}[p][q]| & \multirow{4}{*}{\parbox{6cm}{Change the $\vdots$ row/$\ldots$ column from the second last one to last one, 0 for both, 1 for row only, 2 for column only. Only work when corresponding $p$/$q$ is provided and do not change the behavior of element indices}} \\
+& \verb|\PTsmqty(\PTxmat[0]{x}{5}{5}[3][3])| $\rightarrow \PTsmqty(\PTxmat[0]{x}{5}{5}[3][3])$ & \\
+& \verb|\PTsmqty(\PTxmat[1]{x}{5}{5}[3][3])| $\rightarrow \PTsmqty(\PTxmat[1]{x}{5}{5}[3][3])$ & \\
+& \verb|\PTsmqty(\PTxmat[2]{x}{5}{5}[3][3])| $\rightarrow \PTsmqty(\PTxmat[2]{x}{5}{5}[3][3])$ & \\
+\verb|\zeromatrix| & \verb|\zmat{n}{m}| & \multirow{3}{*}{\parbox{6cm}{$n \times m$ matrix filled with zeros, equivalent to \texttt{\textbackslash xmat\{0\}\{n\}\{m\}}. If $m$ isn't provided, $n$ is used}} \\
+& \verb|\PTsmqty(\zmat{2}{2})| $\rightarrow \PTsmqty(\zmat{2}{2})$ & \\
+& \verb|\PTsmqty(\zmat{2})| $\rightarrow \PTsmqty(\zmat{2})$ & \\
 \verb|\paulimatrix| & \verb|\pmat{n}| & $n^\text{th}$ Pauli matrix \\
-& \verb|\PTsmqty(\pmat{0})| \rightarrow \PTsmqty(\pmat{0}) & $n\in \lbrace 0,1,2,3$ or $x,y,z \rbrace$ \\
-& \verb|\PTsmqty(\pmat{1})| \rightarrow \PTsmqty(\pmat{1}) & \\
-& \verb|\PTsmqty(\pmat{2})| \rightarrow \PTsmqty(\pmat{2}) & \\
-& \verb|\PTsmqty(\pmat{3})| \rightarrow \PTsmqty(\pmat{3}) & \\
+& \verb|\PTsmqty(\pmat{0})| $\rightarrow \PTsmqty(\pmat{0})$ & $n\in \lbrace 0,1,2,3$ or $x,y,z \rbrace$ \\
+& \verb|\PTsmqty(\pmat{1})| $\rightarrow \PTsmqty(\pmat{1})$ & \\
+& \verb|\PTsmqty(\pmat{2})| $\rightarrow \PTsmqty(\pmat{2})$ & \\
+& \verb|\PTsmqty(\pmat{3})| $\rightarrow \PTsmqty(\pmat{3})$ & \\
 \verb|\diagonalmatrix| & \verb|\dmat{a,b,c,...}| & \multirow{2}{*}{\parbox{6cm}{specify up to eight diagonal or block diagonal elements}} \\
-& \verb|\PTmqty(\dmat{1,2,3})| \rightarrow \PTmqty(\dmat{1,2,3}) & \\
-& \verb|\PTmqty(\dmat[0]{1,2})| \rightarrow \PTmqty(\dmat[0]{1,2}) & optional argument to fill spaces \\
-& \verb|\PTmqty(\dmat{1,2&3\\4&5})| \rightarrow \PTmqty(\dmat{1,2&3\\4&5}) & \parbox{6cm}{enter matrix elements for each block as a single diagonal element} \\
+& \verb|\PTmqty(\dmat{1,2,3})| $\rightarrow \PTmqty(\dmat{1,2,3})$ & \\
+& \verb|\PTmqty(\dmat[0]{1,2})| $\rightarrow \PTmqty(\dmat[0]{1,2})$ & optional argument to fill spaces \\
+& \verb|\PTmqty(\dmat{1,2&3\\4&5})| $\rightarrow \PTmqty(\dmat{1,2&3\\4&5})$ & enter matrix elements for each block as a single diagonal element \\
 \verb|\antidiagonalmatrix| & \verb|\admat{a,b,c,...}| & same as syntax as \verb|\dmat| \\
-& \verb|\PTmqty(\admat{1,2,3})| \rightarrow \PTmqty(\admat{1,2,3}) & \\
+& \verb|\PTmqty(\admat{1,2,3})| $\rightarrow \PTmqty(\admat{1,2,3})$ & \\
 \end{longtable}
+\subsection{Symbols}
+\begin{longtable}[l]{ p{0.5\textwidth} l p{0.5\textwidth} }
+\verb|\lparen| $\rightarrow ($ &\\
+\verb|\rparen| $\rightarrow )$ &\\
+\verb|\ordersymbol| $\rightarrow \ordersymbol$ & \\
+\verb|\typical| $\rightarrow \typical$ & \\
+\verb|\tall| $\rightarrow \tall$ & \\
+\verb|\grande| $\rightarrow \grande$ & \\
+\verb|\venti| $\rightarrow \venti$ & \\
+\verb|\Vtextvisiblespace[width]| $\rightarrow$ \Vtextvisiblespace & a visible space character, where the optional argument (defaulting to \texttt{.3em}) sets the width of the horizontal rule
+\end{longtable}
+}
+\subsection{Others}
+\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
+\verb|\autommode| & \verb|\amm{content}| & \verb|\relax\ifmmode #1\else\(#1\)\fi| \\
+\verb|\mathcolorbox| & \verb|\mcbox{color}{content}| & \multirow{2}{*}{\parbox{6cm}{\texttt{\textbackslash colorbox} for math environment, applying to all four levels of math styles}} \\
+& \verb|\mcbox{cyan}{\phantom{A}}| $\rightarrow \mcbox{cyan}{\phantom{A}}$ & \\
+\verb|\autocolorbox| or \verb|\acbox| & \verb|\cbox{color}{content}| & samw as \verb|\colorbox| in text environment, same as \verb|\mathcolorbox| in math environment \\
+\verb|\tentothepowerof| & \verb|\tenpow{n}| $\rightarrow \tenpow{n}$ & work in both math mode and text mode \\
+\verb|\scientificnotation| & \verb|\scinote{3.00}{8}| $\rightarrow \scinote{3.00}{8}$ & \parbox{6cm}{work in both math mode and text mode}
+\end{longtable}
+}
 \end{document}

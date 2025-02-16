@@ -1,50 +1,21 @@
-# physics-patch
+physics-patch 2.0
 
-Patches for physics package and integration of physics and siunitx packages
+Improved version of the physics package
 
-* Author: **Willie Shen (Willie169)**
-* Repository: <https://github.com/Willie169/physics-patch>
-* Latest version: 2.0
-* Last update: Feb 14, 2025
+This package is released under the LaTeX Project Public License (LPPL) 1.3c
+See https://www.latex-project.org/lppl/lppl-1-3c for the details of that license
+Many parts of this package are modified from the physics package, created by Sergio C. de la Barrera and licenced under LPPL 1.3
+See https://ctan.org/pkg/physics for the details of that package
 
-## Introduction
+This package requires amsmath, etoolbox, xcolor, xparse, and xstring package.
+Commands that have different definitions come with PT in the beginning of their name (e.g. \PTmqty).
+physics-patch has covered all commands in physics since version 2.0, so there's no need to load physics.
+It is ok to load physics before this package. This package will silently overrides macros in physics with an improved version. To use the original version provided by physics, load physics before this package and use the nooverride option (not recommended).
+This package pretends that physics package is loaded so that this package won't be overriden if loading physics is called afterward and packages loaded afterward that checks whether physics is loaded to determine its behavior (e.g. siunitx) work correctly. To disable this, use the nopretend option (not recommended).
+If siuitx is loaded before this package, this package will define \ITquantity and \ITqty as the integration of the improved definition of physics's \qty (in \PHquantity and \PHqty) and siuitx's \SI. You can optionally set siintegrate option to override \PTquantity and \PTqty with \ITqty (not recommended).
 
-The `physics-patch` package fixes issues in the `physics` package and improves compatibility between `physics` and `siunitx`.
+Author: Willie Shen (Willie169)
+Repository: https://github.com/Willie169/physics-patch
+Last update: Feb 16, 2025
 
-It provides improved versions of `\qty`, `\dv`, and `\pdv` and introduces new macros.
-
-## Usage
-
-This package requires the `xparse`, `etoolbox`, and `amsmath` packages.  
-Optionally, load `physics` and/or `siunitx` before this package.
-
-```latex
-\usepackage{physics} % Optional
-\usepackage{siunitx} % Optional
-\usepackage{physics-patch}
-```
-
-By default, `physics-patch` overrides `\qty` with an improved version. To disable this, use the `nooverride` option:
-
-```latex
-\usepackage<nooverride>{physics-patch}
-```
-
-## Communication Channels
-
-* **Bug tracker:** <https://github.com/Willie169/physics-patch/issues>
-* **Announcements:** <https://github.com/Willie169/physics-patch/releases>
-* **Repository:** <https://github.com/Willie169/physics-patch>
-
-## License and Credit
-
-This package is released under the **LaTeX Project Public License  1.3c**.  
-See <https://www.latex-project.org/lppl/lppl-1-3c> for the details of that license.
-
-Some parts of this package are modified from the `physics` package, created by **Sergio C. de la Barrera** and licensed under **LPPL 1.3**.  
-See <https://ctan.org/pkg/physics> for details on that package.
-
-## Documentation
-
-* [**physics-patch.tex**](physics-patch.tex)
-* [**physics-patch.pdf**](physics-patch.pdf)
+For documentation, see physics-patch.pdf
