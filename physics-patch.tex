@@ -12,6 +12,8 @@
 \everydisplay{\displaystyle}
 \newcolumntype{M}{>{$\displaystyle}c<{$}}
 \newcolumntype{L}{>{$\displaystyle}l<{$}}
+\setlength{\LTleft}{\fill}
+\setlength{\LTright}{\fill}
 \renewcommand{\maketitle}{
 \begin{titlepage}
 \begin{center}
@@ -25,7 +27,6 @@
 \end{center}
 \end{titlepage}
 }
-\renewcommand{\arraystretch}{2}
 \lstset{
 basicstyle=\ttfamily\scriptsize,
 keywordstyle=\color{blue},
@@ -44,7 +45,7 @@ breakatwhitespace=false
 }
 \title{The \texttt{physics-patch} package\\\mbox{}\\\textnormal{\large Improved version of the physics package}}
 \author{\mbox{}\\Willie Shen (Willie169)}
-\date{Version 2.2\\\textnormal{Last update: Feb. 17, 2025}}
+\date{Version 2.3\\\textnormal{Last update: Feb. 17, 2025}}
 \begin{document}
 \onehalfspacing\thispagestyle{empty}\Needspace{1\textheight}\maketitle\setcounter{page}{1}\Needspace{1\textheight}\tableofcontents\Needspace{1\textheight}\setcounter{page}{1}
 \section{Preface}
@@ -89,9 +90,9 @@ See \href{https://ctan.org/pkg/physics}{https://ctan.org/pkg/physics} for the de
 \section{List of Commands}
 In the commands listed below, the left column is long-form names with non-default alternate names (if any), the middle column is default shorthand commands with detailed syntaxes and explanations.\\
 Commands that have different definitions come with \texttt{PT} in the beginning of their name (e.g. \verb|\PTmqty|). If \texttt{nooverride} is not used or the \texttt{physics} package is not loaded before this package, the commands without \texttt{PT} will be silent overriden to be the same as the ones with \texttt{PT}.
-{\fontsize{6pt}{9pt}\selectfont
 \subsection{Automatic bracing}
-\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
+\begin{longtable}[l]{ | p{6cm} | p{6cm} | p{6cm} | }
+\hline
 \verb|\PTquantity| or \verb|\PHquantity| or \verb|\PHqty| & \verb|\PTqty(\typical)| $\displaystyle\rightarrow \PTqty(\typical)$ & automatic $\PTqty(\;)$ braces \\
 & \verb|\PTqty(\tall)| $\displaystyle\rightarrow \PTqty(\tall)$ & \\
 & \verb|\PTqty(\grande)| $\displaystyle\rightarrow \PTqty(\grande)$ & \\
@@ -105,72 +106,74 @@ Commands that have different definitions come with \texttt{PT} in the beginning 
 & \verb|\pqty{}| $\leftrightarrow$ \verb|\PTqty()| & \multirow{2}{*}{\parbox{6cm}{alternative syntax; robust and more \LaTeX-friendly}} \\
 & \verb|\bqty{}| $\leftrightarrow$ \verb|\PTqty[]| & \\
 & \verb+\vqty{}+ $\leftrightarrow$ \verb+\PTqty||+ & \\
-& \verb|\Bqty{}| $\leftrightarrow$ \verb|\PTqty{}| & \\
+& \verb|\Bqty{}| $\leftrightarrow$ \verb|\PTqty{}| & \\\hline
 \verb|\absolutevalue| & \verb|\abs{a}| $\rightarrow \abs{a}$ & automatic sizing; equivalent to \verb|\PTqty| \!\!\texttt{|a|} \\
 & \verb|\abs\Big{a}| $\rightarrow \abs\Big{a}$ & inherits manual sizing syntax from \verb|\PTqty| \\
-& \verb|\abs*{\grande}| $\displaystyle\rightarrow \abs*{\grande}$ & star for no resize \\
+& \verb|\abs*{\grande}| $\displaystyle\rightarrow \abs*{\grande}$ & star for no resize \\\hline
 \verb|\norm| & \verb|\norm{a}| $\rightarrow \norm{a}$ & automatic sizing \\
 & \verb|\norm\Big{a}| $\rightarrow \norm\Big{a}$ & manual sizing \\
-& \verb|\norm*{\grande}| $\displaystyle\rightarrow \norm*{\grande}$ & star for no resize \\
+& \verb|\norm*{\grande}| $\displaystyle\rightarrow \norm*{\grande}$ & star for no resize \\\hline
 \verb|\evaluated| & \verb|\eval{x}_0^\infty| $\displaystyle\rightarrow \eval{x}_0^\infty$ & vertical bar for evaluation limits \\
 & \verb|\eval(x| \!\!\texttt{|}\!\! \verb|_0^\infty| $\displaystyle\rightarrow \eval(x|_0^\infty$ & alternate form \\
 & \verb|\eval[x| \!\!\texttt{|}\!\! \verb|_0^\infty| $\displaystyle\rightarrow \eval[x|_0^\infty$ & alternate form \\
 & \verb|\eval[\venti| \!\!\texttt{|}\!\! \verb|_0^\infty| $\displaystyle\rightarrow \eval[\venti|_0^\infty$ & automatic sizing\\
-& \verb|\eval*[\venti| \!\!\texttt{|}\!\! \verb|_0^\infty| $\displaystyle\rightarrow \eval*[\venti|_0^\infty$ & star for no resize \\
+& \verb|\eval*[\venti| \!\!\texttt{|}\!\! \verb|_0^\infty| $\displaystyle\rightarrow \eval*[\venti|_0^\infty$ & star for no resize \\\hline
 \verb|\order| & \verb|\order{x^2}| $\rightarrow \order{x^2}$ & order symbol; automatic sizing and space handling \\
 & \verb|\order\Big{x^2}| $\rightarrow \order\Big{x^2}$ & manual sizing \\
-& \verb|\order*{\grande}| $\displaystyle\rightarrow \order*{\grande}$ & star for no resize \\
+& \verb|\order*{\grande}| $\displaystyle\rightarrow \order*{\grande}$ & star for no resize \\\hline
 \verb|\commutator| & \verb|\comm{A}{B}| $\rightarrow \comm{A}{B}$ & automatic sizing \\
 & \verb|\comm\Big{A}{B}| $\rightarrow \comm\Big{A}{B}$ & manual sizing \\
-& \verb|\comm*{A}{\grande}| $\displaystyle\rightarrow \comm*{A}{\grande}$ & star for no resize \\
-\verb|\anticommutator| or \verb|\acommutator| & \verb|\acomm{A}{B}| $\rightarrow \acomm{A}{B}$ & same as \verb|\poissonbracket| \\
-\verb|\poissonbracket| & \verb|\pb{A}{B}| $\rightarrow \pb{A}{B}$ & same as \verb|\anticommutator|
+& \verb|\comm*{A}{\grande}| $\displaystyle\rightarrow \comm*{A}{\grande}$ & star for no resize \\\hline
+\verb|\anticommutator| or \verb|\acommutator| & \verb|\acomm{A}{B}| $\rightarrow \acomm{A}{B}$ & same as \verb|\poissonbracket| \\\hline
+\verb|\poissonbracket| & \verb|\pb{A}{B}| $\rightarrow \pb{A}{B}$ & same as \verb|\anticommutator|\\\hline
 \end{longtable}
 \subsection{Vector notation}
 The default del symbol $\vnabla$ used in \texttt{physics-patch} vector notation can be switched to appear with an arrow $\vec{\vnabla}$ by including the option \texttt{arrowdel} in the document preamble:
 \begin{lstlisting}[language=TeX]
 \usepackage[arrowdel]{physics-patch}
 \end{lstlisting}
-\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
+\begin{longtable}[l]{ | p{6cm} | p{6cm} | p{6cm} | }
+\hline
 \verb|\vectorbold| & \verb|\vb{a}| $\rightarrow \vb{a}$ & upright/no Greek \\
-& \verb|\vb*{a}|, \verb|\vb*{\theta}| $\rightarrow \vb*{a}$, $\vb*{\theta}$ & italic/Greek \\
+& \verb|\vb*{a}|, \verb|\vb*{\theta}| $\rightarrow \vb*{a}$, $\vb*{\theta}$ & italic/Greek \\\hline
 \verb|\vectorarrow| & \verb|\va{a}| $\rightarrow \va{a}$ & upright/no Greek \\
-& \verb|\va*{a}|, \verb|\va*{\theta}| $\rightarrow \va*{a}$, $\va*{\theta}$ & italic/Greek \\
+& \verb|\va*{a}|, \verb|\va*{\theta}| $\rightarrow \va*{a}$, $\va*{\theta}$ & italic/Greek \\\hline
 \verb|\vectorunit| & \verb|\vu{a}| $\rightarrow \vu{a}$ & upright/no Greek \\
-& \verb|\vu*{a}|, \verb|\vu*{\theta}| $\rightarrow \vu*{a}$, $\vu*{\theta}$ & italic/Greek \\
-\verb|\dotproduct| & \verb|\vdot| $\rightarrow \vdot$ as in $\vb{a} \vdot \vb{b}$ & note: \verb|\dp| is a protected \TeX\ primitive \\
+& \verb|\vu*{a}|, \verb|\vu*{\theta}| $\rightarrow \vu*{a}$, $\vu*{\theta}$ & italic/Greek \\\hline
+\verb|\dotproduct| & \verb|\vdot| $\rightarrow \vdot$ as in $\vb{a} \vdot \vb{b}$ & note: \verb|\dp| is a protected \TeX\ primitive \\\hline
 \verb|\crossproduct| & \verb|\cross| $\rightarrow \cross$ as in $\vb{a} \cross \vb{b}$ & alternate name \\
-& \verb|\cp| $\rightarrow \cp$ as in $\vb{a} \cp \vb{b}$ & shorthand name \\
+& \verb|\cp| $\rightarrow \cp$ as in $\vb{a} \cp \vb{b}$ & shorthand name \\\hline
 \verb|\gradient| & \verb|\grad| $\rightarrow \grad$ & \\
 & \verb|\grad{\Psi}| $\rightarrow \grad{\Psi}$ & default mode \\
 & \verb|\grad(\Psi+\tall)| $\displaystyle\rightarrow \grad(\Psi+\tall)$ & long-form (like \verb|\PTqty| but also handles spacing) \\
-& \verb|\grad[\Psi+\tall]| $\displaystyle\rightarrow \grad[\Psi+\tall]$ & \\
+& \verb|\grad[\Psi+\tall]| $\displaystyle\rightarrow \grad[\Psi+\tall]$ & \\\hline
+\verb|\divisionsymbol| & \verb|\divisionsymbol| $\rightarrow \divisionsymbol$ &  \\\hline
 \verb|\divergence| & \verb|\divg| $\rightarrow \divg$ & note: if \texttt{nooriginaldiv} option is used, \verb|\div| will be overriden as $\divg$ too (not recommended) \\
-\verb|\divisionsymbol| & \verb|\divisionsymbol| $\rightarrow \divisionsymbol$ &  \\
 & \verb|\divg{\vb{a}}| $\rightarrow \divg{\vb{a}}$ & default mode \\
 & \verb|\divg(\vb{a}+\tall)| $\displaystyle\rightarrow \divg(\vb{a}+\tall)$ & long-form \\
-& \verb|\divg[\vb{a}+\tall]| $\displaystyle\rightarrow \divg[\vb{a}+\tall]$ & \\
+& \verb|\divg[\vb{a}+\tall]| $\displaystyle\rightarrow \divg[\vb{a}+\tall]$ & \\\hline
 \verb|\curl| & \verb|\curl| $\rightarrow \curl$ & \\
 & \verb|\curl{\vb{a}}| $\rightarrow \curl{\vb{a}}$ & default mode \\
 & \verb|\curl(\vb{a}+\tall)| $\displaystyle\rightarrow \curl(\vb{a}+\tall)$ & long-form \\
-& \verb|\curl[\vb{a}+\tall]| $\displaystyle\rightarrow \curl[\vb{a}+\tall]$ & \\
+& \verb|\curl[\vb{a}+\tall]| $\displaystyle\rightarrow \curl[\vb{a}+\tall]$ & \\\hline
 \verb|\laplacian| & \verb|\laplacian| $\rightarrow \laplacian$ & \\
 & \verb|\laplacian{\Psi}| $\rightarrow \laplacian{\Psi}$ & default mode \\
 & \verb|\laplacian(\Psi+\tall)| $\displaystyle\rightarrow \laplacian(\Psi+\tall)$ & long-form \\
-& \verb|\laplacian[\Psi+\tall]| $\displaystyle\rightarrow \laplacian[\Psi+\tall]$ &
+& \verb|\laplacian[\Psi+\tall]| $\displaystyle\rightarrow \laplacian[\Psi+\tall]$ &\\\hline
 \end{longtable}
 \subsection{Operators}
 The standard set of trig functions is redefined in \texttt{physics-patch} to provide automatic braces that behave like \verb|\PTqty()|. In addition, an optional power argument is provided. This behavior can be switched off by including the option \texttt{notrig} in the preamble:
 \begin{lstlisting}[language=TeX]
 \usepackage[notrig]{physics-patch}
 \end{lstlisting}
-\begin{longtable}[l]{ l l p{8cm} }
-\multicolumn{3}{l}{Example trig redefinitions:} \\
+\begin{longtable}[l]{ | p{6cm} | p{6cm} | p{6cm} | }
+\hline
+\multicolumn{3}{|l|}{Example trig redefinitions:} \\\hline
 \verb|\sin| & \verb|\sin(\grande)| $\displaystyle\rightarrow \sin(\grande)$ & automatic braces; old \verb|\sin| renamed \verb|\sine| \\
 & \verb|\sin[2](x)| $\rightarrow \sin[2](x)$ & optional power \\
-& \verb|\sin x| $\rightarrow \sin x$ & can still use without an argument
+& \verb|\sin x| $\rightarrow \sin x$ & can still use without an argument \\\hline
 \end{longtable}
-The full set of available trig functions in \texttt{physics-patch} includes:
+The full set of available trig functions in \texttt{physics-patch} includes:\\
 \begin{longtable}{llll}
 \verb|\sin(x)| & \verb|\sinh(x)| & \verb|\arcsin(x)| & \verb|\asin(x)| \\
 \verb|\cos(x)| & \verb|\cosh(x)| & \verb|\arccos(x)| & \verb|\acos(x)| \\
@@ -185,72 +188,75 @@ The full set of available trig functions in \texttt{physics-patch} includes:
 \tan(x) & \tanh(x) & \arctan(x) & \atan(x) \\
 \csc(x) & \csch(x) & \arccsc(x) & \acsc(x) \\
 \sec(x) & \sech(x) & \arcsec(x) & \asec(x) \\
-\cot(x) & \coth(x) & \arccot(x) & \acot(x)
+\cot(x) & \coth(x) & \arccot(x) & \acot(x)\\
 \end{longtable}
-The standard trig functions (plus a few that are missing in \texttt{amsmath}) are available without any automatic bracing under a new set of longer names:
+The standard trig functions (plus a few that are missing in \texttt{amsmath}) are available without any automatic bracing under a new set of longer names:\\
 \begin{longtable}{llll}
 \verb|\sine| & \verb|\hypsine| & \verb|\arcsine| & \verb|\asine| \\
 \verb|\cosine| & \verb|\hypcosine| & \verb|\arccosine| & \verb|\acosine| \\
 \verb|\tangent| & \verb|\hyptangent| & \verb|\arctangent| & \verb|\atangent| \\
 \verb|\cosecant| & \verb|\hypcosecant| & \verb|\arccosecant| & \verb|\acosecant| \\
 \verb|\secant| & \verb|\hypsecant| & \verb|\arcsecant| & \verb|\asecant| \\
-\verb|\cotangent| & \verb|\hypcotangent| & \verb|\arccotangent| & \verb|\acotangent|
+\verb|\cotangent| & \verb|\hypcotangent| & \verb|\arccotangent| & \verb|\acotangent|\\
 \end{longtable}
-Similar behavior has also been extended to the following functions:
-\begin{longtable}{l>{$}l<{$}ll}
-\verb|\exp(\tall)| & \exp(\tall) & & \verb|\exponential| \\
-\verb|\log(\tall)| & \log(\tall) & & \verb|\logarithm| \\
-\verb|\ln(\tall)| & \ln(\tall) & old definitions $\Rightarrow$ & \verb|\naturallogarithm| \\
-\verb|\det(\tall)| & \det(\tall) & & \verb|\determinant| \\
-\verb|\Pr(\tall)| & \Pr(\tall) & & \verb|\Probability|
+Similar behavior has also been extended to the following functions:\\
+\begin{longtable}{|l|>{$}l<{$}|l|l|}
+\hline
+\verb|\exp(\tall)| & \exp(\tall) & \multirow{5}{*}{old definitions $\Rightarrow$} & \verb|\exponential| \\\cline{1-2}\cline{4-4}
+\verb|\log(\tall)| & \log(\tall) & & \verb|\logarithm| \\\cline{1-2}\cline{4-4}
+\verb|\ln(\tall)| & \ln(\tall) & & \verb|\naturallogarithm| \\\cline{1-2}\cline{4-4}
+\verb|\det(\tall)| & \det(\tall) & & \verb|\determinant| \\\cline{1-2}\cline{4-4}
+\verb|\Pr(\tall)| & \Pr(\tall) & & \verb|\Probability|\\\hline
 \end{longtable}
-\begin{longtable}[l]{ l l p{8cm} }
-\multicolumn{3}{l}{New operators:} \\
-\verb|\trace| or \verb|\tr| & \verb|\tr\rho| $\rightarrow \tr\rho$ also \verb|\tr(\tall)| $\rightarrow \tr(\tall)$  & trace; same bracing as trig functions \\
-\verb|\Trace| or \verb|\Tr| & \verb|\Tr\rho| $\rightarrow \Tr\rho$ & alternate \\
-\verb|\rank| & \verb|\rank M| $\rightarrow \rank M$ & matrix rank \\
-\verb|\erf| & \verb|\erf(x)|$\rightarrow \erf(x)$ & Gauss error function \\
-\verb|\Res| & \verb|\Res[f(z)]|$\rightarrow \Res[f(z)]$ & residue; same bracing as trig functions \\
+\begin{longtable}[l]{ | p{6cm} | p{6cm} | p{6cm} | }
+\hline
+\multicolumn{3}{|l|}{New operators:} \\\hline
+\verb|\trace| or \verb|\tr| & \verb|\tr\rho| $\rightarrow \tr\rho$ also \verb|\tr(\tall)| $\rightarrow \tr(\tall)$  & trace; same bracing as trig functions \\\hline
+\verb|\Trace| or \verb|\Tr| & \verb|\Tr\rho| $\rightarrow \Tr\rho$ & alternate \\\hline
+\verb|\rank| & \verb|\rank M| $\rightarrow \rank M$ & matrix rank \\\hline
+\verb|\erf| & \verb|\erf(x)|$\rightarrow \erf(x)$ & Gauss error function \\\hline
+\verb|\Res| & \verb|\Res[f(z)]|$\rightarrow \Res[f(z)]$ & \parbox{6cm}{residue; same bracing as trig functions} \\\hline
 \verb|\principalvalue| & \verb|\pv{\int f(z) \dd{z}}|$\rightarrow \pv{\int f(z) \dd{z}}$ & Cauchy principal value \\
-& \verb|\PV{\int f(z) \dd{z}}|$\rightarrow \PV{\int f(z) \dd{z}}$ & alternate \\
-\verb|\Re| & \verb|\Re{z}| $\rightarrow \Re{z}$ & old \verb|\Re| renamed to \verb|\real| $\rightarrow \real$ \\
-\verb|\Im| & \verb|\Im{z}| $\rightarrow \Im{z}$ & old \verb|\Im| renamed to \verb|\imaginary| $\rightarrow \imaginary$
+& \verb|\PV{\int f(z) \dd{z}}|$\rightarrow \PV{\int f(z) \dd{z}}$ & alternate \\\hline
 \end{longtable}
 \subsection{Quick quad text}
-This set of commands produces text in math-mode padded by \verb|\quad| spacing on either side. This is meant to provide a quick way to insert simple words or phrases in a sequence of equations. Each of the following commands includes a starred version which pads the text only on the right side with \verb|\quad| for use in aligned environments such as \texttt{cases}.
-\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
-General text: & & \\
+This set of commands produces text in math-mode padded by \verb|\quad| spacing on either side. This is meant to provide a quick way to insert simple words or phrases in a sequence of equations. Each of the following commands includes a starred version which pads the text only on the right side with \verb|\quad| for use in aligned environments such as \texttt{cases}.\\
+\begin{longtable}[l]{ | p{6cm} | p{6cm} | p{6cm} | }
+\hline
+\multicolumn{3}{|l|}{General text:} \\\hline
 \verb|\qqtext| & \verb|\qq{}| & general quick quad text with argument \\
 & \verb|\qq{word or phrase}| $\rightarrow$\Vtextvisiblespace[1em]$\text{word or phrase}$\Vtextvisiblespace[1em] & normal mode; left and right \verb|\quad| \\
-& \verb|\qq*{word or phrase}| $\rightarrow \text{word or phrase}$\Vtextvisiblespace[1em] & starred mode; right \verb|\quad| only
+& \verb|\qq*{word or phrase}| $\rightarrow \text{word or phrase}$\Vtextvisiblespace[1em] & starred mode; right \verb|\quad| only\\\hline
 \end{longtable}
-\begin{longtable}[l]{ l l }
-Special macros: & \\
-\verb|\qcomma| or \verb|\qc| $\rightarrow ,$\Vtextvisiblespace[1em] & right \verb|\quad| only \\
-\verb|\qcc| $\rightarrow$\Vtextvisiblespace[1em]$\text{c.c.}$\Vtextvisiblespace[1em] & complex conjugate; left and right \verb|\quad| unless starred \verb|\qcc*| $\rightarrow \text{c.c.}$\Vtextvisiblespace[1em] \\
-\verb|\qif| $\rightarrow$\Vtextvisiblespace[1em]$\text{if}$\Vtextvisiblespace[1em] & left and right \verb|\quad| unless starred \verb|\qif*| $\rightarrow \text{if}$\Vtextvisiblespace[1em]
+\begin{longtable}[l]{| l | l | }
+\hline
+Special macros: & \\\hline
+\verb|\qcomma| or \verb|\qc| $\rightarrow ,$\Vtextvisiblespace[1em] & right \verb|\quad| only \\\hline
+\verb|\qcc| $\rightarrow$\Vtextvisiblespace[1em]$\text{c.c.}$\Vtextvisiblespace[1em] & complex conjugate; left and right \verb|\quad| unless starred \verb|\qcc*| $\rightarrow \text{c.c.}$\Vtextvisiblespace[1em] \\\hline
+\verb|\qif| $\rightarrow$\Vtextvisiblespace[1em]$\text{if}$\Vtextvisiblespace[1em] & left and right \verb|\quad| unless starred \verb|\qif*| $\rightarrow \text{if}$\Vtextvisiblespace[1em]\\\hline
 \end{longtable}
-\begin{longtable}[l]{ l }
-Similar to \verb|\qif|: \\
-\verb|\qthen|, \verb|\qelse|, \verb|\qotherwise|, \verb|\qunless|, \verb|\qgiven|, \verb|\qusing|, \verb|\qassume|, \verb|\qsince|, \\
-\verb|\qlet|, \verb|\qfor|, \verb|\qall|, \verb|\qeven|, \verb|\qodd|, \verb|\qinteger|, \verb|\qand|, \verb|\qor|, \verb|\qas|, \verb|\qin|
+\begin{longtable}[l]{ | l | }
+\hline
+Similar to \verb|\qif|: \\\hline
+\verb|\qthen|, \verb|\qelse|, \verb|\qotherwise|, \verb|\qunless|, \verb|\qgiven|, \verb|\qusing|, \verb|\qassume|, \verb|\qsince|, \verb|\qlet| \\ \verb|\qfor|, \verb|\qall|, \verb|\qeven|, \verb|\qodd|, \verb|\qinteger|, \verb|\qand|, \verb|\qor|, \verb|\qas|, \verb|\qin| \\\hline
 \end{longtable}
 \subsection{Derivatives}
 The default differential symbol $\dd$ which is used in \verb|\differential| and \verb|\derivative| can be switched to an italic form $d$ by including the option \texttt{italicdiff} in the preamble:
 \begin{lstlisting}[language=TeX]
 \usepackage[italicdiff]{physics-patch}
 \end{lstlisting}
-\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
+\begin{longtable}[l]{ | p{6cm} | p{6cm} | p{6cm} | }
+\hline
 \verb|\differential| & \verb|\dd| $\rightarrow \dd$ & \\
 & \verb|\dd x| $\rightarrow \dd x$ & no spacing (not recommended) \\
 & \verb|\dd{x}| $\rightarrow$ \textvisiblespace\,$\dd{x}$\textvisiblespace & automatic spacing based on neighbors \\
 & \verb|\dd[3]{x}| $\rightarrow \dd[3]{x}$ & optional power \\
-& \verb|\dd(\cos\theta)| $\rightarrow \dd(\cos\theta)$ & long-form; automatic braces \\
+& \verb|\dd(\cos\theta)| $\rightarrow \dd(\cos\theta)$ & long-form; automatic braces \\\hline
 \verb|\PTderivative| & \verb|\PTdv{x}| $\displaystyle\rightarrow \PTdv{x}$ & one argument \\
 & \verb|\PTdv{f}{x}| $\displaystyle\rightarrow \PTdv{f}{x}$ & two arguments \\
 & \verb|\PTdv[n]{f}{x}| $\displaystyle\rightarrow \PTdv[n]{f}{x}$ & optional power \\
 & \verb|\PTdv{x}(\grande)| $\displaystyle\rightarrow \PTdv{x}(\grande)$ & long-form; automatic braces, spacing \\
-& \verb|\PTdv*{f}{x}| $\displaystyle\rightarrow \PTdv*{f}{x}$ & inline form using \verb|\flatfrac| \\
+& \verb|\PTdv*{f}{x}| $\displaystyle\rightarrow \PTdv*{f}{x}$ & inline form using \verb|\flatfrac| \\\hline
 \verb|\PTpartialderivative| or \verb|\PTpderivative| & \verb|\PTdv{f}{x}(\grande)| $\displaystyle\rightarrow \PTdv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\dv{f}{x}(\grande)| $\displaystyle\rightarrow \dv{f}{x}$\\
 & \verb|\PTpdv{x}| $\displaystyle\rightarrow \PTpdv{x}$ & shorthand name \\
 & \verb|\PTpdv{f}{x}| $\displaystyle\rightarrow \PTpdv{f}{x}$ & two arguments \\
@@ -258,13 +264,13 @@ The default differential symbol $\dd$ which is used in \verb|\differential| and 
 & \verb|\PTpdv{x}(\grande)| $\displaystyle\rightarrow \PTpdv{x}(\grande)$ & long-form \\
 & \verb|\PTpdv{f}{x}{y}| $\displaystyle\rightarrow \PTpdv{f}{x}{y}$ & mixed partial \\
 & \verb|\PTpdv*{f}{x}| $\displaystyle\rightarrow \PTpdv*{f}{x}$ & inline form using \verb|\flatfrac| \\
-& \verb|\PTpdv{f}{x}(\grande)| $\displaystyle\rightarrow \PTpdv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\pdv{f}{x}(\grande)| $\displaystyle\rightarrow \pdv{f}{x}$ \\
+& \verb|\PTpdv{f}{x}(\grande)| $\displaystyle\rightarrow \PTpdv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\pdv{f}{x}(\grande)| $\displaystyle\rightarrow \pdv{f}{x}$ \\\hline
 \verb|\variation| & \verb|\var{F[g(x)]}| $\rightarrow \var{F[g(x)]}$ & functional variation (works like \verb|\dd|) \\
-& \verb|\var(E-TS)| $\rightarrow \var(E-TS)$ & long-form \\
+& \verb|\var(E-TS)| $\rightarrow \var(E-TS)$ & long-form \\\hline
 \verb|\functionalderivative| & \verb|\fdv{g}| $\displaystyle\rightarrow \fdv{g}$ & functional derivative (works like \verb|\PTdv|) \\
 & \verb|\fdv{F}{g}| $\displaystyle\rightarrow \fdv{F}{g}$ & \\
 & \verb|\fdv{V}(E-TS)| $\displaystyle\rightarrow \fdv{V}(E-TS)$ & long-form \\
-& \verb|\fdv*{F}{x}| $\displaystyle\rightarrow \fdv*{F}{x}$ & inline form using \verb|\flatfrac|
+& \verb|\fdv*{F}{x}| $\displaystyle\rightarrow \fdv*{F}{x}$ & inline form using \verb|\flatfrac| \\\hline
 \end{longtable}
 \subsection{Dirac bra-ket notation}
 The following collection of macros for Dirac notation contains two fundamental commands, \verb|\bra| and \verb|\ket|, along with a set of more specialized macros which are essentially combinations of the fundamental pair. The fundamental commands are designed to contract with one another algebraically when appropriate and are thus suggested for general use. For instance, the following code renders correctly\footnote{Note the lack of a space between the bra and ket commands. This is necessary in order for the bra to find the corresponding ket and form a contraction.}
@@ -279,44 +285,44 @@ On the other hand, the correct output can be generated by sticking to the fundam
 \begin{displaymath}
 \verb|\bra{\phi}\ket{\psi}\bra{\xi}| \rightarrow \bra{\phi}\ket{\psi}\bra{\xi}
 \end{displaymath}
-allowing the user to type out complicated quantum mechanical expressions without worrying about bra-ket contractions. That being said, the high-level macros do have a place in convenience and readability, as long as the user is aware of rendering issues that may arise due to an absence of automatic contractions.
-\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
+allowing the user to type out complicated quantum mechanical expressions without worrying about bra-ket contractions. That being said, the high-level macros do have a place in convenience and readability, as long as the user is aware of rendering issues that may arise due to an absence of automatic contractions.\\
+\begin{longtable}[l]{ | p{6cm} | p{6cm} | p{6cm} | }
+\hline
 \verb|\ket| & \verb|\ket{\tall}| $\rightarrow \ket{\tall}$ & automatic sizing \\
-& \verb|\ket*{\tall}| $\rightarrow \ket*{\tall}$ & no resize \\
+& \verb|\ket*{\tall}| $\rightarrow \ket*{\tall}$ & no resize \\\hline
 \verb|\bra| & \verb|\bra{\tall}| $\rightarrow \bra{\tall}$ & automatic sizing \\
 & \verb|\bra*{\tall}| $\rightarrow \bra*{\tall}$ & no resize \\
 & \verb|\bra{\phi}\ket{\psi}| $\rightarrow \bra{\phi}\ket{\psi}$ & automatic contraction \\
 & \verb|\bra{\phi}\ket{\tall}| $\rightarrow \bra{\phi}\ket{\tall}$ & contraction inherits automatic sizing \\
 & \verb|\bra{\phi}\ket*{\tall}| $\rightarrow \bra{\phi}\ket*{\tall}$ & \multirow{2}{*}{\parbox{6cm}{a star on either term in the contraction prohibits resizing}} \\
 & \verb|\bra*{\phi}\ket{\tall}| $\rightarrow \bra*{\phi}\ket{\tall}$ & \\
-& \verb|\bra*{\phi}\ket*{\tall}| $\rightarrow \bra*{\phi}\ket*{\tall}$ & \\
+& \verb|\bra*{\phi}\ket*{\tall}| $\rightarrow \bra*{\phi}\ket*{\tall}$ & \\\hline
 \verb|\innerproduct| & $\verb|\braket{a}{b}| \rightarrow \braket{a}{b}$ & two-argument braket \\
 & \verb|\braket{a}| $\rightarrow \braket{a}$ & one-argument (norm) \\
 & \verb|\braket{a}{\tall}| $\rightarrow \braket{a}{\tall}$ & automatic sizing \\
 & \verb|\braket*{a}{\tall}| $\rightarrow \braket*{a}{\tall}$ & no resize \\
-& \verb|\ip{a}{b}| $\rightarrow \ip{a}{b}$ & shorthand name \\
+& \verb|\ip{a}{b}| $\rightarrow \ip{a}{b}$ & shorthand name \\\hline
 \verb|\outerproduct| & \verb|\dyad{a}{b}| $\rightarrow \dyad{a}{b}$ & two-argument dyad \\
 & \verb|\dyad{a}| $\rightarrow \dyad{a}$ & one-argument (projector) \\
 & \verb|\dyad{a}{\tall}| $\rightarrow \dyad{a}{\tall}$ & automatic sizing \\
 & \verb|\dyad*{a}{\tall}| $\rightarrow \dyad*{a}{\tall}$ & no resize \\
 & \verb|\ketbra{a}{b}| $\rightarrow \ketbra{a}{b}$ & alternative name \\
-& \verb|\op{a}{b}| $\rightarrow \op{a}{b}$ & shorthand name \\
+& \verb|\op{a}{b}| $\rightarrow \op{a}{b}$ & shorthand name \\\hline
 \verb|\expectationvalue| & \verb|\expval{A}| $\rightarrow \expval{A}$ & implicit form \\
 & \verb|\expval{A}{\Psi}| $\rightarrow \expval{A}{\Psi}$ & explicit form \\
 & \verb|\ev{A}{\Psi}| $\rightarrow \ev{A}{\Psi}$ & shorthand name \\
 & \verb|\ev{\grande}{\Psi}| $\rightarrow \ev{\grande}{\Psi}$ & default sizing ignores middle argument \\
 & \verb|\ev*{\grande}{\tall}| $\rightarrow \ev*{\grande}{\tall}$ & single star does no resizing whatsoever \\
-& \verb|\ev**{\grande}{\Psi}| $\rightarrow \ev**{\grande}{\Psi}$ & double star resizes based on all parts \\
+& \verb|\ev**{\grande}{\Psi}| $\rightarrow \ev**{\grande}{\Psi}$ & double star resizes based on all parts \\\hline
 \verb|\matrixelement| & \verb|\matrixel{n}{A}{m}| $\rightarrow \matrixel{n}{A}{m}$ & requires all three arguments \\
 & \verb|\mel{n}{A}{m}| $\rightarrow \mel{n}{A}{m}$ & shorthand name \\
 & \verb|\mel{n}{\grande}{m}| $\rightarrow \mel{n}{\grande}{m}$ & default sizing ignores middle argument \\
 & \verb|\mel*{n}{\grande}{\tall}| $\rightarrow \mel*{n}{\grande}{\tall}$ & single star does no resizing whatsoever \\
-& \verb|\mel**{n}{\grande}{m}| $\rightarrow \mel**{n}{\grande}{m}$ & double star resizes based on all parts
+& \verb|\mel**{n}{\grande}{m}| $\rightarrow \mel**{n}{\grande}{m}$ & double star resizes based on all parts \\\hline
 \end{longtable}
 \subsection{Matrix macros}
-{\fontsize{4pt}{6pt}\selectfont
 Note: \verb|\mqty| and \verb|\smqty| in \texttt{physics} uses \verb|\mathord|, while \verb|\PTmqty| and \verb|\PTsmqty| in \texttt{physics-patch} don't.\\\\
-The following matrix macros produce unformatted rows and columns of matrix elements for use as separate matrices as well as blocks within larger matrices. For example, the command \verb|\identitymatrix{2}| which has also has the shortcut \verb|\imat{2}| produces the elements of a $2 \times 2$ identity matrix $\PTsmqty{\imat{2}}$ without braces or grouping. This allows the command to also be used within another matrix, as in:
+The following matrix macros produce unformatted rows and columns of matrix elements for use as separate matrices as well as blocks within larger matrices. For example, the command \verb|\identitymatrix{2}| which has also has the shortcut \verb|\imat{2}| produces the elements of a $2 \times 2$ identity matrix $\PTsmqty{\imat{2}}$ without braces or grouping. This allows the command to also be used within another matrix, as in:\\
 \begin{minipage}{3cm}
 \begin{lstlisting}[language=TeX]
 \begin{pmatrix}
@@ -332,7 +338,7 @@ The following matrix macros produce unformatted rows and columns of matrix eleme
 \end{pmatrix}
 \end{displaymath}
 \end{minipage}
-To specify elements on the right of left sides of our \verb|\imat{2}| sub-matrix we use the grouping command \verb|\PTmatrixquantity| or \verb|\PTmqty| to effectively convert \verb|\imat{2}| into a single matrix element of a larger matrix:
+To specify elements on the right of left sides of our \verb|\imat{2}| sub-matrix we use the grouping command \verb|\PTmatrixquantity| or \verb|\PTmqty| to effectively convert \verb|\imat{2}| into a single matrix element of a larger matrix:\\
 \begin{minipage}{9cm}
 \begin{lstlisting}[language=TeX]
 \begin{pmatrix}
@@ -348,7 +354,7 @@ To specify elements on the right of left sides of our \verb|\imat{2}| sub-matrix
 \end{pmatrix}
 \end{displaymath}
 \end{minipage}
-The extra \verb|\PTmqty| groups were required in this case in order to get the $a$ and $b$ elements to behave as a single element, since \verb|\PTmqty{\imat{2}}| also acts like a single matrix element (the same can be said of the grouped $c$ and $d$ elements). Finally, the outermost \texttt{pmatrix} environment could have also been replaced with the \texttt{physics-patch} macro \verb|\PTmqty()|, allowing the above example to be written on one line:
+The extra \verb|\PTmqty| groups were required in this case in order to get the $a$ and $b$ elements to behave as a single element, since \verb|\PTmqty{\imat{2}}| also acts like a single matrix element (the same can be said of the grouped $c$ and $d$ elements). Finally, the outermost \texttt{pmatrix} environment could have also been replaced with the \texttt{physics-patch} macro \verb|\PTmqty()|, allowing the above example to be written on one line:\\
 \begin{minipage}{9cm}
 \begin{lstlisting}[language=TeX]
 \PTmqty(\PTmqty{\imat{2}} & \PTmqty{a\\b} \\ \PTmqty{c & d} & e)
@@ -360,7 +366,9 @@ The extra \verb|\PTmqty| groups were required in this case in order to get the $
 \PTmqty(\PTmqty{\imat{2}} & \PTmqty{a\\b} \\ \PTmqty{c & d} & e)
 \end{displaymath}
 \end{minipage}
-\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
+{\fontsize{8pt}{12pt}\selectfont\\
+\begin{longtable}[l]{ | p{6cm} | p{6cm} | p{6cm} | }
+\hline
 \verb|\PTmatrixquantity| & \verb|\PTmqty{a & b \\ c & d}| $\rightarrow \PTmqty{a & b \\ c & d}$ & groups a set of matrix elements into a single object \\
 & \verb|\PTmqty(a & b \\ c & d)| $\rightarrow {\PTmqty(a & b \\ c & d)}$ & parentheses \\
 & \verb|\PTmqty*(a & b \\ c & d)| $\rightarrow {\PTmqty*(a & b \\ c & d)}$ & alternate parentheses \\
@@ -372,16 +380,16 @@ The extra \verb|\PTmqty| groups were required in this case in order to get the $
 & \verb|\PTpmqty*{}| $\leftrightarrow$ \verb|\PTmqty*{}| & \\
 & \verb|\Pmqty{}| $\leftrightarrow$ \verb|\PTmqty*()| & \\
 & \verb|\bmqty{}| $\leftrightarrow$ \verb|\PTmqty[]| & \\
-& \verb|\vmqty{}| $\leftrightarrow$ \verb+\PTmqty||+ & \\
+& \verb|\vmqty{}| $\leftrightarrow$ \verb+\PTmqty||+ & \\\hline
 \verb|\PTsmallmatrixquantity| & \verb|\PTsmqty{a & b \\ c & d}| $\rightarrow \PTsmqty{a & b \\ c & d}$ & the \texttt{smallmatrix} form of \verb|\PTmqty| \\
 & \verb|\PTsmqty()| \qor \verb|\spmqty{}| \qor \verb|\PTspmqty{}| & small version of \verb|\PTmqty()| \\
 & \verb|\PTsmqty*()| \qor \verb|\sPmqty{}| \qor \verb|\PTspmqty*{}| & small version of \verb|\PTmqty*()|\\
 & \verb|\PTsmqty[]| \qor \verb|\sbmqty{}| & small version of \verb|\PTmqty[]| \\
-& \verb+\PTsmqty||+ \qor \verb|\svmqty{}| & small version of \verb+\PTmqty||+ \\
+& \verb+\PTsmqty||+ \qor \verb|\svmqty{}| & small version of \verb+\PTmqty||+ \\\hline
 \verb|\matrixdeterminant| & \verb|\mdet{a & b \\ c & d}| $\rightarrow {\mdet{a & b \\ c & d}}$ & matrix determinant \\
-& \verb|\smdet{a & b \\ c & d}| $\rightarrow {\smdet{a & b \\ c & d}}$ & small matrix determinant \\
+& \verb|\smdet{a & b \\ c & d}| $\rightarrow {\smdet{a & b \\ c & d}}$ & small matrix determinant \\\hline
 \verb|\identitymatrix| & \verb|\imat{n}| & elements of $n \times n$ identity matrix \\
-& \verb|\PTmqty(\imat{3})| $\rightarrow \PTmqty(\imat{3})$ & formatted with \verb|\PTmqty| or \verb|\PTsmqty| \\
+& \verb|\PTmqty(\imat{3})| $\rightarrow \PTmqty(\imat{3})$ & formatted with \verb|\PTmqty| or \verb|\PTsmqty| \\\hline
 \verb|\PTxmatrix| & \verb|\PTxmat{x}{n}{m}| & \multirow{4}{*}{\parbox{6cm}{elements of $n \times m$ matrix filled with $x$, if not provided, $1$ is used}} \\
 & \verb|\PTmqty(\PTxmat{x}{3}{3})| $\rightarrow \PTmqty(\PTxmat{x}{3}{3})$ & \\
 & \verb|\PTmqty(\PTxmat{x}{}{3})| $\rightarrow \PTmqty(\PTxmat{x}{}{3})$ & \\
@@ -409,62 +417,76 @@ The extra \verb|\PTmqty| groups were required in this case in order to get the $
 & \verb|\PTxmat[0 or 1 or 2]{x}{n}{m}[p][q]| & \multirow{4}{*}{\parbox{6cm}{Change the \texttt{\textbackslash vdots} row/\texttt{\textbackslash ldots} column from the second last one to last one, 0 for both, 1 for row only, 2 for column only. Only work when corresponding $p$/$q$ is provided and do not change the behavior of element indices}} \\
 & \verb|\PTmqty(\PTxmat[0]{x}{5}{5}[3][3])| $\rightarrow \PTmqty(\PTxmat[0]{x}{5}{5}[3][3])$ & \\
 & \verb|\PTmqty(\PTxmat[1]{x}{5}{5}[3][3])| $\rightarrow \PTmqty(\PTxmat[1]{x}{5}{5}[3][3])$ & \\
-& \verb|\PTmqty(\PTxmat[2]{x}{5}{5}[3][3])| $\rightarrow \PTmqty(\PTxmat[2]{x}{5}{5}[3][3])$ & \\
+& \verb|\PTmqty(\PTxmat[2]{x}{5}{5}[3][3])| $\rightarrow \PTmqty(\PTxmat[2]{x}{5}{5}[3][3])$ & \\\hline
 \verb|\zeromatrix| & \verb|\zmat{n}{m}| & \multirow{3}{*}{\parbox{6cm}{$n \times m$ matrix filled with zeros, equivalent to \texttt{\textbackslash xmat\{0\}\{n\}\{m\}}. If $m$ isn't provided, $n$ is used}} \\
 & \verb|\PTmqty(\zmat{2}{2})| $\rightarrow \PTmqty(\zmat{2}{2})$ & \\
-& \verb|\PTmqty(\zmat{2})| $\rightarrow \PTmqty(\zmat{2})$ & \\
+& \verb|\PTmqty(\zmat{2})| $\rightarrow \PTmqty(\zmat{2})$ & \\\hline
 \verb|\paulimatrix| & \verb|\pmat{n}| & $n^\text{th}$ Pauli matrix \\
 & \verb|\PTmqty(\pmat{0})| $\rightarrow \PTmqty(\pmat{0})$ & $n\in \lbrace 0,1,2,3$ or $x,y,z \rbrace$ \\
 & \verb|\PTmqty(\pmat{1})| $\rightarrow \PTmqty(\pmat{1})$ & \\
 & \verb|\PTmqty(\pmat{2})| $\rightarrow \PTmqty(\pmat{2})$ & \\
-& \verb|\PTmqty(\pmat{3})| $\rightarrow \PTmqty(\pmat{3})$ & \\
+& \verb|\PTmqty(\pmat{3})| $\rightarrow \PTmqty(\pmat{3})$ & \\\hline
 \verb|\diagonalmatrix| & \verb|\dmat{a,b,c,...}| & \multirow{2}{*}{\parbox{6cm}{specify up to eight diagonal or block diagonal elements}} \\
 & \verb|\PTmqty(\dmat{1,2,3})| $\rightarrow \PTmqty(\dmat{1,2,3})$ & \\
 & \verb|\PTmqty(\dmat[0]{1,2})| $\rightarrow \PTmqty(\dmat[0]{1,2})$ & optional argument to fill spaces \\
-& \verb|\PTmqty(\dmat{1,2&3\\4&5})| $\rightarrow \PTmqty(\dmat{1,2&3\\4&5})$ & enter matrix elements for each block as a single diagonal element \\
+& \verb|\PTmqty(\dmat{1,2&3\\4&5})| $\rightarrow \PTmqty(\dmat{1,2&3\\4&5})$ & enter matrix elements for each block as a single diagonal element \\\hline
 \verb|\antidiagonalmatrix| & \verb|\admat{a,b,c,...}| & same as syntax as \verb|\dmat| \\
-& \verb|\PTmqty(\admat{1,2,3})| $\rightarrow \PTmqty(\admat{1,2,3})$ & \\
+& \verb|\PTmqty(\admat{1,2,3})| $\rightarrow \PTmqty(\admat{1,2,3})$ & \\\hline
 \end{longtable}
 }
 \subsection{Symbols}
-\begin{longtable}[l]{ p{8cm} l p{8cm} }
-\verb|\lparen| $\rightarrow ($ &\\
-\verb|\rparen| $\rightarrow )$ &\\
-\verb|\ordersymbol| $\rightarrow \ordersymbol$ & \\
-\verb|\typical| $\rightarrow \typical$ & \\
-\verb|\tall| $\rightarrow \tall$ & \\
-\verb|\grande| $\rightarrow \grande$ & \\
-\verb|\venti| $\rightarrow \venti$ & \\
-\verb|\Vtextvisiblespace[width]| $\rightarrow$ \Vtextvisiblespace & a visible space character, where the optional argument (defaulting to \texttt{.3em}) sets the width of the horizontal rule \\
-\verb|\rmA|$\rightarrow$\verb|\relax\ifmmode\mathrm{A}\else\text{\(\mathrm{A}\)}\fi| & defined for A-Z, a-z, and all symbols of chemical elements \\
-\verb|\txA|$\rightarrow$\verb|\textnormal{A}| & defined for A-Z and a-z \\
-\verb|\calE|$\rightarrow$\verb|\mathcal{E}| & \\
-\verb|\bbR|$\rightarrow$\verb|\mathbb{R}| & \\
-\verb|\bbC|$\rightarrow$\verb|\mathbb{C}| & \\
-\verb|\bbQ|$\rightarrow$\verb|\mathbb{Q}| & \\
-\verb|\bbN|$\rightarrow$\verb|\mathbb{N}| & \\
-\verb|\bbZ|$\rightarrow$\verb|\mathbb{Z}| & 
+\begin{center}\begin{tabular}{ | p{6cm} | p{6cm} | }
+\hline
+\verb|\lparen| $\rightarrow\; ($ &\\\hline
+\verb|\rparen| $\rightarrow\; )$ &\\\hline
+\verb|\ordersymbol| $\rightarrow \ordersymbol$ & \\\hline
+\verb|\typical| $\rightarrow \typical$ & \\\hline
+\verb|\tall| $\rightarrow \tall$ & \\\hline
+\verb|\grande| $\rightarrow \grande$ & \\\hline
+\verb|\venti| $\rightarrow \venti$ & \\\hline
+\verb|\calE|$\rightarrow$\verb|\mathcal{E}| & \\\hline
+\verb|\bbR|$\rightarrow$\verb|\mathbb{R}| & \\\hline
+\verb|\bbC|$\rightarrow$\verb|\mathbb{C}| & \\\hline
+\verb|\bbQ|$\rightarrow$\verb|\mathbb{Q}| & \\\hline
+\verb|\bbN|$\rightarrow$\verb|\mathbb{N}| & \\\hline
+\verb|\bbZ|$\rightarrow$\verb|\mathbb{Z}| & \\\hline
+\verb|\Vtextvisiblespace[width]| $\rightarrow$ \Vtextvisiblespace & \parbox{6cm}{a visible space character, where the optional argument, defaulting to \texttt{.3em}, sets the width of the horizontal rule}\\\hline
+\end{tabular}\end{center}
+\subsection{Shorthands for Greek alphabet}
+If option \texttt{shortgreek} is used, the following shorthands will be defined for every uppercase and lowercase Greek letter:\\
+\begin{center}\begin{tabular}{ | p{6cm} | p{10cm} | }
+\hline
+\verb|\tgAlpha| $\rightarrow$ \verb|\text{\textAlpha}}| & accept an optional argument argument in \texttt{\{\}} that is simply skipped \\\hline
+\verb|\vAlpha| $\rightarrow$ \verb|\varAlpha| & \\\hline
+\verb|\uAlpha| $\rightarrow$ \verb|\upAlpha| & \\\hline
+\verb|\uvAlpha| $\rightarrow$ \verb|\upvarAlpha| & \\\hline
+\end{tabular}\end{center}
+Note that these don’t ensure those commands are defined.
+\subsection{Shorthands for mathrm alphabet and chemical element symbols}
+If option \texttt{shortmathrm} is used, the following shorthands will be defined for every uppercase and lowercase English letter and every chemical element symbols (\verb|A\verb| for example):\\
+\begin{longtable}[l]{ | p{6cm} | p{6cm} | }
+\hline
+\verb|\rmA_a^b| $\rightarrow\mathrm{A}_a^b$ & work in both math mode and text mode
+\\\hline
 \end{longtable}
-\subsection{Shorthands for Greek letters}
-If option \texttt{shortgreek} is used, the following shorthands will be defined for every Greeks letter:
+which are implemented with:
 \begin{lstlisting}[language=TeX]
-\DeclareDocumentCommand{\tgAlpha}{O{}}{\text{\textAlpha}}
-\DeclareDocumentCommand{\tgalpha}{O{}}{\text{\textalpha}}
-\DeclareDocumentCommand{\vAlpha}{}{\varAlpha}
-\DeclareDocumentCommand{\valpha}{}{\varalpha}
-\DeclareDocumentCommand{\uAlpha}{}{\upAlpha}
-\DeclareDocumentCommand{\ualpha}{}{\upalpha}
-\DeclareDocumentCommand{\uvAlpha}{}{\upvarAlpha}
-\DeclareDocumentCommand{\uvalpha}{}{\upvaralpha}
+\DeclareDocumentCommand{\rmA}{e{_^}}{\ensuremath{\mathrm{A}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
 \end{lstlisting}
-\subsection{Others}
-\begin{longtable}[l]{ p{6cm} l p{6cm} l p{6cm} }
-\verb|\autommode| & \verb|\amm{content}| & \verb|\relax\ifmmode #1\else\(#1\)\fi| \\
-\verb|\mathcolorbox| & \verb|\mcbox{color}{content}| & \multirow{2}{*}{\parbox{6cm}{\texttt{\textbackslash colorbox} for math environment, applying to all four levels of math styles}} \\
-& \verb|\mcbox{cyan}{\phantom{A}}| $\rightarrow \mcbox{cyan}{\phantom{A}}$ & \\
-\verb|\autocolorbox| or \verb|\acbox| & \verb|\cbox{color}{content}| & samw as \verb|\colorbox| in text environment, same as \verb|\mathcolorbox| in math environment \\
-\verb|\tentothepowerof| & \verb|\tenpow{n}| $\rightarrow \tenpow{n}$ & work in both math mode and text mode \\
-\verb|\scientificnotation| & \verb|\scinote{3.00}{8}| $\rightarrow \scinote{3.00}{8}$ & \parbox{6cm}{work in both math mode and text mode}
+\subsection{Shorthands for textnormal alphabet}
+If option \texttt{shorttext} is used, the following shorthands will be defined for every uppercase and lowercase English letter (\verb|A\verb| for example):\\
+\begin{longtable}{| l |}
+\hline
+\verb|\txA| $\rightarrow$ \verb|\textnormal{A}|
+\\\hline
 \end{longtable}
-}
+\subsection{Others}
+\begin{longtable}[l]{ | p{6cm} | p{6cm} | p{6cm} | }
+\hline
+\verb|\mathcolorbox| & \verb|\mcbox{color}{content}| & \multirow{2}{*}{\parbox{6cm}{\texttt{\textbackslash colorbox} for math environment, applying to all four levels of math styles}} \\
+& \verb|\mcbox{cyan}{\phantom{A}}| $\rightarrow \mcbox{cyan}{\phantom{A}}$ & \\\hline
+\verb|\autocolorbox| or \verb|\acbox| & \verb|\cbox{color}{content}| & calls \verb|\colorbox| when in text mode, calls \verb|\mathcolorbox| when in math mode \\\hline
+\verb|\tentothepowerof| & \verb|\tenpow{n}| $\rightarrow \tenpow{n}$ & work in both math mode and text mode \\\hline
+\verb|\scientificnotation| & \verb|\scinote{3.00}{8}| $\rightarrow \scinote{3.00}{8}$ & work in both math mode and text mode\\\hline
+\end{longtable}
 \end{document}
