@@ -6,6 +6,8 @@
 \setmainfont{TeX Gyre Termes}[Ligatures=TeX]
 \setsansfont{TeX Gyre Heros}[Ligatures=TeX]
 \setmonofont{TeX Gyre Cursor}[Ligatures=TeX]
+\usepackage{unicode-math}
+\setmathfont{XITS Math}\setmathfont[range={cal,bfcal},StylisticSet=1]{XITS Math}
 \everymath{\displaystyle}
 \everydisplay{\displaystyle}
 \newcolumntype{M}{>{$\displaystyle}c<{$}}
@@ -42,7 +44,7 @@ breakatwhitespace=false
 }
 \title{The \texttt{physics-patch} package\\\mbox{}\\\textnormal{\large Improved version of the physics package}}
 \author{\mbox{}\\Willie Shen (Willie169)}
-\date{Version 2.1\\\textnormal{Last update: Feb. 16, 2025}}
+\date{Version 2.2\\\textnormal{Last update: Feb. 16, 2025}}
 \begin{document}
 \onehalfspacing\thispagestyle{empty}\Needspace{1\textheight}\maketitle\setcounter{page}{1}\Needspace{1\textheight}\tableofcontents\Needspace{1\textheight}\setcounter{page}{1}
 \section{Preface}
@@ -423,8 +425,9 @@ The extra \verb|\PTmqty| groups were required in this case in order to get the $
 \verb|\antidiagonalmatrix| & \verb|\admat{a,b,c,...}| & same as syntax as \verb|\dmat| \\
 & \verb|\PTmqty(\admat{1,2,3})| $\rightarrow \PTmqty(\admat{1,2,3})$ & \\
 \end{longtable}
+}
 \subsection{Symbols}
-\begin{longtable}[l]{ p{0.5\textwidth} l p{0.5\textwidth} }
+\begin{longtable}[l]{ p{8cm} l p{8cm} }
 \verb|\lparen| $\rightarrow ($ &\\
 \verb|\rparen| $\rightarrow )$ &\\
 \verb|\ordersymbol| $\rightarrow \ordersymbol$ & \\
@@ -432,9 +435,16 @@ The extra \verb|\PTmqty| groups were required in this case in order to get the $
 \verb|\tall| $\rightarrow \tall$ & \\
 \verb|\grande| $\rightarrow \grande$ & \\
 \verb|\venti| $\rightarrow \venti$ & \\
-\verb|\Vtextvisiblespace[width]| $\rightarrow$ \Vtextvisiblespace & a visible space character, where the optional argument (defaulting to \texttt{.3em}) sets the width of the horizontal rule
+\verb|\Vtextvisiblespace[width]| $\rightarrow$ \Vtextvisiblespace & a visible space character, where the optional argument (defaulting to \texttt{.3em}) sets the width of the horizontal rule \\
+\verb|\rmA|$\rightarrow$\verb|\relax\ifmmode\mathrm{A}\else\text{\(\mathrm{A}\)}\fi| & defined for A-Z, a-z, and all symbols of chemical elements \\
+\verb|\txA|$\rightarrow$\verb|\textnormal{A}| & defined for A-Z and a-z \\
+\verb|\calE|$\rightarrow$\verb|\mathcal{E}| & \\
+\verb|\bbR|$\rightarrow$\verb|\mathbb{R}| & \\
+\verb|\bbC|$\rightarrow$\verb|\mathbb{C}| & \\
+\verb|\bbQ|$\rightarrow$\verb|\mathbb{Q}| & \\
+\verb|\bbN|$\rightarrow$\verb|\mathbb{N}| & \\
+\verb|\bbZ|$\rightarrow$\verb|\mathbb{Z}| & 
 \end{longtable}
-}
 \subsection{Shorthands for Greek letters}
 If option \texttt{shortgreek} is used, the following shorthands will be defined for every Greeks letter:
 \begin{lstlisting}[language=TeX]

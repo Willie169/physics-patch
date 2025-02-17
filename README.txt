@@ -1,4 +1,4 @@
-physics-patch 2.1
+physics-patch 2.2
 
 Improved version of the physics package
 
