@@ -1,5 +1,5 @@
 \ProvidesPackage{physics-patch}
-% physics-patch 2.4
+% physics-patch 2.5
 %
 % Improved version of the physics package
 %
@@ -17,7 +17,7 @@
 %
 % Author: Willie Shen (Willie169)
 % Repository: https://github.com/Willie169/physics-patch
-% Last update: Feb 17, 2025
+% Last update: Feb 26, 2025
 %
 % For documentation, see physics-patch.pdf
 
@@ -483,7 +483,7 @@
 \DeclareDocumentCommand{\txz}{}{\textnormal{z}}
 \fi
 
-% Others
+% Utilities
 \DeclareDocumentCommand{\mathcolorbox}{ m m }{
   \begingroup
   \setlength{\fboxsep}{0pt}
@@ -504,6 +504,8 @@
 \DeclareDocumentCommand\tenpow{}{\tentothepowerof}
 \DeclareDocumentCommand{\scientificnotation}{m m}{\ensuremath{#1\times 10^{#2}}}
 \DeclareDocumentCommand\scinote{}{\scientificnotation}
+\ProvideDocumentCommand\TextCircled{m}{\text{\raisebox{.6pt}{\textcircled{\raisebox{-.9pt}{#1}}}}}
+\ProvideDocumentCommand\tc{m}{\TextCircled{#1}}
 
 % Symbols
 \DeclareDocumentCommand\lparen{}{(} % Left parenthesis
@@ -514,7 +516,7 @@
 \DeclareDocumentCommand{\grande}{}{\cbox{cyan}{\phantom{\frac{1}{xx}}}}
 \DeclareDocumentCommand{\venti}{}{\cbox{cyan}{\phantom{\sum_x^x}}}
 \DeclareDocumentCommand\Vtextvisiblespace{O{.3em}}{\mbox{\kern.06em\vrule height.3ex}\vbox{\hrule width#1}\hbox{\vrule height.3ex}}
-
+\ProvideDocumentCommand{\parallelsum}{}{\mathbin{\!/\mkern-5mu/\!}}
 \DeclareDocumentCommand{\calE}{}{\mathcal{E}}
 \DeclareDocumentCommand{\bbR}{}{\mathbb{R}}
 \DeclareDocumentCommand{\bbC}{}{\mathbb{C}}
