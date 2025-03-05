@@ -1,4 +1,4 @@
-physics-patch 2.5
+physics-patch 2.6
 
 Improved version of the physics package
 
@@ -16,6 +16,6 @@ If siuitx is loaded before this package, this package will define \ITquantity an
 
 Author: Willie Shen (Willie169)
 Repository: https://github.com/Willie169/physics-patch
-Last update: Feb 26, 2025
+Last update: Mar 5, 2025
 
 For documentation, see physics-patch.pdf

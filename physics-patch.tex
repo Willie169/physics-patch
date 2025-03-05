@@ -1,7 +1,7 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage[margin=1.27cm,foot=0.77cm]{geometry}
-\usepackage{amsmath,amssymb,array,etoolbox,fontspec,longtable,listings,multirow,needspace,parskip,setspace,titling,xcolor,xparse,xstring}
-\usepackage{physics-patch}
+\usepackage{amsmath,amssymb,array,etoolbox,fontspec,longtable,listings,multirow,needspace,parskip,setspace,verbatim,titling,xcolor,xparse,xstring}
+\usepackage[shortgreek,shortmathrm,shorttext]{physics-patch}
 \usepackage[colorlinks,urlcolor=blue]{hyperref}
 \setmainfont{TeX Gyre Termes}[Ligatures=TeX]
 \setsansfont{TeX Gyre Heros}[Ligatures=TeX]
@@ -46,14 +46,19 @@ breakatwhitespace=false
 }
 \title{The \texttt{physics-patch} package\\\mbox{}\\\textnormal{\large Improved version of the physics package}}
 \author{\mbox{}\\Willie Shen (Willie169)}
-\date{Version 2.5\\\textnormal{Last update: Feb. 26, 2025}}
+\date{Version 2.6\\\textnormal{Last update: Mar. 5, 2025}}
 \begin{document}
 \onehalfspacing\thispagestyle{empty}\Needspace{1\textheight}\maketitle\setcounter{page}{1}\Needspace{1\textheight}\tableofcontents\Needspace{1\textheight}\setcounter{page}{1}
 \section{Preface}
-Since version 2.0, the \texttt{physics-patch} package has evolved from merely patching the \texttt{physics} package to fully replacing it, covering all its commands. While preserving the original goal—simplifying mathematical and physics typesetting for greater readability and efficiency—this package refines the design by addressing unconventional behaviors, extending commands, and introducing additional macros.\\\\
-Like the original, this package provides commands with intuitive names and well-defined shorthands, ensuring both clarity and ease of recall.\\\\
-This package resolved the unintuitive definitions and behaviors in \texttt{physics} without changing the command names and intended behaviors. For instance, in the original package, suffix parentheses and their contents in expressions like \verb|\dv{f}{x}(\typical)| are ignored.\\\\
-Beyond refining existing functionality, this package extends commands for broader applicability—such as enabling \verb|\xmat| to support ellipses—and introduces entirely new macros, such as \verb|\omat|.
+Since version 2.0, the \texttt{physics-patch} package has evolved from merely patching the \texttt{physics} package to fully replacing it, covering all its commands. While preserving the original goal—simplifying mathematical and physics typesetting for greater readability and efficiency—this package refines the design by addressing unconventional behaviors, extending commands, and introducing additional macros.
+
+Like the original, this package provides commands with intuitive names and well-defined shorthands, ensuring both clarity and ease of recall.
+
+This package resolved the unintuitive definitions and behaviors in \texttt{physics} without changing the command names and intended behaviors. For instance, in the original package, parentheses and their contents after \ifmmode MATH\else TEXT\fi
+\newpage
+\verb|\dv{f}{x}| are ignored.
+
+Beyond refining existing functionality, this package extends commands for broader applicability such as enabling \verb|\xmat| to support ellipses and introduces entirely new macros such as \verb|\omat|.
 \section{Usage}
 \subsection{Required packages}
 The \texttt{physics-patch} package requires \texttt{amsmath}, \texttt{etoolbox}, \texttt{xcolor}, \texttt{xparse}, and \texttt{xstring} package to work properly in your \LaTeX~document. If you are unsure whether you've had them installed, you can either install it again using your local package manager (comes with most distributions) or by visiting the \href{http://www.ctan.org}{CTAN} online package database, or even just try to use \texttt{physics-patch} package without worrying about it. Many modern \LaTeX compilers will locate and offer to download missing required packages for you.
@@ -83,18 +88,21 @@ content...
 \section{License and Credit}
 \begin{itemize}
 \item
-This package is released under the \textbf{LaTeX Project Public License (LPPL) 1.3c.}\\
+This package is released under the \textbf{LaTeX Project Public License (LPPL) 1.3c.}
+
 See \href{https://www.latex-project.org/lppl/lppl-1-3c}{https://www.latex-project.org/lppl/lppl-1-3c} for the details of that license.
-\item Many parts of this package are modified from the \texttt{physics} package, created by \textbf{Sergio C. de la Barrera} and licenced under \textbf{LPPL 1.3}.\\
+\item Many parts of this package are modified from the \texttt{physics} package, created by \textbf{Sergio C. de la Barrera} and licenced under \textbf{LPPL 1.3}.
+
 See \href{https://ctan.org/pkg/physics}{https://ctan.org/pkg/physics} for the details of that package.
 \end{itemize}
 \section{List of Commands}
-In the commands listed below, the left column is long-form names with non-default alternate names (if any), the middle column is default shorthand commands with detailed syntaxes and explanations.\\
+In the commands listed below, the left column is long-form names with non-default alternate names (if any), the middle column is default shorthand commands with detailed syntaxes and explanations.
+
 Commands that have different definitions come with \texttt{PT} in the beginning of their name (e.g. \verb|\PTmqty|). If \texttt{nooverride} is not used or the \texttt{physics} package is not loaded before this package, the commands without \texttt{PT} will be silent overriden to be the same as the ones with \texttt{PT}.
 \subsection{Automatic bracing}
 \begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
 \hline
-\verb|\PTquantity| or \verb|\PHquantity| or \verb|\PHqty| & \verb|\PTqty(\typical)| $\displaystyle\rightarrow \PTqty(\typical)$ & automatic $\PTqty(\;)$ braces \\
+\verb|\PTquantity|, \verb|\PHquantity| or \verb|\PHqty| & \verb|\PTqty(\typical)| $\displaystyle\rightarrow \PTqty(\typical)$ & automatic $\PTqty(\;)$ braces \\
 & \verb|\PTqty(\tall)| $\displaystyle\rightarrow \PTqty(\tall)$ & \\
 & \verb|\PTqty(\grande)| $\displaystyle\rightarrow \PTqty(\grande)$ & \\
 & \verb|\PTqty[\typical]| $\rightarrow \PTqty[\typical]$ & automatic $\PTqty[\;]$ braces \\
@@ -212,13 +220,51 @@ Similar behavior has also been extended to the following functions:\\
 \begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
 \hline
 \multicolumn{3}{|l|}{New operators:} \\\hline
-\verb|\trace| or \verb|\tr| & \verb|\tr\rho| $\rightarrow \tr\rho$ also \verb|\tr(\tall)| $\rightarrow \tr(\tall)$  & trace; same bracing as trig functions \\\hline
-\verb|\Trace| or \verb|\Tr| & \verb|\Tr\rho| $\rightarrow \Tr\rho$ & alternate \\\hline
+\verb|\tr| & \verb|\tr\rho| $\rightarrow \tr\rho$ also \verb|\tr(\tall)| $\rightarrow \tr(\tall)$  & trace; same bracing as trig functions \\\hline
+\verb|\Tr| & \verb|\Tr\rho| $\rightarrow \Tr\rho$ & alternate \\\hline
 \verb|\rank| & \verb|\rank M| $\rightarrow \rank M$ & matrix rank \\\hline
-\verb|\erf| & \verb|\erf(x)|$\rightarrow \erf(x)$ & Gauss error function \\\hline
+\verb|\erf| & \verb|\erf(x)|$\rightarrow \erf(x)$ & error function \\\hline
 \verb|\Res| & \verb|\Res[f(z)]|$\rightarrow \Res[f(z)]$ & \parbox{6cm}{residue; same bracing as trig functions} \\\hline
+\verb|\Arg| & \verb|\Arg(z)|$\rightarrow\Arg(z)$ & principal argument \\\hline
+\verb|acosh| & \verb|\acosh(\pi)| $\rightarrow\acosh(\pi)$ & acosh \\\hline
+\verb|acsch| & \verb|\acsch(\pi)| $\rightarrow\acsch(\pi)$ & acsch \\\hline
+\verb|arccosh| & \verb|\arccosh(\pi)| $\rightarrow\arccosh(\pi)$ & arccosh \\\hline
+\verb|arccsch| & \verb|\arccsch(\pi)| $\rightarrow\arccsch(\pi)$ & arccsch \\\hline
+\verb|arcsech| & \verb|\arcsech(\pi)| $\rightarrow\arcsech(\pi)$ & arcsech \\\hline
+\verb|arcsinh| & \verb|\arcsinh(\pi)| $\rightarrow\arcsinh(\pi)$ & arcsinh \\\hline
+\verb|arctanh| & \verb|\arctanh(\pi)| $\rightarrow\arctanh(\pi)$ & arctanh \\\hline
+\verb|arctantwo| & \verb|\arctantwo(\pi)| $\rightarrow\arctantwo(\pi)$ & arctan2 \\\hline
+\verb|asech| & \verb|\asech(\pi)| $\rightarrow\asech(\pi)$ & asech \\\hline
+\verb|asinh| & \verb|\asinh(\pi)| $\rightarrow\asinh(\pi)$ & asinh \\\hline
+\verb|atanh| & \verb|\atanh(\pi)| $\rightarrow\atanh(\pi)$ & atanh \\\hline
+\verb|atantwo| & \verb|\atantwo(\pi)| $\rightarrow\atantwo(\pi)$ & atan2 \\\hline
+\verb|closure| & \verb|\closure(A)| $\rightarrow\closure(A)$ & closure \\\hline
+\verb|col| & \verb|\col(\mathbf{A})| $\rightarrow\col(\mathbf{A})$ & column space \\\hline
+\verb|row| & \verb|\row(\mathbf{A})| $\rightarrow\row(\mathbf{A})$ & row space \\\hline
+\verb|ker| & \verb|\ker(\mathbf{A})| $\rightarrow\ker(\mathbf{A})$ & kernel \\\hline
+\verb|SD| & \verb|\SD(X)| $\rightarrow\SD(X)$ & standard deviation \\\hline
+\verb|Var| & \verb|\Var(X)| $\rightarrow\Var(X)$ & variation \\\hline
+\verb|Mode| & \verb|\Mode(X)| $\rightarrow\Mode(X)$ & mode \\\hline
+\verb|Median| & \verb|\Median(X)| $\rightarrow\Median(X)$ & median \\\hline
+\verb|gcd| & \verb|\gcd(X)| $\rightarrow\gcd(X)$ & lowercase greatest common divisor \\\hline
+\verb|lcm| & \verb|\lcm(X)| $\rightarrow\lcm(X)$ & lowercase lowest common multiple \\\hline
+\verb|GCD| & \verb|\GCD(X)| $\rightarrow\GCD(X)$ & uppercase greatest common divisor \\\hline
+\verb|LCM| & \verb|\LCM(X)| $\rightarrow\LCM(X)$ & uppercase lowest common multiple \\\hline
+\verb|UnitVector| & \verb|\UnitVector(\mathbf{r})| $\rightarrow\UnitVector(\mathbf{r})$ & unit vector \\\hline
 \verb|\principalvalue| & \verb|\pv{\int f(z) \dd{z}}|$\rightarrow \pv{\int f(z) \dd{z}}$ & Cauchy principal value \\
 & \verb|\PV{\int f(z) \dd{z}}|$\rightarrow \PV{\int f(z) \dd{z}}$ & alternate \\\hline
+\end{longtable}
+\subsection{Utilities}
+\begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
+\hline
+\verb|\mathcolorbox| & \verb|\mcbox{color}{content}| & \multirow{2}{*}{\parbox{6cm}{\texttt{\textbackslash colorbox} for math environment, applying to all four levels of math styles}} \\
+& \verb|\mcbox{cyan}{\typical}| $\rightarrow \mcbox{cyan}{\typical}$ & \\\hline
+\verb|\autocolorbox| or \verb|\acbox| & \verb|\cbox{color}{content}| & calls \verb|\colorbox| when in text mode, calls \verb|\mathcolorbox| when in math mode \\\hline
+\verb|\tentothepowerof| & \verb|\tenpow{n}| $\rightarrow \tenpow{n}$ & work in both math mode and text mode \\\hline
+\verb|\scientificnotation| & \verb|\scinote{3.00}{8}| $\rightarrow \scinote{3.00}{8}$ & work in both math mode and text mode\\\hline
+\verb|\TextCircled| & \verb|\tc{A}| $\rightarrow$ \tc{A} & patched \verb|\textcircled| \\\hline
+\verb|\RNum| & \verb|\RNum{1}| $\rightarrow$ \RNum{1} & uppercase roman numeral\\\hline
+\verb|\flatfrac| & \verb|\flatfrac{a}{b}| $\rightarrow\flatfrac{a}{b}$ & flat fraction\\\hline
 \end{longtable}
 \subsection{Quick quad text}
 This set of commands produces text in math-mode padded by \verb|\quad| spacing on either side. This is meant to provide a quick way to insert simple words or phrases in a sequence of equations. Each of the following commands includes a starred version which pads the text only on the right side with \verb|\quad| for use in aligned environments such as \texttt{cases}.\\
@@ -322,7 +368,8 @@ allowing the user to type out complicated quantum mechanical expressions without
 & \verb|\mel**{n}{\grande}{m}| $\rightarrow \mel**{n}{\grande}{m}$ & double star resizes based on all parts \\\hline
 \end{longtable}
 \subsection{Matrix macros}
-Note: \verb|\mqty| and \verb|\smqty| in \texttt{physics} uses \verb|\mathord|, while \verb|\PTmqty| and \verb|\PTsmqty| in \texttt{physics-patch} don't.\\\\
+Note: \verb|\mqty| and \verb|\smqty| in \texttt{physics} uses \verb|\mathord|, while \verb|\PTmqty| and \verb|\PTsmqty| in \texttt{physics-patch} don't.
+
 The following matrix macros produce unformatted rows and columns of matrix elements for use as separate matrices as well as blocks within larger matrices. For example, the command \verb|\identitymatrix{2}| which has also has the shortcut \verb|\imat{2}| produces the elements of a $2 \times 2$ identity matrix $\PTsmqty{\imat{2}}$ without braces or grouping. This allows the command to also be used within another matrix, as in:\\
 \begin{minipage}{3cm}
 \begin{lstlisting}[language=TeX]
@@ -481,15 +528,5 @@ If option \texttt{shorttext} is used, the following shorthands will be defined f
 \hline
 \verb|\txA| $\rightarrow$ \verb|\textnormal{A}|
 \\\hline
-\end{longtable}
-\subsection{Utilities}
-\begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
-\hline
-\verb|\mathcolorbox| & \verb|\mcbox{color}{content}| & \multirow{2}{*}{\parbox{6cm}{\texttt{\textbackslash colorbox} for math environment, applying to all four levels of math styles}} \\
-& \verb|\mcbox{cyan}{\typical}| $\rightarrow \mcbox{cyan}{\typical}$ & \\\hline
-\verb|\autocolorbox| or \verb|\acbox| & \verb|\cbox{color}{content}| & calls \verb|\colorbox| when in text mode, calls \verb|\mathcolorbox| when in math mode \\\hline
-\verb|\tentothepowerof| & \verb|\tenpow{n}| $\rightarrow \tenpow{n}$ & work in both math mode and text mode \\\hline
-\verb|\scientificnotation| & \verb|\scinote{3.00}{8}| $\rightarrow \scinote{3.00}{8}$ & work in both math mode and text mode\\\hline
-\verb|\TextCircled| & \verb|\tc{A}| $\rightarrow$ \tc{A} & patched \verb|\textcircled| \\\hline
 \end{longtable}
 \end{document}

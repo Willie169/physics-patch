@@ -1,5 +1,5 @@
-\ProvidesPackage{physics-patch}
-% physics-patch 2.5
+\ProvidesPackage{physics-patch}[2025/03/05 Version 2.6 Improved version of the physics package]
+% physics-patch 2.6
 %
 % Improved version of the physics package
 %
@@ -17,7 +17,7 @@
 %
 % Author: Willie Shen (Willie169)
 % Repository: https://github.com/Willie169/physics-patch
-% Last update: Feb 26, 2025
+% Last update: Mar 5, 2025
 %
 % For documentation, see physics-patch.pdf
 
@@ -504,8 +504,10 @@
 \DeclareDocumentCommand\tenpow{}{\tentothepowerof}
 \DeclareDocumentCommand{\scientificnotation}{m m}{\ensuremath{#1\times 10^{#2}}}
 \DeclareDocumentCommand\scinote{}{\scientificnotation}
-\ProvideDocumentCommand\TextCircled{m}{\text{\raisebox{.6pt}{\textcircled{\raisebox{-.9pt}{#1}}}}}
-\ProvideDocumentCommand\tc{m}{\TextCircled{#1}}
+\DeclareDocumentCommand\TextCircled{m}{\text{\raisebox{.6pt}{\textcircled{\raisebox{-.9pt}{#1}}}}}
+\DeclareDocumentCommand\tc{m}{\TextCircled{#1}}
+\DeclareDocumentCommand{\RNum}{m}{\uppercase\expandafter{\romannumeral #1\relax}}
+\DeclareDocumentCommand\flatfrac{ m m }{\left.#1\middle\slash#2\right.}
 
 % Symbols
 \DeclareDocumentCommand\lparen{}{(} % Left parenthesis
@@ -516,7 +518,7 @@
 \DeclareDocumentCommand{\grande}{}{\cbox{cyan}{\phantom{\frac{1}{xx}}}}
 \DeclareDocumentCommand{\venti}{}{\cbox{cyan}{\phantom{\sum_x^x}}}
 \DeclareDocumentCommand\Vtextvisiblespace{O{.3em}}{\mbox{\kern.06em\vrule height.3ex}\vbox{\hrule width#1}\hbox{\vrule height.3ex}}
-\ProvideDocumentCommand{\parallelsum}{}{\mathbin{\!/\mkern-5mu/\!}}
+\DeclareDocumentCommand{\parallelsum}{}{\mathbin{\!/\mkern-5mu/\!}}
 \DeclareDocumentCommand{\calE}{}{\mathcal{E}}
 \DeclareDocumentCommand{\bbR}{}{\mathbb{R}}
 \DeclareDocumentCommand{\bbC}{}{\mathbb{C}}
@@ -568,6 +570,7 @@
 \DeclareDocumentCommand\PHqty{}{\PHquantity}
 \IfPackageLoadedTF{siunitx}
 {
+  \RequirePackage{siunitx}
   \DeclareDocumentCommand{\ITquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g g }
   { % integrate \qty from siunitx into \qty
     \IfValueTF{#9}
@@ -867,11 +870,37 @@
 }
 
 % Operators
-\DeclareMathOperator{\trace}{tr} % Trace of a matrix
-\DeclareMathOperator{\Trace}{Tr} % Trace of a matrix (alternate)
-\DeclareMathOperator{\rank}{rank} % Rank of a matrix
-\DeclareMathOperator{\erf}{erf} % Gauss error function
-\DeclareMathOperator{\Residue}{Res} % Residue
+\DeclareDocumentCommand\tr{}{\operatorname{tr}} % Trace of a matrix
+\DeclareDocumentCommand\Tr{}{\operatorname{Tr}} % Trace of a matrix (alternate)
+\DeclareDocumentCommand\rank{}{\operatorname{rank}} % Rank of a matrix
+\DeclareDocumentCommand\erf{}{\operatorname{erf}} % error function
+\DeclareDocumentCommand\Res{}{\operatorname{Res}} % Residue
+\DeclareDocumentCommand\Arg{}{\operatorname{Arg}} % principal argument
+\DeclareDocumentCommand{\acosh}{}{\operatorname{acosh}}
+\DeclareDocumentCommand{\acsch}{}{\operatorname{acsch}}
+\DeclareDocumentCommand{\arccosh}{}{\operatorname{arccosh}}
+\DeclareDocumentCommand{\arccsch}{}{\operatorname{arccsch}}
+\DeclareDocumentCommand{\arcsech}{}{\operatorname{arcsech}}
+\DeclareDocumentCommand{\arcsinh}{}{\operatorname{arcsinh}}
+\DeclareDocumentCommand{\arctanh}{}{\operatorname{arctanh}}
+\DeclareDocumentCommand{\arctantwo}{}{\operatorname{arctan2}}
+\DeclareDocumentCommand{\asech}{}{\operatorname{asech}}
+\DeclareDocumentCommand{\asinh}{}{\operatorname{asinh}}
+\DeclareDocumentCommand{\atanh}{}{\operatorname{atanh}}
+\DeclareDocumentCommand{\atantwo}{}{\operatorname{atan2}}
+\DeclareDocumentCommand{\closure}{}{\operatorname{closure}}
+\DeclareDocumentCommand{\col}{}{\operatorname{col}}
+\DeclareDocumentCommand{\row}{}{\operatorname{row}}
+\DeclareDocumentCommand{\ker}{}{\operatorname{ker}}
+\DeclareDocumentCommand{\SD}{}{\operatorname{SD}}
+\DeclareDocumentCommand{\Var}{}{\operatorname{Var}}
+\DeclareDocumentCommand{\Mode}{}{\operatorname{Mode}}
+\DeclareDocumentCommand{\Median}{}{\operatorname{Median}}
+\DeclareDocumentCommand{\gcd}{}{\operatorname{gcd}}
+\DeclareDocumentCommand{\lcm}{}{\operatorname{lcm}}
+\DeclareDocumentCommand{\GCD}{}{\operatorname{GCD}}
+\DeclareDocumentCommand{\LCM}{}{\operatorname{LCM}}
+\DeclareDocumentCommand{\UnitVector}{}{\operatorname{UnitVector}}
 \DeclareDocumentCommand\principalvalue{g}{\IfNoValueTF{#1}{\mathcal{P}}{\mathcal{P}\mathord{#1}}}
 \DeclareDocumentCommand\pv{}{\principalvalue}
 \DeclareDocumentCommand\PV{g}{\IfNoValueTF{#1}{\mathrm{P.V.}}{\mathrm{P.V.}\mathord{#1}}}
@@ -915,32 +944,32 @@
   \let\arcsine\arcsin \DeclareDocumentCommand\arcsin{}{\trigbraces{\arcsine}}
   \let\arccosine\arccos \DeclareDocumentCommand\arccos{}{\trigbraces{\arccosine}}
   \let\arctangent\arctan \DeclareDocumentCommand\arctan{}{\trigbraces{\arctangent}}
-  \DeclareMathOperator{\arccosecant}{arccsc}
+  \DeclareDocumentCommand{\arccosecant}{}{\operatorname{arccsc}}
   \DeclareDocumentCommand\arccsc{}{\trigbraces{\arccosecant}}
-  \DeclareMathOperator{\arcsecant}{arcsec}
+  \DeclareDocumentCommand{\arcsecant}{}{\operatorname{arcsec}}
   \DeclareDocumentCommand\arcsec{}{\trigbraces{\arcsecant}}
-  \DeclareMathOperator{\arccotangent}{arccot}
+  \DeclareDocumentCommand{\arccotangent}{}{\operatorname{arccot}}
   \DeclareDocumentCommand\arccot{}{\trigbraces{\arccotangent}}
 
-  \DeclareMathOperator{\asine}{asin}
+  \DeclareDocumentCommand{\asine}{}{\operatorname{asin}}
   \DeclareDocumentCommand\asin{}{\trigbraces{\asine}}
-  \DeclareMathOperator{\acosine}{acos}
+  \DeclareDocumentCommand{\acosine}{}{\operatorname{acos}}
   \DeclareDocumentCommand\acos{}{\trigbraces{\acosine}}
-  \DeclareMathOperator{\atangent}{atan}
+  \DeclareDocumentCommand{\atangent}{}{\operatorname{atan}}
   \DeclareDocumentCommand\atan{}{\trigbraces{\atangent}}
-  \DeclareMathOperator{\acosecant}{acsc}
+  \DeclareDocumentCommand{\acosecant}{}{\operatorname{acsc}}
   \DeclareDocumentCommand\acsc{}{\trigbraces{\acosecant}}
-  \DeclareMathOperator{\asecant}{asec}
+  \DeclareDocumentCommand{\asecant}{}{\operatorname{asec}}
   \DeclareDocumentCommand\asec{}{\trigbraces{\asecant}}
-  \DeclareMathOperator{\acotangent}{acot}
+  \DeclareDocumentCommand{\acotangent}{}{\operatorname{acot}}
   \DeclareDocumentCommand\acot{}{\trigbraces{\acotangent}}
 
   \let\hypsine\sinh \DeclareDocumentCommand\sinh{}{\trigbraces{\hypsine}}
   \let\hypcosine\cosh \DeclareDocumentCommand\cosh{}{\trigbraces{\hypcosine}}
   \let\hyptangent\tanh \DeclareDocumentCommand\tanh{}{\trigbraces{\hyptangent}}
-  \DeclareMathOperator{\hypcosecant}{csch}
+  \DeclareDocumentCommand{\hypcosecant}{}{\operatorname{csch}}
   \DeclareDocumentCommand\csch{}{\trigbraces{\hypcosecant}}
-  \DeclareMathOperator{\hypsecant}{sech}
+  \DeclareDocumentCommand{\hypsecant}{}{\operatorname{sech}}
   \DeclareDocumentCommand\sech{}{\trigbraces{\hypsecant}}
   \let\hypcotangent\coth \DeclareDocumentCommand\coth{}{\trigbraces{\hypcotangent}}
 
@@ -949,27 +978,48 @@
   \let\naturallogarithm\ln \DeclareDocumentCommand\ln{}{\trigbraces{\naturallogarithm}}
   \let\determinant\det \DeclareDocumentCommand\det{}{\opbraces{\determinant}}
   \let\Probability\Pr \DeclareDocumentCommand\Pr{}{\opbraces{\Probability}}
-  \DeclareDocumentCommand\tr{}{\opbraces{\trace}}
-  \DeclareDocumentCommand\Tr{}{\opbraces{\Trace}}
-  \DeclareDocumentCommand\Res{}{\opbraces{\Residue}}
+  \DeclareDocumentCommand\tr{}{\opbraces{\operatorname{tr}}}
+  \DeclareDocumentCommand\Tr{}{\opbraces{\operatorname{Tr}}}
+  \DeclareDocumentCommand\Res{}{\opbraces{\operatorname{Res}}}
+  \DeclareDocumentCommand\Arg{}{\opbraces{\operatorname{Arg}}}
+  \DeclareDocumentCommand{\acosh}{}{\trigbraces{\operatorname{acosh}}}
+  \DeclareDocumentCommand{\acsch}{}{\trigbraces{\operatorname{acsch}}}
+  \DeclareDocumentCommand{\arccosh}{}{\trigbraces{\operatorname{arccosh}}}
+  \DeclareDocumentCommand{\arccsch}{}{\trigbraces{\operatorname{arccsch}}}
+  \DeclareDocumentCommand{\arcsech}{}{\trigbraces{\operatorname{arcsech}}}
+  \DeclareDocumentCommand{\arcsinh}{}{\trigbraces{\operatorname{arcsinh}}}
+  \DeclareDocumentCommand{\arctanh}{}{\trigbraces{\operatorname{arctanh}}}
+  \DeclareDocumentCommand{\arctantwo}{}{\trigbraces{\operatorname{arctan2}}}
+  \DeclareDocumentCommand{\asech}{}{\trigbraces{\operatorname{asech}}}
+  \DeclareDocumentCommand{\asinh}{}{\trigbraces{\operatorname{asinh}}}
+  \DeclareDocumentCommand{\atanh}{}{\trigbraces{\operatorname{atanh}}}
+  \DeclareDocumentCommand{\atantwo}{}{\trigbraces{\operatorname{atan2}}}
+  \DeclareDocumentCommand{\closure}{}{\opbraces{\operatorname{closure}}}
+  \DeclareDocumentCommand{\col}{}{\opbraces{\operatorname{col}}}
+  \DeclareDocumentCommand{\row}{}{\opbraces{\operatorname{row}}}
+  \DeclareDocumentCommand{\ker}{}{\opbraces{\operatorname{ker}}}
+  \DeclareDocumentCommand{\SD}{}{\opbraces{\operatorname{SD}}}
+  \DeclareDocumentCommand{\Var}{}{\opbraces{\operatorname{Var}}}
+  \DeclareDocumentCommand{\Mode}{}{\opbraces{\operatorname{Mode}}}
+  \DeclareDocumentCommand{\Median}{}{\opbraces{\operatorname{Median}}}
+  \DeclareDocumentCommand{\gcd}{}{\opbraces{\operatorname{gcd}}}
+  \DeclareDocumentCommand{\lcm}{}{\opbraces{\operatorname{lcm}}}
+  \DeclareDocumentCommand{\GCD}{}{\opbraces{\operatorname{GCD}}}
+  \DeclareDocumentCommand{\LCM}{}{\opbraces{\operatorname{LCM}}}
+
 \else
-  \DeclareMathOperator{\arccsc}{arccsc}
-  \DeclareMathOperator{\arcsec}{arcsec}
-  \DeclareMathOperator{\arccot}{arccot}
+  \DeclareDocumentCommand{\arccsc}{}{\operatorname{arccsc}}
+  \DeclareDocumentCommand{\arcsec}{}{\operatorname{arcsec}}
+  \DeclareDocumentCommand{\arccot}{}{\operatorname{arccot}}
+  \DeclareDocumentCommand{\asin}{}{\operatorname{asin}}
+  \DeclareDocumentCommand{\acos}{}{\operatorname{acos}}
+  \DeclareDocumentCommand{\atan}{}{\operatorname{atan}}
+  \DeclareDocumentCommand{\acsc}{}{\operatorname{acsc}}
+  \DeclareDocumentCommand{\asec}{}{\operatorname{asec}}
+  \DeclareDocumentCommand{\acot}{}{\operatorname{acot}}
 
-  \DeclareMathOperator{\asin}{asin}
-  \DeclareMathOperator{\acos}{acos}
-  \DeclareMathOperator{\atan}{atan}
-  \DeclareMathOperator{\acsc}{acsc}
-  \DeclareMathOperator{\asec}{asec}
-  \DeclareMathOperator{\acot}{acot}
-
-  \DeclareMathOperator{\csch}{csch}
-  \DeclareMathOperator{\sech}{sech}
-
-  \DeclareDocumentCommand\tr{}{\trace}
-  \DeclareDocumentCommand\Tr{}{\Trace}
-  \DeclareDocumentCommand\Res{}{\Residue}
+  \DeclareDocumentCommand{\csch}{}{\operatorname{csch}}
+  \DeclareDocumentCommand{\sech}{}{\operatorname{sech}}
 \fi
 
 % Quick quad text (math-mode text with \quad spacing)
@@ -1301,7 +1351,7 @@
       }
       \coldots = 0
     }
-    
+
     \loop
       \colcount = 0
       \advance \rowcount by 1
@@ -1454,16 +1504,3 @@
 }
 \DeclareDocumentCommand\antidiagonalmatrix{O{} >{\SplitList{,}}m }{\PTadmat{#1}#2}
 \DeclareDocumentCommand\admat{}{\antidiagonalmatrix}
-
-% Misc
-\DeclareDocumentCommand\flatfrac{ m m }{\left.#1\middle\slash#2\right.}
-\DeclareDocumentCommand\homework{}{ % You can try it
-  \ensuremath{
-  \divg{\vb{E}}=\frac{\rho}{\epsilon_0} \qc
-  \divg{\vb{B}}=0 \qc
-  \curl{\vb{E}}=-\pdv{\vb{B}}{t}\qc
-  \curl{\vb{B}}=\mu_0\vb{J}+\frac{1}{c^2}\pdv{\vb{E}}{t}\qc
-  H\ket{\Psi}=i\hbar\pdv{}{t}\ket{\Psi},
-  \qq{all else follows.}
-  }
-}
