@@ -1,5 +1,5 @@
-\ProvidesPackage{physics-patch}[2025/03/05 Version 2.6 Improved version of the physics package]
-% physics-patch 2.6
+\ProvidesPackage{physics-patch}[2025/03/05 Version 2.7 Improved version of the physics package]
+% physics-patch 2.7
 %
 % Improved version of the physics package
 %
@@ -17,7 +17,7 @@
 %
 % Author: Willie Shen (Willie169)
 % Repository: https://github.com/Willie169/physics-patch
-% Last update: Mar 5, 2025
+% Last update: Mar 18, 2025
 %
 % For documentation, see physics-patch.pdf
 
@@ -504,8 +504,9 @@
 \DeclareDocumentCommand\tenpow{}{\tentothepowerof}
 \DeclareDocumentCommand{\scientificnotation}{m m}{\ensuremath{#1\times 10^{#2}}}
 \DeclareDocumentCommand\scinote{}{\scientificnotation}
-\DeclareDocumentCommand\TextCircled{m}{\text{\raisebox{.6pt}{\textcircled{\raisebox{-.9pt}{#1}}}}}
-\DeclareDocumentCommand\tc{m}{\TextCircled{#1}}
+\DeclareDocumentCommand\numbercircled{m}{\text{\raisebox{.6pt}{\textcircled{\raisebox{-.9pt}{#1}}}}}
+\let\numcir\numbercircled
+\let\bsb\boldsymbol
 \DeclareDocumentCommand{\RNum}{m}{\uppercase\expandafter{\romannumeral #1\relax}}
 \DeclareDocumentCommand\flatfrac{ m m }{\left.#1\middle\slash#2\right.}
 
@@ -525,6 +526,8 @@
 \DeclareDocumentCommand{\bbQ}{}{\mathbb{Q}}
 \DeclareDocumentCommand{\bbN}{}{\mathbb{N}}
 \DeclareDocumentCommand{\bbZ}{}{\mathbb{Z}}
+\DeclareDocumentCommand{\bell}{}{\boldsymbol{\ell}}
+\DeclareDocumentCommand{\btau}{}{\boldsymbol{\tau}}
 
 % Brackets and braces
 \DeclareDocumentCommand{\PHquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g }
@@ -876,6 +879,7 @@
 \DeclareDocumentCommand\erf{}{\operatorname{erf}} % error function
 \DeclareDocumentCommand\Res{}{\operatorname{Res}} % Residue
 \DeclareDocumentCommand\Arg{}{\operatorname{Arg}} % principal argument
+\DeclareDocumentCommand\arg{}{\operatorname{arg}} % argument
 \DeclareDocumentCommand{\acosh}{}{\operatorname{acosh}}
 \DeclareDocumentCommand{\acsch}{}{\operatorname{acsch}}
 \DeclareDocumentCommand{\arccosh}{}{\operatorname{arccosh}}
@@ -981,7 +985,14 @@
   \DeclareDocumentCommand\tr{}{\opbraces{\operatorname{tr}}}
   \DeclareDocumentCommand\Tr{}{\opbraces{\operatorname{Tr}}}
   \DeclareDocumentCommand\Res{}{\opbraces{\operatorname{Res}}}
+  \let\Argument\Arg
   \DeclareDocumentCommand\Arg{}{\opbraces{\operatorname{Arg}}}
+  \let\argument\arg
+  \DeclareDocumentCommand\arg{}{\opbraces{\operatorname{arg}}}
+  \let\real\Re
+  \DeclareDocumentCommand\Re{}{\opbraces{\real}}
+  \let\imaginary\Im
+  \DeclareDocumentCommand\Im{}{\opbraces{\imaginary}}
   \DeclareDocumentCommand{\acosh}{}{\trigbraces{\operatorname{acosh}}}
   \DeclareDocumentCommand{\acsch}{}{\trigbraces{\operatorname{acsch}}}
   \DeclareDocumentCommand{\arccosh}{}{\trigbraces{\operatorname{arccosh}}}
