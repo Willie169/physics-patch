@@ -1,4 +1,4 @@
-physics-patch 2.7
+physics-patch 2.8
 
 Improved version of the physics package
 
@@ -13,9 +13,10 @@ physics-patch has covered all commands in physics since version 2.0, so there's 
 It is ok to load physics before this package. This package will silently overrides macros in physics with an improved version. To use the original version provided by physics, load physics before this package and use the nooverride option (not recommended).
 This package pretends that physics package is loaded so that this package won't be overriden if loading physics is called afterward and packages loaded afterward that checks whether physics is loaded to determine its behavior (e.g. siunitx) work correctly. To disable this, use the nopretend option (not recommended).
 If siuitx is loaded before this package, this package will define \ITquantity and \ITqty as the integration of the improved definition of physics's \qty (in \PHquantity and \PHqty) and siuitx's \SI. You can optionally set siintegrate option to override \PTquantity and \PTqty with \ITqty (not recommended).
+If two opposite options which one of them with the name of the other prefixed with a no are loaded at the same time, the one without the no in the name will be used. If two opposite options which have the same suffix and different prefix are loaded at the same time, the default one will be used.
 
 Author: Willie Shen (Willie169)
 Repository: https://github.com/Willie169/physics-patch
-Last update: Mar 18, 2025
+Last update: May 13, 2025
 
 For documentation, see physics-patch.pdf

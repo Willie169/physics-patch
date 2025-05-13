@@ -1,7 +1,7 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage[margin=1.27cm,foot=0.77cm]{geometry}
 \usepackage{amsmath,amssymb,array,etoolbox,fontspec,longtable,listings,multirow,needspace,parskip,setspace,verbatim,titling,xcolor,xparse,xstring}
-\usepackage[shortgreek,shortmathrm,shorttext]{physics-patch}
+\usepackage[override,pretend,nosiintegrate,originaldiv,trig,uprightdiff,bolddel,plaindot,shorttextgreek,shortvargreek,shortupgreek,shortupvargreek,shortboldgreek,shortmathrm,shorttext]{physics-patch}
 \usepackage[colorlinks,urlcolor=blue]{hyperref}
 \setmainfont{TeX Gyre Termes}[Ligatures=TeX]
 \setsansfont{TeX Gyre Heros}[Ligatures=TeX]
@@ -46,7 +46,7 @@ breakatwhitespace=false
 }
 \title{The \texttt{physics-patch} package\\\mbox{}\\\textnormal{\large Improved version of the physics package}}
 \author{\mbox{}\\Willie Shen (Willie169)}
-\date{Version 2.7\\\textnormal{Last update: Mar. 18, 2025}}
+\date{Version 2.8\\\textnormal{Last update: May 13, 2025}}
 \begin{document}
 \onehalfspacing\thispagestyle{empty}\Needspace{1\textheight}\maketitle\setcounter{page}{1}\Needspace{1\textheight}\tableofcontents\Needspace{1\textheight}\setcounter{page}{1}
 \section{Preface}
@@ -76,6 +76,7 @@ content...
 \item It is ok to load \texttt{physics} before this package. This package will silently overrides macros in \texttt{physics} with an improved version. To use the original version provided by \texttt{physics}, load \texttt{physics} before this package and use the \texttt{nooverride} option (not recommended). \texttt{nooverride} falls back to \texttt{override} if physics is not loaded.
 \item This package pretends that \texttt{physics} package is loaded so that this package won't be overriden if loading \texttt{physics} is called afterward and packages loaded afterward that checks whether \texttt{physics} is loaded to determine its behavior (e.g. \texttt{siunitx}) work correctly. To disable this, use the \texttt{nopretend} option (not recommended).
 \item If \texttt{siuitx} is loaded before this package, this package will define \verb|\ITquantity| and \verb|\ITqty| as the integration of the improved definition of \texttt{physics}'s \verb|\qty| (in \verb|\PHquantity| and \verb|\PHqty|) and \texttt{siuitx}'s \verb|\SI|. You can optionally set \texttt{siintegrate} option to override \verb|\PTquantity| and \verb|\PTqty| with \verb|\ITqty| (not recommended). \texttt{siintegrate} falls back to \texttt{nosiintegrate} if \texttt{siunitx} is not loaded.
+\item If two opposite options which one of them with the name of the other prefixed with a no are loaded at the same time, the one without the no in the name will be used. If two opposite options which have the same suffix and different prefix are loaded at the same time, the default one will be used.
 \end{itemize}
 \section{Communication Channels}
 \begin{itemize}
@@ -89,16 +90,19 @@ content...
 This package is released under the \textbf{LaTeX Project Public License (LPPL) 1.3c.}
 
 See \href{https://www.latex-project.org/lppl/lppl-1-3c}{https://www.latex-project.org/lppl/lppl-1-3c} for the details of that license.
-\item Many parts of this package are modified from the \texttt{physics} package, created by \textbf{Sergio C. de la Barrera} and licenced under \textbf{LPPL 1.3}.
+\item Many parts of this package are modified or copied from the \texttt{physics} package, created by \textbf{Sergio C. de la Barrera} and licenced under \textbf{LPPL 1.3}.
 
 See \href{https://ctan.org/pkg/physics}{https://ctan.org/pkg/physics} for the details of that package.
+\item Many parts of this package rely on the \texttt{amsmath} package, created by \textbf{The \LaTeX{} Project Team} and licenced under \textbf{LPPL 1.3c}.
+
+See \href{https://ctan.org/pkg/amsmath}{https://ctan.org/pkg/amsmath} for the details of that package.
 \end{itemize}
 \section{List of Commands}
 In the commands listed below, the left column is long-form names with non-default alternate names (if any), the middle column is default shorthand commands with detailed syntaxes and explanations.
 
 Commands that have different definitions come with \texttt{PT} in the beginning of their name (e.g. \verb|\PTmqty|). If \texttt{nooverride} is not used or the \texttt{physics} package is not loaded before this package, the commands without \texttt{PT} will be silent overriden to be the same as the ones with \texttt{PT}.
 \subsection{Automatic bracing}
-\begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
+\begin{longtable}[c]{ | C{6cm} | C{6cm} | C{6cm} | }
 \hline
 \verb|\PTquantity|, \verb|\PHquantity| or \verb|\PHqty| & \verb|\PTqty(\typical)| $\displaystyle\rightarrow \PTqty(\typical)$ & automatic $\PTqty(\;)$ braces \\
 & \verb|\PTqty(\tall)| $\displaystyle\rightarrow \PTqty(\tall)$ & \\
@@ -139,7 +143,7 @@ The default del symbol $\vnabla$ used in \texttt{physics-patch} vector notation 
 \begin{lstlisting}[language=TeX]
 \usepackage[arrowdel]{physics-patch}
 \end{lstlisting}
-\begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
+\begin{longtable}[c]{ | C{6cm} | C{6cm} | C{6cm} | }
 \hline
 \verb|\vectorbold| & \verb|\vb{a}| $\rightarrow \vb{a}$ & upright/no Greek \\
 & \verb|\vb*{a}|, \verb|\vb*{\theta}| $\rightarrow \vb*{a}$, $\vb*{\theta}$ & italic/Greek \\\hline
@@ -173,7 +177,7 @@ The standard set of trig functions is redefined in \texttt{physics-patch} to pro
 \begin{lstlisting}[language=TeX]
 \usepackage[notrig]{physics-patch}
 \end{lstlisting}
-\begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
+\begin{longtable}[c]{ | C{6cm} | C{6cm} | C{6cm} | }
 \hline
 \multicolumn{3}{|l|}{Example trig redefinitions:} \\\hline
 \verb|\sin| & \verb|\sin(\grande)| $\displaystyle\rightarrow \sin(\grande)$ & automatic braces; old \verb|\sin| renamed \verb|\sine| \\
@@ -181,7 +185,7 @@ The standard set of trig functions is redefined in \texttt{physics-patch} to pro
 & \verb|\sin x| $\rightarrow \sin x$ & can still use without an argument \\\hline
 \end{longtable}
 The full set of available trig functions in \texttt{physics-patch} includes:\\
-\begin{longtable}{llll}
+\begin{longtable}[c]{llll}
 \verb|\sin(x)| & \verb|\sinh(x)| & \verb|\arcsin(x)| & \verb|\asin(x)| \\
 \verb|\cos(x)| & \verb|\cosh(x)| & \verb|\arccos(x)| & \verb|\acos(x)| \\
 \verb|\tan(x)| & \verb|\tanh(x)| & \verb|\arctan(x)| & \verb|\atan(x)| \\
@@ -189,7 +193,7 @@ The full set of available trig functions in \texttt{physics-patch} includes:\\
 \verb|\sec(x)| & \verb|\sech(x)| & \verb|\arcsec(x)| & \verb|\asec(x)| \\
 \verb|\cot(x)| & \verb|\coth(x)| & \verb|\arccot(x)| & \verb|\acot(x)|
 \end{longtable}$\Rightarrow$
-\begin{longtable}{MMMM}
+\begin{longtable}[c]{MMMM}
 \sin(x) & \sinh(x) & \arcsin(x) & \asin(x) \\
 \cos(x) & \cosh(x) & \arccos(x) & \acos(x) \\
 \tan(x) & \tanh(x) & \arctan(x) & \atan(x) \\
@@ -198,7 +202,7 @@ The full set of available trig functions in \texttt{physics-patch} includes:\\
 \cot(x) & \coth(x) & \arccot(x) & \acot(x)\\
 \end{longtable}
 The standard trig functions (plus a few that are missing in \texttt{amsmath}) are available without any automatic bracing under a new set of longer names:\\
-\begin{longtable}{llll}
+\begin{longtable}[c]{llll}
 \verb|\sine| & \verb|\hypsine| & \verb|\arcsine| & \verb|\asine| \\
 \verb|\cosine| & \verb|\hypcosine| & \verb|\arccosine| & \verb|\acosine| \\
 \verb|\tangent| & \verb|\hyptangent| & \verb|\arctangent| & \verb|\atangent| \\
@@ -207,7 +211,7 @@ The standard trig functions (plus a few that are missing in \texttt{amsmath}) ar
 \verb|\cotangent| & \verb|\hypcotangent| & \verb|\arccotangent| & \verb|\acotangent|\\
 \end{longtable}
 Similar behavior has also been extended to the following functions:\\
-\begin{longtable}{|l|>{$}l<{$}|l|l|}
+\begin{longtable}[c]{|l|>{$}l<{$}|l|l|}
 \hline
 \verb|\exp(\tall)| & \exp(\tall) & \multirow{5}{*}{old definitions $\Rightarrow$} & \verb|\exponential| \\\cline{1-2}\cline{4-4}
 \verb|\log(\tall)| & \log(\tall) & & \verb|\logarithm| \\\cline{1-2}\cline{4-4}
@@ -219,7 +223,7 @@ Similar behavior has also been extended to the following functions:\\
 \verb|\Re(\tall)| & \Re(\tall) & & \verb|\real|\\\hline
 \verb|\Im(\tall)| & \Im(\tall) & & \verb|\imaginary|\\\hline
 \end{longtable}
-\begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
+\begin{longtable}[c]{ | C{6cm} | C{6cm} | C{6cm} | }
 \hline
 \multicolumn{3}{|l|}{New operators:} \\\hline
 \verb|\tr| & \verb|\tr\rho| $\rightarrow \tr\rho$ also \verb|\tr(\tall)| $\rightarrow \tr(\tall)$  & trace; same bracing as trig functions \\\hline
@@ -227,36 +231,38 @@ Similar behavior has also been extended to the following functions:\\
 \verb|\rank| & \verb|\rank M| $\rightarrow \rank M$ & matrix rank \\\hline
 \verb|\erf| & \verb|\erf(x)|$\rightarrow \erf(x)$ & error function \\\hline
 \verb|\Res| & \verb|\Res[f(z)]|$\rightarrow \Res[f(z)]$ & \parbox{6cm}{residue; same bracing as trig functions} \\\hline
-\verb|acosh| & \verb|\acosh(\pi)| $\rightarrow\acosh(\pi)$ & acosh \\\hline
-\verb|acsch| & \verb|\acsch(\pi)| $\rightarrow\acsch(\pi)$ & acsch \\\hline
-\verb|arccosh| & \verb|\arccosh(\pi)| $\rightarrow\arccosh(\pi)$ & arccosh \\\hline
-\verb|arccsch| & \verb|\arccsch(\pi)| $\rightarrow\arccsch(\pi)$ & arccsch \\\hline
-\verb|arcsech| & \verb|\arcsech(\pi)| $\rightarrow\arcsech(\pi)$ & arcsech \\\hline
-\verb|arcsinh| & \verb|\arcsinh(\pi)| $\rightarrow\arcsinh(\pi)$ & arcsinh \\\hline
-\verb|arctanh| & \verb|\arctanh(\pi)| $\rightarrow\arctanh(\pi)$ & arctanh \\\hline
-\verb|arctantwo| & \verb|\arctantwo(\pi)| $\rightarrow\arctantwo(\pi)$ & arctan2 \\\hline
-\verb|asech| & \verb|\asech(\pi)| $\rightarrow\asech(\pi)$ & asech \\\hline
-\verb|asinh| & \verb|\asinh(\pi)| $\rightarrow\asinh(\pi)$ & asinh \\\hline
-\verb|atanh| & \verb|\atanh(\pi)| $\rightarrow\atanh(\pi)$ & atanh \\\hline
-\verb|atantwo| & \verb|\atantwo(\pi)| $\rightarrow\atantwo(\pi)$ & atan2 \\\hline
-\verb|closure| & \verb|\closure(A)| $\rightarrow\closure(A)$ & closure \\\hline
-\verb|col| & \verb|\col(\mathbf{A})| $\rightarrow\col(\mathbf{A})$ & column space \\\hline
-\verb|row| & \verb|\row(\mathbf{A})| $\rightarrow\row(\mathbf{A})$ & row space \\\hline
-\verb|ker| & \verb|\ker(\mathbf{A})| $\rightarrow\ker(\mathbf{A})$ & kernel \\\hline
-\verb|SD| & \verb|\SD(X)| $\rightarrow\SD(X)$ & standard deviation \\\hline
-\verb|Var| & \verb|\Var(X)| $\rightarrow\Var(X)$ & variation \\\hline
-\verb|Mode| & \verb|\Mode(X)| $\rightarrow\Mode(X)$ & mode \\\hline
-\verb|Median| & \verb|\Median(X)| $\rightarrow\Median(X)$ & median \\\hline
-\verb|gcd| & \verb|\gcd(X)| $\rightarrow\gcd(X)$ & lowercase greatest common divisor \\\hline
-\verb|lcm| & \verb|\lcm(X)| $\rightarrow\lcm(X)$ & lowercase lowest common multiple \\\hline
-\verb|GCD| & \verb|\GCD(X)| $\rightarrow\GCD(X)$ & uppercase greatest common divisor \\\hline
-\verb|LCM| & \verb|\LCM(X)| $\rightarrow\LCM(X)$ & uppercase lowest common multiple \\\hline
-\verb|UnitVector| & \verb|\UnitVector(\mathbf{r})| $\rightarrow\UnitVector(\mathbf{r})$ & unit vector \\\hline
+\verb|\acosh| & \verb|\acosh(\pi)| $\rightarrow\acosh(\pi)$ & acosh \\\hline
+\verb|\acsch| & \verb|\acsch(\pi)| $\rightarrow\acsch(\pi)$ & acsch \\\hline
+\verb|\arccosh| & \verb|\arccosh(\pi)| $\rightarrow\arccosh(\pi)$ & arccosh \\\hline
+\verb|\arccsch| & \verb|\arccsch(\pi)| $\rightarrow\arccsch(\pi)$ & arccsch \\\hline
+\verb|\arcsech| & \verb|\arcsech(\pi)| $\rightarrow\arcsech(\pi)$ & arcsech \\\hline
+\verb|\arcsinh| & \verb|\arcsinh(\pi)| $\rightarrow\arcsinh(\pi)$ & arcsinh \\\hline
+\verb|\arctanh| & \verb|\arctanh(\pi)| $\rightarrow\arctanh(\pi)$ & arctanh \\\hline
+\verb|\arctantwo| & \verb|\arctantwo(\pi)| $\rightarrow\arctantwo(\pi)$ & arctan2 \\\hline
+\verb|\asech| & \verb|\asech(\pi)| $\rightarrow\asech(\pi)$ & asech \\\hline
+\verb|\asinh| & \verb|\asinh(\pi)| $\rightarrow\asinh(\pi)$ & asinh \\\hline
+\verb|\atanh| & \verb|\atanh(\pi)| $\rightarrow\atanh(\pi)$ & atanh \\\hline
+\verb|\atantwo| & \verb|\atantwo(\pi)| $\rightarrow\atantwo(\pi)$ & atan2 \\\hline
+\verb|\closure| & \verb|\closure(A)| $\rightarrow\closure(A)$ & closure \\\hline
+\verb|\col| & \verb|\col(\mathbf{A})| $\rightarrow\col(\mathbf{A})$ & column space \\\hline
+\verb|\distance| & \verb|\distance(A,B)| $\rightarrow\distance(A,B)$ & lowercase distance \\\hline
+\verb|\Distance| & \verb|\Distance(A,B)| $\rightarrow\Distance(A,B)$ & uppercase distance \\\hline
+\verb|\row| & \verb|\row(\mathbf{A})| $\rightarrow\row(\mathbf{A})$ & row space \\\hline
+\verb|\ker| & \verb|\ker(\mathbf{A})| $\rightarrow\ker(\mathbf{A})$ & kernel \\\hline
+\verb|\SD| & \verb|\SD(X)| $\rightarrow\SD(X)$ & standard deviation \\\hline
+\verb|\Var| & \verb|\Var(X)| $\rightarrow\Var(X)$ & variation \\\hline
+\verb|\Mode| & \verb|\Mode(X)| $\rightarrow\Mode(X)$ & mode \\\hline
+\verb|\Median| & \verb|\Median(X)| $\rightarrow\Median(X)$ & median \\\hline
+\verb|\gcd| & \verb|\gcd(X)| $\rightarrow\gcd(X)$ & lowercase greatest common divisor \\\hline
+\verb|\lcm| & \verb|\lcm(X)| $\rightarrow\lcm(X)$ & lowercase lowest common multiple \\\hline
+\verb|\GCD| & \verb|\GCD(X)| $\rightarrow\GCD(X)$ & uppercase greatest common divisor \\\hline
+\verb|\LCM| & \verb|\LCM(X)| $\rightarrow\LCM(X)$ & uppercase lowest common multiple \\\hline
+\verb|\UnitVector| & \verb|\UnitVector(\mathbf{r})| $\rightarrow\UnitVector(\mathbf{r})$ & unit vector \\\hline
 \verb|\principalvalue| & \verb|\pv{\int f(z) \dd{z}}|$\rightarrow \pv{\int f(z) \dd{z}}$ & Cauchy principal value \\
 & \verb|\PV{\int f(z) \dd{z}}|$\rightarrow \PV{\int f(z) \dd{z}}$ & alternate \\\hline
 \end{longtable}
 \subsection{Utilities}
-\begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
+\begin{longtable}[c]{ | C{6cm} | C{6cm} | C{6cm} | }
 \hline
 \verb|\mathcolorbox| & \verb|\mcbox{color}{content}| & \multirow{2}{*}{\parbox{6cm}{\texttt{\textbackslash colorbox} for math environment, applying to all four levels of math styles}} \\
 & \verb|\mcbox{cyan}{\typical}| $\rightarrow \mcbox{cyan}{\typical}$ & \\\hline
@@ -270,21 +276,21 @@ Similar behavior has also been extended to the following functions:\\
 \end{longtable}
 \subsection{Quick quad text}
 This set of commands produces text in math-mode padded by \verb|\quad| spacing on either side. This is meant to provide a quick way to insert simple words or phrases in a sequence of equations. Each of the following commands includes a starred version which pads the text only on the right side with \verb|\quad| for use in aligned environments such as \texttt{cases}.\\
-\begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
+\begin{longtable}[c]{ | C{6cm} | C{6cm} | C{6cm} | }
 \hline
 \multicolumn{3}{|l|}{General text:} \\\hline
 \verb|\qqtext| & \verb|\qq{}| & general quick quad text with argument \\
 & \verb|\qq{word or phrase}| $\rightarrow$\Vtextvisiblespace[1em]$\text{word or phrase}$\Vtextvisiblespace[1em] & normal mode; left and right \verb|\quad| \\
 & \verb|\qq*{word or phrase}| $\rightarrow \text{word or phrase}$\Vtextvisiblespace[1em] & starred mode; right \verb|\quad| only\\\hline
 \end{longtable}
-\begin{longtable}[l]{| l | l | }
+\begin{longtable}[c]{| l | l | }
 \hline
 Special macros: & \\\hline
 \verb|\qcomma| or \verb|\qc| $\rightarrow ,$\Vtextvisiblespace[1em] & right \verb|\quad| only \\\hline
 \verb|\qcc| $\rightarrow$\Vtextvisiblespace[1em]$\text{c.c.}$\Vtextvisiblespace[1em] & complex conjugate; left and right \verb|\quad| unless starred \verb|\qcc*| $\rightarrow \text{c.c.}$\Vtextvisiblespace[1em] \\\hline
 \verb|\qif| $\rightarrow$\Vtextvisiblespace[1em]$\text{if}$\Vtextvisiblespace[1em] & left and right \verb|\quad| unless starred \verb|\qif*| $\rightarrow \text{if}$\Vtextvisiblespace[1em]\\\hline
 \end{longtable}
-\begin{longtable}[l]{ | l | }
+\begin{longtable}[c]{ | l | }
 \hline
 Similar to \verb|\qif|: \\\hline
 \verb|\qthen|, \verb|\qelse|, \verb|\qotherwise|, \verb|\qunless|, \verb|\qgiven|, \verb|\qusing|, \verb|\qassume|, \verb|\qsince|, \verb|\qlet| \\ \verb|\qfor|, \verb|\qall|, \verb|\qeven|, \verb|\qodd|, \verb|\qinteger|, \verb|\qand|, \verb|\qor|, \verb|\qas|, \verb|\qin| \\\hline
@@ -294,7 +300,7 @@ The default differential symbol $\dd$ which is used in \verb|\differential| and 
 \begin{lstlisting}[language=TeX]
 \usepackage[italicdiff]{physics-patch}
 \end{lstlisting}
-\begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
+\begin{longtable}[c]{ | C{6cm} | C{6cm} | C{6cm} | }
 \hline
 \verb|\differential| & \verb|\dd| $\rightarrow \dd$ & \\
 & \verb|\dd x| $\rightarrow \dd x$ & no spacing (not recommended) \\
@@ -335,7 +341,7 @@ On the other hand, the correct output can be generated by sticking to the fundam
 \verb|\bra{\phi}\ket{\psi}\bra{\xi}| \rightarrow \bra{\phi}\ket{\psi}\bra{\xi}
 \end{displaymath}
 allowing the user to type out complicated quantum mechanical expressions without worrying about bra-ket contractions. That being said, the high-level macros do have a place in convenience and readability, as long as the user is aware of rendering issues that may arise due to an absence of automatic contractions.\\
-\begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
+\begin{longtable}[c]{ | C{6cm} | C{6cm} | C{6cm} | }
 \hline
 \verb|\ket| & \verb|\ket{\tall}| $\rightarrow \ket{\tall}$ & automatic sizing \\
 & \verb|\ket*{\tall}| $\rightarrow \ket*{\tall}$ & no resize \\\hline
@@ -417,7 +423,7 @@ The extra \verb|\PTmqty| groups were required in this case in order to get the $
 \end{displaymath}
 \end{minipage}
 {\fontsize{8pt}{12pt}\selectfont\\
-\begin{longtable}[l]{ | C{6cm} | C{6cm} | C{6cm} | }
+\begin{longtable}[c]{ | C{6cm} | C{6cm} | C{6cm} | }
 \hline
 \verb|\PTmatrixquantity| & \verb|\PTmqty{a & b \\ c & d}| $\rightarrow \PTmqty{a & b \\ c & d}$ & groups a set of matrix elements into a single object \\
 & \verb|\PTmqty(a & b \\ c & d)| $\rightarrow {\PTmqty(a & b \\ c & d)}$ & parentheses \\
@@ -485,7 +491,7 @@ The extra \verb|\PTmqty| groups were required in this case in order to get the $
 \end{longtable}
 }
 \subsection{Symbols}
-\begin{center}\begin{tabular}{ | C{6cm} | C{6cm} | }
+\begin{longtable}[c]{ | C{6cm} | C{6cm} | }
 \hline
 \verb|\lparen| $\rightarrow\; ($ &\\\hline
 \verb|\rparen| $\rightarrow\; )$ &\\\hline
@@ -502,22 +508,54 @@ The extra \verb|\PTmqty| groups were required in this case in order to get the $
 \verb|\bbN|$\rightarrow$\verb|\mathbb{N}| & \\\hline
 \verb|\bbZ|$\rightarrow$\verb|\mathbb{Z}| & \\\hline
 \verb|\bell|$\rightarrow$\verb|\boldsymbol{\ell}| & \\\hline
-\verb|\btau|$\rightarrow$\verb|\boldsymbol{\tau}| & \\\hline
+\verb|\Bell|$\rightarrow$\verb|\char"1F514| & the \verb|\bell| command in wasysym, which is a bell symbol \\\hline
 \verb|\Vtextvisiblespace[width]| $\rightarrow$ \Vtextvisiblespace & \parbox{6cm}{a visible space character, where the optional argument, defaulting to \texttt{.3em}, sets the width of the horizontal rule}\\\hline
-\end{tabular}\end{center}
-\subsection{Shorthands for Greek alphabet}
-If option \texttt{shortgreek} is used, the following shorthands will be defined for every uppercase and lowercase Greek letter:\\
-\begin{center}\begin{tabular}{ | C{6cm} | C{10cm} | }
+\end{longtable}
+\subsection{Arrows and lines}
+Note that only \verb|\equiv| and \verb|\eqv| work in both math mode and text mode; others are for math mode only.
+\begin{longtable}[c]{|p{0.4\textwidth}|p{0.4\textwidth}|}
 \hline
-\verb|\tgAlpha| $\rightarrow$ \verb|\text{\textAlpha}}| & accept an optional argument argument in \texttt{\{\}} that is simply skipped \\\hline
-\verb|\vAlpha| $\rightarrow$ \verb|\varAlpha| & \\\hline
-\verb|\uAlpha| $\rightarrow$ \verb|\upAlpha| & \\\hline
-\verb|\uvAlpha| $\rightarrow$ \verb|\upvarAlpha| & \\\hline
-\end{tabular}\end{center}
-Note that these don’t ensure those commands are defined.
+\verb|\Leftrightarrow| or \verb|\Lra| & $\Leftrightarrow$ \\\hline
+\verb|\leftrightarrow| or \verb|\lra| & $\leftrightarrow$ \\\hline
+\verb|\Rightarrow| or \verb|\Ra| & $\Rightarrow$ \\\hline
+\verb|\rightarrow| or \verb|\ra| & $\rightarrow$ \\\hline
+\verb|\Leftarrow| or \verb|\La| & $\Leftarrow$ \\\hline
+\verb|\leftarrow| or \verb|\la| & $\leftarrow$ \\\hline
+\verb|\Uparrow| or \verb|\Upa| & $\Uparrow$ \\\hline
+\verb|\uparrow| or \verb|\upa| & $\uparrow$ \\\hline
+\verb|\Downarrow| or \verb|\Dna| & $\Downarrow$ \\\hline
+\verb|\downarrow| or \verb|\dna| & $\downarrow$ \\\hline
+\verb|\rightleftharpoons| or \verb|\rlh| & $\rightleftharpoons$ \\\hline
+\verb|\leftrightharpoons| or \verb|\lrh| & $\leftrightharpoons$ \\\hline
+\verb|\rightharpoonup| or \verb|\rhu| & $\rightharpoonup$ \\\hline
+\verb|\leftharpoonup| or \verb|\lhu| & $\leftharpoonup$ \\\hline
+\verb|\rightharpoondown| or \verb|\rhd| & $\rightharpoondown$ \\\hline
+\verb|\leftharpoondown| or \verb|\lhd| & $\leftharpoondown$ \\\hline
+\verb|\upharpoonright| or \verb|\uhr| & $\upharpoonright$ \\\hline
+\verb|\upharpoonleft| or \verb|\uhl| & $\upharpoonleft$ \\\hline
+\verb|\downharpoonright| or \verb|\dhr| & $\downharpoonright$ \\\hline
+\verb|\downharpoonleft| or \verb|\dhl| & $\downharpoonleft$ \\\hline
+\verb|\hookrightarrow| or \verb|\hkra| & $\hookrightarrow$ \\\hline
+\verb|\hookleftarrow| or \verb|\hkla| & $\hookleftarrow$ \\\hline
+\verb|\mapsto| or \verb|\mpto| & $\mapsto$ \\\hline
+\verb|\mapsfrom| or \verb|\mpfr| & $\mapsfrom$ \\\hline
+\verb|\equiv| or \verb|\eqv| & $\equiv$ \\\hline
+\verb|\stackrel{\mathrm{def}}{=}| or \verb|\defeq| & $\defeq$ \\\hline
+\end{longtable}
+\subsection{Shorthands for Greek alphabet}
+If the corresponding options are used, the following shorthands will be defined for every uppercase and lowercase Greek letter. Note that these don’t ensure those commands are defined. Take Alpha for example.
+\begin{longtable}[c]{|p{0.3\textwidth}|p{0.2\textwidth}|p{0.3\textwidth}|}
+\hline
+Command & Option & Note\\\hline
+\verb|\tgAlpha| $\rightarrow$ \verb|\text{\textAlpha}}| & shorttextgreek & accept an optional argument argument in \texttt{\{\}} that is simply skipped \\\hline
+\verb|\vAlpha| $\rightarrow$ \verb|\varAlpha| & shortvargreek & \\\hline
+\verb|\uAlpha| $\rightarrow$ \verb|\upAlpha| & shortupgreek & \\\hline
+\verb|\uvAlpha| $\rightarrow$ \verb|\upvarAlpha| & shortupvargreek & \\\hline
+\verb|\bAlpha| $\rightarrow$ \verb|\boldsymbol{\Alpha}| & shortboldgreek & \\\hline
+\end{longtable}
 \subsection{Shorthands for mathrm alphabet and chemical element symbols}
-If option \texttt{shortmathrm} is used, the following shorthands will be defined for every uppercase and lowercase English letter and every chemical element symbols (\verb|A\verb| for example):\\
-\begin{longtable}[l]{ | C{6cm} | C{6cm} | }
+If option \texttt{shortmathrm} is used, the following shorthands will be defined for every uppercase and lowercase English letter and every chemical element symbols. Take A for example.
+\begin{longtable}[c]{ | C{6cm} | C{6cm} | }
 \hline
 \verb|\rmA_a^b| $\rightarrow\mathrm{A}_a^b$ & work in both math mode and text mode
 \\\hline
@@ -527,8 +565,8 @@ which are implemented with:
 \DeclareDocumentCommand{\rmA}{e{_^}}{\ensuremath{\mathrm{A}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
 \end{lstlisting}
 \subsection{Shorthands for textnormal alphabet}
-If option \texttt{shorttext} is used, the following shorthands will be defined for every uppercase and lowercase English letter (\verb|A\verb| for example):\\
-\begin{longtable}{| l |}
+If option \texttt{shorttext} is used, the following shorthands will be defined for every uppercase and lowercase English letter. Take A for example.
+\begin{longtable}[c]{| l |}
 \hline
 \verb|\txA| $\rightarrow$ \verb|\textnormal{A}|
 \\\hline

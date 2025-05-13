@@ -1,5 +1,5 @@
-\ProvidesPackage{physics-patch}[2025/03/05 Version 2.7 Improved version of the physics package]
-% physics-patch 2.7
+\ProvidesPackage{physics-patch}[Version 2.8, May 13, 2025, Improved version of the physics package]
+% physics-patch 2.8
 %
 % Improved version of the physics package
 %
@@ -14,10 +14,11 @@
 % It is ok to load physics before this package. This package will silently overrides macros in physics with an improved version. To use the original version provided by physics, load physics before this package and use the nooverride option (not recommended).
 % This package pretends that physics package is loaded so that this package won't be overriden if loading physics is called afterward and packages loaded afterward that checks whether physics is loaded to determine its behavior (e.g. siunitx) work correctly. To disable this, use the nopretend option (not recommended).
 % If siuitx is loaded before this package, this package will define \ITquantity and \ITqty as the integration of the improved definition of physics's \qty (in \PHquantity and \PHqty) and siuitx's \SI. You can optionally set siintegrate option to override \PTquantity and \PTqty with \ITqty (not recommended).
+% If two opposite options which one of them with the name of the other prefixed with a no are loaded at the same time, the one without the no in the name will be used. If two opposite options which have the same suffix and different prefix are loaded at the same time, the default one will be used.
 %
 % Author: Willie Shen (Willie169)
 % Repository: https://github.com/Willie169/physics-patch
-% Last update: Mar 18, 2025
+% Last update: May 13, 2025
 %
 % For documentation, see physics-patch.pdf
 
@@ -29,37 +30,55 @@
 
 % Options
 \newif\ifoverride
-\DeclareOption{override}{\overridetrue} % Override macros in physics to patched ones. (default) This option can be set no matter whether physics is loaded
-\DeclareOption{nooverride}{\overridefalse} % Not override macros in physics to patched ones. (not recommended) Fall back to override if physics is not loaded
+\DeclareOption{nooverride}{\ifoverride\else\overridefalse\fi} % Not override macros in physics to patched ones (not recommended). Fall back to override if physics is not loaded.
+\DeclareOption{override}{\overridetrue} % Override macros in physics to patched ones (default). This option can be set no matter whether physics is loaded.
 \newif\ifpretend
-\DeclareOption{pretend}{\pretendtrue} % Pretend that physics package is loaded so that this package won't be overriden if \@onefilewithoptions{physics} is called afterward (e.g. \usepackage{physics}) and packages loaded afterward that checks whether physics is loaded to determine its behavior (e.g. siunitx) work correctly (default)
-\DeclareOption{nopretend}{\pretendfalse} % Not pretend that physics package is loaded
+\DeclareOption{nopretend}{\ifpretend\else\pretendfalse\fi} % Not pretend that physics package is loaded (not recommend).
+\DeclareOption{pretend}{\pretendtrue} % Pretend that physics package is loaded so that this package won't be overriden if \@onefilewithoptions{physics} is called afterward (e.g. \usepackage{physics}) and packages loaded afterward that checks whether physics is loaded to determine its behavior (e.g. siunitx) work correctly (default).
 \newif\ifsiintegrate
-\DeclareOption{siintegrate}{\siintegratetrue} % Override \PTquantity and \PTqty with \ITqty (not recommended). Fall back to nosiintegrate if siunitx is not loaded
-\DeclareOption{nosiintegrate}{\siintegratefalse} % Not override \PTquantity and \PTqty with \ITqty (default)
+\DeclareOption{nosiintegrate}{\ifsiintegrate\else\siintegratefalse\fi} % Not override \PTquantity and \PTqty with \ITqty, which is an integration of qty of physics-patch (physics) and siunitx (default).
+\DeclareOption{siintegrate}{\siintegratetrue} % Override \PTquantity and \PTqty with \ITqty (not recommended). Fall back to nosiintegrate if siunitx is not loaded.
 \newif\iforiginaldiv
+\DeclareOption{nooriginaldiv}{\iforiginaldiv\else\originaldivfalse\fi} % Let \div be \divergence (not recommended).
 \DeclareOption{originaldiv}{\originaldivtrue} % Let \div be division symbol (default)
-\DeclareOption{nooriginaldiv}{\originaldivfalse} % Let \div be \divergence
 \newif\iftrig
-\DeclareOption{trig}{\trigtrue} % Redefine trig function and operator (default)
-\DeclareOption{notrig}{\trigfalse} % Not redefine trig function and operator
-\DeclareOption{uprightdiff}{\def\diffd{\mathrm{d}}} % Upright differentials (default)
-\DeclareOption{italicdiff}{\def\diffd{d}} % Italic differentials
-\DeclareOption{bolddel}{\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}} % Vector bold \nabla symbol (default)
-\DeclareOption{arrowdel}{\DeclareDocumentCommand\vnabla{}{\vec{\boldsymbol\nabla}}} % Vector arrow \nabla symbol
-\DeclareOption{bolddot}{\DeclareDocumentCommand\dotproduct{}{\boldsymbol\cdot}} % Vector bold dot product symbol
-\DeclareOption{plaindot}{\DeclareDocumentCommand\dotproduct{}{\cdot}} % Vector plain dot product symbol (default)
-\newif\ifshortgreek
-\DeclareOption{shortgreek}{\shortgreektrue} % Define shorthands for Greek alphabet
-\DeclareOption{noshortgreek}{\shortgreekfalse} % Not define shorthands for Greek alphabet (default)
+\DeclareOption{notrig}{\iftrig\else\trigfalse\fi} % Not redefine trig function and operator.
+\DeclareOption{trig}{\trigtrue} % Redefine trig function and operator (default).
+\newif\ifdiff
+\DeclareOption{italicdiff}{\ifdiff\else\def\diffd{d}\fi} % Italic differentials.
+\DeclareOption{uprightdiff}{\difftrue\def\diffd{\mathrm{d}}} % Upright differentials (default).
+\newif\ifdel
+\DeclareOption{arrowdel}{\ifdel\else\DeclareDocumentCommand\vnabla{}{\vec{\boldsymbol\nabla}}\fi} % Vector arrow \nabla symbol.
+\DeclareOption{bolddel}{\deltrue\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}} % Vector bold \nabla symbol (default).
+\newif\ifdot
+\DeclareOption{bolddot}{\ifdot\else\DeclareDocumentCommand\dotproduct{}{\boldsymbol\cdot}\fi} % Vector bold dot product symbol.
+\DeclareOption{plaindot}{\dottrue\DeclareDocumentCommand\dotproduct{}{\cdot}} % Vector plain dot product symbol (default).
+\newif\ifshorttextgreek
+\DeclareOption{noshorttextgreek}{\ifshorttextgreek\else\shorttextgreekfalse\fi} % Not define shorthands for text Greek alphabet (default).
+\DeclareOption{shorttextgreek}{\shorttextgreektrue} % Define shorthands for text Greek alphabet.
+\newif\ifshortvargreek
+\DeclareOption{noshortvargreek}{\ifshortvargreek\else\shortvargreekfalse\fi} % Not define shorthands for variant Greek alphabet (default).
+\DeclareOption{shortvargreek}{\shortvargreektrue} % Define shorthands for variant Greek alphabet.
+\newif\ifshortupgreek
+\DeclareOption{noshortupgreek}{\ifshortupgreek\else\shortupgreekfalse\fi} % Not define shorthands for upright Greek alphabet (default).
+\DeclareOption{shortupgreek}{\shortupgreektrue} % Define shorthands for upright Greek alphabet.
+\newif\ifshortupvargreek
+\DeclareOption{noshortupvargreek}{\ifshortupvargreek\else\shortupvargreekfalse\fi} % Not define shorthands for upright variant Greek alphabet (default).
+\DeclareOption{shortupvargreek}{\shortupvargreektrue} % Define shorthands for upright variant Greek alphabet.
+\newif\ifshortboldgreek
+\DeclareOption{noshortboldgreek}{\ifshortboldgreek\else\shortboldgreekfalse\fi} % Not define shorthands for bold Greek alphabet (default).
+\DeclareOption{shortboldgreek}{\shortboldgreektrue} % Define shorthands for bold Greek alphabet.
+\DeclareOption{shortgreek}{\shorttextgreektrue\shortvargreektrue\shortupgreektrue\shortupvargreektrue\shortboldgreektrue} % Define all shorthands for Greek alphabet
+\DeclareOption{noshortgreek}{} % For backward compatibility. Do nothing.
 \newif\ifshortmathrm
-\DeclareOption{shortmathrm}{\shortmathrmtrue} % Define shorthands for mathrm alphabet and chemical element symbols
-\DeclareOption{noshortmathrm}{\shortmathrmfalse} % Not define shorthands for mathrm alphabet and chemical element symbols (default)
+\DeclareOption{noshortmathrm}{\ifshortmathrm\else\shortmathrmfalse\fi} % Not define shorthands for mathrm alphabet and chemical element symbols (default).
+\DeclareOption{shortmathrm}{\shortmathrmtrue} % Define shorthands for mathrm alphabet and chemical element symbols.
 \newif\ifshorttext
-\DeclareOption{shorttext}{\shorttexttrue} % Define shorthands for textnormal alphabet
-\DeclareOption{noshorttext}{\shorttextfalse} % Not define shorthands for textnormal alphabet (default)
+\DeclareOption{noshorttext}{\ifshorttext\else\shorttextfalse\fi} % Not define shorthands for textnormal alphabet (default).
+\DeclareOption{shorttext}{\shorttexttrue} % Define shorthands for textnormal alphabet.
 \DeclareOption*{}
-\ExecuteOptions{override,pretend,nosiintegrate,originaldiv,trig,uprightdiff,bolddel,plaindot,noshortgreek,noshortmathrm,noshorttext}
+\ExecuteOptions{override,pretend,nosiintegrate,originaldiv,trig,uprightdiff,bolddel,plaindot,noshorttextgreek,noshortvargreek,noshortupgreek,noshortupvargreek,noshortboldgreek,noshortmathrm,noshorttext}
+% To use all features' recommended versions, use \usepackage[override,pretend,nosiintegrate,originaldiv,trig,uprightdiff,bolddel,plaindot,shorttextgreek,shortvargreek,shortupgreek,shortupvargreek,shortboldgreek,shortmathrm,shorttext]{physics-patch}
 \ProcessOptions\relax
 
 \newif\ifphysics
@@ -71,8 +90,8 @@
   \makeatother
 \fi
 
-% shortgreek
-\ifshortgreek
+% Shortgreek
+\ifshorttextgreek
 \DeclareDocumentCommand{\tgAlpha}{g}{\text{\textAlpha}}
 \DeclareDocumentCommand{\tgBeta}{g}{\text{\textBeta}}
 \DeclareDocumentCommand{\tgGamma}{g}{\text{\textGamma}}
@@ -121,6 +140,8 @@
 \DeclareDocumentCommand{\tgchi}{g}{\text{\textchi}}
 \DeclareDocumentCommand{\tgpsi}{g}{\text{\textpsi}}
 \DeclareDocumentCommand{\tgomega}{g}{\text{\textomega}}
+\fi
+\ifshortvargreek
 \DeclareDocumentCommand{\vAlpha}{}{\varAlpha}
 \DeclareDocumentCommand{\vBeta}{}{\varBeta}
 \DeclareDocumentCommand{\vGamma}{}{\varGamma}
@@ -169,6 +190,8 @@
 \DeclareDocumentCommand{\vchi}{}{\varchi}
 \DeclareDocumentCommand{\vpsi}{}{\varpsi}
 \DeclareDocumentCommand{\vomega}{}{\varomega}
+\fi
+\ifshortupgreek
 \DeclareDocumentCommand{\uAlpha}{}{\upAlpha}
 \DeclareDocumentCommand{\uBeta}{}{\upBeta}
 \DeclareDocumentCommand{\uGamma}{}{\upGamma}
@@ -217,6 +240,8 @@
 \DeclareDocumentCommand{\uchi}{}{\upchi}
 \DeclareDocumentCommand{\upsi}{}{\uppsi}
 \DeclareDocumentCommand{\uomega}{}{\upomega}
+\fi
+\ifshortupvargreek
 \DeclareDocumentCommand{\uvAlpha}{}{\upvarAlpha}
 \DeclareDocumentCommand{\uvBeta}{}{\upvarBeta}
 \DeclareDocumentCommand{\uvGamma}{}{\upvarGamma}
@@ -266,8 +291,58 @@
 \DeclareDocumentCommand{\uvpsi}{}{\upvarpsi}
 \DeclareDocumentCommand{\uvomega}{}{\upvaromega}
 \fi
+\ifshortboldgreek
+\DeclareDocumentCommand{\bAlpha}{}{\boldsymbol{\Alpha}}
+\DeclareDocumentCommand{\bBeta}{}{\boldsymbol{\Beta}}
+\DeclareDocumentCommand{\bGamma}{}{\boldsymbol{\Gamma}}
+\DeclareDocumentCommand{\bDelta}{}{\boldsymbol{\Delta}}
+\DeclareDocumentCommand{\bEpsilon}{}{\boldsymbol{\Epsilon}}
+\DeclareDocumentCommand{\bZeta}{}{\boldsymbol{\Zeta}}
+\DeclareDocumentCommand{\bEta}{}{\boldsymbol{\Eta}}
+\DeclareDocumentCommand{\bTheta}{}{\boldsymbol{\Theta}}
+\DeclareDocumentCommand{\bIota}{}{\boldsymbol{\Iota}}
+\DeclareDocumentCommand{\bKappa}{}{\boldsymbol{\Kappa}}
+\DeclareDocumentCommand{\bLambda}{}{\boldsymbol{\Lambda}}
+\DeclareDocumentCommand{\bMu}{}{\boldsymbol{\Mu}}
+\DeclareDocumentCommand{\bNu}{}{\boldsymbol{\Nu}}
+\DeclareDocumentCommand{\bXi}{}{\boldsymbol{\Xi}}
+\DeclareDocumentCommand{\bOmicron}{}{\boldsymbol{\Omicron}}
+\DeclareDocumentCommand{\bPi}{}{\boldsymbol{\Pi}}
+\DeclareDocumentCommand{\bRho}{}{\boldsymbol{\Rho}}
+\DeclareDocumentCommand{\bSigma}{}{\boldsymbol{\Sigma}}
+\DeclareDocumentCommand{\bTau}{}{\boldsymbol{\Tau}}
+\DeclareDocumentCommand{\bUpsilon}{}{\boldsymbol{\Upsilon}}
+\DeclareDocumentCommand{\bPhi}{}{\boldsymbol{\Phi}}
+\DeclareDocumentCommand{\bChi}{}{\boldsymbol{\Chi}}
+\DeclareDocumentCommand{\bPsi}{}{\boldsymbol{\Psi}}
+\DeclareDocumentCommand{\bOmega}{}{\boldsymbol{\Omega}}
+\DeclareDocumentCommand{\balpha}{}{\boldsymbol{\alpha}}
+\DeclareDocumentCommand{\bbeta}{}{\boldsymbol{\beta}}
+\DeclareDocumentCommand{\bgamma}{}{\boldsymbol{\gamma}}
+\DeclareDocumentCommand{\bdelta}{}{\boldsymbol{\delta}}
+\DeclareDocumentCommand{\bepsilon}{}{\boldsymbol{\epsilon}}
+\DeclareDocumentCommand{\bzeta}{}{\boldsymbol{\zeta}}
+\DeclareDocumentCommand{\beta}{}{\boldsymbol{\eta}}
+\DeclareDocumentCommand{\btheta}{}{\boldsymbol{\theta}}
+\DeclareDocumentCommand{\biota}{}{\boldsymbol{\iota}}
+\DeclareDocumentCommand{\bkappa}{}{\boldsymbol{\kappa}}
+\DeclareDocumentCommand{\blambda}{}{\boldsymbol{\lambda}}
+\DeclareDocumentCommand{\bmu}{}{\boldsymbol{\mu}}
+\DeclareDocumentCommand{\bnu}{}{\boldsymbol{\nu}}
+\DeclareDocumentCommand{\bxi}{}{\boldsymbol{\xi}}
+\DeclareDocumentCommand{\bomicron}{}{\boldsymbol{\omicron}}
+\DeclareDocumentCommand{\bpi}{}{\boldsymbol{\pi}}
+\DeclareDocumentCommand{\brho}{}{\boldsymbol{\rho}}
+\DeclareDocumentCommand{\bsigma}{}{\boldsymbol{\sigma}}
+\DeclareDocumentCommand{\btau}{}{\boldsymbol{\tau}}
+\DeclareDocumentCommand{\bupsilon}{}{\boldsymbol{\upsilon}}
+\DeclareDocumentCommand{\bphi}{}{\boldsymbol{\phi}}
+\DeclareDocumentCommand{\bchi}{}{\boldsymbol{\chi}}
+\DeclareDocumentCommand{\bpsi}{}{\boldsymbol{\psi}}
+\DeclareDocumentCommand{\bomega}{}{\boldsymbol{\omega}}
+\fi
 
-% shortmathrm
+% Shortmathrm
 \ifshortmathrm
 \DeclareDocumentCommand{\rmA}{e{_^}}{\ensuremath{\mathrm{A}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
 \DeclareDocumentCommand{\rmB}{e{_^}}{\ensuremath{\mathrm{B}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
@@ -427,7 +502,7 @@
 \DeclareDocumentCommand{\rmOg}{e{_^}}{\ensuremath{\mathrm{Og}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
 \fi
 
-% shorttext
+% Shorttext
 \ifshorttext
 \DeclareDocumentCommand{\txA}{}{\textnormal{A}}
 \DeclareDocumentCommand{\txB}{}{\textnormal{B}}
@@ -484,6 +559,8 @@
 \fi
 
 % Utilities
+\DeclareDocumentCommand{\sups}{m}{\ensuremath{^{#1}}}
+\DeclareDocumentCommand{\subs}{m}{\ensuremath{_{#1}}}
 \DeclareDocumentCommand{\mathcolorbox}{ m m }{
   \begingroup
   \setlength{\fboxsep}{0pt}
@@ -509,6 +586,7 @@
 \let\bsb\boldsymbol
 \DeclareDocumentCommand{\RNum}{m}{\uppercase\expandafter{\romannumeral #1\relax}}
 \DeclareDocumentCommand\flatfrac{ m m }{\left.#1\middle\slash#2\right.}
+\let\texpdf\texorpdfstring
 
 % Symbols
 \DeclareDocumentCommand\lparen{}{(} % Left parenthesis
@@ -526,8 +604,37 @@
 \DeclareDocumentCommand{\bbQ}{}{\mathbb{Q}}
 \DeclareDocumentCommand{\bbN}{}{\mathbb{N}}
 \DeclareDocumentCommand{\bbZ}{}{\mathbb{Z}}
+\DeclareDocumentCommand{\Bell}{}{\char"1F514}
 \DeclareDocumentCommand{\bell}{}{\boldsymbol{\ell}}
-\DeclareDocumentCommand{\btau}{}{\boldsymbol{\tau}}
+
+% Arrows and lines
+\let\Lra\Leftrightarrow
+\let\lra\leftrightarrow
+\let\Ra\Rightarrow
+\let\ra\rightarrow
+\let\La\Leftarrow
+\let\la\leftarrow
+\let\Upa\Uparrow
+\let\upa\uparrow
+\let\Dna\Downarrow
+\let\dna\downarrow
+\let\rlh\rightleftharpoons
+\let\lrh\leftrightharpoons
+\let\rhu\rightharpoonup
+\let\lhu\leftharpoonup
+\let\rhd\rightharpoondown
+\let\lhd\leftharpoondown
+\let\uhr\upharpoonright
+\let\uhl\upharpoonleft
+\let\dhr\downharpoonright
+\let\dhl\downharpoonleft
+\let\hkra\hookrightarrow
+\let\hkla\hookleftarrow
+\let\mpto\mapsto
+\let\mpfr\mapsfrom
+\DeclareDocumentCommand\equiv{}{\ensuremath{\equiv}}
+\DeclareDocumentCommand\eqv{}{\ensuremath{\equiv}}
+\DeclareDocumentCommand\defeq{}{\stackrel{\mathrm{def}}{=}}
 
 % Brackets and braces
 \DeclareDocumentCommand{\PHquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g }
@@ -894,6 +1001,8 @@
 \DeclareDocumentCommand{\atantwo}{}{\operatorname{atan2}}
 \DeclareDocumentCommand{\closure}{}{\operatorname{closure}}
 \DeclareDocumentCommand{\col}{}{\operatorname{col}}
+\DeclareDocumentCommand{\distance}{}{\operatorname{distance}}
+\DeclareDocumentCommand{\Distance}{}{\operatorname{Distance}}
 \DeclareDocumentCommand{\row}{}{\operatorname{row}}
 \DeclareDocumentCommand{\ker}{}{\operatorname{ker}}
 \DeclareDocumentCommand{\SD}{}{\operatorname{SD}}
@@ -1007,6 +1116,8 @@
   \DeclareDocumentCommand{\atantwo}{}{\trigbraces{\operatorname{atan2}}}
   \DeclareDocumentCommand{\closure}{}{\opbraces{\operatorname{closure}}}
   \DeclareDocumentCommand{\col}{}{\opbraces{\operatorname{col}}}
+  \DeclareDocumentCommand{\distance}{}{\operatorname{distance}}
+  \DeclareDocumentCommand{\Distance}{}{\operatorname{Distance}}
   \DeclareDocumentCommand{\row}{}{\opbraces{\operatorname{row}}}
   \DeclareDocumentCommand{\ker}{}{\opbraces{\operatorname{ker}}}
   \DeclareDocumentCommand{\SD}{}{\opbraces{\operatorname{SD}}}
