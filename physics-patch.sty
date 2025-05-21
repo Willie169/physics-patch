@@ -1,24 +1,15 @@
-\ProvidesPackage{physics-patch}[Version 2.8, May 13, 2025, Improved version of the physics package]
-% physics-patch 2.8
-%
+\ProvidesPackage{physics-patch}[Version 2.9, May 21, 2025, Improved version of the physics package]
+% physics-patch 2.9
+% Last update: May 21, 2025
 % Improved version of the physics package
+%
+% Author: Willie Shen (Willie169)
+% Repository: https://github.com/Willie169/physics-patch
 %
 % This package is released under the LaTeX Project Public License (LPPL) 1.3c
 % See https://www.latex-project.org/lppl/lppl-1-3c for the details of that license
 % Many parts of this package are modified from the physics package, created by Sergio C. de la Barrera and licenced under LPPL 1.3
 % See https://ctan.org/pkg/physics for the details of that package
-%
-% This package requires amsmath, etoolbox, xcolor, xparse, and xstring package.
-% Commands that have different definitions come with PT in the beginning of their name (e.g. \PTmqty).
-% physics-patch has covered all commands in physics since version 2.0, so there's no need to load physics.
-% It is ok to load physics before this package. This package will silently overrides macros in physics with an improved version. To use the original version provided by physics, load physics before this package and use the nooverride option (not recommended).
-% This package pretends that physics package is loaded so that this package won't be overriden if loading physics is called afterward and packages loaded afterward that checks whether physics is loaded to determine its behavior (e.g. siunitx) work correctly. To disable this, use the nopretend option (not recommended).
-% If siuitx is loaded before this package, this package will define \ITquantity and \ITqty as the integration of the improved definition of physics's \qty (in \PHquantity and \PHqty) and siuitx's \SI. You can optionally set siintegrate option to override \PTquantity and \PTqty with \ITqty (not recommended).
-% If two opposite options which one of them with the name of the other prefixed with a no are loaded at the same time, the one without the no in the name will be used. If two opposite options which have the same suffix and different prefix are loaded at the same time, the default one will be used.
-%
-% Author: Willie Shen (Willie169)
-% Repository: https://github.com/Willie169/physics-patch
-% Last update: May 13, 2025
 %
 % For documentation, see physics-patch.pdf
 
@@ -34,13 +25,13 @@
 \DeclareOption{override}{\overridetrue} % Override macros in physics to patched ones (default). This option can be set no matter whether physics is loaded.
 \newif\ifpretend
 \DeclareOption{nopretend}{\ifpretend\else\pretendfalse\fi} % Not pretend that physics package is loaded (not recommend).
-\DeclareOption{pretend}{\pretendtrue} % Pretend that physics package is loaded so that this package won't be overriden if \@onefilewithoptions{physics} is called afterward (e.g. \usepackage{physics}) and packages loaded afterward that checks whether physics is loaded to determine its behavior (e.g. siunitx) work correctly (default).
+\DeclareOption{pretend}{\pretendtrue} % Pretend that physics is loaded so that this package won't be overriden if loading physics is called afterward and packages that depend on physics (e.g. siunitx) work correctly.
 \newif\ifsiintegrate
-\DeclareOption{nosiintegrate}{\ifsiintegrate\else\siintegratefalse\fi} % Not override \PTquantity and \PTqty with \ITqty, which is an integration of qty of physics-patch (physics) and siunitx (default).
+\DeclareOption{nosiintegrate}{\ifsiintegrate\else\siintegratefalse\fi} % Not override \PTquantity and \PTqty with \ITqty.
 \DeclareOption{siintegrate}{\siintegratetrue} % Override \PTquantity and \PTqty with \ITqty (not recommended). Fall back to nosiintegrate if siunitx is not loaded.
 \newif\iforiginaldiv
 \DeclareOption{nooriginaldiv}{\iforiginaldiv\else\originaldivfalse\fi} % Let \div be \divergence (not recommended).
-\DeclareOption{originaldiv}{\originaldivtrue} % Let \div be division symbol (default)
+\DeclareOption{originaldiv}{\originaldivtrue} % Let \div be division symbol (default).
 \newif\iftrig
 \DeclareOption{notrig}{\iftrig\else\trigfalse\fi} % Not redefine trig function and operator.
 \DeclareOption{trig}{\trigtrue} % Redefine trig function and operator (default).
@@ -68,8 +59,8 @@
 \newif\ifshortboldgreek
 \DeclareOption{noshortboldgreek}{\ifshortboldgreek\else\shortboldgreekfalse\fi} % Not define shorthands for bold Greek alphabet (default).
 \DeclareOption{shortboldgreek}{\shortboldgreektrue} % Define shorthands for bold Greek alphabet.
-\DeclareOption{shortgreek}{\shorttextgreektrue\shortvargreektrue\shortupgreektrue\shortupvargreektrue\shortboldgreektrue} % Define all shorthands for Greek alphabet
 \DeclareOption{noshortgreek}{} % For backward compatibility. Do nothing.
+\DeclareOption{shortgreek}{\shorttextgreektrue\shortvargreektrue\shortupgreektrue\shortupvargreektrue\shortboldgreektrue} % Define all shorthands for Greek alphabet.
 \newif\ifshortmathrm
 \DeclareOption{noshortmathrm}{\ifshortmathrm\else\shortmathrmfalse\fi} % Not define shorthands for mathrm alphabet and chemical element symbols (default).
 \DeclareOption{shortmathrm}{\shortmathrmtrue} % Define shorthands for mathrm alphabet and chemical element symbols.
@@ -78,7 +69,6 @@
 \DeclareOption{shorttext}{\shorttexttrue} % Define shorthands for textnormal alphabet.
 \DeclareOption*{}
 \ExecuteOptions{override,pretend,nosiintegrate,originaldiv,trig,uprightdiff,bolddel,plaindot,noshorttextgreek,noshortvargreek,noshortupgreek,noshortupvargreek,noshortboldgreek,noshortmathrm,noshorttext}
-% To use all features' recommended versions, use \usepackage[override,pretend,nosiintegrate,originaldiv,trig,uprightdiff,bolddel,plaindot,shorttextgreek,shortvargreek,shortupgreek,shortupvargreek,shortboldgreek,shortmathrm,shorttext]{physics-patch}
 \ProcessOptions\relax
 
 \newif\ifphysics
@@ -632,8 +622,9 @@
 \let\hkla\hookleftarrow
 \let\mpto\mapsto
 \let\mpfr\mapsfrom
-\DeclareDocumentCommand\equiv{}{\ensuremath{\equiv}}
-\DeclareDocumentCommand\eqv{}{\ensuremath{\equiv}}
+\let\originalequiv\equiv
+\DeclareDocumentCommand\equiv{}{\ensuremath{\originalequiv}}
+\DeclareDocumentCommand\eqv{}{\equiv}
 \DeclareDocumentCommand\defeq{}{\stackrel{\mathrm{def}}{=}}
 
 % Brackets and braces
@@ -1001,9 +992,12 @@
 \DeclareDocumentCommand{\atantwo}{}{\operatorname{atan2}}
 \DeclareDocumentCommand{\closure}{}{\operatorname{closure}}
 \DeclareDocumentCommand{\col}{}{\operatorname{col}}
+\DeclareDocumentCommand{\Col}{}{\operatorname{Col}}
+\DeclareDocumentCommand{\dim}{}{\operatorname{dim}}
 \DeclareDocumentCommand{\distance}{}{\operatorname{distance}}
 \DeclareDocumentCommand{\Distance}{}{\operatorname{Distance}}
 \DeclareDocumentCommand{\row}{}{\operatorname{row}}
+\DeclareDocumentCommand{\Row}{}{\operatorname{Row}}
 \DeclareDocumentCommand{\ker}{}{\operatorname{ker}}
 \DeclareDocumentCommand{\SD}{}{\operatorname{SD}}
 \DeclareDocumentCommand{\Var}{}{\operatorname{Var}}
@@ -1116,9 +1110,12 @@
   \DeclareDocumentCommand{\atantwo}{}{\trigbraces{\operatorname{atan2}}}
   \DeclareDocumentCommand{\closure}{}{\opbraces{\operatorname{closure}}}
   \DeclareDocumentCommand{\col}{}{\opbraces{\operatorname{col}}}
+  \DeclareDocumentCommand{\Col}{}{\opbraces{\operatorname{Col}}}
+  \DeclareDocumentCommand{\dim}{}{\opbraces{\operatorname{dim}}}
   \DeclareDocumentCommand{\distance}{}{\operatorname{distance}}
   \DeclareDocumentCommand{\Distance}{}{\operatorname{Distance}}
   \DeclareDocumentCommand{\row}{}{\opbraces{\operatorname{row}}}
+  \DeclareDocumentCommand{\Row}{}{\opbraces{\operatorname{Row}}}
   \DeclareDocumentCommand{\ker}{}{\opbraces{\operatorname{ker}}}
   \DeclareDocumentCommand{\SD}{}{\opbraces{\operatorname{SD}}}
   \DeclareDocumentCommand{\Var}{}{\opbraces{\operatorname{Var}}}
