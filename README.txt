@@ -1,5 +1,5 @@
-physics-patch 3.0
-Last update: July 14, 2025
+physics-patch 3.1
+Last update: July 29, 2025
 Improved version of the physics package
 
 Author: Willie Shen (Willie169)

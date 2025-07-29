@@ -1,6 +1,6 @@
-\ProvidesPackage{physics-patch}[Version 3.0, July 13, 2025, Improved version of the physics package]
-% physics-patch 3.0
-% Last update: July 14, 2025
+\ProvidesPackage{physics-patch}[Version 3.1, July 29, 2025, Improved version of the physics package]
+% physics-patch 3.1
+% Last update: July 29, 2025
 % Improved version of the physics package
 %
 % Author: Willie Shen (Willie169)
@@ -20,56 +20,55 @@
 \RequirePackage{xstring}
 
 % Options
-\newif\ifoverride
-\DeclareOption{nooverride}{\ifoverride\else\overridefalse\fi} % Not override macros in physics to patched ones (not recommended). Fall back to override if physics is not loaded.
-\DeclareOption{override}{\overridetrue} % Override macros in physics to patched ones (default). This option can be set no matter whether physics is loaded.
-\newif\ifpretend
-\DeclareOption{nopretend}{\ifpretend\else\pretendfalse\fi} % Not pretend that physics package is loaded (not recommend).
-\DeclareOption{pretend}{\pretendtrue} % Pretend that physics is loaded so that this package won't be overriden if loading physics is called afterward and packages that depend on physics (e.g. siunitx) work correctly.
-\newif\ifsiintegrate
-\DeclareOption{nosiintegrate}{\ifsiintegrate\else\siintegratefalse\fi} % Not override \PTquantity and \PTqty with \ITqty.
-\DeclareOption{siintegrate}{\siintegratetrue} % Override \PTquantity and \PTqty with \ITqty (not recommended). Fall back to nosiintegrate if siunitx is not loaded.
-\newif\iforiginaldiv
-\DeclareOption{nooriginaldiv}{\iforiginaldiv\else\originaldivfalse\fi} % Let \div be \divergence (not recommended).
-\DeclareOption{originaldiv}{\originaldivtrue} % Let \div be division symbol (default).
-\newif\iftrig
-\DeclareOption{notrig}{\iftrig\else\trigfalse\fi} % Not redefine trig function and operator.
-\DeclareOption{trig}{\trigtrue} % Redefine trig function and operator (default).
-\newif\ifdiff
-\DeclareOption{italicdiff}{\ifdiff\else\def\dfd{d}\def\dfD{D}\fi} % Italic differentials.
-\DeclareOption{uprightdiff}{\difftrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}} % Upright differentials (default).
-\newif\ifdel
-\DeclareOption{arrowdel}{\ifdel\else\DeclareDocumentCommand\vnabla{}{\vec{\boldsymbol\nabla}}\fi} % Vector arrow \nabla symbol.
-\DeclareOption{bolddel}{\deltrue\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}} % Vector bold \nabla symbol (default).
-\newif\ifdot
-\DeclareOption{bolddot}{\ifdot\else\DeclareDocumentCommand\dotproduct{}{\boldsymbol\cdot}\fi} % Vector bold dot product symbol.
-\DeclareOption{plaindot}{\dottrue\DeclareDocumentCommand\dotproduct{}{\cdot}} % Vector plain dot product symbol (default).
+\newif\ifoverride\overridetrue
+\DeclareOption{nooverride}{\overridefalse}
+\DeclareOption{override}{\overridetrue}
+\newif\ifpretend\pretendtrue
+\DeclareOption{nopretend}{\pretendfalse}
+\DeclareOption{pretend}{\pretendtrue}
+\newif\ifnosiintegrate\nosiintegratetrue
+\DeclareOption{nosiintegrate}{\nosiintegratetrue}
+\DeclareOption{siintegrate}{\nosiintegratefalse}
+\newif\iforiginaldiv\originaldivtrue
+\DeclareOption{nooriginaldiv}{\originaldivfalse}
+\DeclareOption{originaldiv}{\originaldivtrue}
+\newif\iftrig\trigtrue
+\DeclareOption{notrig}{\trigfalse}
+\DeclareOption{trig}{\trigtrue}
+\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}
+\DeclareOption{italicdiff}{\def\dfd{d}\def\dfD{D}}
+\DeclareOption{uprightdiff}{\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}}
+\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}
+\DeclareOption{arrowdel}{\DeclareDocumentCommand\vnabla{}{\vec{\boldsymbol\nabla}}}
+\DeclareOption{bolddel}{\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}}
+\DeclareDocumentCommand\dotproduct{}{\cdot}
+\DeclareOption{bolddot}{\DeclareDocumentCommand\dotproduct{}{\boldsymbol\cdot}}
+\DeclareOption{plaindot}{\DeclareDocumentCommand\dotproduct{}{\cdot}}
+\DeclareOption{forcedefault}{\overridetrue\pretendtrue\nosiintegratetrue\originaldivtrue\trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}}
 \newif\ifshorttextgreek
-\DeclareOption{noshorttextgreek}{\ifshorttextgreek\else\shorttextgreekfalse\fi} % Not define shorthands for text Greek alphabet (default).
-\DeclareOption{shorttextgreek}{\shorttextgreektrue} % Define shorthands for text Greek alphabet.
+\DeclareOption{noshorttextgreek}{\shorttextgreekfalse}
+\DeclareOption{shorttextgreek}{\shorttextgreektrue}
 \newif\ifshortvargreek
-\DeclareOption{noshortvargreek}{\ifshortvargreek\else\shortvargreekfalse\fi} % Not define shorthands for variant Greek alphabet (default).
-\DeclareOption{shortvargreek}{\shortvargreektrue} % Define shorthands for variant Greek alphabet.
+\DeclareOption{noshortvargreek}{\shortvargreekfalse}
+\DeclareOption{shortvargreek}{\shortvargreektrue}
 \newif\ifshortupgreek
-\DeclareOption{noshortupgreek}{\ifshortupgreek\else\shortupgreekfalse\fi} % Not define shorthands for upright Greek alphabet (default).
-\DeclareOption{shortupgreek}{\shortupgreektrue} % Define shorthands for upright Greek alphabet.
+\DeclareOption{noshortupgreek}{\shortupgreekfalse}
+\DeclareOption{shortupgreek}{\shortupgreektrue}
 \newif\ifshortupvargreek
-\DeclareOption{noshortupvargreek}{\ifshortupvargreek\else\shortupvargreekfalse\fi} % Not define shorthands for upright variant Greek alphabet (default).
-\DeclareOption{shortupvargreek}{\shortupvargreektrue} % Define shorthands for upright variant Greek alphabet.
+\DeclareOption{noshortupvargreek}{\shortupvargreekfalse}
+\DeclareOption{shortupvargreek}{\shortupvargreektrue}
 \newif\ifshortboldgreek
-\DeclareOption{noshortboldgreek}{\ifshortboldgreek\else\shortboldgreekfalse\fi} % Not define shorthands for bold Greek alphabet (default).
-\DeclareOption{shortboldgreek}{\shortboldgreektrue} % Define shorthands for bold Greek alphabet.
-\DeclareOption{noshortgreek}{} % For backward compatibility. Do nothing.
-\DeclareOption{shortgreek}{\shorttextgreektrue\shortvargreektrue\shortupgreektrue\shortupvargreektrue\shortboldgreektrue} % Define all shorthands for Greek alphabet.
+\DeclareOption{noshortboldgreek}{\shortboldgreekfalse}
+\DeclareOption{shortboldgreek}{\shortboldgreektrue}
+\DeclareOption{noshortgreek}{\shorttextgreekfalse\shortvargreekfalse\shortupgreekfalse\shortupvargreekfalse\shortboldgreekfalse}
+\DeclareOption{shortgreek}{\shorttextgreektrue\shortvargreektrue\shortupgreektrue\shortupvargreektrue\shortboldgreektrue}
 \newif\ifshortmathrm
-\DeclareOption{noshortmathrm}{\ifshortmathrm\else\shortmathrmfalse\fi} % Not define shorthands for mathrm alphabet and chemical element symbols (default).
-\DeclareOption{shortmathrm}{\shortmathrmtrue} % Define shorthands for mathrm alphabet and chemical element symbols.
+\DeclareOption{noshortmathrm}{\shortmathrmfalse}
+\DeclareOption{shortmathrm}{\shortmathrmtrue}
 \newif\ifshorttext
-\DeclareOption{noshorttext}{\ifshorttext\else\shorttextfalse\fi} % Not define shorthands for textnormal alphabet (default).
-\DeclareOption{shorttext}{\shorttexttrue} % Define shorthands for textnormal alphabet.
-\DeclareOption{forcedefault}{\overridetrue\pretendtrue\siintegratefalse\originaldivtrue\trigtrue\difftrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\deltrue\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\dottrue\DeclareDocumentCommand\dotproduct{}{\cdot}} % Forces default for all options except shorttextgreek, shortvargreek, shortupgreek, shortupvargreek, shortboldgreek, shortgreek, shortmathrm, and shorttext.
+\DeclareOption{noshorttext}{\shorttextfalse}
+\DeclareOption{shorttext}{\shorttexttrue}
 \DeclareOption*{}
-\ExecuteOptions{override,pretend,nosiintegrate,originaldiv,trig,uprightdiff,bolddel,plaindot,noshorttextgreek,noshortvargreek,noshortupgreek,noshortupvargreek,noshortboldgreek,noshortmathrm,noshorttext}
 \ProcessOptions\relax
 
 \newif\ifphysics
@@ -600,37 +599,68 @@
 \DeclareDocumentCommand\ST{}{\;\text{s.t.}\;}
 
 % Arrows and lines
-\let\Lra\Leftrightarrow
-\let\lra\leftrightarrow
-\let\Ra\Rightarrow
-\let\ra\rightarrow
-\let\La\Leftarrow
-\let\la\leftarrow
-\let\Upa\Uparrow
-\let\upa\uparrow
-\let\Dna\Downarrow
-\let\dna\downarrow
-\let\rlh\rightleftharpoons
-\let\lrh\leftrightharpoons
-\let\rhu\rightharpoonup
-\let\lhu\leftharpoonup
-\let\rhd\rightharpoondown
-\let\lhd\leftharpoondown
-\let\uhr\upharpoonright
-\let\uhl\upharpoonleft
-\let\dhr\downharpoonright
-\let\dhl\downharpoonleft
-\let\hkra\hookrightarrow
-\let\hkla\hookleftarrow
-\let\nLra\nLeftrightarrow
-\let\nlra\nleftrightarrow
-\let\nRa\nRightarrow
-\let\nra\nrightarrow
-\let\nLa\nLeftarrow
-\let\nla\nleftarrow
-\let\mpto\mapsto
-\let\mpfr\mapsfrom
+\DeclareDocumentCommand\Lra{}{\Leftrightarrow}
+\robustify{\Lra}
+\DeclareDocumentCommand\lra{}{\leftrightarrow}
+\robustify{\lra}
+\DeclareDocumentCommand\Ra{}{\Rightarrow}
+\robustify{\Ra}
+\DeclareDocumentCommand\ra{}{\rightarrow}
+\robustify{\ra}
+\DeclareDocumentCommand\La{}{\Leftarrow}
+\robustify{\La}
+\DeclareDocumentCommand\la{}{\leftarrow}
+\robustify{\la}
+\DeclareDocumentCommand\Upa{}{\Uparrow}
+\robustify{\Upa}
+\DeclareDocumentCommand\upa{}{\uparrow}
+\robustify{\upa}
+\DeclareDocumentCommand\Dna{}{\Downarrow}
+\robustify{\Dna}
+\DeclareDocumentCommand\dna{}{\downarrow}
+\robustify{\dna}
+\DeclareDocumentCommand\rlh{}{\rightleftharpoons}
+\robustify{\rlh}
+\DeclareDocumentCommand\lrh{}{\leftrightharpoons}
+\robustify{\lrh}
+\DeclareDocumentCommand\rhu{}{\rightharpoonup}
+\robustify{\rhu}
+\DeclareDocumentCommand\lhu{}{\leftharpoonup}
+\robustify{\lhu}
+\DeclareDocumentCommand\rhd{}{\rightharpoondownup}
+\robustify{\rhd}
+\DeclareDocumentCommand\lhd{}{\leftharpoondown}
+\robustify{\lhd}
+\DeclareDocumentCommand\uhr{}{\upharpoonright}
+\robustify{\uhr}
+\DeclareDocumentCommand\uhl{}{\upharpoonleft}
+\robustify{\uhl}
+\DeclareDocumentCommand\dhr{}{\downharpoonright}
+\robustify{\dhr}
+\DeclareDocumentCommand\dhl{}{\downharpoonleft}
+\robustify{\dhl}
+\DeclareDocumentCommand\hkra{}{\hookrightarrow}
+\robustify{\hkra}
+\DeclareDocumentCommand\hkla{}{\hookleftarrow}
+\robustify{\hkla}
+\DeclareDocumentCommand\nLra{}{\nLeftrightarrow}
+\robustify{\nLra}
+\DeclareDocumentCommand\nlra{}{\nleftrightarrow}
+\robustify{\nlra}
+\DeclareDocumentCommand\nRa{}{\nRightarrow}
+\robustify{\nRa}
+\DeclareDocumentCommand\nra{}{\nrightarrow}
+\robustify{\nra}
+\DeclareDocumentCommand\nLa{}{\nLeftarrow}
+\robustify{\nLa}
+\DeclareDocumentCommand\nla{}{\nleftarrow}
+\robustify{\nla}
+\DeclareDocumentCommand\mpto{}{\mapsto}
+\robustify{\mpto}
+\DeclareDocumentCommand\mpfr{}{\mapsfrom}
+\robustify{\mpfr}
 \DeclareDocumentCommand\defeq{}{\stackrel{\mathrm{def}}{=}}
+\robustify{\defeq}
 \let\originalequiv\equiv
 \DeclareDocumentCommand\equiv{}{\ensuremath{\originalequiv}}
 \DeclareDocumentCommand\eqv{}{\ensuremath{\originalequiv}}
@@ -760,10 +790,10 @@
     }
   }
   \DeclareDocumentCommand\ITqty{}{\ITquantity}
-  \ifsiintegrate
-    \DeclareDocumentCommand\PTquantity{}{\ITquantity}
-  \else
+  \ifnosiintegrate
     \DeclareDocumentCommand\PTquantity{}{\PHquantity}
+  \else
+    \DeclareDocumentCommand\PTquantity{}{\ITquantity}
   \fi
 }{\DeclareDocumentCommand\PTquantity{}{\PHquantity}}
 \DeclareDocumentCommand\PTqty{}{\PTquantity}

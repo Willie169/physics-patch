@@ -48,7 +48,7 @@ breakatwhitespace=false
 }
 \title{The \texttt{physics-patch} package\\\mbox{}\\\textnormal{\large Improved version of the physics package}}
 \author{\mbox{}\\Willie Shen (Willie169)}
-\date{Version 3.0\\\textnormal{Last update: July 14, 2025}}
+\date{Version 3.1\\\textnormal{Last update: July 29, 2025}}
 \begin{document}
 \onehalfspacing\thispagestyle{empty}\Needspace{1\textheight}\maketitle\setcounter{page}{1}\Needspace{1\textheight}\tableofcontents\Needspace{1\textheight}\setcounter{page}{1}
 \section{Preface}
@@ -76,47 +76,45 @@ If \texttt{siuitx} is loaded before this package, this package will define \verb
 \subsection{Options}
 Options available in this package include 
 \begin{itemize}
-\item \verb|nooverride|: Not override macros in physics to patched ones (not recommended). Fall back to override if physics is not loaded.
-\item \verb|override|: Override macros in physics to patched ones (default). This option can be set no matter whether physics is loaded.
-\item \verb|nopretend|: Not pretend that physics package is loaded (not recommend).
-\item \verb|pretend|: Pretend that \texttt{physics} is loaded so that this package won't be overriden if loading \texttt{physics} is called afterward and packages that depend on \texttt{physics} (e.g. \texttt{siunitx}) work correctly.
-\item \verb|nosiintegrate|: Not override \verb|\PTquantity| and \verb|\PTqty| with \verb|\ITqty|.
-\item \verb|siintegrate|: Override \verb|\PTquantity| and \verb|\PTqty| with \verb|\ITqty| (not recommended). Fall back to nosiintegrate if siunitx is not loaded.
-\item \verb|nooriginaldiv|: Let \verb|\div| be \verb|\divergence| (not recommended).
-\item \verb|originaldiv|: Let \verb|\div| be division symbol (default).
-\item \verb|notrig|: Not redefine trig function and operator.
-\item \verb|trig|: Redefine trig function and operator (default).
+\item \verb|nooverride|: Not override macros in physics to patched ones. Fall back to override if physics is not loaded. (not recommended)
+\item \verb|override|: Override macros in physics to patched ones. This option can be set no matter whether physics is loaded. (default)
+\item \verb|nopretend|: Not pretend that physics package is loaded. (not recommend).
+\item \verb|pretend|: Pretend that \texttt{physics} is loaded so that this package won't be overriden if loading \texttt{physics} is called afterward and packages that depend on \texttt{physics} (e.g. \texttt{siunitx}) work correctly. (default)
+\item \verb|nosiintegrate|: Not override \verb|\PTquantity| and \verb|\PTqty| with \verb|\ITqty|. (default)
+\item \verb|siintegrate|: Override \verb|\PTquantity| and \verb|\PTqty| with \verb|\ITqty|. Fall back to nosiintegrate if siunitx is not loaded. (not recommended)
+\item \verb|nooriginaldiv|: Let \verb|\div| be \verb|\divergence|. (not recommended)
+\item \verb|originaldiv|: Let \verb|\div| be division symbol. (default)
+\item \verb|notrig|: Not define functions and operators with automatic bracing.
+\item \verb|trig|: Define functions and operators with automatic bracing. (default)
 \item \verb|italicdiff|: Italic differentials.
-\item \verb|uprightdiff|: Upright differentials (default).
+\item \verb|uprightdiff|: Upright differentials. (default)
 \item \verb|arrowdel|: Vector arrow \verb|\nabla| symbol.
-\item \verb|bolddel|: Vector bold \verb|\nabla| symbol (default).
+\item \verb|bolddel|: Vector bold \verb|\nabla| symbol. (default)
 \item \verb|bolddot|: Vector bold dot product symbol.
-\item \verb|plaindot|: Vector plain dot product symbol (default).
-\item \verb|noshorttextgreek|: Not define shorthands for text Greek alphabet (default).
+\item \verb|plaindot|: Vector plain dot product symbol. (default)
+\item \verb|forcedefault|: Forces the above options to their default ones.
+\item \verb|noshorttextgreek|: Not define shorthands for text Greek alphabet. (default)
 \item \verb|shorttextgreek|: Define shorthands for text Greek alphabet.
-\item \verb|noshortvargreek|: Not define shorthands for variant Greek alphabet (default).
+\item \verb|noshortvargreek|: Not define shorthands for variant Greek alphabet. (default)
 \item \verb|shortvargreek|: Define shorthands for variant Greek alphabet.
-\item \verb|noshortupgreek|: Not define shorthands for upright Greek alphabet (default).
+\item \verb|noshortupgreek|: Not define shorthands for upright Greek alphabet. (default)
 \item \verb|shortupgreek|: Define shorthands for upright Greek alphabet.
-\item \verb|noshortupvargreek|: Not define shorthands for upright variant Greek alphabet (default).
+\item \verb|noshortupvargreek|: Not define shorthands for upright variant Greek alphabet. (default)
 \item \verb|shortupvargreek|: Define shorthands for upright variant Greek alphabet.
-\item \verb|noshortboldgreek|: Not define shorthands for bold Greek alphabet (default).
+\item \verb|noshortboldgreek|: Not define shorthands for bold Greek alphabet. (default)
 \item \verb|shortboldgreek|: Define shorthands for bold Greek alphabet.
-\item \verb|noshortgreek|: For backward compatibility. Do nothing.
+\item \verb|noshortgreek|: Not define all shorthands for Greek alphabet. (default)
 \item \verb|shortgreek|: Define all shorthands for Greek alphabet.
-\item \verb|noshortmathrm|: Not define shorthands for mathrm alphabet and chemical element symbols (default).
+\item \verb|noshortmathrm|: Not define shorthands for mathrm alphabet and chemical element symbols. (default)
 \item \verb|shortmathrm|: Define shorthands for mathrm alphabet and chemical element symbols.
-\item \verb|noshorttext|: Not define shorthands for textnormal alphabet (default).
+\item \verb|noshorttext|: Not define shorthands for textnormal alphabet. (default)
 \item \verb|shorttext|: Define shorthands for textnormal alphabet.
-\item \verb|forcedefault|: Forces default for all options except shorttextgreek, shortvargreek, shortupgreek, shortupvargreek, shortboldgreek, shortgreek, shortmathrm, and shorttext.
 \end{itemize}
 
 To use all features of this package, load it with 
 \begin{lstlisting}[language=TeX,basicstyle=\ttfamily\normalsize]
-\usepackage[shorttextgreek,shortvargreek,shortupgreek,shortupvargreek,shortboldgreek,shortmathrm,shorttext]{physics-patch}
+\usepackage[shortgreek,shortmathrm,shorttext]{physics-patch}
 \end{lstlisting}
-
-If two opposite options which one of them with the name of the other prefixed with a no are loaded at the same time, the one without the no in the name will be used; if two opposite options which have the same suffix and different prefix are loaded at the same time, the default one will be used; if \verb|shortgreek| option is used, \verb|noshorttextgreek|, \verb|noshortvargreek|, \verb|noshortupgreek|, \verb|noshortupvargreek|, and \verb|noshortboldgreek| are ignored.
 \section{Communication Channels}
 \begin{itemize}
 \item \textbf{Bug tracker:} \href{https://github.com/Willie169/physics-patch/issues}{https://github.com/Willie169/physics-patch/issues}.
@@ -249,7 +247,7 @@ $\Rightarrow$
 \Pr(x) & \Arg(x) & \arg(x) & \Re(x) \\
 \Im(x) \\
 \end{longtable}
-The standard trig functions plus a few that are missing in \texttt{amsmath} are available without any automatic bracing under a new set of longer names:
+The same set of functions but without any automatic bracing are available under a new set of longer names:
 \begin{longtable}[c]{llll}
 \verb|\sine| & \verb|\hypsine| & \verb|\arcsine| & \verb|\asine| \\
 \verb|\cosine| & \verb|\hypcosine| & \verb|\arccosine| & \verb|\acosine| \\
@@ -308,7 +306,7 @@ New operators:
 & \verb|\PV{\int f(z) \dd{z}}|$\rightarrow \PV{\int f(z) \dd{z}}$ & alternate \\\hline
 \end{longtable}
 \subsection{Utilities}
-\begin{longtable}[c]{|L{0.3\textwidth}|L{0.25\textwidth}|L{0.35\textwidth}|}
+\begin{longtable}[c]{|L{0.25\textwidth}|L{0.4\textwidth}|L{0.25\textwidth}|}
 \hline
 \verb|\mathcolorbox| & \verb|\mcbox{color}{content}| & \verb|\colorbox| for math environment, applying to all four levels of math styles \\
 & \verb|\mcbox{cyan}{\typical}| $\rightarrow \mcbox{cyan}{\typical}$ & \\\hline
