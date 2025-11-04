@@ -1,6 +1,6 @@
-\ProvidesPackage{physics-patch}[Version 3.1, July 29, 2025, Improved version of the physics package]
-% physics-patch 3.1
-% Last update: July 29, 2025
+\ProvidesPackage{physics-patch}[Version 4.0, November 4, 2025, Improved version of the physics package]
+% physics-patch 4.0
+% Last update: November 4, 2025
 % Improved version of the physics package
 %
 % Author: Willie Shen (Willie169)
@@ -44,7 +44,16 @@
 \DeclareDocumentCommand\dotproduct{}{\cdot}
 \DeclareOption{bolddot}{\DeclareDocumentCommand\dotproduct{}{\boldsymbol\cdot}}
 \DeclareOption{plaindot}{\DeclareDocumentCommand\dotproduct{}{\cdot}}
-\DeclareOption{forcedefault}{\overridetrue\pretendtrue\nosiintegratetrue\originaldivtrue\trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}}
+\DeclareDocumentCommand\spaceflatfrac{ m m }{\left.#1\middle\slash#2\right.}
+\DeclareDocumentCommand\noresizeflatfrac{ m m }{#1\slash#2}
+\DeclareDocumentCommand\defaultflatfrac{ m m }{\mathopen{}\mathclose\bgroup\left.\kern-\nulldelimiterspace#1\middle\slash#2\aftergroup\egroup\right.\kern-\nulldelimiterspace}
+\newif\ifspaceflatfrac
+\newif\ifnoresizeflatfrac
+\newif\ifdefaultflatfrac
+\DeclareOption{spaceflatfrac}{\spaceflatfractrue\noresizeflatfracfalse\defaultflatfracfalse}
+\DeclareOption{noresizeflatfrac}{\noresizeflatfractrue\spaceflatfracfalse\defaultflatfracfalse}
+\DeclareOption{defaultflatfrac}{\defaultflatfractrue\spaceflatfracfalse\noresizeflatfracfalse}
+\DeclareOption{forcedefault}{\overridetrue\pretendtrue\nosiintegratetrue\originaldivtrue\trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac}}
 \newif\ifshorttextgreek
 \DeclareOption{noshorttextgreek}{\shorttextgreekfalse}
 \DeclareOption{shorttextgreek}{\shorttextgreektrue}
@@ -68,11 +77,21 @@
 \newif\ifshorttext
 \DeclareOption{noshorttext}{\shorttextfalse}
 \DeclareOption{shorttext}{\shorttexttrue}
+\DeclareOption{forcedefaultall}{\overridetrue\pretendtrue\nosiintegratetrue\originaldivtrue\trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac}\shortgreektrue\shortmathrmtrue\shorttexttrue}
 \DeclareOption*{}
 \ProcessOptions\relax
 
 \newif\ifphysics
 \IfPackageLoadedTF{physics}{\physicstrue}{\overridetrue\physicsfalse}
+
+\ifoverride
+  \DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac}
+\else
+  \DeclareDocumentCommand\flatfrac{ m m }{\spaceflatfrac}
+\fi
+\ifspaceflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\spaceflatfrac}\fi
+\ifnoresizeflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\noresizeflatfrac}\fi
+\ifdefaultflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac}\fi
 
 \ifpretend
   \makeatletter
@@ -575,12 +594,15 @@
 \let\numcir\numbercircled
 \let\bsb\boldsymbol
 \DeclareDocumentCommand{\RNum}{m}{\uppercase\expandafter{\romannumeral #1\relax}}
-\DeclareDocumentCommand\flatfrac{ m m }{\left.#1\middle\slash#2\right.}
 
 % Symbols
-\DeclareDocumentCommand\lparen{}{(} % Left parenthesis
-\DeclareDocumentCommand\rparen{}{)} % Right parenthesis
-\DeclareDocumentCommand\ordersymbol{}{\mathcal{O}} % Order symbol --> O(x^2)
+\DeclareDocumentCommand\lparen{}{(}
+\DeclareDocumentCommand\rparen{}{)}
+\DeclareDocumentCommand\lnull{}{\mathopen{}\mathclose\bgroup\left.\kern-\nulldelimiterspace}
+\DeclareDocumentCommand\rnull{}{\aftergroup\egroup\right.\kern-\nulldelimiterspace}
+\DeclareDocumentCommand\lpair{}{\mathopen{}\mathclose\bgroup\left}
+\DeclareDocumentCommand\rpair{}{\aftergroup\egroup\right}
+\DeclareDocumentCommand\ordersymbol{}{\mathcal{O}}
 \DeclareDocumentCommand{\typical}{}{\cbox{cyan}{\phantom{A}}}
 \DeclareDocumentCommand{\tall}{}{\cbox{cyan}{\phantom{A^{\vphantom{x^x}}_x}}}
 \DeclareDocumentCommand{\grande}{}{\cbox{cyan}{\phantom{\frac{1}{xx}}}}
@@ -595,7 +617,7 @@
 \DeclareDocumentCommand{\bbZ}{}{\mathbb{Z}}
 \DeclareDocumentCommand{\Bell}{}{\char"1F514}
 \DeclareDocumentCommand{\bell}{}{\boldsymbol{\ell}}
-\DeclareDocumentCommand\kernnull{}{\kern-\nulldelimiterspace} % negate the space next to null delimiters
+\DeclareDocumentCommand\kernnull{}{\kern-\nulldelimiterspace}
 \DeclareDocumentCommand\ST{}{\;\text{s.t.}\;}
 
 % Arrows and lines
