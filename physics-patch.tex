@@ -48,7 +48,7 @@ breakatwhitespace=false
 }
 \title{The \texttt{physics-patch} package\\\mbox{}\\\textnormal{\large Improved version of the physics package}}
 \author{\mbox{}\\Willie Shen (Willie169)}
-\date{Version 4.0\\\textnormal{Last update: November 4, 2025}}
+\date{Version 4.0\\\textnormal{Last update: November 17, 2025}}
 \begin{document}
 \onehalfspacing\thispagestyle{empty}\Needspace{1\textheight}\maketitle\setcounter{page}{1}\Needspace{1\textheight}\tableofcontents\Needspace{1\textheight}\setcounter{page}{1}
 \section{Preface}
@@ -68,20 +68,12 @@ content...
 \end{document}
 \end{lstlisting}
 
-This package will silently override the commands that have been defined before this package is loaded. To use the original definition provided by \texttt{physics}, load \texttt{physics} before this package and use the \texttt{nooverride} option for this package (not recommended). \texttt{nooverride} falls back to the original behavior if \texttt{physics} has not been loaded.
+This package will silently override the commands that have been defined before this package is loaded.
 
-This package pretends that \texttt{physics} is loaded so that this package won't be overriden if loading \texttt{physics} is called afterward and packages that depend on \texttt{physics} (e.g. \texttt{siunitx}) work correctly. To disable this, use the \texttt{nopretend} option (not recommended).
-
-If \texttt{siuitx} is loaded before this package, this package will define \verb|\ITquantity| and \verb|\ITqty| with the integration of the revised definition of \texttt{physics}'s \verb|\qty| (in \verb|\PHquantity| and \verb|\PHqty|) and \texttt{siuitx}'s \verb|\SI|. You can optionally set \texttt{siintegrate} option to override \verb|\PTquantity| and \verb|\PTqty| with \verb|\ITqty| (not recommended). \texttt{siintegrate} falls back to the original behavior if \texttt{siunitx} is not loaded.
+This package pretends that \texttt{physics} is loaded so that this package won't be overriden if loading \texttt{physics} is called afterward and that packages that depend on \texttt{physics} work correctly.
 \subsection{Options}
 Options available in this package include:
 \begin{itemize}
-\item \verb|nooverride|: Not override macros in physics to patched ones. Fall back to override if physics is not loaded. (not recommended)
-\item \verb|override|: Override macros in physics to patched ones. This option can be set no matter whether physics is loaded. (default)
-\item \verb|nopretend|: Not pretend that physics package is loaded. (not recommend).
-\item \verb|pretend|: Pretend that \texttt{physics} is loaded so that this package won't be overriden if loading \texttt{physics} is called afterward and packages that depend on \texttt{physics} (e.g. \texttt{siunitx}) work correctly. (default)
-\item \verb|nosiintegrate|: Not override \verb|\PTquantity| and \verb|\PTqty| with \verb|\ITqty|. (default)
-\item \verb|siintegrate|: Override \verb|\PTquantity| and \verb|\PTqty| with \verb|\ITqty|. Fall back to nosiintegrate if siunitx is not loaded. (not recommended)
 \item \verb|nooriginaldiv|: Let \verb|\div| be \verb|\divergence|. (not recommended)
 \item \verb|originaldiv|: Let \verb|\div| be division symbol. (default)
 \item \verb|notrig|: Not define functions and operators with automatic bracing.
@@ -134,9 +126,7 @@ See \href{https://ctan.org/pkg/physics}{https://ctan.org/pkg/physics} for the de
 See \href{https://ctan.org/pkg/amsmath}{https://ctan.org/pkg/amsmath} for the details of that package.
 \end{itemize}
 \section{List of Commands}
-In the commands listed below, the left column is long-form names with non-default alternate names (if any), the middle column is default shorthand commands with detailed syntaxes and explanations.
-
-If the \texttt{nooverride} option is not used or the \texttt{physics} package is not loaded before this package, a command without \texttt{PT} prefix will be defined as the same definition as that prefixed with \texttt{PT} for every command prefixed with \texttt{PT} below silently.
+In the commands listed below, the left column is long-form names (if any), the middle column is default shorthand commands with examples, and the right column is explanations.
 \subsection{Auto Resizable Bracing}
 Null delimiter without \verb|\nulldelimiterspace|:
 \begin{longtable}[c]{|L{0.3\textwidth}|L{0.3\textwidth}|L{0.3\textwidth}|}
@@ -170,22 +160,22 @@ $\displaystyle\rightarrow\lpair(\grande\rpair)$  & \\\hline
 Auto Resizable Bracing:
 \begin{longtable}[c]{|L{0.2\textwidth}|L{0.35\textwidth}|L{0.35\textwidth}|}
 \hline
-\verb|\PTquantity|, \verb|\PHquantity| or \verb|\PHqty| & \verb|\PTqty(\typical)| $\displaystyle\rightarrow \PTqty(\typical)$ & automatic $\PTqty(\;)$ braces \\
-& \verb|\PTqty(\tall)| $\displaystyle\rightarrow \PTqty(\tall)$ & \\
-& \verb|\PTqty(\grande)| $\displaystyle\rightarrow \PTqty(\grande)$ & \\
-& \verb|\PTqty[\typical]| $\rightarrow \PTqty[\typical]$ & automatic $\PTqty[\;]$ braces \\
-& \verb+\PTqty|\typical|+ $\rightarrow \PTqty|\typical|$ & automatic $\PTqty|\;|$ braces \\
-& \verb|\PTqty{\typical}| $\rightarrow \PTqty{\typical}$ & automatic $\PTqty{\;}$ braces \\
-& \verb|\PTqty\big{}| $\rightarrow \PTqty\big{}$ & \multirow{4}{*}{\parbox{6cm}{manual sizing (works with any of the above bracket types)}} \\
-& \verb|\PTqty\Big{}| $\rightarrow \PTqty\Big{}$ & \\
-& \verb|\PTqty\bigg{}| $\rightarrow \PTqty\bigg{}$ & \\
-& \verb|\PTqty\Bigg{}| $\rightarrow \PTqty\Bigg{}$ & \\
-& \verb|\pqty{}| $\leftrightarrow$ \verb|\PTqty()| & \multirow{4}{*}{\parbox{6cm}{alternative syntax; robust and more \LaTeX-friendly}} \\
-& \verb|\bqty{}| $\leftrightarrow$ \verb|\PTqty[]| & \\
-& \verb+\vqty{}+ $\leftrightarrow$ \verb+\PTqty||+ & \\
-& \verb|\Bqty{}| $\leftrightarrow$ \verb|\PTqty{}| & \\\hline
-\verb|\absolutevalue| & \verb|\abs{a}| $\rightarrow \abs{a}$ & automatic sizing; equivalent to \verb+\PTqty|a|+ \\
-& \verb|\abs\Big{a}| $\rightarrow \abs\Big{a}$ & inherits manual sizing syntax from \verb|\PTqty| \\
+\verb|\quantity| & \verb|\qty(\typical)| $\displaystyle\rightarrow \qty(\typical)$ & automatic $\qty(\;)$ braces \\
+& \verb|\qty(\tall)| $\displaystyle\rightarrow \qty(\tall)$ & \\
+& \verb|\qty(\grande)| $\displaystyle\rightarrow \qty(\grande)$ & \\
+& \verb|\qty[\typical]| $\rightarrow \qty[\typical]$ & automatic $\qty[\;]$ braces \\
+& \verb+\qty|\typical|+ $\rightarrow \qty|\typical|$ & automatic $\qty|\;|$ braces \\
+& \verb|\qty{\typical}| $\rightarrow \qty{\typical}$ & automatic $\qty{\;}$ braces \\
+& \verb|\qty\big{}| $\rightarrow \qty\big{}$ & \multirow{4}{*}{\parbox{6cm}{manual sizing (works with any of the above bracket types)}} \\
+& \verb|\qty\Big{}| $\rightarrow \qty\Big{}$ & \\
+& \verb|\qty\bigg{}| $\rightarrow \qty\bigg{}$ & \\
+& \verb|\qty\Bigg{}| $\rightarrow \qty\Bigg{}$ & \\
+& \verb|\pqty{}| $\leftrightarrow$ \verb|\qty()| & \multirow{4}{*}{\parbox{6cm}{alternative syntax; robust and more \LaTeX-friendly}} \\
+& \verb|\bqty{}| $\leftrightarrow$ \verb|\qty[]| & \\
+& \verb+\vqty{}+ $\leftrightarrow$ \verb+\qty||+ & \\
+& \verb|\Bqty{}| $\leftrightarrow$ \verb|\qty{}| & \\\hline
+\verb|\absolutevalue| & \verb|\abs{a}| $\rightarrow \abs{a}$ & automatic sizing; equivalent to \verb+\qty|a|+ \\
+& \verb|\abs\Big{a}| $\rightarrow \abs\Big{a}$ & inherits manual sizing syntax from \verb|\qty| \\
 & \verb|\abs*{\grande}| $\displaystyle\rightarrow \abs*{\grande}$ & star for no resize \\\hline
 \verb|\norm| & \verb|\norm{a}| $\rightarrow \norm{a}$ & automatic sizing \\
 & \verb|\norm\Big{a}| $\rightarrow \norm\Big{a}$ & manual sizing \\
@@ -221,7 +211,7 @@ The default del symbol $\vnabla$ used in \texttt{physics-patch} vector notation 
 & \verb|\cp| $\rightarrow \cp$ as in $\vb{a} \cp \vb{b}$ & shorthand name \\\hline
 \verb|\gradient| & \verb|\grad| $\rightarrow \grad$ & \\
 & \verb|\grad{\Psi}| $\rightarrow \grad{\Psi}$ & default mode \\
-& \verb|\grad(\Psi+\tall)| $\displaystyle\rightarrow \grad(\Psi+\tall)$ & long-form (like \verb|\PTqty| but also handles spacing) \\
+& \verb|\grad(\Psi+\tall)| $\displaystyle\rightarrow \grad(\Psi+\tall)$ & long-form (like \verb|\qty| but also handles spacing) \\
 & \verb|\grad[\Psi+\tall]| $\displaystyle\rightarrow \grad[\Psi+\tall]$ & \\\hline
 \verb|\divergence| & \verb|\divg| $\rightarrow \divg$ & Note: if \texttt{nooriginaldiv} option is used, \verb|\div| will be overriden as $\divg$ too (not recommended) \\
 & \verb|\divg{\vb{a}}| $\rightarrow \divg{\vb{a}}$ & default mode \\
@@ -237,7 +227,7 @@ The default del symbol $\vnabla$ used in \texttt{physics-patch} vector notation 
 & \verb|\laplacian[\Psi+\tall]| $\displaystyle\rightarrow \laplacian[\Psi+\tall]$ &\\\hline
 \end{longtable}
 \subsection{Operators}
-The trig functions and some other functions are redefined in \texttt{physics-patch} to provide automatic braces that behave like \verb|\PTqty()|. In addition, an optional power argument is provided. This behavior can be switched off by including the option \texttt{notrig} in the preamble.
+The trig functions and some other functions are redefined in \texttt{physics-patch} to provide automatic braces that behave like \verb|\qty()|. In addition, an optional power argument is provided. This behavior can be switched off by including the option \texttt{notrig} in the preamble.
 
 Example redefinitions:
 \begin{longtable}[c]{|l|l|l|}
@@ -401,17 +391,17 @@ and can be switched to:
 & \verb|\Dv[n]{f}{x}| $\displaystyle\rightarrow \Dv[n]{f}{x}$ & optional power \\
 & \verb|\Dv{x}(\grande)| $\displaystyle\rightarrow \Dv{x}(\grande)$ & long-form; automatic braces, spacing \\
 & \verb|\Dv*{f}{x}| $\displaystyle\rightarrow \Dv*{f}{x}$ & inline form using \verb|\flatfrac| \\\hline
-\verb|\PTpartialderivative| or \verb|\PTpderivative| & \verb|\PTdv{f}{x}(\grande)| $\displaystyle\rightarrow \PTdv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\dv{f}{x}(\grande)| $\displaystyle\rightarrow \dv{f}{x}$\\
-& \verb|\PTpdv{x}| $\displaystyle\rightarrow \PTpdv{x}$ & shorthand name \\
-& \verb|\PTpdv{f}{x}| $\displaystyle\rightarrow \PTpdv{f}{x}$ & two arguments \\
-& \verb|\PTpdv[n]{f}{x}| $\displaystyle\rightarrow \PTpdv[n]{f}{x}$ & optional power \\
-& \verb|\PTpdv{x}(\grande)| $\displaystyle\rightarrow \PTpdv{x}(\grande)$ & long-form \\
-& \verb|\PTpdv{f}{x}{y}| $\displaystyle\rightarrow \PTpdv{f}{x}{y}$ & mixed partial \\
-& \verb|\PTpdv*{f}{x}| $\displaystyle\rightarrow \PTpdv*{f}{x}$ & inline form using \verb|\flatfrac| \\
-& \verb|\PTpdv{f}{x}(\grande)| $\displaystyle\rightarrow \PTpdv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\pdv{f}{x}(\grande)| $\displaystyle\rightarrow \pdv{f}{x}$ \\\hline
+\verb|\partialderivative| or \verb|\pderivative| & \verb|\dv{f}{x}(\grande)| $\displaystyle\rightarrow \dv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\dv{f}{x}(\grande)| $\displaystyle\rightarrow \dv{f}{x}$\\
+& \verb|\pdv{x}| $\displaystyle\rightarrow \pdv{x}$ & shorthand name \\
+& \verb|\pdv{f}{x}| $\displaystyle\rightarrow \pdv{f}{x}$ & two arguments \\
+& \verb|\pdv[n]{f}{x}| $\displaystyle\rightarrow \pdv[n]{f}{x}$ & optional power \\
+& \verb|\pdv{x}(\grande)| $\displaystyle\rightarrow \pdv{x}(\grande)$ & long-form \\
+& \verb|\pdv{f}{x}{y}| $\displaystyle\rightarrow \pdv{f}{x}{y}$ & mixed partial \\
+& \verb|\pdv*{f}{x}| $\displaystyle\rightarrow \pdv*{f}{x}$ & inline form using \verb|\flatfrac| \\
+& \verb|\pdv{f}{x}(\grande)| $\displaystyle\rightarrow \pdv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\pdv{f}{x}(\grande)| $\displaystyle\rightarrow \pdv{f}{x}$ \\\hline
 \verb|\variation| & \verb|\var{F[g(x)]}| $\rightarrow \var{F[g(x)]}$ & functional variation (works like \verb|\dd|) \\
 & \verb|\var(E-TS)| $\rightarrow \var(E-TS)$ & long-form \\\hline
-\verb|\functionalderivative| & \verb|\fdv{g}| $\displaystyle\rightarrow \fdv{g}$ & functional derivative (works like \verb|\PTdv|) \\
+\verb|\functionalderivative| & \verb|\fdv{g}| $\displaystyle\rightarrow \fdv{g}$ & functional derivative (works like \verb|\dv|) \\
 & \verb|\fdv{F}{g}| $\displaystyle\rightarrow \fdv{F}{g}$ & \\
 & \verb|\fdv{V}(E-TS)| $\displaystyle\rightarrow \fdv{V}(E-TS)$ & long-form \\
 & \verb|\fdv*{F}{x}| $\displaystyle\rightarrow \fdv*{F}{x}$ & inline form using \verb|\flatfrac| \\\hline
@@ -465,9 +455,9 @@ allowing the user to type out complicated quantum mechanical expressions without
 & \verb|\mel**{n}{\grande}{m}| $\rightarrow \mel**{n}{\grande}{m}$ & double star resizes based on all parts \\\hline
 \end{longtable}
 \subsection{Matrix Macros}
-Note: \verb|\mqty| and \verb|\smqty| in \texttt{physics} uses \verb|\mathord|, while \verb|\PTmqty| and \verb|\PTsmqty| in \texttt{physics-patch} don't.
+Note: \verb|\mqty| and \verb|\smqty| in \texttt{physics} uses \verb|\mathord|, while \verb|\mqty| and \verb|\smqty| in \texttt{physics-patch} don't.
 
-The following matrix macros produce unformatted rows and columns of matrix elements for use as separate matrices as well as blocks within larger matrices. For example, the command \verb|\identitymatrix{2}| which has also has the shortcut \verb|\imat{2}| produces the elements of a $2 \times 2$ identity matrix $\PTsmqty{\imat{2}}$ without braces or grouping. This allows the command to also be used within another matrix, as in:\\
+The following matrix macros produce unformatted rows and columns of matrix elements for use as separate matrices as well as blocks within larger matrices. For example, the command \verb|\identitymatrix{2}| which has also has the shortcut \verb|\imat{2}| produces the elements of a $2 \times 2$ identity matrix $\smqty{\imat{2}}$ without braces or grouping. This allows the command to also be used within another matrix, as in:\\
 \begin{minipage}{3cm}
 \begin{lstlisting}[language=TeX,basicstyle=\ttfamily\normalsize]
 \begin{pmatrix}
@@ -483,11 +473,11 @@ The following matrix macros produce unformatted rows and columns of matrix eleme
 \end{pmatrix}
 \end{displaymath}
 \end{minipage}
-To specify elements on the right of left sides of our \verb|\imat{2}| sub-matrix we use the grouping command \verb|\PTmatrixquantity| or \verb|\PTmqty| to effectively convert \verb|\imat{2}| into a single matrix element of a larger matrix:\\
+To specify elements on the right of left sides of our \verb|\imat{2}| sub-matrix we use the grouping command \verb|\matrixquantity| or \verb|\mqty| to effectively convert \verb|\imat{2}| into a single matrix element of a larger matrix:\\
 \begin{minipage}{9cm}
 \begin{lstlisting}[language=TeX,basicstyle=\ttfamily\normalsize]
 \begin{pmatrix}
-\PTmqty{\imat{2}} & \PTmqty{a\\b} \\ \PTmqty{c & d} & e
+\mqty{\imat{2}} & \mqty{a\\b} \\ \mqty{c & d} & e
 \end{pmatrix}
 \end{lstlisting}
 \end{minipage}
@@ -495,95 +485,99 @@ To specify elements on the right of left sides of our \verb|\imat{2}| sub-matrix
 \begin{displaymath}
 \Rightarrow\qquad
 \begin{pmatrix}
-\PTmqty{\imat{2}} & \PTmqty{a\\b} \\ \PTmqty{c & d} & e
+\mqty{\imat{2}} & \mqty{a\\b} \\ \mqty{c & d} & e
 \end{pmatrix}
 \end{displaymath}
 \end{minipage}
-The extra \verb|\PTmqty| groups were required in this case in order to get the $a$ and $b$ elements to behave as a single element, since \verb|\PTmqty{\imat{2}}| also acts like a single matrix element (the same can be said of the grouped $c$ and $d$ elements). Finally, the outermost \texttt{pmatrix} environment could have also been replaced with the \texttt{physics-patch} macro \verb|\PTmqty()|, allowing the above example to be written on one line:\\
+The extra \verb|\mqty| groups were required in this case in order to get the $a$ and $b$ elements to behave as a single element, since \verb|\mqty{\imat{2}}| also acts like a single matrix element (the same can be said of the grouped $c$ and $d$ elements). Finally, the outermost \texttt{pmatrix} environment could have also been replaced with the \texttt{physics-patch} macro \verb|\mqty()|, allowing the above example to be written on one line:\\
 \begin{minipage}{9cm}
 \begin{lstlisting}[language=TeX,basicstyle=\ttfamily\normalsize]
-\PTmqty(\PTmqty{\imat{2}} & \PTmqty{a\\b} \\ \PTmqty{c & d} & e)
+\mqty(\mqty{\imat{2}} & \mqty{a\\b} \\ \mqty{c & d} & e)
 \end{lstlisting}
 \end{minipage}
 \begin{minipage}{6cm}
 \begin{displaymath}
 \Rightarrow\qquad
-\PTmqty(\PTmqty{\imat{2}} & \PTmqty{a\\b} \\ \PTmqty{c & d} & e)
+\mqty(\mqty{\imat{2}} & \mqty{a\\b} \\ \mqty{c & d} & e)
 \end{displaymath}
 \end{minipage}
 {\fontsize{8pt}{12pt}\selectfont
 \begin{longtable}[c]{|p{0.2\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|}
 \hline
-\verb|\PTmatrixquantity| & \verb|\PTmqty{a & b \\ c & d}| $\rightarrow \PTmqty{a & b \\ c & d}$ & groups a set of matrix elements into a single object \\
-& \verb|\PTmqty(a & b \\ c & d)| $\rightarrow {\PTmqty(a & b \\ c & d)}$ & parentheses \\
-& \verb|\PTmqty*(a & b \\ c & d)| $\rightarrow {\PTmqty*(a & b \\ c & d)}$ & alternate parentheses \\
-& \verb|\PTmqty[a & b \\ c & d]| $\rightarrow {\PTmqty[a & b \\ c & d]}$ & square brackets \\
-& \verb|\PTmqty| \texttt{|} \verb|a & b \\ c & d| \texttt{|} $\rightarrow {\PTmqty|a & b \\ c & d|}$ & vertical bars \\
-& \verb|\omqty{}| $\leftrightarrow$ \verb|\PTmqty{}| & \multirow{2}{*}{\parbox{6cm}{alternative syntax; robust and more \LaTeX-friendly}} \\
-& \verb|\pmqty{}| $\leftrightarrow$ \verb|\PTmqty()| & \\
-& \verb|\PTpmqty{}| $\leftrightarrow$ \verb|\PTmqty()| & \\
-& \verb|\PTpmqty*{}| $\leftrightarrow$ \verb|\PTmqty*{}| & \\
-& \verb|\Pmqty{}| $\leftrightarrow$ \verb|\PTmqty*()| & \\
-& \verb|\bmqty{}| $\leftrightarrow$ \verb|\PTmqty[]| & \\
-& \verb|\vmqty{}| $\leftrightarrow$ \verb+\PTmqty||+ & \\\hline
-\verb|\PTsmallmatrixquantity| & \verb|\PTsmqty{a & b \\ c & d}| $\rightarrow \PTsmqty{a & b \\ c & d}$ & the \texttt{smallmatrix} form of \verb|\PTmqty| \\
-& \verb|\PTsmqty()| \qor \verb|\spmqty{}| \qor \verb|\PTspmqty{}| & small version of \verb|\PTmqty()| \\
-& \verb|\PTsmqty*()| \qor \verb|\sPmqty{}| \qor \verb|\PTspmqty*{}| & small version of \verb|\PTmqty*()|\\
-& \verb|\PTsmqty[]| \qor \verb|\sbmqty{}| & small version of \verb|\PTmqty[]| \\
-& \verb+\PTsmqty||+ \qor \verb|\svmqty{}| & small version of \verb+\PTmqty||+ \\\hline
+\verb|\matrixquantity| & \verb|\mqty{a & b \\ c & d}| $\rightarrow \mqty{a & b \\ c & d}$ & groups a set of matrix elements into a single object \\
+& \verb|\mqty(a & b \\ c & d)| $\rightarrow {\mqty(a & b \\ c & d)}$ & parentheses \\
+& \verb|\mqty*(a & b \\ c & d)| $\rightarrow {\mqty*(a & b \\ c & d)}$ & alternate parentheses \\
+& \verb|\mqty[a & b \\ c & d]| $\rightarrow {\mqty[a & b \\ c & d]}$ & square brackets \\
+& \verb|\mqty| \texttt{|} \verb|a & b \\ c & d| \texttt{|} $\rightarrow {\mqty|a & b \\ c & d|}$ & vertical bars \\
+& \verb|\omqty{}| $\leftrightarrow$ \verb|\mqty{}| & \multirow{2}{*}{\parbox{6cm}{alternative syntax; robust and more \LaTeX-friendly}} \\
+& \verb|\pmqty{}| $\leftrightarrow$ \verb|\mqty()| & \\
+& \verb|\pmqty{}| $\leftrightarrow$ \verb|\mqty()| & \\
+& \verb|\pmqty*{}| $\leftrightarrow$ \verb|\mqty*{}| & \\
+& \verb|\Pmqty{}| $\leftrightarrow$ \verb|\mqty*()| & \\
+& \verb|\bmqty{}| $\leftrightarrow$ \verb|\mqty[]| & \\
+& \verb|\vmqty{}| $\leftrightarrow$ \verb+\mqty||+ & \\\hline
+\verb|\smallmatrixquantity| & \verb|\smqty{a & b \\ c & d}| $\rightarrow \smqty{a & b \\ c & d}$ & the \texttt{smallmatrix} form of \verb|\mqty| \\
+& \verb|\smqty()| \qor \verb|\spmqty{}| \qor \verb|\spmqty{}| & small version of \verb|\mqty()| \\
+& \verb|\smqty*()| \qor \verb|\sPmqty{}| \qor \verb|\spmqty*{}| & small version of \verb|\mqty*()|\\
+& \verb|\smqty[]| \qor \verb|\sbmqty{}| & small version of \verb|\mqty[]| \\
+& \verb+\smqty||+ \qor \verb|\svmqty{}| & small version of \verb+\mqty||+ \\\hline
 \verb|\matrixdeterminant| & \verb|\mdet{a & b \\ c & d}| $\rightarrow {\mdet{a & b \\ c & d}}$ & matrix determinant \\
 & \verb|\smdet{a & b \\ c & d}| $\rightarrow {\smdet{a & b \\ c & d}}$ & small matrix determinant \\\hline
 \verb|\identitymatrix| & \verb|\imat{n}| & elements of $n \times n$ identity matrix \\
-& \verb|\PTmqty(\imat{3})| $\rightarrow \PTmqty(\imat{3})$ & formatted with \verb|\PTmqty| or \verb|\PTsmqty| \\\hline
-\verb|\PTxmatrix| & \verb|\PTxmat{x}{n}{m}| & \multirow{4}{*}{\parbox{6cm}{elements of $n \times m$ matrix filled with $x$, if not provided, $1$ is used}} \\
-& \verb|\PTmqty(\PTxmat{x}{3}{3})| $\rightarrow \PTmqty(\PTxmat{x}{3}{3})$ & \\
-& \verb|\PTmqty(\PTxmat{x}{}{3})| $\rightarrow \PTmqty(\PTxmat{x}{}{3})$ & \\
-& \verb|\PTmqty(\PTxmat{x}{3}{})| $\rightarrow \PTmqty(\PTxmat{x}{3}{})$ & \\
-& \verb|\PTxmat*{x}{n}{m}| & \multirow{4}{*}{\parbox{6cm}{star for element indices, skip row/column indices $n=1$/$m=1$}} \\
-& \verb|\PTmqty(\PTxmat*{x}{3}{3})| $\rightarrow \PTmqty(\PTxmat*{x}{3}{3})$ & \\
-& \verb|\PTmqty(\PTxmat*{x}{1}{3})| $\rightarrow \PTmqty(\PTxmat*{x}{1}{3})$ & \\
-& \verb|\PTmqty(\PTxmat*{x}{3}{1})| $\rightarrow \PTmqty(\PTxmat*{x}{3}{1})$ & \\
-& \verb|\PTxmat{x}{n}{m}[p]| & \multirow{4}{*}{\parbox{6cm}{only show $p$ rows (including \texttt{\textbackslash vdots} row) with skipped rows indicated by \texttt{\textbackslash vdots}. If $n$ isn't provided, $p$ is used}} \\
-& \verb|\PTmqty(\PTxmat{x}{5}{3}[3])| $\rightarrow \PTmqty(\PTxmat{x}{5}{3}[3])$ & \\
-& \verb|\PTmqty(\PTxmat{x}{3}{3}[3])| $\rightarrow \PTmqty(\PTxmat{x}{3}{3}[3])$ & \\
-& \verb|\PTmqty(\PTxmat{x}{}{3}[3])| $\rightarrow \PTmqty(\PTxmat{x}{}{3}[3])$ & \\
-& \verb|\PTxmat{x}{n}{m}[p][q]| & \multirow{6}{*}{\parbox{6cm}{only show $p$ rows (including \texttt{\textbackslash vdots} row) and $q$ columns (including \texttt{\textbackslash ldots} column) with skipped rows indicated by \texttt{\textbackslash vdots}, skipped columns indicated by \texttt{\textbackslash ldots}, intersection of \texttt{\textbackslash vdots} row and \texttt{\textbackslash ldots} column being \texttt{\textbackslash ddots}. If $n$/$m$ isn't provided, $p$/$q$ is used. No indices will be added for ellipses even if star is given}} \\
-& \verb|\PTmqty(\PTxmat{x}{5}{5}[3][3])| $\rightarrow \PTmqty(\PTxmat{x}{5}{5}[3][3])$ & \\
-& \verb|\PTmqty(\PTxmat{x}{5}{3}[3][3])| $\rightarrow \PTmqty(\PTxmat{x}{5}{3}[3][3])$ & \\
-& \verb|\PTmqty(\PTxmat{x}{3}{3}[3][3])| $\rightarrow \PTmqty(\PTxmat{x}{3}{3}[3][3])$ & \\
-& \verb|\PTmqty(\PTxmat{x}{5}{}[3][3])| $\rightarrow \PTmqty(\PTxmat{x}{5}{}[3][3])$ & \\
-& \verb|\PTmqty(\PTxmat{x}{}{}[3][3])| $\rightarrow \PTmqty(\PTxmat{x}{}{}[3][3])$ & \\
-& \verb|\PTxmat*{x}{n}{m}{g}| & \multirow{3}{*}{\parbox{6cm}{customize last row's element indices to $g$}} \\
-& \verb|\PTmqty(\PTxmat*{x}{3}{3}{A})| $\rightarrow \PTmqty(\PTxmat*{x}{3}{3}{A})$ & \\
-& \verb|\PTmqty(\PTxmat*{x}{5}{5}[3][3]{A})| $\rightarrow \PTmqty(\PTxmat*{x}{5}{5}[3][3]{A})$ & \\
-& \verb|\PTxmat*{x}{n}{m}{g}{h}| & \multirow{3}{*}{\parbox{6cm}{customize last row's element indices to $g$ and last column's element indices to $h$}} \\
-& \verb|\PTmqty(\PTxmat*{x}{3}{3}{A}{B})| $\rightarrow \PTmqty(\PTxmat*{x}{3}{3}{A}{B})$ & \\
-& \verb|\PTmqty(\PTxmat*{x}{5}{5}[3][3]{A}{B})| $\rightarrow \PTmqty(\PTxmat*{x}{5}{5}[3][3]{A}{B})$ & \\
-& \verb|\PTxmat[0 or 1 or 2]{x}{n}{m}[p][q]| & \multirow{4}{*}{\parbox{6cm}{Change the \texttt{\textbackslash vdots} row/\texttt{\textbackslash ldots} column from the second last one to last one, 0 for both, 1 for row only, 2 for column only. Only work when corresponding $p$/$q$ is provided and do not change the behavior of element indices}} \\
-& \verb|\PTmqty(\PTxmat[0]{x}{5}{5}[3][3])| $\rightarrow \PTmqty(\PTxmat[0]{x}{5}{5}[3][3])$ & \\
-& \verb|\PTmqty(\PTxmat[1]{x}{5}{5}[3][3])| $\rightarrow \PTmqty(\PTxmat[1]{x}{5}{5}[3][3])$ & \\
-& \verb|\PTmqty(\PTxmat[2]{x}{5}{5}[3][3])| $\rightarrow \PTmqty(\PTxmat[2]{x}{5}{5}[3][3])$ & \\\hline
+& \verb|\mqty(\imat{3})| $\rightarrow \mqty(\imat{3})$ & formatted with \verb|\mqty| or \verb|\smqty| \\\hline
+\verb|\xmatrix| & \verb|\xmat{x}{n}{m}| & \multirow{4}{*}{\parbox{6cm}{elements of $n \times m$ matrix filled with $x$, if not provided, $1$ is used}} \\
+& \verb|\mqty(\xmat{x}{3}{3})| $\rightarrow \mqty(\xmat{x}{3}{3})$ & \\
+& \verb|\mqty(\xmat{x}{}{3})| $\rightarrow \mqty(\xmat{x}{}{3})$ & \\
+& \verb|\mqty(\xmat{x}{3}{})| $\rightarrow \mqty(\xmat{x}{3}{})$ & \\
+& \verb|\xmat*{x}{n}{m}| & \multirow{4}{*}{\parbox{6cm}{star for element indices, skip row/column indices $n=1$/$m=1$}} \\
+& \verb|\mqty(\xmat*{x}{3}{3})| $\rightarrow \mqty(\xmat*{x}{3}{3})$ & \\
+& \verb|\mqty(\xmat*{x}{1}{3})| $\rightarrow \mqty(\xmat*{x}{1}{3})$ & \\
+& \verb|\mqty(\xmat*{x}{3}{1})| $\rightarrow \mqty(\xmat*{x}{3}{1})$ & \\
+& \verb|\xmat{x}{n}{m}[p]| & \multirow{4}{*}{\parbox{6cm}{only show $p$ rows (including \texttt{\textbackslash vdots} row) with skipped rows indicated by \texttt{\textbackslash vdots}. If $n$ isn't provided, $p$ is used}} \\
+& \verb|\mqty(\xmat{x}{5}{3}[3])| $\rightarrow \mqty(\xmat{x}{5}{3}[3])$ & \\
+& \verb|\mqty(\xmat{x}{3}{3}[3])| $\rightarrow \mqty(\xmat{x}{3}{3}[3])$ & \\
+& \verb|\mqty(\xmat{x}{}{3}[3])| $\rightarrow \mqty(\xmat{x}{}{3}[3])$ & \\
+& \verb|\xmat{x}{n}{m}[p][q]| & \multirow{6}{*}{\parbox{6cm}{only show $p$ rows (including \texttt{\textbackslash vdots} row) and $q$ columns (including \texttt{\textbackslash ldots} column) with skipped rows indicated by \texttt{\textbackslash vdots}, skipped columns indicated by \texttt{\textbackslash ldots}, intersection of \texttt{\textbackslash vdots} row and \texttt{\textbackslash ldots} column being \texttt{\textbackslash ddots}. If $n$/$m$ isn't provided, $p$/$q$ is used. No indices will be added for ellipses even if star is given}} \\
+& \verb|\mqty(\xmat{x}{5}{5}[3][3])| $\rightarrow \mqty(\xmat{x}{5}{5}[3][3])$ & \\
+& \verb|\mqty(\xmat{x}{5}{3}[3][3])| $\rightarrow \mqty(\xmat{x}{5}{3}[3][3])$ & \\
+& \verb|\mqty(\xmat{x}{3}{3}[3][3])| $\rightarrow \mqty(\xmat{x}{3}{3}[3][3])$ & \\
+& \verb|\mqty(\xmat{x}{5}{}[3][3])| $\rightarrow \mqty(\xmat{x}{5}{}[3][3])$ & \\
+& \verb|\mqty(\xmat{x}{}{}[3][3])| $\rightarrow \mqty(\xmat{x}{}{}[3][3])$ & \\
+& \verb|\xmat*{x}{n}{m}{g}| & \multirow{3}{*}{\parbox{6cm}{customize last row's element indices to $g$}} \\
+& \verb|\mqty(\xmat*{x}{3}{3}{A})| $\rightarrow \mqty(\xmat*{x}{3}{3}{A})$ & \\
+& \verb|\mqty(\xmat*{x}{5}{5}[3][3]{A})| $\rightarrow \mqty(\xmat*{x}{5}{5}[3][3]{A})$ & \\
+& \verb|\xmat*{x}{n}{m}{g}{h}| & \multirow{3}{*}{\parbox{6cm}{customize last row's element indices to $g$ and last column's element indices to $h$}} \\
+& \verb|\mqty(\xmat*{x}{3}{3}{A}{B})| $\rightarrow \mqty(\xmat*{x}{3}{3}{A}{B})$ & \\
+& \verb|\mqty(\xmat*{x}{5}{5}[3][3]{A}{B})| $\rightarrow \mqty(\xmat*{x}{5}{5}[3][3]{A}{B})$ & \\
+& \verb|\xmat[0 or 1 or 2]{x}{n}{m}[p][q]| & \multirow{4}{*}{\parbox{6cm}{Change the \texttt{\textbackslash vdots} row/\texttt{\textbackslash ldots} column from the second last one to last one, 0 for both, 1 for row only, 2 for column only. Only work when corresponding $p$/$q$ is provided and do not change the behavior of element indices}} \\
+& \verb|\mqty(\xmat[0]{x}{5}{5}[3][3])| $\rightarrow \mqty(\xmat[0]{x}{5}{5}[3][3])$ & \\
+& \verb|\mqty(\xmat[1]{x}{5}{5}[3][3])| $\rightarrow \mqty(\xmat[1]{x}{5}{5}[3][3])$ & \\
+& \verb|\mqty(\xmat[2]{x}{5}{5}[3][3])| $\rightarrow \mqty(\xmat[2]{x}{5}{5}[3][3])$ & \\\hline
 \verb|\zeromatrix| & \verb|\zmat{n}{m}| & \multirow{3}{*}{\parbox{6cm}{$n \times m$ matrix filled with zeros, equivalent to \texttt{\textbackslash xmat\{0\}\{n\}\{m\}}. If $m$ isn't provided, $n$ is used}} \\
-& \verb|\PTmqty(\zmat{2}{2})| $\rightarrow \PTmqty(\zmat{2}{2})$ & \\
-& \verb|\PTmqty(\zmat{2})| $\rightarrow \PTmqty(\zmat{2})$ & \\\hline
+& \verb|\mqty(\zmat{2}{2})| $\rightarrow \mqty(\zmat{2}{2})$ & \\
+& \verb|\mqty(\zmat{2})| $\rightarrow \mqty(\zmat{2})$ & \\\hline
 \verb|\paulimatrix| & \verb|\pmat{n}| & $n^\text{th}$ Pauli matrix \\
-& \verb|\PTmqty(\pmat{0})| $\rightarrow \PTmqty(\pmat{0})$ & $n\in \lbrace 0,1,2,3$ or $x,y,z \rbrace$ \\
-& \verb|\PTmqty(\pmat{1})| $\rightarrow \PTmqty(\pmat{1})$ & \\
-& \verb|\PTmqty(\pmat{2})| $\rightarrow \PTmqty(\pmat{2})$ & \\
-& \verb|\PTmqty(\pmat{3})| $\rightarrow \PTmqty(\pmat{3})$ & \\\hline
+& \verb|\mqty(\pmat{0})| $\rightarrow \mqty(\pmat{0})$ & $n\in \lbrace 0,1,2,3$ or $x,y,z \rbrace$ \\
+& \verb|\mqty(\pmat{1})| $\rightarrow \mqty(\pmat{1})$ & \\
+& \verb|\mqty(\pmat{2})| $\rightarrow \mqty(\pmat{2})$ & \\
+& \verb|\mqty(\pmat{3})| $\rightarrow \mqty(\pmat{3})$ & \\\hline
 \verb|\diagonalmatrix| & \verb|\dmat{a,b,c,...}| & \multirow{2}{*}{\parbox{6cm}{specify up to eight diagonal or block diagonal elements}} \\
-& \verb|\PTmqty(\dmat{1,2,3})| $\rightarrow \PTmqty(\dmat{1,2,3})$ & \\
-& \verb|\PTmqty(\dmat[0]{1,2})| $\rightarrow \PTmqty(\dmat[0]{1,2})$ & optional argument to fill spaces \\
-& \verb|\PTmqty(\dmat{1,2&3\\4&5})| $\rightarrow \PTmqty(\dmat{1,2&3\\4&5})$ & enter matrix elements for each block as a single diagonal element \\\hline
+& \verb|\mqty(\dmat{1,2,3})| $\rightarrow \mqty(\dmat{1,2,3})$ & \\
+& \verb|\mqty(\dmat[0]{1,2})| $\rightarrow \mqty(\dmat[0]{1,2})$ & optional argument to fill spaces \\
+& \verb|\mqty(\dmat{1,2&3\\4&5})| $\rightarrow \mqty(\dmat{1,2&3\\4&5})$ & enter matrix elements for each block as a single diagonal element \\\hline
 \verb|\antidiagonalmatrix| & \verb|\admat{a,b,c,...}| & same as syntax as \verb|\dmat| \\
-& \verb|\PTmqty(\admat{1,2,3})| $\rightarrow \PTmqty(\admat{1,2,3})$ & \\\hline
+& \verb|\mqty(\admat{1,2,3})| $\rightarrow \mqty(\admat{1,2,3})$ & \\\hline
 \end{longtable}
 }
 \subsection{Symbols}
 \begin{longtable}[c]{|p{0.4\textwidth}|p{0.4\textwidth}|}
 \hline
-\verb|\lparen| $\rightarrow($ &\\\hline
-\verb|\rparen| $\rightarrow)$ &\\\hline
+\verb|\lparen| $\rightarrow\lparen$ &\\\hline
+\verb|\rparen| $\rightarrow\rparen$ &\\\hline
+\verb|\lbrack| $\rightarrow\lbrack$ &\\\hline
+\verb|\rbrack| $\rightarrow\rbrack$ &\\\hline
+\verb|\lbrace| $\rightarrow\lbrace$ &\\\hline
+\verb|\rbrace| $\rightarrow\rbrace$ &\\\hline
 \verb|\divisionsymbol| & \verb|\divisionsymbol| $\rightarrow \divisionsymbol$ & division symbol \\\hline
 \verb|\ordersymbol| $\rightarrow \ordersymbol$ & order symbol \\\hline
 \verb|\typical| $\rightarrow \typical$ & \\\hline
