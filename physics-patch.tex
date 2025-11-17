@@ -86,7 +86,7 @@ Options available in this package include:
 \item \verb|plaindot|: Vector plain dot product symbol. (default)
 \item \verb|spaceflatfrac|: Define \verb|\flatfrac| as flat fraction with resizable slash with extra space.
 \item \verb|noresizeflatfrac|: Define \verb|\flatfrac| as flat fraction with non-resizable slash without extra space.
-\item \verb|defaultflatfrac|: Define \verb|\flatfrac| as flat fraction with resizable slash without extra space. Overrides \verb|nooverride| for \verb|\flatfrac|. (default)
+\item \verb|defaultflatfrac|: Define \verb|\flatfrac| as flat fraction with resizable slash without extra space. (default)
 \item \verb|forcedefault|: Forces the above options to their default ones.
 \item \verb|noshorttextgreek|: Not define shorthands for text Greek alphabet. (default)
 \item \verb|shorttextgreek|: Define shorthands for text Greek alphabet.
@@ -127,7 +127,7 @@ See \href{https://ctan.org/pkg/amsmath}{https://ctan.org/pkg/amsmath} for the de
 \end{itemize}
 \section{List of Commands}
 In the commands listed below, the left column is long-form names (if any), the middle column is default shorthand commands with examples, and the right column is explanations.
-\subsection{Auto Resizable Bracing}
+\subsection{Bracing}
 Null delimiter without \verb|\nulldelimiterspace|:
 \begin{longtable}[c]{|L{0.3\textwidth}|L{0.3\textwidth}|L{0.3\textwidth}|}
 \hline
@@ -227,6 +227,7 @@ The default del symbol $\vnabla$ used in \texttt{physics-patch} vector notation 
 & \verb|\laplacian[\Psi+\tall]| $\displaystyle\rightarrow \laplacian[\Psi+\tall]$ &\\\hline
 \end{longtable}
 \subsection{Operators}
+REWRITE with '^_
 The trig functions and some other functions are redefined in \texttt{physics-patch} to provide automatic braces that behave like \verb|\qty()|. In addition, an optional power argument is provided. This behavior can be switched off by including the option \texttt{notrig} in the preamble.
 
 Example redefinitions:
@@ -315,20 +316,6 @@ New operators:
 \verb|\GCD| & \verb|\GCD(X)| $\rightarrow\GCD(X)$ & uppercase greatest common divisor \\\hline
 \verb|\LCM| & \verb|\LCM(X)| $\rightarrow\LCM(X)$ & uppercase lowest common multiple \\\hline
 \verb|\UnitVector| & \verb|\UnitVector(\mathbf{r})| $\rightarrow\UnitVector(\mathbf{r})$ & unit vector \\\hline
-\verb|\principalvalue| & \verb|\pv{\int f(z) \dd{z}}|$\rightarrow \pv{\int f(z) \dd{z}}$ & Cauchy principal value \\
-& \verb|\PV{\int f(z) \dd{z}}|$\rightarrow \PV{\int f(z) \dd{z}}$ & alternate \\\hline
-\end{longtable}
-\subsection{Utilities}
-\begin{longtable}[c]{|L{0.25\textwidth}|L{0.4\textwidth}|L{0.25\textwidth}|}
-\hline
-\verb|\mathcolorbox| & \verb|\mcbox{color}{content}| & \verb|\colorbox| for math environment, applying to all four levels of math styles \\
-& \verb|\mcbox{cyan}{\typical}| $\rightarrow \mcbox{cyan}{\typical}$ & \\\hline
-\verb|\autocolorbox| or \verb|\acbox| & \verb|\cbox{color}{content}| & calls \verb|\colorbox| when in text mode, calls \verb|\mathcolorbox| when in math mode \\\hline
-\verb|\tentothepowerof| & \verb|\tenpow{n}| $\rightarrow \tenpow{n}$ & work in both math mode and text mode \\\hline
-\verb|\scientificnotation| & \verb|\scinote{3.00}{8}| $\rightarrow \scinote{3.00}{8}$ & work in both math mode and text mode\\\hline
-\verb|\numbercircled| & \verb|\numcir{1}| $\rightarrow$ \numcir{1} & patched \verb|\textcircled| for numbers \\\hline
-\verb|\boldsymbol| & \verb|\bsb{\tau}| $\rightarrow\bsb{\tau}$ & shorthand for \verb|\boldsymbol| \\\hline
-\verb|\RNum| & \verb|\RNum{1}| $\rightarrow$ \RNum{1} & uppercase roman numeral\\\hline
 \end{longtable}
 \subsection{Quick Quad Text}
 This set of commands produces text in math-mode padded by \verb|\quad| spacing on either side. This is meant to provide a quick way to insert simple words or phrases in a sequence of equations. Each of the following commands includes a starred version which pads the text only on the right side with \verb|\quad| for use in aligned environments such as \texttt{cases}.
@@ -454,7 +441,7 @@ allowing the user to type out complicated quantum mechanical expressions without
 & \verb|\mel*{n}{\grande}{\tall}| $\rightarrow \mel*{n}{\grande}{\tall}$ & single star does no resizing whatsoever \\
 & \verb|\mel**{n}{\grande}{m}| $\rightarrow \mel**{n}{\grande}{m}$ & double star resizes based on all parts \\\hline
 \end{longtable}
-\subsection{Matrix Macros}
+\subsection{Matrix}
 Note: \verb|\mqty| and \verb|\smqty| in \texttt{physics} uses \verb|\mathord|, while \verb|\mqty| and \verb|\smqty| in \texttt{physics-patch} don't.
 
 The following matrix macros produce unformatted rows and columns of matrix elements for use as separate matrices as well as blocks within larger matrices. For example, the command \verb|\identitymatrix{2}| which has also has the shortcut \verb|\imat{2}| produces the elements of a $2 \times 2$ identity matrix $\smqty{\imat{2}}$ without braces or grouping. This allows the command to also be used within another matrix, as in:\\
@@ -596,6 +583,20 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 \verb|\Vtextvisiblespace[width]| $\rightarrow$ \Vtextvisiblespace & a visible space character, where the optional argument, defaulting to \verb|.3em|, sets the width of the horizontal rule \\\hline
 \verb|\kernnull| & negate the space next to null delimiters, implemented with \verb|\kern-\nulldelimiterspace| \\\hline
 \verb|\ST| $\rightarrow \ST$ & such that with space before and after it \\\hline
+\end{longtable}
+\subsection{Utilities}
+\begin{longtable}[c]{|L{0.25\textwidth}|L{0.4\textwidth}|L{0.25\textwidth}|}
+\hline
+\verb|\principalvalue| & \verb|\pv{\int f(z) \dd{z}}|$\rightarrow \pv{\int f(z) \dd{z}}$ & Cauchy principal value \\\hline
+\verb|\PrincipalValue| & \verb|\PV{\int f(z) \dd{z}}|$\rightarrow \PV{\int f(z) \dd{z}}$ & Cauchy principal value \\\hline
+\verb|\mathcolorbox| & \verb|\mcbox{color}{content}| & \verb|\colorbox| for math environment, applying to all four levels of math styles \\
+& \verb|\mcbox{cyan}{\typical}| $\rightarrow \mcbox{cyan}{\typical}$ & \\\hline
+\verb|\autocolorbox| or \verb|\acbox| & \verb|\cbox{color}{content}| & calls \verb|\colorbox| when in text mode, calls \verb|\mathcolorbox| when in math mode \\\hline
+\verb|\tentothepowerof| & \verb|\tenpow{n}| $\rightarrow \tenpow{n}$ & work in both math mode and text mode \\\hline
+\verb|\scientificnotation| & \verb|\scinote{3.00}{8}| $\rightarrow \scinote{3.00}{8}$ & work in both math mode and text mode\\\hline
+\verb|\numbercircled| & \verb|\numcir{1}| $\rightarrow$ \numcir{1} & patched \verb|\textcircled| for numbers \\\hline
+\verb|\boldsymbol| & \verb|\bsb{\tau}| $\rightarrow\bsb{\tau}$ & shorthand for \verb|\boldsymbol| \\\hline
+\verb|\RNum| & \verb|\RNum{1}| $\rightarrow$ \RNum{1} & uppercase roman numeral\\\hline
 \end{longtable}
 \subsection{Arrows and Lines}
 For math mode only:
