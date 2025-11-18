@@ -35,9 +35,6 @@
 \DeclareDocumentCommand\dotproduct{}{\cdot}
 \DeclareOption{bolddot}{\DeclareDocumentCommand\dotproduct{}{\boldsymbol\cdot}}
 \DeclareOption{plaindot}{\DeclareDocumentCommand\dotproduct{}{\cdot}}
-\DeclareDocumentCommand\spaceflatfrac{ m m }{\left.#1\middle\slash#2\right.}
-\DeclareDocumentCommand\noresizeflatfrac{ m m }{#1\slash#2}
-\DeclareDocumentCommand\defaultflatfrac{ m m }{\mathopen{}\mathclose\bgroup\left.\kern-\nulldelimiterspace#1\middle\slash#2\aftergroup\egroup\right.\kern-\nulldelimiterspace}
 \newif\ifspaceflatfrac
 \newif\ifnoresizeflatfrac
 \newif\ifdefaultflatfrac
@@ -74,6 +71,9 @@
 
 \IfPackageLoadedTF{physics}{}{\@namedef{ver@physics.sty}{9999/99/99}}
 
+\DeclareDocumentCommand\spaceflatfrac{ m m }{\left.#1\middle\slash#2\right.}
+\DeclareDocumentCommand\noresizeflatfrac{ m m }{#1\slash#2}
+\DeclareDocumentCommand\defaultflatfrac{ m m }{\mathopen{}\mathclose\bgroup\left.\kern-\nulldelimiterspace#1\middle\slash#2\aftergroup\egroup\right.\kern-\nulldelimiterspace}
 \DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac}
 \ifspaceflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\spaceflatfrac}\fi
 \ifnoresizeflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\noresizeflatfrac}\fi
@@ -107,7 +107,8 @@
 \DeclareDocumentCommand\numbercircled{m}{\text{\raisebox{.6pt}{\textcircled{\raisebox{-.9pt}{#1}}}}}
 \let\numcir\numbercircled
 \let\bsb\boldsymbol
-\DeclareDocumentCommand{\RNum}{m}{\uppercase\expandafter{\romannumeral #1\relax}}
+\DeclareDocumentCommand\RNum{m}{\uppercase\expandafter{\romannumeral #1\relax}}
+\DeclareDocumentCommand\piover{m}{\frac{\pi}{#1}}
 
 % Symbols
 \DeclareDocumentCommand\lparen{}{(}
@@ -132,6 +133,7 @@
 \DeclareDocumentCommand{\Bell}{}{\char"1F514}
 \DeclareDocumentCommand{\bell}{}{\boldsymbol{\ell}}
 \DeclareDocumentCommand\kernnull{}{\kern-\nulldelimiterspace}
+\DeclareDocumentCommand\NewLine{}{\mbox{}\\}
 \DeclareDocumentCommand\ST{}{\;\text{s.t.}\;}
 
 % Arrows and lines
@@ -234,6 +236,12 @@
 \robustify{\sim}
 
 % Bracing
+\DeclareDocumentCommand\absolutevalue{ l m }{\braces#1{\lvert}{\rvert}{#2}} % Absolute value/complex modulus
+\DeclareDocumentCommand\abs{}{\absolutevalue} % Shorthand for \absolutevalue
+\DeclareDocumentCommand\norm{ l m }{\braces#1{\lVert}{\rVert}{#2}} % Norm
+\let\Vqty\norm
+\DeclareDocumentCommand\floor{ l m }{\braces#1{\lfloor}{\rfloor}{#2}}
+\DeclareDocumentCommand\ceil{ l m }{\braces#1{\lceil}{\rceil}{#2}}
 \DeclareDocumentCommand{\quantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g }
 { % Flexible automatic bracketing of an expression in () or [] or {} or ||
   % Handles manual override of sizing
@@ -281,14 +289,22 @@
 \DeclareDocumentCommand\Bqty{ l m }{\braces#1{\lbrace}{\rbrace}{#2}}
 \DeclareDocumentCommand\vqty{ l m }{\braces#1{\lvert}{\rvert}{#2}}
 
+\DeclareDocumentCommand\pqtfr{mm}{\pqty{\frac{#1}{#2}}}
+\DeclareDocumentCommand\bqtfr{mm}{\bqty{\frac{#1}{#2}}}
+\DeclareDocumentCommand\Bqtfr{mm}{\Bqty{\frac{#1}{#2}}}
+\DeclareDocumentCommand\vqtfr{mm}{\vqty{\frac{#1}{#2}}}
+\DeclareDocumentCommand\Vqtfr{mm}{\Vqty{\frac{#1}{#2}}}
+
 \let\originalmid\mid
 \DeclareDocumentCommand\mid{}{\nonscript\;\ifnum\currentgrouptype=16\middle|\else\originalmid\fi\nonscript\;}
 
 \DeclareDocumentCommand\omqty{m}{\begin{matrix}#1\end{matrix}}
 \DeclareDocumentCommand\pmqty{s m}{\IfNoValueTF{#1}{\begin{pmatrix}#2\end{pmatrix}}{\left\lgroup\begin{matrix}#2\end{matrix}\right\rgroup}}
 \DeclareDocumentCommand\Pmqty{m}{\left\lgroup\begin{matrix}#1\end{matrix}\right\rgroup}
-\DeclareDocumentCommand\bmqty{m}{\begin{bmatrix}#1\end{bmatrix}}
-\DeclareDocumentCommand\vmqty{m}{\begin{vmatrix}#1\end{vmatrix}}
+\DeclareDocumentCommand\bmqty{m}{\IfNoValueTF{#1}{\begin{bmatrix}#1\end{bmatrix}}{\begin{Bmatrix}#1\end{Bmatrix}}}
+\DeclareDocumentCommand\Bmqty{m}{\begin{Bmatrix}#1\end{Bmatrix}}
+\DeclareDocumentCommand\vmqty{m}{\IfNoValueTF{#1}{\begin{vmatrix}#1\end{vmatrix}}}{\begin{Vmatrix}#1\end{Vmatrix}}}
+\DeclareDocumentCommand\Vmqty{m}{\begin{Vmatrix}#1\end{Vmatrix}}
 \DeclareDocumentCommand\matrixquantity{ s g o d() d|| }
 {
   \IfNoValueTF{#2}
@@ -297,7 +313,9 @@
     {
       \IfNoValueTF{#4}
       {
-        \vmqty{#5}
+        \IfBooleanTF{#1}
+        {\Vmqty{#5}}
+        {\vmqty{#5}}
       }
       {
         \IfBooleanTF{#1}
@@ -307,7 +325,9 @@
       }
     }
     {
-      \bmqty{#3}
+      \IfBooleanTF{#1}
+        {\Bmqty{#3}}
+        {\bmqty{#3}}
       \IfNoValueTF{#4}{}{(#4)}
       \IfNoValueTF{#5}{}{|#5|}}
     }
@@ -325,8 +345,10 @@
 \DeclareDocumentCommand\somqty{m}{\begin{smallmatrix}#1\end{smallmatrix}}
 \DeclareDocumentCommand\spmqty{s m}{\IfNoValueTF{#1}{\pqty{\begin{smallmatrix}#2\end{smallmatrix}}}{\left\lgroup\begin{smallmatrix}#2\end{smallmatrix}\right\rgroup}}
 \DeclareDocumentCommand\sPmqty{m}{\left\lgroup\begin{smallmatrix}#1\end{smallmatrix}\right\rgroup}
-\DeclareDocumentCommand\sbmqty{m}{\bqty{\begin{smallmatrix}#1\end{smallmatrix}}}
-\DeclareDocumentCommand\svmqty{m}{\vqty{\begin{smallmatrix}#1\end{smallmatrix}}}
+\DeclareDocumentCommand\sbmqty{m}{\IfNoValueTF{#1}{\bqty{\begin{smallmatrix}#1\end{smallmatrix}}}{\Bqty{\begin{smallmatrix}#1\end{smallmatrix}}}}
+\DeclareDocumentCommand\sBmqty{m}{\Bqty{\begin{smallmatrix}#1\end{smallmatrix}}}
+\DeclareDocumentCommand\svmqty{m}{\IfNoValueTF{#1}{\vqty{\begin{smallmatrix}#1\end{smallmatrix}}}{\norm{\begin{smallmatrix}#1\end{smallmatrix}}}}
+\DeclareDocumentCommand\sVmqty{m}{\norm{\begin{smallmatrix}#1\end{smallmatrix}}}
 \DeclareDocumentCommand\smallmatrixquantity{ s g o d() d|| }
 {
   \IfNoValueTF{#2}
@@ -335,7 +357,9 @@
     {
       \IfNoValueTF{#4}
       {
-        \svmqty{#5}
+        \IfBooleanTF{#1}
+        {\sVmqty{#5}}
+        {\svmqty{#5}}
       }
       {
         \IfBooleanTF{#1}
@@ -345,7 +369,9 @@
       }
     }
     {
-      \sbmqty{#3}
+      \IfBooleanTF{#1}
+      {\sBmqty{#3}}
+      {\sbmqty{#3}}
       \IfNoValueTF{#4}{}{(#4)}
       \IfNoValueTF{#5}{}{|#5|}}
     }
@@ -396,9 +422,6 @@
   }
 }
 
-\DeclareDocumentCommand\absolutevalue{ l m }{\braces#1{\lvert}{\rvert}{#2}} % Absolute value/complex modulus
-\DeclareDocumentCommand\abs{}{\absolutevalue} % Shorthand for \absolutevalue
-\DeclareDocumentCommand\norm{ l m }{\braces#1{\lVert}{\rVert}{#2}} % Norm
 \DeclareDocumentCommand\order{ l m }{\fbraces#1{\lparen}{\rparen}{\ordersymbol}{#2}} % Order notation -> O(x^2)
 
 \DeclareDocumentCommand\evaluated{ s g d[| d(| }
@@ -424,7 +447,7 @@
   }
   {
     \IfBooleanTF{#1}{\vphantom{#2}}{}
-    \left.\IfBooleanTF{#1}{\smash{#2}}{#2}\vphantom{\int}\right\rvert
+    \lnull\IfBooleanTF{#1}{\smash{#2}}{#2}\vphantom{\int}\rpair\rvert
     \IfNoValueTF{#3}{}{[#3|}
     \IfNoValueTF{#4}{}{(#4|}
   }
@@ -572,181 +595,121 @@
 
 \DeclareDocumentCommand\operatornameqty{m}{\opbraces{\operatorname{#1}}}
 \DeclareDocumentCommand\operatornamewithlimitsqty{m}{\opbraces{\operatornamewithlimits{#1}}}
-
 \ExplSyntaxOn
-\DeclareDocumentCommand\provideoperator{m}{\cs_if_exist:cTF{#1}{}{\cs_set_protected:cn{#1}{\operatorname{#1}}}}
-\DeclareDocumentCommand\declareoperator{o m}{\IfNoValueTF{#1}{}{\cs_if_exist:cTF{#2}{\cs_set_eq:cc{#1}{#2}}{}}\cs_set_protected:cn{#1}{\operatorname{#1}}}
-\DeclareDocumentCommand\provideoperatorwithlimits{m}{\cs_if_exist:cTF{#1}{}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#1}}}}
-\DeclareDocumentCommand\declareoperatorwithlimits{o m}{\IfNoValueTF{#1}{}{\cs_if_exist:cTF{#2}{\cs_set_eq:cc{#1}{#2}}{}}\cs_set_protected:cn{#1}{\operatornamewithlimits{#1}}}
-\DeclareDocumentCommand\provideoperatorqty{m}{\cs_if_exist:cTF{#1}{}{\cs_set_protected:cn{#1}{\operatornameqty{#1}}}}
-\DeclareDocumentCommand\declareoperatorqty{o m}{\IfNoValueTF{#1}{}{\cs_if_exist:cTF{#2}{\cs_set_eq:cc{#1}{#2}}{}}\cs_set_protected:cn{#1}{\operatornameqty{#1}}}
-\DeclareDocumentCommand\provideoperatorwithlimitsqty{m}{\cs_if_exist:cTF{#1}{}{\cs_set_protected:cn{#1}{\operatornamewithlimitsqty{#1}}}}
-\DeclareDocumentCommand\declareoperatorwithlimitsqty{o m}{\IfNoValueTF{#1}{}{\cs_if_exist:cTF{#2}{\cs_set_eq:cc{#1}{#2}}{}}\cs_set_protected:cn{#1}{\operatornamewithlimitsqty{#1}}}
+\DeclareDocumentCommand\provideoperator{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\operatorname{#1}}}}
+\DeclareDocumentCommand\declareoperator{m}{\cs_set_protected:cn{#1}{\operatorname{#1}}}
+\DeclareDocumentCommand\provideoperatorwithlimits{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#1}}}}
+\DeclareDocumentCommand\declareoperatorwithlimits{m}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#1}}}
+\DeclareDocumentCommand\provideoperatorqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\operatornameqty{#1}}}}
+\DeclareDocumentCommand\declareoperatorqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\operatornameqty{#2}}}
+\DeclareDocumentCommand\provideoperatorwithlimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimitsqty{#1}}}}
+\DeclareDocumentCommand\declareoperatorwithlimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\operatornamewithlimitsqty{#2}}}
+\DeclareDocumentCommand\renewoperator{om}{\cs_if_exist:cF{#2}{\cs_set_protected:cn{#2}{\operatorname{#2}}}\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}}
+\DeclareDocumentCommand\renewoperatorqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\operatornameqty{#2}}}}
+\DeclareDocumentCommand\declareoperatorqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{#3}}\cs_set_protected:cn{#2}{\opbraces{#3}}}
+\DeclareDocumentCommand\@declarephysicsoperator{om}{\IfNoValueTF{#1}{\iftrig\declareoperatorqty{#2}\else\declareoperator{#2}\fi}{\iftrig\declareoperatorqty[#1]{#2}\else\declareoperator{#1}\declareoperator{#2}\fi}}
+\DeclareDocumentCommand\@renewphysicsoperator{om}{\IfNoValueTF{#1}{\iftrig\renewoperatorqty{#2}\fi}{\iftrig\renewoperatorqty[#1]{#2}\else\renewoperator[#1]{#2}\fi}}
 \ExplSyntaxOff
 
-%REWRITE
-\iftrig
-\else
-\fi
-
-\DeclareDocumentCommand\tr{}{\operatorname{tr}}
-\DeclareDocumentCommand\Tr{}{\operatorname{Tr}}
-\DeclareDocumentCommand\erf{}{\operatorname{erf}}
-\DeclareDocumentCommand\Res{}{\operatorname{Res}} % Residue
-\DeclareDocumentCommand\Arg{}{\operatorname{Arg}} % principal argument
-\DeclareDocumentCommand\arg{}{\operatorname{arg}} % argument
-\DeclareDocumentCommand{\acosh}{}{\operatorname{acosh}}
-\DeclareDocumentCommand{\acsch}{}{\operatorname{acsch}}
-\DeclareDocumentCommand{\arccosh}{}{\operatorname{arccosh}}
-\DeclareDocumentCommand{\arccsch}{}{\operatorname{arccsch}}
-\DeclareDocumentCommand{\arcsech}{}{\operatorname{arcsech}}
-\DeclareDocumentCommand{\arcsinh}{}{\operatorname{arcsinh}}
-\DeclareDocumentCommand{\arctanh}{}{\operatorname{arctanh}}
-\DeclareDocumentCommand{\arctantwo}{}{\operatorname{arctan2}}
-\DeclareDocumentCommand{\asech}{}{\operatorname{asech}}
-\DeclareDocumentCommand{\asinh}{}{\operatorname{asinh}}
-\DeclareDocumentCommand{\atanh}{}{\operatorname{atanh}}
-\DeclareDocumentCommand{\atantwo}{}{\operatorname{atan2}}
-\DeclareDocumentCommand{\closure}{}{\operatorname{closure}}
-\DeclareDocumentCommand{\col}{}{\operatorname{col}}
-\DeclareDocumentCommand{\Col}{}{\operatorname{Col}}
-\DeclareDocumentCommand{\dim}{}{\operatorname{dim}}
-\DeclareDocumentCommand{\Dim}{}{\operatorname{Dim}}
-\DeclareDocumentCommand{\distance}{}{\operatorname{distance}}
-\DeclareDocumentCommand{\Distance}{}{\operatorname{Distance}}
-\DeclareDocumentCommand{\row}{}{\operatorname{row}}
-\DeclareDocumentCommand{\Row}{}{\operatorname{Row}}
-\DeclareDocumentCommand{\ker}{}{\operatorname{ker}}
-\DeclareDocumentCommand{\coker}{}{\operatorname{coker}}
-\DeclareDocumentCommand{\rank}{}{\operatorname{rank}}
-\DeclareDocumentCommand{\Rank}{}{\operatorname{Rank}}
-\DeclareDocumentCommand{\im}{}{\operatorname{im}}
-\DeclareDocumentCommand{\SD}{}{\operatorname{SD}}
-\DeclareDocumentCommand{\Var}{}{\operatorname{Var}}
-\DeclareDocumentCommand{\Mode}{}{\operatorname{Mode}}
-\DeclareDocumentCommand{\Median}{}{\operatorname{Median}}
-\DeclareDocumentCommand{\gcd}{}{\operatorname{gcd}}
-\DeclareDocumentCommand{\lcm}{}{\operatorname{lcm}}
-\DeclareDocumentCommand{\GCD}{}{\operatorname{GCD}}
-\DeclareDocumentCommand{\LCM}{}{\operatorname{LCM}}
-\DeclareDocumentCommand{\UnitVector}{}{\operatorname{UnitVector}}
-
-
-
-\DeclareDocumentCommand\trigbraces{ m o d() }
-{
-  \IfNoValueTF{#3}
-  {#1 \IfNoValueTF{#2}{}{[#2]}}
-  {#1 \IfNoValueTF{#2}{}{^{#2}} \argopen(#3\argclose)}
-}
-
-% Trig function and operator redefinitions
-\iftrig
-  \let\sine\sin \DeclareDocumentCommand\sin{}{\trigbraces{\sine}}
-  \let\cosine\cos \DeclareDocumentCommand\cos{}{\trigbraces{\cosine}}
-  \let\tangent\tan \DeclareDocumentCommand\tan{}{\trigbraces{\tangent}}
-  \let\cosecant\csc \DeclareDocumentCommand\csc{}{\trigbraces{\cosecant}}
-  \let\secant\sec \DeclareDocumentCommand\sec{}{\trigbraces{\secant}}
-  \let\cotangent\cot \DeclareDocumentCommand\cot{}{\trigbraces{\cotangent}}
-
-  \let\arcsine\arcsin \DeclareDocumentCommand\arcsin{}{\trigbraces{\arcsine}}
-  \let\arccosine\arccos \DeclareDocumentCommand\arccos{}{\trigbraces{\arccosine}}
-  \let\arctangent\arctan \DeclareDocumentCommand\arctan{}{\trigbraces{\arctangent}}
-  \DeclareDocumentCommand{\arccosecant}{}{\operatorname{arccsc}}
-  \DeclareDocumentCommand\arccsc{}{\trigbraces{\arccosecant}}
-  \DeclareDocumentCommand{\arcsecant}{}{\operatorname{arcsec}}
-  \DeclareDocumentCommand\arcsec{}{\trigbraces{\arcsecant}}
-  \DeclareDocumentCommand{\arccotangent}{}{\operatorname{arccot}}
-  \DeclareDocumentCommand\arccot{}{\trigbraces{\arccotangent}}
-
-  \DeclareDocumentCommand{\asine}{}{\operatorname{asin}}
-  \DeclareDocumentCommand\asin{}{\trigbraces{\asine}}
-  \DeclareDocumentCommand{\acosine}{}{\operatorname{acos}}
-  \DeclareDocumentCommand\acos{}{\trigbraces{\acosine}}
-  \DeclareDocumentCommand{\atangent}{}{\operatorname{atan}}
-  \DeclareDocumentCommand\atan{}{\trigbraces{\atangent}}
-  \DeclareDocumentCommand{\acosecant}{}{\operatorname{acsc}}
-  \DeclareDocumentCommand\acsc{}{\trigbraces{\acosecant}}
-  \DeclareDocumentCommand{\asecant}{}{\operatorname{asec}}
-  \DeclareDocumentCommand\asec{}{\trigbraces{\asecant}}
-  \DeclareDocumentCommand{\acotangent}{}{\operatorname{acot}}
-  \DeclareDocumentCommand\acot{}{\trigbraces{\acotangent}}
-
-  \let\hypsine\sinh \DeclareDocumentCommand\sinh{}{\trigbraces{\hypsine}}
-  \let\hypcosine\cosh \DeclareDocumentCommand\cosh{}{\trigbraces{\hypcosine}}
-  \let\hyptangent\tanh \DeclareDocumentCommand\tanh{}{\trigbraces{\hyptangent}}
-  \DeclareDocumentCommand{\hypcosecant}{}{\operatorname{csch}}
-  \DeclareDocumentCommand\csch{}{\trigbraces{\hypcosecant}}
-  \DeclareDocumentCommand{\hypsecant}{}{\operatorname{sech}}
-  \DeclareDocumentCommand\sech{}{\trigbraces{\hypsecant}}
-  \let\hypcotangent\coth \DeclareDocumentCommand\coth{}{\trigbraces{\hypcotangent}}
-
-  \let\exponential\exp \DeclareDocumentCommand\exp{}{\opbraces{\exponential}}
-  \let\logarithm\log \DeclareDocumentCommand\log{}{\trigbraces{\logarithm}}
-  \let\naturallogarithm\ln \DeclareDocumentCommand\ln{}{\trigbraces{\naturallogarithm}}
-  \let\determinant\det \DeclareDocumentCommand\det{}{\opbraces{\determinant}}
-  \let\Probability\Pr \DeclareDocumentCommand\Pr{}{\opbraces{\Probability}}
-  \DeclareDocumentCommand\tr{}{\opbraces{\operatorname{tr}}}
-  \DeclareDocumentCommand\Tr{}{\opbraces{\operatorname{Tr}}}
-  \DeclareDocumentCommand\Res{}{\opbraces{\operatorname{Res}}}
-  \let\Argument\Arg
-  \DeclareDocumentCommand\Arg{}{\opbraces{\operatorname{Arg}}}
-  \let\argument\arg
-  \DeclareDocumentCommand\arg{}{\opbraces{\operatorname{arg}}}
-  \let\real\Re
-  \DeclareDocumentCommand\Re{}{\opbraces{\real}}
-  \let\imaginary\Im
-  \DeclareDocumentCommand\Im{}{\opbraces{\imaginary}}
-  \DeclareDocumentCommand{\acosh}{}{\trigbraces{\operatorname{acosh}}}
-  \DeclareDocumentCommand{\acsch}{}{\trigbraces{\operatorname{acsch}}}
-  \DeclareDocumentCommand{\arccosh}{}{\trigbraces{\operatorname{arccosh}}}
-  \DeclareDocumentCommand{\arccsch}{}{\trigbraces{\operatorname{arccsch}}}
-  \DeclareDocumentCommand{\arcsech}{}{\trigbraces{\operatorname{arcsech}}}
-  \DeclareDocumentCommand{\arcsinh}{}{\trigbraces{\operatorname{arcsinh}}}
-  \DeclareDocumentCommand{\arctanh}{}{\trigbraces{\operatorname{arctanh}}}
-  \DeclareDocumentCommand{\arctantwo}{}{\trigbraces{\operatorname{arctan2}}}
-  \DeclareDocumentCommand{\asech}{}{\trigbraces{\operatorname{asech}}}
-  \DeclareDocumentCommand{\asinh}{}{\trigbraces{\operatorname{asinh}}}
-  \DeclareDocumentCommand{\atanh}{}{\trigbraces{\operatorname{atanh}}}
-  \DeclareDocumentCommand{\atantwo}{}{\trigbraces{\operatorname{atan2}}}
-  \DeclareDocumentCommand{\closure}{}{\opbraces{\operatorname{closure}}}
-  \DeclareDocumentCommand{\col}{}{\opbraces{\operatorname{col}}}
-  \DeclareDocumentCommand{\Col}{}{\opbraces{\operatorname{Col}}}
-  \DeclareDocumentCommand{\dim}{}{\opbraces{\operatorname{dim}}}
-  \DeclareDocumentCommand{\Dim}{}{\opbraces{\operatorname{Dim}}}
-  \DeclareDocumentCommand{\distance}{}{\operatorname{distance}}
-  \DeclareDocumentCommand{\Distance}{}{\operatorname{Distance}}
-  \DeclareDocumentCommand{\row}{}{\opbraces{\operatorname{row}}}
-  \DeclareDocumentCommand{\Row}{}{\opbraces{\operatorname{Row}}}
-  \DeclareDocumentCommand{\ker}{}{\opbraces{\operatorname{ker}}}
-  \DeclareDocumentCommand{\coker}{}{\opbraces{\operatorname{coker}}}
-  \DeclareDocumentCommand{\rank}{}{\opbraces{\operatorname{rank}}}
-  \DeclareDocumentCommand{\Rank}{}{\opbraces{\operatorname{Rank}}}
-  \DeclareDocumentCommand{\im}{}{\opbraces{\operatorname{im}}}
-  \DeclareDocumentCommand{\SD}{}{\opbraces{\operatorname{SD}}}
-  \DeclareDocumentCommand{\Var}{}{\opbraces{\operatorname{Var}}}
-  \DeclareDocumentCommand{\Mode}{}{\opbraces{\operatorname{Mode}}}
-  \DeclareDocumentCommand{\Median}{}{\opbraces{\operatorname{Median}}}
-  \DeclareDocumentCommand{\gcd}{}{\opbraces{\operatorname{gcd}}}
-  \DeclareDocumentCommand{\lcm}{}{\opbraces{\operatorname{lcm}}}
-  \DeclareDocumentCommand{\GCD}{}{\opbraces{\operatorname{GCD}}}
-  \DeclareDocumentCommand{\LCM}{}{\opbraces{\operatorname{LCM}}}
-
-\else
-  \DeclareDocumentCommand{\arccsc}{}{\operatorname{arccsc}}
-  \DeclareDocumentCommand{\arcsec}{}{\operatorname{arcsec}}
-  \DeclareDocumentCommand{\arccot}{}{\operatorname{arccot}}
-  \DeclareDocumentCommand{\asin}{}{\operatorname{asin}}
-  \DeclareDocumentCommand{\acos}{}{\operatorname{acos}}
-  \DeclareDocumentCommand{\atan}{}{\operatorname{atan}}
-  \DeclareDocumentCommand{\acsc}{}{\operatorname{acsc}}
-  \DeclareDocumentCommand{\asec}{}{\operatorname{asec}}
-  \DeclareDocumentCommand{\acot}{}{\operatorname{acot}}
-
-  \DeclareDocumentCommand{\csch}{}{\operatorname{csch}}
-  \DeclareDocumentCommand{\sech}{}{\operatorname{sech}}
-\fi
-%REWRITE end
+\@declarephysicsoperator[sine]{sin}
+\@declarephysicsoperator[cosine]{cos}
+\@declarephysicsoperator[tangent]{tan}
+\@declarephysicsoperator[cotangent]{cot}
+\@declarephysicsoperator[secant]{sec}
+\@declarephysicsoperator[cosecant]{csc}
+\@declarephysicsoperator[asine]{asin}
+\@declarephysicsoperator[acosine]{acos}
+\@declarephysicsoperator[atangent]{atan}
+\@declarephysicsoperator[acotangent]{acot}
+\@declarephysicsoperator[asecant]{asec}
+\@declarephysicsoperator[acosecant]{acsc}
+\@declarephysicsoperator[arcsine]{arcsin}
+\@declarephysicsoperator[arccosine]{arccos}
+\@declarephysicsoperator[arctangent]{arctan}
+\@declarephysicsoperator[arccotangent]{arccot}
+\@declarephysicsoperator[arcsecant]{arcsec}
+\@declarephysicsoperator[arccosecant]{arccsc}
+\@declarephysicsoperator[sine]{sinh}
+\@declarephysicsoperator[cosine]{cosh}
+\@declarephysicsoperator[tangent]{tanh}
+\@declarephysicsoperator[cotangent]{coth}
+\@declarephysicsoperator[secant]{sech}
+\@declarephysicsoperator[cosecant]{csch}
+\@declarephysicsoperator[ahypsine]{asinh}
+\@declarephysicsoperator[ahypcosine]{acosh}
+\@declarephysicsoperator[ahyptangent]{atanh}
+\@declarephysicsoperator[ahypcotangent]{acoth}
+\@declarephysicsoperator[ahypsecant]{asech}
+\@declarephysicsoperator[ahypcosecant]{acsch}
+\@declarephysicsoperator[arhypsine]{arsinh}
+\@declarephysicsoperator[arhypcosine]{arcosh}
+\@declarephysicsoperator[arhyptangent]{artanh}
+\@declarephysicsoperator[arhypcotangent]{arcoth}
+\@declarephysicsoperator[arhypsecant]{arsech}
+\@declarephysicsoperator[arhypcosecant]{arcsch}
+\@declarephysicsoperator[archypsine]{arcsinh}
+\@declarephysicsoperator[archypcosine]{arccosh}
+\@declarephysicsoperator[archyptangent]{arctanh}
+\@declarephysicsoperator[archypcotangent]{arccoth}
+\@declarephysicsoperator[archypsecant]{arcsech}
+\@declarephysicsoperator[archypcosecant]{arccsch}
+\declareoperatorqtyas[atangenttwo]{atantwo}{\operatorname{atan2}}
+\declareoperatorqtyas[arctangenttwo]{aarctantwo}{\operatorname{arctan2}}
+\@declarephysicsoperator[exponential]{exp}
+\@declarephysicsoperator[logarithm]{log}
+\@declarephysicsoperator[naturallogarithm]{ln}
+\@declarephysicsoperator[determinant]{det}
+\@declarephysicsoperator[Argument]{Arg}
+\@declarephysicsoperator[argument]{arg}
+\@declarephysicsoperator[Dimension]{Dim}
+\@declarephysicsoperator[dimension]{dim}
+\@renewphysicsoperator[real]{Re}
+\@renewphysicsoperator[imaginary]{Im}
+\@renewphysicsoperator[Probability]{Pr}
+\@renewphysicsoperator[Residue]{Res}
+\@declarephysicsoperator{tr}
+\@declarephysicsoperator{Tr}
+\@declarephysicsoperator{Si}
+\@declarephysicsoperator{si}
+\@declarephysicsoperator{Cin}
+\@declarephysicsoperator{Ci}
+\@declarephysicsoperator{Shi}
+\@declarephysicsoperator{Chi}
+\@declarephysicsoperator{sgn}
+\@declarephysicsoperator{erf}
+\@declarephysicsoperator{erfc}
+\@declarephysicsoperator{erfi}
+\@declarephysicsoperator{Col}
+\@declarephysicsoperator{col}
+\@declarephysicsoperator{Row}
+\@declarephysicsoperator{row}
+\@declarephysicsoperator{Rank}
+\@declarephysicsoperator{rank}
+\@declarephysicsoperator{Ker}
+\@declarephysicsoperator{ker}
+\@declarephysicsoperator{coker}
+\@declarephysicsoperator{Dist}
+\@declarephysicsoperator{dist}
+\@declarephysicsoperator{Distance}
+\@declarephysicsoperator{distance}
+\@declarephysicsoperator{closure}
+\@declarephysicsoperator{SD}
+\@declarephysicsoperator{Var}
+\@declarephysicsoperator{Mode}
+\@declarephysicsoperator{Median}
+\@declarephysicsoperator{GCD}
+\@declarephysicsoperator{gcd}
+\@declarephysicsoperator{LCM}
+\@declarephysicsoperator{lcm}
+\@declarephysicsoperator{UnitVector}
+\@declarephysicsoperator{round}
+\@declarephysicsoperator{truncate}
+\@declarephysicsoperator{roundhalfup}
+\@declarephysicsoperator{roundhalfdown}
+\@declarephysicsoperator{roundhalftoeven}
+\@declarephysicsoperator{roundhaldtoodd}
+\@declarephysicsoperator{SO}
+\@declarephysicsoperator{GL}
 
 % Quick quad text (math-mode text with \quad spacing)
 \DeclareDocumentCommand\qqtext{ s m }{\IfBooleanTF{#1}{}{\quad}\text{#2}\quad}
@@ -843,6 +806,21 @@
   \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
 }
 \DeclareDocumentCommand\Dv{}{\Derivative}
+
+\DeclareDocumentCommand\partialdifferential{ o g d() }{ % Partial Differential '\partial'
+  % o: optional n for nth differential
+  % g: optional argument for readability and to control spacing
+  % d: long-form as in \partial(cos x)
+  \IfNoValueTF{#2}{
+  \IfNoValueTF{#3}
+  {\partial\IfNoValueTF{#1}{}{^{#1}}}
+  {\mathinner{\partial\IfNoValueTF{#1}{}{^{#1}}\argopen(#3\argclose)}}
+  }
+  {\mathinner{\partial\IfNoValueTF{#1}{}{^{#1}}#2} \IfNoValueTF{#3}{}{(#3)}}
+}
+\DeclareDocumentCommand\pdd{}{\partialdifferential} % Shorthand for \differential
+\DeclareDocumentCommand\pdifferential{}{\partialdifferential} % Shorthand for \differential
+
 \DeclareDocumentCommand\partialderivative{ s o m g g d() }
 { % Partial derivative
   % s: star for \flatfrac flat derivative

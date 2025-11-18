@@ -128,16 +128,6 @@ See \href{https://ctan.org/pkg/amsmath}{https://ctan.org/pkg/amsmath} for the de
 \section{List of Commands}
 In the commands listed below, the left column is long-form names (if any), the middle column is default shorthand commands with examples, and the right column is explanations.
 \subsection{Bracing}
-Symbols:
-\begin{longtable}[c]{|c|}
-\hline
-\verb|\lparen| $\rightarrow\lparen$ \\\hline
-\verb|\rparen| $\rightarrow\rparen$ \\\hline
-\verb|\lbrack| $\rightarrow\lbrack$ \\\hline
-\verb|\rbrack| $\rightarrow\rbrack$ \\\hline
-\verb|\lbrace| $\rightarrow\lbrace$ \\\hline
-\verb|\rbrace| $\rightarrow\rbrace$ \\\hline
-\end{longtable}
 Null delimiter without \verb|\nulldelimiterspace|:
 \begin{longtable}[c]{|L{0.3\textwidth}|L{0.3\textwidth}|L{0.3\textwidth}|}
 \hline
@@ -187,9 +177,15 @@ Auto Resizable Bracing:
 \verb|\absolutevalue| & \verb|\abs{a}| $\rightarrow \abs{a}$ & automatic sizing; equivalent to \verb+\qty|a|+ \\
 & \verb|\abs\Big{a}| $\rightarrow \abs\Big{a}$ & inherits manual sizing syntax from \verb|\qty| \\
 & \verb|\abs*{\grande}| $\displaystyle\rightarrow \abs*{\grande}$ & star for no resize \\\hline
-\verb|\norm| & \verb|\norm{a}| $\rightarrow \norm{a}$ & automatic sizing \\
+\verb|\norm| or \verb|Vqty| & \verb|\norm{a}| $\rightarrow \norm{a}$ & automatic sizing \\
 & \verb|\norm\Big{a}| $\rightarrow \norm\Big{a}$ & manual sizing \\
 & \verb|\norm*{\grande}| $\displaystyle\rightarrow \norm*{\grande}$ & star for no resize \\\hline
+\verb|\floor| & \verb|\floor{a}| $\rightarrow \floor{a}$ & automatic sizing \\
+& \verb|\floor\Big{a}| $\rightarrow \floor\Big{a}$ & manual sizing \\
+& \verb|\floor*{\grande}| $\displaystyle\rightarrow \floor*{\grande}$ & star for no resize \\\hline
+\verb|\ceil| & \verb|\ceil{a}| $\rightarrow \ceil{a}$ & automatic sizing \\
+& \verb|\ceil\Big{a}| $\rightarrow \ceil\Big{a}$ & manual sizing \\
+& \verb|\ceil*{\grande}| $\displaystyle\rightarrow \ceil*{\grande}$ & star for no resize \\\hline
 \verb|\evaluated| & \verb|\eval{x}_0^\infty| $\displaystyle\rightarrow \eval{x}_0^\infty$ & vertical bar for evaluation limits \\
 & \verb+\eval(x|_0^\infty+ $\displaystyle\rightarrow \eval(x|_0^\infty$ & alternate form \\
 & \verb+\eval[x|_0^\infty+ $\displaystyle\rightarrow \eval[x|_0^\infty$ & alternate form \\
@@ -205,6 +201,11 @@ Auto Resizable Bracing:
 \verb|\poissonbracket| & \verb|\pb{A}{B}| $\rightarrow \pb{A}{B}$ & same as \verb|\anticommutator|\\\hline
 \verb|\mid| & \verb|\left\{x\mid x>0\right\}| $\rightarrow \left\{x\mid x>0\right\}$ & Expands to \verb+\middle|+ when inside a \verb|\left|...\verb|\right| group (\verb|\currentgrouptype=16|) \\
 & \verb|\{x\mid x>0\}| $\rightarrow \{x\mid x>0\}$ & Falls back to original \\\hline
+\verb|\pqtfr| & \verb|\pqtfr{A}{B}| $\leftrightarrow$ \verb|\pqty{\frac{A}{B}}| & Shorthands for fraction with bracing \\
+\verb|\bqtfr| & \verb|\bqtfr{A}{B}| $\leftrightarrow$ \verb|\bqty{\frac{A}{B}}| & \\
+\verb|\Bqtfr| & \verb|\Bqtfr{A}{B}| $\leftrightarrow$ \verb|\Bqty{\frac{A}{B}}| & \\
+\verb|\vqtfr| & \verb|\vqtfr{A}{B}| $\leftrightarrow$ \verb|\vqty{\frac{A}{B}}| & \\
+\verb|\Vqtfr| & \verb|\Vqtfr{A}{B}| $\leftrightarrow$ \verb|\Vqty{\frac{A}{B}}| & \\\hline
 \end{longtable}
 \subsection{Vector Notation}
 The default del symbol $\vnabla$ used in \texttt{physics-patch} vector notation can be switched to appear with an arrow $\vec{\vnabla}$ by including the option \texttt{arrowdel} in the document preamble.
@@ -383,6 +384,11 @@ and can be switched to:
 & \verb|\Dd{x}| $\rightarrow$ \textvisiblespace\,$\Dd{x}$\textvisiblespace & automatic spacing based on neighbors \\
 & \verb|\Dd[3]{x}| $\rightarrow \Dd[3]{x}$ & optional power \\
 & \verb|\Dd(\cos\theta)| $\rightarrow \Dd(\cos\theta)$ & long-form; automatic braces \\\hline
+\verb|\partialdifferential| or \verb|\pdifferential| & \verb|\pdd| $\rightarrow \pdd$ & partial differential symbol \\
+& \verb|\pdd x| $\rightarrow \pdd x$ & no spacing (not recommended) \\
+& \verb|\pdd{x}| $\rightarrow$ \textvisiblespace\,$\pdd{x}$\textvisiblespace & automatic spacing based on neighbors \\
+& \verb|\pdd[3]{x}| $\rightarrow \pdd[3]{x}$ & optional power \\
+& \verb|\pdd(\cos\theta)| $\rightarrow \pdd(\cos\theta)$ & long-form; automatic braces \\\hline
 \verb|\Derivative| & \verb|\Dv{x}| $\displaystyle\rightarrow \Dv{x}$ & one argument \\
 & \verb|\Dv{f}{x}| $\displaystyle\rightarrow \Dv{f}{x}$ & two arguments \\
 & \verb|\Dv[n]{f}{x}| $\displaystyle\rightarrow \Dv[n]{f}{x}$ & optional power \\
@@ -505,20 +511,27 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 & \verb|\mqty(a & b \\ c & d)| $\rightarrow {\mqty(a & b \\ c & d)}$ & parentheses \\
 & \verb|\mqty*(a & b \\ c & d)| $\rightarrow {\mqty*(a & b \\ c & d)}$ & alternate parentheses \\
 & \verb|\mqty[a & b \\ c & d]| $\rightarrow {\mqty[a & b \\ c & d]}$ & square brackets \\
-& \verb|\mqty| \texttt{|} \verb|a & b \\ c & d| \texttt{|} $\rightarrow {\mqty|a & b \\ c & d|}$ & vertical bars \\
+& \verb|\mqty*[a & b \\ c & d]| $\rightarrow {\mqty*[a & b \\ c & d]}$ & curly brackets \\
+& \verb+\mqty|a & b \\ c & d|+ $\rightarrow {\mqty|a & b \\ c & d|}$ & vertical bars \\
+& \verb+\mqty*|a & b \\ c & d|+ $\rightarrow {\mqty*|a & b \\ c & d|}$ & double vertical bars \\
 & \verb|\omqty{}| $\leftrightarrow$ \verb|\mqty{}| & \multirow{2}{*}{\parbox{6cm}{alternative syntax; robust and more \LaTeX-friendly}} \\
-& \verb|\pmqty{}| $\leftrightarrow$ \verb|\mqty()| & \\
 & \verb|\pmqty{}| $\leftrightarrow$ \verb|\mqty()| & \\
 & \verb|\pmqty*{}| $\leftrightarrow$ \verb|\mqty*{}| & \\
 & \verb|\Pmqty{}| $\leftrightarrow$ \verb|\mqty*()| & \\
 & \verb|\bmqty{}| $\leftrightarrow$ \verb|\mqty[]| & \\
-& \verb|\vmqty{}| $\leftrightarrow$ \verb+\mqty||+ & \\\hline
+& \verb|\bmqty*{}| $\leftrightarrow$ \verb|\mqty*[]| & \\
+& \verb|\Bmqty{}| $\leftrightarrow$ \verb|\mqty*[]| & \\
+& \verb|\vmqty{}| $\leftrightarrow$ \verb+\mqty||+ & \\
+& \verb|\vmqty*{}| $\leftrightarrow$ \verb+\mqty*||+ & \\
+& \verb|\Vmqty{}| $\leftrightarrow$ \verb+\mqty*||+ & \\
+\verb|\matrixdeterminant| & \verb|\mdet{a & b \\ c & d}| $\rightarrow {\mdet{a & b \\ c & d}}$ & matrix determinant \\\hline
 \verb|\smallmatrixquantity| & \verb|\smqty{a & b \\ c & d}| $\rightarrow \smqty{a & b \\ c & d}$ & the \texttt{smallmatrix} form of \verb|\mqty| \\
 & \verb|\smqty()| \qor \verb|\spmqty{}| \qor \verb|\spmqty{}| & small version of \verb|\mqty()| \\
 & \verb|\smqty*()| \qor \verb|\sPmqty{}| \qor \verb|\spmqty*{}| & small version of \verb|\mqty*()|\\
 & \verb|\smqty[]| \qor \verb|\sbmqty{}| & small version of \verb|\mqty[]| \\
-& \verb+\smqty||+ \qor \verb|\svmqty{}| & small version of \verb+\mqty||+ \\\hline
-\verb|\matrixdeterminant| & \verb|\mdet{a & b \\ c & d}| $\rightarrow {\mdet{a & b \\ c & d}}$ & matrix determinant \\
+& \verb|\smqty*[]| \qor \verb|\sBmqty{}| \qor \verb|\sbmqty*{}| & small version of \verb|\mqty*[]| \\
+& \verb+\smqty||+ \qor \verb|\svmqty{}| & small version of \verb+\mqty||+ \\
+& \verb+\smqty*||+ \qor \verb|\sVmqty{}| \qor \verb|\svmqty*{}| & small version of \verb+\mqty*||+ \\
 & \verb|\smdet{a & b \\ c & d}| $\rightarrow {\smdet{a & b \\ c & d}}$ & small matrix determinant \\\hline
 \verb|\identitymatrix| & \verb|\imat{n}| & elements of $n \times n$ identity matrix \\
 & \verb|\mqty(\imat{3})| $\rightarrow \mqty(\imat{3})$ & formatted with \verb|\mqty| or \verb|\smqty| \\\hline
@@ -569,6 +582,8 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 \subsection{Symbols}
 \begin{longtable}[c]{|p{0.4\textwidth}|p{0.4\textwidth}|}
 \hline
+\verb|\lparen| $\rightarrow\lparen$ \\\hline
+\verb|\rparen| $\rightarrow\rparen$ \\\hline
 \verb|\divisionsymbol| & \verb|\divisionsymbol| $\rightarrow \divisionsymbol$ & division symbol \\\hline
 \verb|\ordersymbol| $\rightarrow \ordersymbol$ & order symbol \\\hline
 \verb|\typical| $\rightarrow \typical$ & \\\hline
@@ -586,6 +601,7 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 \verb|\Bell|$\rightarrow$\verb|\char"1F514| & the \verb|\bell| command in wasysym, which is a bell symbol \\\hline
 \verb|\Vtextvisiblespace[width]| $\rightarrow$ \Vtextvisiblespace & a visible space character, where the optional argument, defaulting to \verb|.3em|, sets the width of the horizontal rule \\\hline
 \verb|\kernnull| & negate the space next to null delimiters, implemented with \verb|\kern-\nulldelimiterspace| \\\hline
+\verb|\NewLine| & \verb|\mbox{}\\|\\\hline
 \verb|\ST| $\rightarrow \ST$ & such that with space before and after it \\\hline
 \end{longtable}
 \subsection{Utilities}
@@ -601,6 +617,7 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 \verb|\numbercircled| & \verb|\numcir{1}| $\rightarrow$ \numcir{1} & patched \verb|\textcircled| for numbers \\\hline
 \verb|\boldsymbol| & \verb|\bsb{\tau}| $\rightarrow\bsb{\tau}$ & shorthand for \verb|\boldsymbol| \\\hline
 \verb|\RNum| & \verb|\RNum{1}| $\rightarrow$ \RNum{1} & uppercase roman numeral\\\hline
+\verb|\piover| & \verb|\piover{2}|$\rightarrow\piover{2}$ & fraction of $\pi$ over the argument \\\hline
 \end{longtable}
 \subsection{Arrows and Lines}
 For math mode only:
