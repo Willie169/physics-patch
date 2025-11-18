@@ -608,6 +608,7 @@
 \DeclareDocumentCommand\renewoperatorqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\operatornameqty{#2}}}}
 \DeclareDocumentCommand\declareoperatorqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{#3}}\cs_set_protected:cn{#2}{\opbraces{#3}}}
 \DeclareDocumentCommand\@declarephysicsoperator{om}{\IfNoValueTF{#1}{\iftrig\declareoperatorqty{#2}\else\declareoperator{#2}\fi}{\iftrig\declareoperatorqty[#1]{#2}\else\declareoperator{#1}\declareoperator{#2}\fi}}
+\DeclareDocumentCommand\@declarephysicsoperatorwithlimits{om}{\IfNoValueTF{#1}{\iftrig\declareoperatorwithlimitsqty{#2}\else\declareoperatorwithlimits{#2}\fi}{\iftrig\declareoperatorwithlimitsqty[#1]{#2}\else\declareoperatorwithlimits{#1}\declareoperatorwithlimits{#2}\fi}}
 \DeclareDocumentCommand\@renewphysicsoperator{om}{\IfNoValueTF{#1}{\iftrig\renewoperatorqty{#2}\fi}{\iftrig\renewoperatorqty[#1]{#2}\else\renewoperator[#1]{#2}\fi}}
 \ExplSyntaxOff
 
@@ -666,7 +667,7 @@
 \@renewphysicsoperator[real]{Re}
 \@renewphysicsoperator[imaginary]{Im}
 \@renewphysicsoperator[Probability]{Pr}
-\@renewphysicsoperator[Residue]{Res}
+\@declarephysicsoperatorwithlimits[Residue]{Res}
 \@declarephysicsoperator{tr}
 \@declarephysicsoperator{Tr}
 \@declarephysicsoperator{Si}
