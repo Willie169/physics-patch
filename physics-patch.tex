@@ -177,7 +177,7 @@ Auto Resizable Bracing:
 \verb|\absolutevalue| & \verb|\abs{a}| $\rightarrow \abs{a}$ & automatic sizing; equivalent to \verb+\qty|a|+ \\
 & \verb|\abs\Big{a}| $\rightarrow \abs\Big{a}$ & inherits manual sizing syntax from \verb|\qty| \\
 & \verb|\abs*{\grande}| $\displaystyle\rightarrow \abs*{\grande}$ & star for no resize \\\hline
-\verb|\norm| or \verb|Vqty| & \verb|\norm{a}| $\rightarrow \norm{a}$ & automatic sizing \\
+\verb|Vqty| & \verb|\norm{a}| $\rightarrow \norm{a}$ & automatic sizing \\
 & \verb|\norm\Big{a}| $\rightarrow \norm\Big{a}$ & manual sizing \\
 & \verb|\norm*{\grande}| $\displaystyle\rightarrow \norm*{\grande}$ & star for no resize \\\hline
 \verb|\floor| & \verb|\floor{a}| $\rightarrow \floor{a}$ & automatic sizing \\
@@ -204,8 +204,8 @@ Auto Resizable Bracing:
 \verb|\pqtfr| & \verb|\pqtfr{A}{B}| $\leftrightarrow$ \verb|\pqty{\frac{A}{B}}| & Shorthands for fraction with bracing \\
 \verb|\bqtfr| & \verb|\bqtfr{A}{B}| $\leftrightarrow$ \verb|\bqty{\frac{A}{B}}| & \\
 \verb|\Bqtfr| & \verb|\Bqtfr{A}{B}| $\leftrightarrow$ \verb|\Bqty{\frac{A}{B}}| & \\
-\verb|\vqtfr| & \verb|\vqtfr{A}{B}| $\leftrightarrow$ \verb|\vqty{\frac{A}{B}}| & \\
-\verb|\Vqtfr| & \verb|\Vqtfr{A}{B}| $\leftrightarrow$ \verb|\Vqty{\frac{A}{B}}| & \\\hline
+\verb|\vqtfr| & \verb|\absfr{A}{B}| $\leftrightarrow$ \verb|\absfr{\frac{A}{B}}| & \\
+\verb|\Vqtfr| & \verb|\normfr{A}{B}| $\leftrightarrow$ \verb|\normfr{\frac{A}{B}}| & \\\hline
 \end{longtable}
 \subsection{Vector Notation}
 The default del symbol $\vnabla$ used in \texttt{physics-patch} vector notation can be switched to appear with an arrow $\vec{\vnabla}$ by including the option \texttt{arrowdel} in the document preamble.

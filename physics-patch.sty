@@ -293,7 +293,9 @@
 \DeclareDocumentCommand\bqtfr{mm}{\bqty{\frac{#1}{#2}}}
 \DeclareDocumentCommand\Bqtfr{mm}{\Bqty{\frac{#1}{#2}}}
 \DeclareDocumentCommand\vqtfr{mm}{\vqty{\frac{#1}{#2}}}
+\let\absfr\vqtfr
 \DeclareDocumentCommand\Vqtfr{mm}{\Vqty{\frac{#1}{#2}}}
+\let\normfr\Vqtfr
 
 \let\originalmid\mid
 \DeclareDocumentCommand\mid{}{\nonscript\;\ifnum\currentgrouptype=16\middle|\else\originalmid\fi\nonscript\;}
