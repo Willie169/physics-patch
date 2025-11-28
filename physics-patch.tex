@@ -619,15 +619,18 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 \verb|\RNum| & \verb|\RNum{1}| $\rightarrow$ \RNum{1} & uppercase roman numeral\\\hline
 \verb|\piover| & \verb|\piover{2}|$\rightarrow\piover{2}$ & fraction of $\pi$ over the argument \\\hline
 \end{longtable}
-\subsection{Arrows and Lines}
+\subsection{Binary Relations}
+REWRITE
+
 For math mode only:
 \begin{longtable}[c]{|p{0.5\textwidth}|p{0.3\textwidth}|}
 \hline
 \verb|\Leftrightarrow| or \verb|\Lra| & $\Leftrightarrow$ \\\hline
 \verb|\leftrightarrow| or \verb|\lra| & $\leftrightarrow$ \\\hline
 \verb|\Rightarrow| or \verb|\Ra| & $\Rightarrow$ \\\hline
-\verb|\rightarrow| or \verb|\ra| & $\rightarrow$ \\\hline
+
 \verb|\Leftarrow| or \verb|\La| & $\Leftarrow$ \\\hline
+\verb|\rightarrow| or \verb|\ra| & $\rightarrow$ \\\hline
 \verb|\leftarrow| or \verb|\la| & $\leftarrow$ \\\hline
 \verb|\Uparrow| or \verb|\Upa| & $\Uparrow$ \\\hline
 \verb|\uparrow| or \verb|\upa| & $\uparrow$ \\\hline
@@ -653,12 +656,14 @@ For math mode only:
 \verb|\nleftarrow| or \verb|\nla| & $\nleftarrow$ \\\hline
 \verb|\mapsto| or \verb|\mpto| & $\mapsto$ \\\hline
 \verb|\mapsfrom| or \verb|\mpfr| & $\mapsfrom$ \\\hline
+REWRITE add others
 \verb|\stackrel{\mathrm{def}}{=}| or \verb|\defeq| & $\defeq$ \\\hline
 \end{longtable}
 Work in both math mode and text mode:
 \begin{longtable}[c]{|p{0.5\textwidth}|p{0.3\textwidth}|}
 \hline
 \verb|\equiv| or \verb|\eqv| & $\equiv$ \\\hline
+\verb|\neq| & $\neq$ \\\hline
 \verb|\geq| & $\geq$ \\\hline
 \verb|\leq| & $\leq$ \\\hline
 \verb|\gg| & $\gg$ \\\hline
@@ -668,6 +673,7 @@ Work in both math mode and text mode:
 \verb|\lessapprox| or \verb|\lapx| & $\lessapprox$ \\\hline
 \verb|\sim| & $\sim$ \\\hline
 \end{longtable}
+REWRITE xarrows
 \subsection{Shorthands for Greek Alphabet}
 If the corresponding options are used, the following shorthands will be defined for every uppercase and lowercase Greek letter. Note that these don’t ensure those commands are defined. Take Alpha for example.
 \begin{longtable}[c]{|p{0.3\textwidth}|p{0.2\textwidth}|p{0.3\textwidth}|}
