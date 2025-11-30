@@ -438,33 +438,51 @@
 
 \DeclareDocumentCommand\order{ l m }{\fbraces#1{\lparen}{\rparen}{\ordersymbol}{#2}} % Order notation -> O(x^2)
 
-\DeclareDocumentCommand\evaluated{ s g d[| d(| }
-{ % Vertical evaluation bar
-  \IfNoValueTF{#2}
-  {
-    \IfNoValueTF{#3}
-    {
-      \IfNoValueTF{#4}
+\DeclareDocumentCommand\evaluated{ s g d[| d(| d[] d() }
+{ % Vertical evaluation bar  
+  \IfNoValueTF{#2}  
+  {  
+    \IfNoValueTF{#3}  
+    {  
+      \IfNoValueTF{#4}  
       {
-        \argopen.\vphantom{\int}\argclose\rvert
-      }
-      {
-        \IfBooleanTF{#1}{\vphantom{#4}}{}
-        \left(\IfBooleanTF{#1}{\smash{#4}}{#4}\vphantom{\int}\right\rvert
-      }
-    }
-    {
-      \IfBooleanTF{#1}{\vphantom{#3}}{}
-      \left[\IfBooleanTF{#1}{\smash{#3}}{#3}\vphantom{\int}\right\rvert
-      \IfNoValueTF{#4}{}{(#4|}
-    }
-  }
-  {
-    \IfBooleanTF{#1}{\vphantom{#2}}{}
-    \lnull\IfBooleanTF{#1}{\smash{#2}}{#2}\vphantom{\int}\rpair\rvert
-    \IfNoValueTF{#3}{}{[#3|}
+        \IfNoValueTF{#5}
+        {
+          \IfNoValueTF{#6}
+          {
+            \argopen.\vphantom{\int}\argclose\rvert  
+          }
+          {
+            \IfBooleanTF{#1}{\vphantom{#6}}{}
+            \left(\IfBooleanTF{#1}{\smash{#6}}{#6}\vphantom{\int}\right)\rvert
+          }
+        }
+        {
+          \IfBooleanTF{#1}{\vphantom{#5}}{}
+          \left[\IfBooleanTF{#1}{\smash{#5}}{#5}\vphantom{\int}\right]\rvert
+        }
+      }  
+      {  
+        \IfBooleanTF{#1}{\vphantom{#4}}{}  
+        \left(\IfBooleanTF{#1}{\smash{#4}}{#4}\vphantom{\int}\right\rvert  
+      }  
+    }  
+    {  
+      \IfBooleanTF{#1}{\vphantom{#3}}{}  
+      \left[\IfBooleanTF{#1}{\smash{#3}}{#3}\vphantom{\int}\right\rvert  
+      \IfNoValueTF{#4}{}{(#4|}  
+      \IfNoValueTF{#5}{}{[#5|}
+      \IfNoValueTF{#6}{}{(#6|}
+    }  
+  }  
+  {  
+    \IfBooleanTF{#1}{\vphantom{#2}}{}  
+    \lnull\IfBooleanTF{#1}{\smash{#2}}{#2}\vphantom{\int}\rpair\rvert  
+    \IfNoValueTF{#3}{}{[#3|}  
     \IfNoValueTF{#4}{}{(#4|}
-  }
+    \IfNoValueTF{#5}{}{[#5]}
+    \IfNoValueTF{#6}{}{(#6)}
+  }  
 }
 \DeclareDocumentCommand\eval{}{\evaluated} % Shorthand for evaluated
 
