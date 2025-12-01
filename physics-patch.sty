@@ -20,12 +20,12 @@
 \RequirePackage{xstring}
 
 % Options
-\newif\iforiginaldiv\originaldivtrue
-\DeclareOption{nooriginaldiv}{\originaldivfalse}
-\DeclareOption{originaldiv}{\originaldivtrue}
-\newif\iftrig\trigtrue
-\DeclareOption{notrig}{\trigfalse}
-\DeclareOption{trig}{\trigtrue}
+\newif\if@originaldiv\@originaldivtrue
+\DeclareOption{nooriginaldiv}{\@originaldivfalse}
+\DeclareOption{originaldiv}{\@originaldivtrue}
+\newif\if@trig\@trigtrue
+\DeclareOption{notrig}{\@trigfalse}
+\DeclareOption{trig}{\@trigtrue}
 \def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}
 \DeclareOption{italicdiff}{\def\dfd{d}\def\dfD{D}}
 \DeclareOption{uprightdiff}{\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}}
@@ -35,37 +35,40 @@
 \DeclareDocumentCommand\dotproduct{}{\cdot}
 \DeclareOption{bolddot}{\DeclareDocumentCommand\dotproduct{}{\boldsymbol\cdot}}
 \DeclareOption{plaindot}{\DeclareDocumentCommand\dotproduct{}{\cdot}}
-\newif\ifspaceflatfrac
-\newif\ifnoresizeflatfrac
-\newif\ifdefaultflatfrac
-\DeclareOption{spaceflatfrac}{\spaceflatfractrue\noresizeflatfracfalse\defaultflatfracfalse}
-\DeclareOption{noresizeflatfrac}{\noresizeflatfractrue\spaceflatfracfalse\defaultflatfracfalse}
-\DeclareOption{defaultflatfrac}{\defaultflatfractrue\spaceflatfracfalse\noresizeflatfracfalse}
-\DeclareOption{forcedefault}{\originaldivtrue\trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac}}
-\newif\ifshorttextgreek
-\DeclareOption{noshorttextgreek}{\shorttextgreekfalse}
-\DeclareOption{shorttextgreek}{\shorttextgreektrue}
-\newif\ifshortvargreek
-\DeclareOption{noshortvargreek}{\shortvargreekfalse}
-\DeclareOption{shortvargreek}{\shortvargreektrue}
-\newif\ifshortupgreek
-\DeclareOption{noshortupgreek}{\shortupgreekfalse}
-\DeclareOption{shortupgreek}{\shortupgreektrue}
-\newif\ifshortupvargreek
-\DeclareOption{noshortupvargreek}{\shortupvargreekfalse}
-\DeclareOption{shortupvargreek}{\shortupvargreektrue}
-\newif\ifshortboldgreek
-\DeclareOption{noshortboldgreek}{\shortboldgreekfalse}
-\DeclareOption{shortboldgreek}{\shortboldgreektrue}
-\DeclareOption{noshortgreek}{\shorttextgreekfalse\shortvargreekfalse\shortupgreekfalse\shortupvargreekfalse\shortboldgreekfalse}
-\DeclareOption{shortgreek}{\shorttextgreektrue\shortvargreektrue\shortupgreektrue\shortupvargreektrue\shortboldgreektrue}
-\newif\ifshortmathrm
-\DeclareOption{noshortmathrm}{\shortmathrmfalse}
-\DeclareOption{shortmathrm}{\shortmathrmtrue}
-\newif\ifshorttext
-\DeclareOption{noshorttext}{\shorttextfalse}
-\DeclareOption{shorttext}{\shorttexttrue}
-\DeclareOption{forcedefaultall}{\originaldivtrue\trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac}\shortgreektrue\shortmathrmtrue\shorttexttrue}
+\newif\if@spaceflatfrac
+\newif\if@noresizeflatfrac
+\newif\if@defaultflatfrac
+\DeclareOption{spaceflatfrac}{\@spaceflatfractrue\@noresizeflatfracfalse\@defaultflatfracfalse}
+\DeclareOption{noresizeflatfrac}{\@noresizeflatfractrue\@spaceflatfracfalse\@defaultflatfracfalse}
+\DeclareOption{defaultflatfrac}{\@defaultflatfractrue\@spaceflatfracfalse\@noresizeflatfracfalse}
+\newif\if@binrel\@binreltrue
+\DeclareOption{nobinaryrelation}{\@binrelfalse}
+\DeclareOption{binaryrelation}{\@binreltrue}
+\DeclareOption{forcedefault}{\@originaldivtrue\@trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}\@defaultflatfractrue\@binreltrue}
+\newif\if@shorttextgreek
+\DeclareOption{noshorttextgreek}{\@shorttextgreekfalse}
+\DeclareOption{shorttextgreek}{\@shorttextgreektrue}
+\newif\if@shortvargreek
+\DeclareOption{noshortvargreek}{\@shortvargreekfalse}
+\DeclareOption{shortvargreek}{\@shortvargreektrue}
+\newif\if@shortupgreek
+\DeclareOption{noshortupgreek}{\@shortupgreekfalse}
+\DeclareOption{shortupgreek}{\@shortupgreektrue}
+\newif\if@shortupvargreek
+\DeclareOption{noshortupvargreek}{\@shortupvargreekfalse}
+\DeclareOption{shortupvargreek}{\@shortupvargreektrue}
+\newif\if@shortboldgreek
+\DeclareOption{noshortboldgreek}{\@shortboldgreekfalse}
+\DeclareOption{shortboldgreek}{\@shortboldgreektrue}
+\DeclareOption{noshortgreek}{\@shorttextgreekfalse\@shortvargreekfalse\@shortupgreekfalse\@shortupvargreekfalse\@shortboldgreekfalse}
+\DeclareOption{shortgreek}{\@shorttextgreektrue\@shortvargreektrue\@shortupgreektrue\@shortupvargreektrue\@shortboldgreektrue}
+\newif\if@shortmathrm
+\DeclareOption{noshortmathrm}{\@shortmathrmfalse}
+\DeclareOption{shortmathrm}{\@shortmathrmtrue}
+\newif\if@shorttext
+\DeclareOption{noshorttext}{\@shorttextfalse}
+\DeclareOption{shorttext}{\@shorttexttrue}
+\DeclareOption{forcedefaultall}{\@originaldivtrue\@trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}\@defaultflatfractrue\@binreltrue\@shorttextgreektrue\@shortvargreektrue\@shortupgreektrue\@shortupvargreektrue\@shortboldgreektrue\@shortmathrmtrue\@shorttexttrue}
 \DeclareOption*{}
 \ProcessOptions\relax
 
@@ -74,10 +77,10 @@
 \DeclareDocumentCommand\spaceflatfrac{ m m }{\left.#1\middle\slash#2\right.}
 \DeclareDocumentCommand\noresizeflatfrac{ m m }{#1\slash#2}
 \DeclareDocumentCommand\defaultflatfrac{ m m }{\mathopen{}\mathclose\bgroup\left.\kern-\nulldelimiterspace#1\middle\slash#2\aftergroup\egroup\right.\kern-\nulldelimiterspace}
-\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac}
-\ifspaceflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\spaceflatfrac}\fi
-\ifnoresizeflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\noresizeflatfrac}\fi
-\ifdefaultflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac}\fi
+\DeclareDocumentCommand\flatfrac{ m m }{\@defaultflatfrac}
+\if@spaceflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\spaceflatfrac}\fi
+\if@noresizeflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\noresizeflatfrac}\fi
+\if@defaultflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac}\fi
 
 % Utilities
 \DeclareDocumentCommand\pv{g}{\IfNoValueTF{#1}{\mathcal{P}}{\mathcal{P}\mathord{#1}}}
@@ -137,6 +140,7 @@
 \DeclareDocumentCommand\ST{}{\;\text{s.t.}\;}
 
 % Binary Relations
+\if@binrel
 \let\originalrightarrow\rightarrow
 \DeclareDocumentCommand\ra{}{\originalrightarrow}
 \let\originalleftarrow\leftarrow
@@ -246,6 +250,7 @@
 \DeclareDocumentCommand\xlgla{}{\xlongleftarrow}
 \DeclareDocumentCommand\xLgra{}{\xLongrightarrow}
 \DeclareDocumentCommand\xLgla{}{\xLongleftarrow}
+\fi
 
 % Bracing
 \DeclareDocumentCommand\absolutevalue{ l m }{\braces#1{\lvert}{\rvert}{#2}} % Absolute value/complex modulus
@@ -533,7 +538,7 @@
   {\vnabla \dotproduct #1 \IfNoValueTF{#2}{}{[#2]} \IfNoValueTF{#3}{}{(#3)}}
 }
 \DeclareDocumentCommand\divg{}{\divergence}
-\iforiginaldiv
+\if@originaldiv
   \ifphysics
     \DeclareDocumentCommand\div{}{\divisionsymbol}
   \else
@@ -639,9 +644,9 @@
 \DeclareDocumentCommand\renewoperator{om}{\cs_if_exist:cF{#2}{\cs_set_protected:cn{#2}{\operatorname{#2}}}\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}}
 \DeclareDocumentCommand\renewoperatorqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\operatornameqty{#2}}}}
 \DeclareDocumentCommand\declareoperatorqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{#3}}\cs_set_protected:cn{#2}{\opbraces{#3}}}
-\DeclareDocumentCommand\@declarephysicsoperator{om}{\IfNoValueTF{#1}{\iftrig\declareoperatorqty{#2}\else\declareoperator{#2}\fi}{\iftrig\declareoperatorqty[#1]{#2}\else\declareoperator{#1}\declareoperator{#2}\fi}}
-\DeclareDocumentCommand\@declarephysicsoperatorwithlimits{om}{\IfNoValueTF{#1}{\iftrig\declareoperatorwithlimitsqty{#2}\else\declareoperatorwithlimits{#2}\fi}{\iftrig\declareoperatorwithlimitsqty[#1]{#2}\else\declareoperatorwithlimits{#1}\declareoperatorwithlimits{#2}\fi}}
-\DeclareDocumentCommand\@renewphysicsoperator{om}{\IfNoValueTF{#1}{\iftrig\renewoperatorqty{#2}\fi}{\iftrig\renewoperatorqty[#1]{#2}\else\renewoperator[#1]{#2}\fi}}
+\DeclareDocumentCommand\@declarephysicsoperator{om}{\IfNoValueTF{#1}{\if@trig\declareoperatorqty{#2}\else\declareoperator{#2}\fi}{\if@trig\declareoperatorqty[#1]{#2}\else\declareoperator{#1}\declareoperator{#2}\fi}}
+\DeclareDocumentCommand\@declarephysicsoperatorwithlimits{om}{\IfNoValueTF{#1}{\if@trig\declareoperatorwithlimitsqty{#2}\else\declareoperatorwithlimits{#2}\fi}{\if@trig\declareoperatorwithlimitsqty[#1]{#2}\else\declareoperatorwithlimits{#1}\declareoperatorwithlimits{#2}\fi}}
+\DeclareDocumentCommand\@renewphysicsoperator{om}{\IfNoValueTF{#1}{\if@trig\renewoperatorqty{#2}\fi}{\if@trig\renewoperatorqty[#1]{#2}\else\renewoperator[#1]{#2}\fi}}
 \ExplSyntaxOff
 
 \@declarephysicsoperator[sine]{sin}
@@ -743,6 +748,8 @@
 \@declarephysicsoperator{roundhaldtoodd}
 \@declarephysicsoperator{SO}
 \@declarephysicsoperator{GL}
+\@renewphysicsoperator{\pi}
+\@renewphysicsoperator{\in}
 
 % Quick quad text (math-mode text with \quad spacing)
 \DeclareDocumentCommand\qqtext{ s m }{\IfBooleanTF{#1}{}{\quad}\text{#2}\quad}
@@ -1270,7 +1277,7 @@
 \DeclareDocumentCommand\admat{}{\antidiagonalmatrix}
 
 % Shortgreek
-\ifshorttextgreek
+\if@shorttextgreek
 \DeclareDocumentCommand{\tgAlpha}{g}{\text{\textAlpha}}
 \DeclareDocumentCommand{\tgBeta}{g}{\text{\textBeta}}
 \DeclareDocumentCommand{\tgGamma}{g}{\text{\textGamma}}
@@ -1320,7 +1327,7 @@
 \DeclareDocumentCommand{\tgpsi}{g}{\text{\textpsi}}
 \DeclareDocumentCommand{\tgomega}{g}{\text{\textomega}}
 \fi
-\ifshortvargreek
+\if@shortvargreek
 \DeclareDocumentCommand{\vAlpha}{}{\varAlpha}
 \DeclareDocumentCommand{\vBeta}{}{\varBeta}
 \DeclareDocumentCommand{\vGamma}{}{\varGamma}
@@ -1370,7 +1377,7 @@
 \DeclareDocumentCommand{\vpsi}{}{\varpsi}
 \DeclareDocumentCommand{\vomega}{}{\varomega}
 \fi
-\ifshortupgreek
+\if@shortupgreek
 \DeclareDocumentCommand{\uAlpha}{}{\upAlpha}
 \DeclareDocumentCommand{\uBeta}{}{\upBeta}
 \DeclareDocumentCommand{\uGamma}{}{\upGamma}
@@ -1420,7 +1427,7 @@
 \DeclareDocumentCommand{\upsi}{}{\uppsi}
 \DeclareDocumentCommand{\uomega}{}{\upomega}
 \fi
-\ifshortupvargreek
+\if@shortupvargreek
 \DeclareDocumentCommand{\uvAlpha}{}{\upvarAlpha}
 \DeclareDocumentCommand{\uvBeta}{}{\upvarBeta}
 \DeclareDocumentCommand{\uvGamma}{}{\upvarGamma}
@@ -1470,7 +1477,7 @@
 \DeclareDocumentCommand{\uvpsi}{}{\upvarpsi}
 \DeclareDocumentCommand{\uvomega}{}{\upvaromega}
 \fi
-\ifshortboldgreek
+\if@shortboldgreek
 \DeclareDocumentCommand{\bAlpha}{}{\boldsymbol{\Alpha}}
 \DeclareDocumentCommand{\bBeta}{}{\boldsymbol{\Beta}}
 \DeclareDocumentCommand{\bGamma}{}{\boldsymbol{\Gamma}}
@@ -1522,7 +1529,7 @@
 \fi
 
 % Shortmathrm
-\ifshortmathrm
+\if@shortmathrm
 \DeclareDocumentCommand{\rmA}{e{_^}}{\ensuremath{\mathrm{A}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
 \DeclareDocumentCommand{\rmB}{e{_^}}{\ensuremath{\mathrm{B}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
 \DeclareDocumentCommand{\rmC}{e{_^}}{\ensuremath{\mathrm{C}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
@@ -1682,7 +1689,7 @@
 \fi
 
 % Shorttext
-\ifshorttext
+\if@shorttext
 \DeclareDocumentCommand{\txA}{}{\textnormal{A}}
 \DeclareDocumentCommand{\txB}{}{\textnormal{B}}
 \DeclareDocumentCommand{\txC}{}{\textnormal{C}}
