@@ -218,6 +218,10 @@
 \DeclareDocumentCommand\uhl{}{\upharpoonleft}
 \DeclareDocumentCommand\dhr{}{\downharpoonright}
 \DeclareDocumentCommand\dhl{}{\downharpoonleft}
+\DeclareDocumentCommand\nea{}{\nearrow}
+\DeclareDocumentCommand\nwa{}{\nwarrow}
+\DeclareDocumentCommand\sea{}{\searrow}
+\DeclareDocumentCommand\swa{}{\swarrow}
 \DeclareDocumentCommand\prl{}{\parallel}
 \DeclareDocumentCommand\nprl{}{\nparallel}
 \DeclareDocumentCommand\sbs{}{\subset}
@@ -701,126 +705,210 @@
   }
 }
 
-\DeclareDocumentCommand\operatornameqty{m}{\opbraces{\operatorname{#1}}}
-\DeclareDocumentCommand\operatornamewithlimitsqty{m}{\opbraces{\operatornamewithlimits{#1}}}
+\DeclareDocumentCommand\trigbraces{ m t' t' t' e{^_} o d() }
+{
+  \IfNoValueTF{#7}
+  {
+    \IfNoValueTF{#8}
+    {
+      #1
+      \IfBooleanT{#2}{'}
+      \IfBooleanT{#3}{'}
+      \IfBooleanT{#4}{'}
+      \IfNoValueTF{#5}{}{^{#5}}
+      \IfNoValueTF{#6}{}{_{#6}}
+    }
+    {
+      \fbraces{\lparen}{\rparen}
+      {
+        #1
+        \IfBooleanT{#2}{'}
+        \IfBooleanT{#3}{'}
+        \IfBooleanT{#4}{'}
+        \IfNoValueTF{#5}{}{^{#5}}
+        \IfNoValueTF{#6}{}{_{#6}}
+      }
+      {#8}
+    }
+  }
+  {
+    \fbraces{\lbrack}{\rbrack}
+    {
+      #1
+      \IfBooleanT{#2}{'}
+      \IfBooleanT{#3}{'}
+      \IfBooleanT{#4}{'}
+      \IfNoValueTF{#5}{}{^{#5}}
+      \IfNoValueTF{#6}{}{_{#6}}
+    }{#7}
+    \IfNoValueTF{#8}{}{(#8)}
+  }
+}
+
+\DeclareDocumentCommand\opqty{m}{\opbraces{\operatorname{#1}}}
+\DeclareDocumentCommand\trigqty{m}{\trigbraces{\operatorname{#1}}}
+\DeclareDocumentCommand\oplimitsqty{m}{\opbraces{\operatornamewithlimits{#1}}}
+\DeclareDocumentCommand\triglimitsqty{m}{\trigbraces{\operatornamewithlimits{#1}}}
 \ExplSyntaxOn
-\DeclareDocumentCommand\provideoperator{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\operatorname{#1}}}}
-\DeclareDocumentCommand\declareoperator{m}{\cs_set_protected:cn{#1}{\operatorname{#1}}}
-\DeclareDocumentCommand\provideoperatorwithlimits{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#1}}}}
-\DeclareDocumentCommand\declareoperatorwithlimits{m}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#1}}}
-\DeclareDocumentCommand\provideoperatorqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\operatornameqty{#1}}}}
-\DeclareDocumentCommand\declareoperatorqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\operatornameqty{#2}}}
-\DeclareDocumentCommand\provideoperatorwithlimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimitsqty{#1}}}}
-\DeclareDocumentCommand\declareoperatorwithlimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\operatornamewithlimitsqty{#2}}}
-\DeclareDocumentCommand\renewoperator{om}{\cs_if_exist:cF{#2}{\cs_set_protected:cn{#2}{\operatorname{#2}}}\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}}
-\DeclareDocumentCommand\renewoperatorqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\operatornameqty{#2}}}}
-\DeclareDocumentCommand\declareoperatorqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{#3}}\cs_set_protected:cn{#2}{\opbraces{#3}}}
-\DeclareDocumentCommand\@declarephysicsoperator{om}{\IfNoValueTF{#1}{\if@trig\declareoperatorqty{#2}\else\declareoperator{#2}\fi}{\if@trig\declareoperatorqty[#1]{#2}\else\declareoperator{#1}\declareoperator{#2}\fi}}
-\DeclareDocumentCommand\@declarephysicsoperatorwithlimits{om}{\IfNoValueTF{#1}{\if@trig\declareoperatorwithlimitsqty{#2}\else\declareoperatorwithlimits{#2}\fi}{\if@trig\declareoperatorwithlimitsqty[#1]{#2}\else\declareoperatorwithlimits{#1}\declareoperatorwithlimits{#2}\fi}}
-\DeclareDocumentCommand\@renewphysicsoperator{om}{\IfNoValueTF{#1}{\if@trig\renewoperatorqty{#2}\fi}{\if@trig\renewoperatorqty[#1]{#2}\else\renewoperator[#1]{#2}\fi}}
+\DeclareDocumentCommand\provideop{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\operatorname{#1}}}}
+\DeclareDocumentCommand\declareop{m}{\cs_set_protected:cn{#1}{\operatorname{#1}}}
+\DeclareDocumentCommand\provideoplimits{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#1}}}}
+\DeclareDocumentCommand\declareoplimits{m}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#1}}}
+\DeclareDocumentCommand\provideopqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\opqty{#1}}}}
+\DeclareDocumentCommand\providetrigqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\trigqty{#1}}}}
+\DeclareDocumentCommand\declareopqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\opqty{#2}}}
+\DeclareDocumentCommand\declaretrigqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\trigqty{#2}}}
+\DeclareDocumentCommand\provideoplimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\oplimitsqty{#1}}}}
+\DeclareDocumentCommand\declareoplimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\oplimitsqty{#2}}}
+\DeclareDocumentCommand\declaretriglimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\triglimitsqty{#2}}}
+\DeclareDocumentCommand\renewop{om}{\cs_if_exist:cF{#2}{\cs_set_protected:cn{#2}{\operatorname{#2}}}\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}}
+\DeclareDocumentCommand\renewoplimits{om}{\cs_if_exist:cF{#2}{\cs_set_protected:cn{#2}{\operatornamewithlimits{#2}}}\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}}
+\DeclareDocumentCommand\renewopqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\opqty{#2}}}}
+\DeclareDocumentCommand\renewtrigqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\trigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\trigqty{#2}}}}
+\DeclareDocumentCommand\renewoplimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\oplimitsqty{#2}}}}
+\DeclareDocumentCommand\renewtriglimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\trigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\triglimitsqty{#2}}}}
+\DeclareDocumentCommand\declareopqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{#3}}\cs_set_protected:cn{#2}{\opbraces{#3}}}
+\DeclareDocumentCommand\declaretrigqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{#3}}\cs_set_protected:cn{#2}{\trigbraces{#3}}}
+\DeclareDocumentCommand\@declarephysicsop{om}{\IfNoValueTF{#1}{\if@trig\declareopqty{#2}\else\declareop{#2}\fi}{\if@trig\declareopqty[#1]{#2}\else\declareop{#1}\declareop{#2}\fi}}
+\DeclareDocumentCommand\@declarephysicstrig{om}{\IfNoValueTF{#1}{\if@trig\declaretrigqty{#2}\else\declareop{#2}\fi}{\if@trig\declaretrigqty[#1]{#2}\else\declareop{#1}\declareop{#2}\fi}}
+\DeclareDocumentCommand\@declarephysicsoplimits{om}{\IfNoValueTF{#1}{\if@trig\declareoplimitsqty{#2}\else\declareoplimits{#2}\fi}{\if@trig\declareoplimitsqty[#1]{#2}\else\declareoplimits{#1}\declareoplimits{#2}\fi}}
+\DeclareDocumentCommand\@declarephysicsoplimits{om}{\IfNoValueTF{#1}{\if@trig\declaretriglimitsqty{#2}\else\declareoplimits{#2}\fi}{\if@trig\declaretriglimitsqty[#1]{#2}\else\declareoplimits{#1}\declareoplimits{#2}\fi}}
+\DeclareDocumentCommand\@renewphysicsop{om}{\IfNoValueTF{#1}{\if@trig\renewopqty{#2}\fi}{\if@trig\renewopqty[#1]{#2}\else\renewop[#1]{#2}\fi}}
+\DeclareDocumentCommand\@renewphysicstrig{om}{\IfNoValueTF{#1}{\if@trig\renewtrigqty{#2}\fi}{\if@trig\renewtrigqty[#1]{#2}\else\renewop[#1]{#2}\fi}}
+\DeclareDocumentCommand\@renewphysicsoplimits{om}{\IfNoValueTF{#1}{\if@trig\renewoplimitsqty{#2}\fi}{\if@trig\renewoplimitsqty[#1]{#2}\else\renewoplimits[#1]{#2}\fi}}
+\DeclareDocumentCommand\@renewphysicstriglimits{om}{\IfNoValueTF{#1}{\if@trig\renewtriglimitsqty{#2}\fi}{\if@trig\renewtriglimitsqty[#1]{#2}\else\renewoplimits[#1]{#2}\fi}}
 \ExplSyntaxOff
 
-\@declarephysicsoperator[sine]{sin}
-\@declarephysicsoperator[cosine]{cos}
-\@declarephysicsoperator[tangent]{tan}
-\@declarephysicsoperator[cotangent]{cot}
-\@declarephysicsoperator[secant]{sec}
-\@declarephysicsoperator[cosecant]{csc}
-\@declarephysicsoperator[asine]{asin}
-\@declarephysicsoperator[acosine]{acos}
-\@declarephysicsoperator[atangent]{atan}
-\@declarephysicsoperator[acotangent]{acot}
-\@declarephysicsoperator[asecant]{asec}
-\@declarephysicsoperator[acosecant]{acsc}
-\@declarephysicsoperator[arcsine]{arcsin}
-\@declarephysicsoperator[arccosine]{arccos}
-\@declarephysicsoperator[arctangent]{arctan}
-\@declarephysicsoperator[arccotangent]{arccot}
-\@declarephysicsoperator[arcsecant]{arcsec}
-\@declarephysicsoperator[arccosecant]{arccsc}
-\@declarephysicsoperator[sine]{sinh}
-\@declarephysicsoperator[cosine]{cosh}
-\@declarephysicsoperator[tangent]{tanh}
-\@declarephysicsoperator[cotangent]{coth}
-\@declarephysicsoperator[secant]{sech}
-\@declarephysicsoperator[cosecant]{csch}
-\@declarephysicsoperator[ahypsine]{asinh}
-\@declarephysicsoperator[ahypcosine]{acosh}
-\@declarephysicsoperator[ahyptangent]{atanh}
-\@declarephysicsoperator[ahypcotangent]{acoth}
-\@declarephysicsoperator[ahypsecant]{asech}
-\@declarephysicsoperator[ahypcosecant]{acsch}
-\@declarephysicsoperator[arhypsine]{arsinh}
-\@declarephysicsoperator[arhypcosine]{arcosh}
-\@declarephysicsoperator[arhyptangent]{artanh}
-\@declarephysicsoperator[arhypcotangent]{arcoth}
-\@declarephysicsoperator[arhypsecant]{arsech}
-\@declarephysicsoperator[arhypcosecant]{arcsch}
-\@declarephysicsoperator[archypsine]{arcsinh}
-\@declarephysicsoperator[archypcosine]{arccosh}
-\@declarephysicsoperator[archyptangent]{arctanh}
-\@declarephysicsoperator[archypcotangent]{arccoth}
-\@declarephysicsoperator[archypsecant]{arcsech}
-\@declarephysicsoperator[archypcosecant]{arccsch}
-\declareoperatorqtyas[atangenttwo]{atantwo}{\operatorname{atan2}}
-\declareoperatorqtyas[arctangenttwo]{aarctantwo}{\operatorname{arctan2}}
-\@declarephysicsoperator[exponential]{exp}
-\@declarephysicsoperator[logarithm]{log}
-\@declarephysicsoperator[naturallogarithm]{ln}
-\@declarephysicsoperator[determinant]{det}
-\@declarephysicsoperator[Argument]{Arg}
-\@declarephysicsoperator[argument]{arg}
-\@declarephysicsoperator[Dimension]{Dim}
-\@declarephysicsoperator[dimension]{dim}
-\@renewphysicsoperator[real]{Re}
-\@renewphysicsoperator[imaginary]{Im}
-\@renewphysicsoperator[Probability]{Pr}
-\@declarephysicsoperatorwithlimits[Residue]{Res}
-\@declarephysicsoperator{tr}
-\@declarephysicsoperator{Tr}
-\@declarephysicsoperator{Si}
-\@declarephysicsoperator{si}
-\@declarephysicsoperator{Cin}
-\@declarephysicsoperator{Ci}
-\@declarephysicsoperator{Shi}
-\@declarephysicsoperator{Chi}
-\@declarephysicsoperator{sgn}
-\@declarephysicsoperator{erf}
-\@declarephysicsoperator{erfc}
-\@declarephysicsoperator{erfi}
-\@declarephysicsoperator{Col}
-\@declarephysicsoperator{col}
-\@declarephysicsoperator{Row}
-\@declarephysicsoperator{row}
-\@declarephysicsoperator{Rank}
-\@declarephysicsoperator{rank}
-\@declarephysicsoperator{Ker}
-\@declarephysicsoperator{ker}
-\@declarephysicsoperator{coker}
-\@declarephysicsoperator{Dist}
-\@declarephysicsoperator{dist}
-\@declarephysicsoperator{Distance}
-\@declarephysicsoperator{distance}
-\@declarephysicsoperator{closure}
-\@declarephysicsoperator{SD}
-\@declarephysicsoperator{Var}
-\@declarephysicsoperator{Mode}
-\@declarephysicsoperator{Median}
-\@declarephysicsoperator{GCD}
-\@declarephysicsoperator{gcd}
-\@declarephysicsoperator{LCM}
-\@declarephysicsoperator{lcm}
-\@declarephysicsoperator{UnitVector}
-\@declarephysicsoperator{round}
-\@declarephysicsoperator{truncate}
-\@declarephysicsoperator{roundhalfup}
-\@declarephysicsoperator{roundhalfdown}
-\@declarephysicsoperator{roundhalftoeven}
-\@declarephysicsoperator{roundhaldtoodd}
-\@declarephysicsoperator{SO}
-\@declarephysicsoperator{GL}
-\@renewphysicsoperator{\pi}
-\@renewphysicsoperator{\in}
+\@declarephysicstrig[sine]{sin}
+\@declarephysicstrig[cosine]{cos}
+\@declarephysicstrig[tangent]{tan}
+\@declarephysicstrig[cotangent]{cot}
+\@declarephysicstrig[secant]{sec}
+\@declarephysicstrig[cosecant]{csc}
+\@declarephysicstrig[asine]{asin}
+\@declarephysicstrig[acosine]{acos}
+\@declarephysicstrig[atangent]{atan}
+\@declarephysicstrig[acotangent]{acot}
+\@declarephysicstrig[asecant]{asec}
+\@declarephysicstrig[acosecant]{acsc}
+\@declarephysicstrig[arcsine]{arcsin}
+\@declarephysicstrig[arccosine]{arccos}
+\@declarephysicstrig[arctangent]{arctan}
+\@declarephysicstrig[arccotangent]{arccot}
+\@declarephysicstrig[arcsecant]{arcsec}
+\@declarephysicstrig[arccosecant]{arccsc}
+\@declarephysicstrig[hypsine]{sinh}
+\@declarephysicstrig[hypcosine]{cosh}
+\@declarephysicstrig[hyptangent]{tanh}
+\@declarephysicstrig[hypcotangent]{coth}
+\@declarephysicstrig[hypsecant]{sech}
+\@declarephysicstrig[hypcosecant]{csch}
+\@declarephysicstrig[ahypsine]{asinh}
+\@declarephysicstrig[ahypcosine]{acosh}
+\@declarephysicstrig[ahyptangent]{atanh}
+\@declarephysicstrig[ahypcotangent]{acoth}
+\@declarephysicstrig[ahypsecant]{asech}
+\@declarephysicstrig[ahypcosecant]{acsch}
+\@declarephysicstrig[arhypsine]{arsinh}
+\@declarephysicstrig[arhypcosine]{arcosh}
+\@declarephysicstrig[arhyptangent]{artanh}
+\@declarephysicstrig[arhypcotangent]{arcoth}
+\@declarephysicstrig[arhypsecant]{arsech}
+\@declarephysicstrig[arhypcosecant]{arcsch}
+\@declarephysicstrig[archypsine]{arcsinh}
+\@declarephysicstrig[archypcosine]{arccosh}
+\@declarephysicstrig[archyptangent]{arctanh}
+\@declarephysicstrig[archypcotangent]{arccoth}
+\@declarephysicstrig[archypsecant]{arcsech}
+\@declarephysicstrig[archypcosecant]{arccsch}
+\@declarephysicstrig[logarithm]{log}
+\@declarephysicstrig[naturallogarithm]{ln}
+\@declarephysicstrig{Si}
+\@declarephysicstrig{si}
+\@declarephysicstrig{Cin}
+\@declarephysicstrig{Ci}
+\@declarephysicstrig{Shi}
+\@declarephysicstrig{Chi}
+\@declarephysicstrig{sgn}
+\@declarephysicstrig{erf}
+\@declarephysicstrig{erfc}
+\@declarephysicstrig{erfi}
+\@declarephysicstrig{Dist}
+\@declarephysicstrig{dist}
+\@declarephysicstrig{Distance}
+\@declarephysicstrig{distance}
+\@declarephysicstrig{UnitVector}
+\@declarephysicstrig{round}
+\@declarephysicstrig{truncate}
+\@declarephysicstrig{roundhalfup}
+\@declarephysicstrig{roundhalfdown}
+\@declarephysicstrig{roundhalftoeven}
+\@declarephysicstrig{roundhaldtoodd}
+\@declarephysicstrig{SO}
+\@declarephysicstrig{GL}
+\@declarephysicstrig{BV}
+
+\@declarephysicsop[exponential]{exp}
+\@declarephysicsop[determinant]{det}
+\@declarephysicsop[Argument]{Arg}
+\@declarephysicsop[argument]{arg}
+\@declarephysicsop[Probability]{Pr}
+\@declarephysicsop{Tr}
+\@declarephysicsop{tr}
+\@declarephysicsop[Dimension]{Dim}
+\@declarephysicsop[dimension]{dim}
+\@declarephysicsop[real]{Re}
+\@declarephysicsop[imaginary]{Im}
+\@declarephysicsop{Col}
+\@declarephysicsop{col}
+\@declarephysicsop{Row}
+\@declarephysicsop{row}
+\@declarephysicsop{Rank}
+\@declarephysicsop{rank}
+\@declarephysicsop{Ker}
+\@declarephysicsop{ker}
+\@declarephysicsop{Coker}
+\@declarephysicsop{coker}
+\@declarephysicsop{im}
+\@declarephysicsop{closure}
+\@declarephysicsop{SD}
+\@declarephysicsop{Var}
+\@declarephysicsop{Mode}
+\@declarephysicsop{Median}
+\@declarephysicsop{GCD}
+\@declarephysicsop{gcd}
+\@declarephysicsop{LCM}
+\@declarephysicsop{lcm}
+
+\@declarephysicsoplimits[Residue]{Res}
+
+\declaretrigqtyas[atangenttwo]{atantwo}{\operatorname{atan2}}
+\declaretrigqtyas[arctangenttwo]{aarctantwo}{\operatorname{arctan2}}
+
+\@renewphysicstrig{\pi}
+
+\@renewphysicsop{\in}
+
+\@renewphysicsoplimits{lim}
+\@renewphysicsoplimits{limsup}
+\@renewphysicsoplimits{liminf}
+\@renewphysicsoplimits{max}
+\@renewphysicsoplimits{min}
+\@renewphysicsoplimits{sup}
+\@renewphysicsoplimits{inf}
+\@renewphysicsoplimits{sum}
+\@renewphysicsoplimits{prod}
+\@renewphysicsoplimits{coprod}
+\@renewphysicsoplimits{bigcup}
+\@renewphysicsoplimits{bigcap}
+\@renewphysicsoplimits{bigsqcup}
+\@renewphysicsoplimits{biguplus}
+\@renewphysicsoplimits{bigvee}
+\@renewphysicsoplimits{bigwedge}
+\@renewphysicsoplimits{bigoplus}
+\@renewphysicsoplimits{bigotimes}
+\@renewphysicsoplimits{bigodot}
+
 
 % Quick quad text (math-mode text with \quad spacing)
 \DeclareDocumentCommand\qqtext{ s m }{\IfBooleanTF{#1}{}{\quad}\text{#2}\quad}
