@@ -648,8 +648,83 @@
   {\nabla^2 #1 \IfNoValueTF{#2}{}{[#2]} \IfNoValueTF{#3}{}{(#3)}}
 }
 
-% Operators
-\DeclareDocumentCommand\opbraces{ m t' t' t' e{^_} g o d() }
+% Operator system
+\DeclareDocumentCommand\opbraces{ m e{^_} g o d() }
+{
+  \IfNoValueTF{#4}
+  {
+    \IfNoValueTF{#5}
+    {
+      \IfNoValueTF{#6}
+      {
+        #1
+        \IfNoValueTF{#2}{}{^{#2}}
+        \IfNoValueTF{#3}{}{_{#3}}
+      }
+      {
+        \fbraces{\lparen}{\rparen}
+        {
+          #1
+          \IfNoValueTF{#2}{}{^{#2}}
+          \IfNoValueTF{#3}{}{_{#3}}
+        }
+        {#6}
+      }
+    }
+    {
+      \fbraces{\lbrack}{\rbrack}
+      {
+        #1
+        \IfNoValueTF{#2}{}{^{#2}}
+        \IfNoValueTF{#3}{}{_{#3}}
+      }{#5}
+      \IfNoValueTF{#6}{}{(#6)}
+    }
+  }
+  {
+    \fbraces{\lbrace}{\rbrace}
+    {
+      #1
+      \IfNoValueTF{#2}{}{^{#2}}
+      \IfNoValueTF{#3}{}{_{#3}}
+    }{#4}
+    \IfNoValueTF{#5}{}{[#5]}
+    \IfNoValueTF{#6}{}{(#6)}
+  }
+}
+
+\DeclareDocumentCommand\trigbraces{ m e{^_} o d() }
+{
+  \IfNoValueTF{#4}
+  {
+    \IfNoValueTF{#5}
+    {
+      #1
+      \IfNoValueTF{#2}{}{^{#2}}
+      \IfNoValueTF{#3}{}{_{#3}}
+    }
+    {
+      \fbraces{\lparen}{\rparen}
+      {
+        #1
+        \IfNoValueTF{#2}{}{^{#2}}
+        \IfNoValueTF{#3}{}{_{#3}}
+      }
+      {#5}
+    }
+  }
+  {
+    \fbraces{\lbrack}{\rbrack}
+    {
+      #1
+      \IfNoValueTF{#2}{}{^{#2}}
+      \IfNoValueTF{#3}{}{_{#3}}
+    }{#4}
+    \IfNoValueTF{#5}{}{(#5)}
+  }
+}
+
+\DeclareDocumentCommand\propbraces{ m t' t' t' e{^_} g o d() }
 {
   \IfNoValueTF{#7}
   {
@@ -705,7 +780,7 @@
   }
 }
 
-\DeclareDocumentCommand\trigbraces{ m t' t' t' e{^_} o d() }
+\DeclareDocumentCommand\prtrigbraces{ m t' t' t' e{^_} o d() }
 {
   \IfNoValueTF{#7}
   {
@@ -779,6 +854,7 @@
 \DeclareDocumentCommand\@renewphysicstriglimits{om}{\IfNoValueTF{#1}{\if@trig\renewtriglimitsqty{#2}\fi}{\if@trig\renewtriglimitsqty[#1]{#2}\else\renewoplimits[#1]{#2}\fi}}
 \ExplSyntaxOff
 
+% Operators
 \@declarephysicstrig[sine]{sin}
 \@declarephysicstrig[cosine]{cos}
 \@declarephysicstrig[tangent]{tan}
@@ -857,8 +933,6 @@
 \@declarephysicsop{tr}
 \@declarephysicsop[Dimension]{Dim}
 \@declarephysicsop[dimension]{dim}
-\@declarephysicsop[real]{Re}
-\@declarephysicsop[imaginary]{Im}
 \@declarephysicsop{Col}
 \@declarephysicsop{col}
 \@declarephysicsop{Row}
@@ -887,6 +961,8 @@
 
 \@renewphysicstrig{\pi}
 
+\@renewphysicsop[real]{Re}
+\@renewphysicsop[imaginary]{Im}
 \@renewphysicsop{\in}
 
 \@renewphysicsoplimits{lim}
