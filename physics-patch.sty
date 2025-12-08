@@ -842,6 +842,7 @@
 \DeclareDocumentCommand\renewtrigqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\trigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\trigqty{#2}}}}
 \DeclareDocumentCommand\renewoplimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\oplimitsqty{#2}}}}
 \DeclareDocumentCommand\renewtriglimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\trigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\triglimitsqty{#2}}}}
+\DeclareDocumentCommand\declareopas{mm}{\cs_set_protected:cn{#1}{#2}}
 \DeclareDocumentCommand\declareopqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{#3}}\cs_set_protected:cn{#2}{\opbraces{#3}}}
 \DeclareDocumentCommand\declaretrigqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{#3}}\cs_set_protected:cn{#2}{\trigbraces{#3}}}
 \DeclareDocumentCommand\@declarephysicsop{om}{\IfNoValueTF{#1}{\if@trig\declareopqty{#2}\else\declareop{#2}\fi}{\if@trig\declareopqty[#1]{#2}\else\declareop{#1}\declareop{#2}\fi}}
@@ -852,6 +853,8 @@
 \DeclareDocumentCommand\@renewphysicstrig{om}{\IfNoValueTF{#1}{\if@trig\renewtrigqty{#2}\fi}{\if@trig\renewtrigqty[#1]{#2}\else\renewop[#1]{#2}\fi}}
 \DeclareDocumentCommand\@renewphysicsoplimits{om}{\IfNoValueTF{#1}{\if@trig\renewoplimitsqty{#2}\fi}{\if@trig\renewoplimitsqty[#1]{#2}\else\renewoplimits[#1]{#2}\fi}}
 \DeclareDocumentCommand\@renewphysicstriglimits{om}{\IfNoValueTF{#1}{\if@trig\renewtriglimitsqty{#2}\fi}{\if@trig\renewtriglimitsqty[#1]{#2}\else\renewoplimits[#1]{#2}\fi}}
+\DeclareDocumentCommand\@declarephysicsopqtyas{omm}{\if@trig\declareopqtyas[#1]{#2}{#3}\else\declareopas{#1}{#3}\declareopas{#2}{#3}\fi}
+\DeclareDocumentCommand\@declarephysicstrigqtyas{omm}{\if@trig\declaretrigqtyas[#1]{#2}{#3}\else\declareopas{#1}{#3}\declareopas{#2}{#3}\fi}
 \ExplSyntaxOff
 
 % Operators
@@ -956,8 +959,8 @@
 
 \@declarephysicsoplimits[Residue]{Res}
 
-\declaretrigqtyas[atangenttwo]{atantwo}{\operatorname{atan2}}
-\declaretrigqtyas[arctangenttwo]{aarctantwo}{\operatorname{arctan2}}
+\@declarephysicstrigqtyas[atangenttwo]{atantwo}{\operatorname{atan2}}
+\@declarephysicstrigqtyas[arctangenttwo]{aarctantwo}{\operatorname{arctan2}}
 
 \@renewphysicstrig{\pi}
 
