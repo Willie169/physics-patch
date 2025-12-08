@@ -55,18 +55,11 @@ breakatwhitespace=false
 Since version 2.0, the \texttt{physics-patch} package has evolved from merely patching the \texttt{physics} package to fully replacing it. While preserving the original goal—simplifying mathematical and physics typesetting for greater readability and efficiency—this package refines the design by addressing unintuitive behaviors, extending commands, and introducing additional macros. For instance, in the original package, parentheses and their contents after \verb|\dv{f}{x}| are ignored. This package also extends commands for broader applicability such as enabling \verb|\xmat| to support ellipses and introducing entirely new macros such as \verb|\omat|.
 \section{Usage}
 \subsection{Required Packages}
-The \texttt{physics-patch} package requires \texttt{amsmath}, \texttt{etoolbox}, \texttt{xcolor}, \texttt{xparse}, and \texttt{xstring} package to work. If you are unsure whether you've had them installed, you can either install it again using your local package manager (comes with most distributions) or by visiting the \href{http://www.ctan.org}{CTAN} online package database, or even just try to use \texttt{physics-patch} package without worrying about it. Many modern \LaTeX compilers will locate and offer to download missing required packages for you.
+The \texttt{physics-patch} package requires \texttt{amsmath}, \texttt{etoolbox}, \texttt{xcolor}, \texttt{xparse}, and \texttt{xstring} package, and, If the option \texttt{nicematrix} is used, \texttt{nicematrix} package.
+
+If you are unsure whether you've had them installed, you can either install it again using your local package manager (comes with most distributions) or by visiting the \href{http://www.ctan.org}{CTAN} online package database, or even just try to use \texttt{physics-patch} package without worrying about it. Many modern \LaTeX compilers will locate and offer to download missing required packages for you.
 \subsection{Using \texttt{physics-patch} in Your \LaTeX~Document}
-To use \texttt{physics-patch} in your \LaTeX~document, simply insert \verb|\usepackage{physics-patch}| in the preamble of your document, before \verb|\begin{document}| and after \verb|\documentclass{class}|:
-\begin{lstlisting}
-\documentclass{class}
-...
-\usepackage{physics-patch}
-...
-\begin{document}
-content...
-\end{document}
-\end{lstlisting}
+To use \texttt{physics-patch} in your \LaTeX~document, simply insert \verb|\usepackage[<options>]{physics-patch}| in the preamble of your document, before \verb|\begin{document}| and after \verb|\documentclass{class}|.
 
 This package will silently override the commands that have been defined before this package is loaded.
 
@@ -76,8 +69,8 @@ Options available in this package include:
 \begin{itemize}
 \item \verb|nooriginaldiv|: Let \verb|\div| be \verb|\divergence|. (not recommended)
 \item \verb|originaldiv|: Let \verb|\div| be division symbol. (default)
-\item \verb|notrig|: Not define functions and operators with automatic bracing.
-\item \verb|trig|: Define functions and operators with automatic bracing. (default)
+\item \verb|notrig|: Not define operators with automatic bracing.
+\item \verb|trig|: Define operators with automatic bracing. (default)
 \item \verb|italicdiff|: Italic differentials.
 \item \verb|uprightdiff|: Upright differentials. (default)
 \item \verb|arrowdel|: Vector arrow \verb|\nabla| symbol.
@@ -87,7 +80,12 @@ Options available in this package include:
 \item \verb|spaceflatfrac|: Define \verb|\flatfrac| as flat fraction with resizable slash with extra space.
 \item \verb|noresizeflatfrac|: Define \verb|\flatfrac| as flat fraction with non-resizable slash without extra space.
 \item \verb|defaultflatfrac|: Define \verb|\flatfrac| as flat fraction with resizable slash without extra space. (default)
-\item \verb|forcedefault|: Forces the above options to their default ones.
+\item \verb|nobinaryrelation|: Not define shorthands for binary relations.
+\item \verb|binaryrelation|: Define shorthands for binary relations. (default)
+\item \verb|alphabettrig|: Define alphabet operators with automatic bracing without curly brackets support.
+\item \verb|alphabetop|: Define alphabet operators with automatic bracing with curly brackets support. (default)
+\item \verb|nicematrix|: Define matrix macros for nicematrix. (default)
+\item \verb|forcedefault|: Override the options above to their default ones.
 \item \verb|noshorttextgreek|: Not define shorthands for text Greek alphabet. (default)
 \item \verb|shorttextgreek|: Define shorthands for text Greek alphabet.
 \item \verb|noshortvargreek|: Not define shorthands for variant Greek alphabet. (default)
@@ -102,11 +100,13 @@ Options available in this package include:
 \item \verb|shortgreek|: Define all shorthands for Greek alphabet.
 \item \verb|noshortmathrm|: Not define shorthands for mathrm alphabet and chemical element symbols. (default)
 \item \verb|shortmathrm|: Define shorthands for mathrm alphabet and chemical element symbols.
-\item \verb|noshorttext|: Not define shorthands for textnormal alphabet. (default)
-\item \verb|shorttext|: Define shorthands for textnormal alphabet.
-\item \verb|forcedefaultall|: Same as \verb|forcedefault|, \verb|shortgreek|, \verb|shortmathrm|, and \verb|shorttext| together.
-REWRITE
-(no)binaryrelation options
+\item \verb|noshorttext|: Not define shorthands for normal text alphabet. (default)
+\item \verb|shorttext|: Define shorthands for normal text alphabet.
+\item \verb|noshorttextbf|: Not define shorthands for bold text alphabet. (default)
+\item \verb|shorttextbf|: Define shorthands for bold text alphabet.
+\item \verb|noshorttextit|: Not define shorthands for italic text alphabet. (default)
+\item \verb|shorttextit|: Define shorthands for italic text alphabet.
+\item \verb|forcedefaultall|: Same as \verb|forcedefault|, \verb|shortgreek|, \verb|shortmathrm|, \verb|shorttext|, \verb|shorttextbf|, and \verb|shorttextit| together.
 \end{itemize}
 \section{Communication Channels}
 \begin{itemize}
@@ -474,7 +474,7 @@ allowing the user to type out complicated quantum mechanical expressions without
 & \verb|\mel*{n}{\grande}{\tall}| $\rightarrow \mel*{n}{\grande}{\tall}$ & single star does no resizing whatsoever \\
 & \verb|\mel**{n}{\grande}{m}| $\rightarrow \mel**{n}{\grande}{m}$ & double star resizes based on all parts \\\hline
 \end{longtable}
-\subsection{Matrix}
+\subsection{Matrix Macros}
 Note: \verb|\mqty| and \verb|\smqty| in \texttt{physics} uses \verb|\mathord|, while \verb|\mqty| and \verb|\smqty| in \texttt{physics-patch} don't.
 
 The following matrix macros produce unformatted rows and columns of matrix elements for use as separate matrices as well as blocks within larger matrices. For example, the command \verb|\identitymatrix{2}| which has also has the shortcut \verb|\imat{2}| produces the elements of a $2 \times 2$ identity matrix $\smqty{\imat{2}}$ without braces or grouping. This allows the command to also be used within another matrix, as in:\\
@@ -595,6 +595,29 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 \verb|\antidiagonalmatrix| & \verb|\admat{a,b,c,...}| & same as syntax as \verb|\dmat| \\
 & \verb|\mqty(\admat{1,2,3})| $\rightarrow \mqty(\admat{1,2,3})$ & \\\hline
 \end{longtable}
+
+Nicematrix macros, defined iff the option \verb|nicematrix| is used:
+\begin{longtable}[c]{|p{0.2\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|}
+\hline
+\verb|\nicematrixquantity| & \verb|\nmqty{a & b \\ c & d}| $\rightarrow \nmqty{a & b \\ c & d}$ & groups a set of matrix elements into a single object \\
+& \verb|\nmqty(a & b \\ c & d)| $\rightarrow {\nmqty(a & b \\ c & d)}$ & parentheses \\
+& \verb|\nmqty*(a & b \\ c & d)| $\rightarrow {\nmqty*(a & b \\ c & d)}$ & alternate parentheses \\
+& \verb|\nmqty[a & b \\ c & d]| $\rightarrow {\nmqty[a & b \\ c & d]}$ & square brackets \\
+& \verb|\nmqty*[a & b \\ c & d]| $\rightarrow {\nmqty*[a & b \\ c & d]}$ & curly brackets \\
+& \verb+\nmqty|a & b \\ c & d|+ $\rightarrow {\nmqty|a & b \\ c & d|}$ & vertical bars \\
+& \verb+\nmqty*|a & b \\ c & d|+ $\rightarrow {\nmqty*|a & b \\ c & d|}$ & double vertical bars \\
+& \verb|\nomqty{}| $\leftrightarrow$ \verb|\nmqty{}| & \multirow{2}{*}{\parbox{6cm}{alternative syntax; robust and more \LaTeX-friendly}} \\
+& \verb|\npmqty{}| $\leftrightarrow$ \verb|\nmqty()| & \\
+& \verb|\npmqty*{}| $\leftrightarrow$ \verb|\nmqty*{}| & \\
+& \verb|\nPmqty{}| $\leftrightarrow$ \verb|\nmqty*()| & \\
+& \verb|\nbmqty{}| $\leftrightarrow$ \verb|\nmqty[]| & \\
+& \verb|\nbmqty*{}| $\leftrightarrow$ \verb|\nmqty*[]| & \\
+& \verb|\nBmqty{}| $\leftrightarrow$ \verb|\nmqty*[]| & \\
+& \verb|\nvmqty{}| $\leftrightarrow$ \verb+\nmqty||+ & \\
+& \verb|\nvmqty*{}| $\leftrightarrow$ \verb+\nmqty*||+ & \\
+& \verb|\nVmqty{}| $\leftrightarrow$ \verb+\nmqty*||+ & \\
+\verb|\nicematrixdeterminant| & \verb|\nmdet{a & b \\ c & d}| $\rightarrow {\nmdet{a & b \\ c & d}}$ & matrix determinant \\\hline
+\end{longtable}
 }
 \subsection{Symbols}
 \begin{longtable}[c]{|p{0.4\textwidth}|p{0.4\textwidth}|}
@@ -637,8 +660,9 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 \verb|\piover| & \verb|\piover{2}|$\rightarrow\piover{2}$ & fraction of $\pi$ over the argument \\\hline
 \end{longtable}
 \subsection{Binary Relations}
+These shorthands are defined if \verb|nobinaryrelation| is not used.
+
 REWRITE
-(no)binaryrelation options
 
 For math mode only:
 \begin{longtable}[c]{|p{0.5\textwidth}|p{0.3\textwidth}|}
@@ -691,7 +715,9 @@ Work in both math mode and text mode:
 \verb|\lessapprox| or \verb|\lapx| & $\lessapprox$ \\\hline
 \verb|\sim| & $\sim$ \\\hline
 \end{longtable}
-REWRITE xarrows
+
+
+
 \subsection{Shorthands for Greek Alphabet}
 If the corresponding options are used, the following shorthands will be defined for every uppercase and lowercase Greek letter. Note that these don’t ensure those commands are defined. Take Alpha for example.
 \begin{longtable}[c]{|p{0.3\textwidth}|p{0.2\textwidth}|p{0.3\textwidth}|}
@@ -709,7 +735,8 @@ If option \texttt{shortmathrm} is used, the following shorthand will be defined 
 \hline
 \verb|\rmA_a^b| $\rightarrow\mathrm{A}_a^b$ & \verb|\rmA^a_b| $\rightarrow\mathrm{A}^a_b$ \\\hline
 \end{longtable}
-\subsection{Shorthands for Textnormal Alphabet}
+\subsection{Shorthands for Alphabet}
+REWRITE
 If option \texttt{shorttext} is used, the following shorthands will be defined for every uppercase and lowercase English letter. Take A for example.
 \begin{longtable}[c]{|c|}
 \hline
