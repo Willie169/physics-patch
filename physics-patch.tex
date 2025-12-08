@@ -188,9 +188,9 @@ Auto Resizable Bracing:
 \verb|\ceil| & \verb|\ceil{a}| $\rightarrow \ceil{a}$ & automatic sizing \\
 & \verb|\ceil\Big{a}| $\rightarrow \ceil\Big{a}$ & manual sizing \\
 & \verb|\ceil*{\grande}| $\displaystyle\rightarrow \ceil*{\grande}$ & star for no resize \\\hline
-\verb|\evaluated| & \verb|\eval{x}_0^\infty| $\displaystyle\rightarrow \eval{x}_0^\infty$ & vertical bar for evaluation limits (originally provided in \verb|physics|) \\
-& \verb+\eval[x|_0^\infty+ $\displaystyle\rightarrow \eval[x|_0^\infty$ & alternate form. DO NOT use [] and || inside. \\
-& \verb+\eval(x|_0^\infty+ $\displaystyle\rightarrow \eval(x|_0^\infty$ & alternate form. DO NOT use () and || inside. \\
+\verb|\evaluated| & \verb|\eval{x}_0^\infty| $\displaystyle\rightarrow \eval{x}_0^\infty$ & vertical bar for evaluation limits (originally provided in \verb|physics|, preserved for backward compatibility) \\
+& \verb+\eval[x|_0^\infty+ $\displaystyle\rightarrow \eval[x|_0^\infty$ & alternate form. DO NOT use \verb+[]+ and \verb+||+ inside, and DO NOT use it inside a \verb+[]+ or \verb+||+. \\
+& \verb+\eval(x|_0^\infty+ $\displaystyle\rightarrow \eval(x|_0^\infty$ & alternate form. DO NOT use \verb+()+ and \verb+||+ inside, and DO NOT use it inside a \verb+()+ or \verb+||+. \\ 
 & \verb+\eval[\venti|_0^\infty+ $\displaystyle\rightarrow \eval[\venti|_0^\infty$ & automatic sizing\\
 & \verb+\eval*[\venti|_0^\infty+ $\displaystyle\rightarrow \eval*[\venti|_0^\infty$ & star for no resize \\\hline
 \verb|\evaluatedvert| & \verb|\evlv{x}_0^\infty| $\displaystyle\rightarrow \eval{x}_0^\infty$ & vertical bar for evaluation limits (added in \verb|physics-patch|) \\
