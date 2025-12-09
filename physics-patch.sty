@@ -44,10 +44,10 @@
 \newif\if@binrel\@binreltrue
 \DeclareOption{nobinaryrelation}{\@binrelfalse}
 \DeclareOption{binaryrelation}{\@binreltrue}
-\newif\if@alphabettrig
-\newif\if@alphabetop\@alphabetoptrue
-\DeclareOption{alphabettrig}{\@alphabettrigtrue\@alphabetopfalse}
+\newif\if@alphabetop
+\newif\if@alphabettrig\@alphabettrigtrue
 \DeclareOption{alphabetop}{\@alphabetoptrue\@alphabettrigfalse}
+\DeclareOption{alphabettrig}{\@alphabettrigtrue\@alphabetopfalse}
 \newif\if@nicematrix
 \DeclareOption{nicematrix}{\@nicematrixtrue}
 \newif\if@forcedefault
@@ -103,7 +103,7 @@
 \if@defaultflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac}\fi
 
 \if@forcedefault
-\@originaldivtrue\@trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}\@defaultflatfractrue\@spaceflatfracfalse\@noresizeflatfracfalse\@binreltrue\@alphabetoptrue\@alphabettrigfalse\@nicematrixtrue
+\@originaldivtrue\@trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}\@defaultflatfractrue\@spaceflatfracfalse\@noresizeflatfracfalse\@binreltrue\@alphabettrigtrue\@alphabetopfalse\@nicematrixtrue
 \fi
 \if@forceoptional
 \@shorttextgreektrue\@shortvargreektrue\@shortupgreektrue\@shortupvargreektrue\@shortboldgreektrue\@shortmathrmtrue\@shorttexttrue\@shorttextbf\@shorttextit\@shorttexttt
@@ -740,7 +740,64 @@
 }
 
 % Operator system
-\DeclareDocumentCommand\opbraces{ m e{^_} g o d() }
+\DeclareDocumentCommand\opbraces{ m e{^_} g o d() d|| }
+{
+  \IfNoValueTF{#4}
+  {
+    \IfNoValueTF{#5}
+    {
+      \IfNoValueTF{#6}
+      {
+        \IfNoValueTF{#7}
+        {
+          #1
+          \IfNoValueTF{#2}{}{^{#2}}
+          \IfNoValueTF{#3}{}{_{#3}}
+        }
+        {
+          \fbraces{\lvert}{\rvert}
+          {
+            #1
+            \IfNoValueTF{#2}{}{^{#2}}
+            \IfNoValueTF{#3}{}{_{#3}}
+          }{#7}
+        }
+      }
+      {
+        \fbraces{\lparen}{\rparen}
+        {
+          #1
+          \IfNoValueTF{#2}{}{^{#2}}
+          \IfNoValueTF{#3}{}{_{#3}}
+        }{#6}
+        \IfNoValueTF{#7}{}{|#7|}
+      }
+    }
+    {
+      \fbraces{\lbrack}{\rbrack}
+      {
+        #1
+        \IfNoValueTF{#2}{}{^{#2}}
+        \IfNoValueTF{#3}{}{_{#3}}
+      }{#5}
+      \IfNoValueTF{#6}{}{(#6)}
+      \IfNoValueTF{#7}{}{|#7|}
+    }
+  }
+  {
+    \fbraces{\lbrace}{\rbrace}
+    {
+      #1
+      \IfNoValueTF{#2}{}{^{#2}}
+      \IfNoValueTF{#3}{}{_{#3}}
+    }{#4}
+    \IfNoValueTF{#5}{}{[#5]}
+    \IfNoValueTF{#6}{}{(#6)}
+    \IfNoValueTF{#7}{}{|#7|}
+  }
+}
+
+\DeclareDocumentCommand\trigbraces{ m e{^_} o d() d|| }
 {
   \IfNoValueTF{#4}
   {
@@ -753,46 +810,13 @@
         \IfNoValueTF{#3}{}{_{#3}}
       }
       {
-        \fbraces{\lparen}{\rparen}
+        \fbraces{\lvert}{\rvert}
         {
           #1
           \IfNoValueTF{#2}{}{^{#2}}
           \IfNoValueTF{#3}{}{_{#3}}
-        }
-        {#6}
+        }{#6}
       }
-    }
-    {
-      \fbraces{\lbrack}{\rbrack}
-      {
-        #1
-        \IfNoValueTF{#2}{}{^{#2}}
-        \IfNoValueTF{#3}{}{_{#3}}
-      }{#5}
-      \IfNoValueTF{#6}{}{(#6)}
-    }
-  }
-  {
-    \fbraces{\lbrace}{\rbrace}
-    {
-      #1
-      \IfNoValueTF{#2}{}{^{#2}}
-      \IfNoValueTF{#3}{}{_{#3}}
-    }{#4}
-    \IfNoValueTF{#5}{}{[#5]}
-    \IfNoValueTF{#6}{}{(#6)}
-  }
-}
-
-\DeclareDocumentCommand\trigbraces{ m e{^_} o d() }
-{
-  \IfNoValueTF{#4}
-  {
-    \IfNoValueTF{#5}
-    {
-      #1
-      \IfNoValueTF{#2}{}{^{#2}}
-      \IfNoValueTF{#3}{}{_{#3}}
     }
     {
       \fbraces{\lparen}{\rparen}
@@ -800,8 +824,8 @@
         #1
         \IfNoValueTF{#2}{}{^{#2}}
         \IfNoValueTF{#3}{}{_{#3}}
-      }
-      {#5}
+      }{#5}
+      \IfNoValueTF{#6}{}{|#6|}
     }
   }
   {
@@ -812,6 +836,7 @@
       \IfNoValueTF{#3}{}{_{#3}}
     }{#4}
     \IfNoValueTF{#5}{}{(#5)}
+    \IfNoValueTF{#6}{}{|#6|}
   }
 }
 
@@ -969,7 +994,7 @@
 \DeclareDocumentCommand\@renewphysicstriglimits{om}{\IfNoValueTF{#1}{\if@trig\renewtriglimitsqty{#2}\fi}{\if@trig\renewtriglimitsqty[#1]{#2}\else\renewoplimits[#1]{#2}\fi}}
 \DeclareDocumentCommand\@declarephysicsopas{omm}{\if@trig\declareopqtyas[#1]{#2}{#3}\else\declareopas{#1}{#3}\declareopas{#2}{#3}\fi}
 \DeclareDocumentCommand\@declarephysicstrigas{omm}{\if@trig\declaretrigqtyas[#1]{#2}{#3}\else\declareopas{#1}{#3}\declareopas{#2}{#3}\fi}
-\DeclareDocumentCommand\@declarephysicsalphabetfunction{mm}{\if@alphabettrig\declareprtrigqtyas{#1}{#2}\fi\if@alphabetop\declarepropqtyas{#1}{#2}\fi}
+\DeclareDocumentCommand\@declarephysicsalphabetfunction{mm}{\if@alphabetop\declarepropqtyas{#1}{#2}\fi\if@alphabettrig\declareprtrigqtyas{#1}{#2}\fi}
 
 % Operators
 \@declarephysicstrig[sine]{sin}
