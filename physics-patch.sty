@@ -308,8 +308,8 @@
 \let\Vqty\norm
 \DeclareDocumentCommand\floor{ l m }{\braces#1{\lfloor}{\rfloor}{#2}}
 \DeclareDocumentCommand\ceil{ l m }{\braces#1{\lceil}{\rceil}{#2}}
-\DeclareDocumentCommand{\quantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g }
-{ % Flexible automatic bracketing of an expression in () or [] or {} or ||
+\DeclareDocumentCommand{\quantity}{ t\big t\Big t\bigg t\Bigg o d() d|| d<> g }
+{ % Flexible automatic bracketing of an expression in [] or () or || or <> or {}
   % Handles manual override of sizing
   \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
     \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
@@ -321,31 +321,39 @@
   % Handles actual bracketing
   \IfNoValueTF{#5}{
     \IfNoValueTF{#6}{
-    \IfNoValueTF{#7}{
-    \IfNoValueTF{#8}{
-      \IfBooleanTF{#1}{\big}{
-      \IfBooleanTF{#2}{\Big}{
-        \IfBooleanTF{#3}{\bigg}{
-        \IfBooleanTF{#4}{\Bigg}{}
+      \IfNoValueTF{#7}{
+        \IfNoValueTF{#8}{
+          \IfNoValueTF{#9}{
+            \IfBooleanTF{#1}{\big}{
+              \IfBooleanTF{#2}{\Big}{
+                \IfBooleanTF{#3}{\bigg}{
+                  \IfBooleanTF{#4}{\Bigg}{}
+                }
+              }
+            }
+          }
+          {\ltag\lbrace#9\rtag\rbrace}
+        }{
+          \ltag\langle#8\rtag\rangle
+          \IfNoValueTF{#9}{}{{#9}}
         }
+      }{
+        \ltag\lvert{#7}\rtag\rvert
+        \IfNoValueTF{#8}{}{<#8>}
+        \IfNoValueTF{#9}{}{{#9}}
       }
-      }
-    }
-    {\ltag\lbrace#8\rtag\rbrace}
     }{
-    \ltag\lvert{#7}\rtag\rvert
-    \IfNoValueTF{#8}{}{#8}
+      \ltag(#6\rtag)
+      \IfNoValueTF{#7}{}{|#7|}
+      \IfNoValueTF{#8}{}{<#8>}
+      \IfNoValueTF{#9}{}{{#9}}
     }
   }{
-    \ltag(#6\rtag)
+    \ltag[#5\rtag]
+    \IfNoValueTF{#6}{}{(#6)}
     \IfNoValueTF{#7}{}{|#7|}
-    \IfNoValueTF{#8}{}{#8}
-  }
-  }{
-  \ltag[#5\rtag]
-  \IfNoValueTF{#6}{}{(#6)}
-  \IfNoValueTF{#7}{}{|#7|}
-  \IfNoValueTF{#8}{}{#8}
+    \IfNoValueTF{#8}{}{<#8>}
+    \IfNoValueTF{#9}{}{{#9}}
   }
 }
 \DeclareDocumentCommand\qty{}{\quantity}
@@ -371,7 +379,7 @@
 \DeclareDocumentCommand\Pmqty{m}{\left\lgroup\begin{matrix}#1\end{matrix}\right\rgroup}
 \DeclareDocumentCommand\bmqty{m}{\IfNoValueTF{#1}{\begin{bmatrix}#1\end{bmatrix}}{\begin{Bmatrix}#1\end{Bmatrix}}}
 \DeclareDocumentCommand\Bmqty{m}{\begin{Bmatrix}#1\end{Bmatrix}}
-\DeclareDocumentCommand\vmqty{m}{\IfNoValueTF{#1}{\begin{vmatrix}#1\end{vmatrix}}}{\begin{Vmatrix}#1\end{Vmatrix}}}
+\DeclareDocumentCommand\vmqty{m}{\IfNoValueTF{#1}{\begin{vmatrix}#1\end{vmatrix}}{\begin{Vmatrix}#1\end{Vmatrix}}}
 \DeclareDocumentCommand\Vmqty{m}{\begin{Vmatrix}#1\end{Vmatrix}}
 \DeclareDocumentCommand\matrixquantity{ s g o d() d|| }
 {
@@ -416,7 +424,7 @@
 \DeclareDocumentCommand\nPmqty{m}{\left\lgroup\begin{NiceMatrix}#1\end{NiceMatrix}\right\rgroup}
 \DeclareDocumentCommand\nbmqty{m}{\IfNoValueTF{#1}{\begin{bNiceMatrix}#1\end{bNiceMatrix}}{\begin{BNiceMatrix}#1\end{BNiceMatrix}}}
 \DeclareDocumentCommand\nBmqty{m}{\begin{BNiceMatrix}#1\end{BNiceMatrix}}
-\DeclareDocumentCommand\nvmqty{m}{\IfNoValueTF{#1}{\begin{vNiceMatrix}#1\end{vNiceMatrix}}}{\begin{VNiceMatrix}#1\end{VNiceMatrix}}}
+\DeclareDocumentCommand\nvmqty{m}{\IfNoValueTF{#1}{\begin{vNiceMatrix}#1\end{vNiceMatrix}}{\begin{VNiceMatrix}#1\end{VNiceMatrix}}}
 \DeclareDocumentCommand\nVmqty{m}{\begin{VNiceMatrix}#1\end{VNiceMatrix}}
 \DeclareDocumentCommand\nicematrixquantity{ s g o d() d|| }
 {
