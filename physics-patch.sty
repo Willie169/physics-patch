@@ -111,9 +111,9 @@
 
 % Utilities
 \DeclareDocumentCommand\pv{g}{\IfNoValueTF{#1}{\mathcal{P}}{\mathcal{P}\mathord{#1}}}
-\let\principalvalue\pv
+\DeclareDocumentCommand\principalvalue{g}{\IfNoValueTF{#1}{\mathcal{P}}{\mathcal{P}\mathord{#1}}}
 \DeclareDocumentCommand\PV{g}{\IfNoValueTF{#1}{\mathrm{P.V.}}{\mathrm{P.V.}\mathord{#1}}}
-\let\PrincipalValue\PV
+\DeclareDocumentCommand\PrincipalValue{g}{\IfNoValueTF{#1}{\mathrm{P.V.}}{\mathrm{P.V.}\mathord{#1}}}
 \DeclareDocumentCommand{\mathcolorbox}{ m m }{
   \begingroup
   \setlength{\fboxsep}{0pt}
@@ -135,7 +135,7 @@
 \DeclareDocumentCommand{\scientificnotation}{m m}{\ensuremath{#1\times 10^{#2}}}
 \DeclareDocumentCommand\scinote{}{\scientificnotation}
 \DeclareDocumentCommand\numbercircled{m}{\text{\raisebox{.6pt}{\textcircled{\raisebox{-.9pt}{#1}}}}}
-\let\numcir\numbercircled
+\DeclareDocumentCommand\numcir{m}{\text{\raisebox{.6pt}{\textcircled{\raisebox{-.9pt}{#1}}}}}
 \let\bsb\boldsymbol
 \DeclareDocumentCommand\RNum{m}{\uppercase\expandafter{\romannumeral #1\relax}}
 \DeclareDocumentCommand\piover{m}{\frac{\pi}{#1}}
@@ -304,8 +304,7 @@
 % Bracing
 \DeclareDocumentCommand\absolutevalue{ l m }{\braces#1{\lvert}{\rvert}{#2}} % Absolute value/complex modulus
 \DeclareDocumentCommand\abs{}{\absolutevalue} % Shorthand for \absolutevalue
-\DeclareDocumentCommand\norm{ l m }{\braces#1{\lVert}{\rVert}{#2}} % Norm
-\let\Vqty\norm
+\DeclareDocumentCommand\norm{ l m }{\braces#1{\lVert}{\rVert}{#2}}
 \DeclareDocumentCommand\floor{ l m }{\braces#1{\lfloor}{\rfloor}{#2}}
 \DeclareDocumentCommand\ceil{ l m }{\braces#1{\lceil}{\rceil}{#2}}
 \DeclareDocumentCommand{\quantity}{ t\big t\Big t\bigg t\Bigg o d() d|| d<> g }
@@ -362,14 +361,16 @@
 \DeclareDocumentCommand\bqty{ l m }{\braces#1{\lbrack}{\rbrack}{#2}}
 \DeclareDocumentCommand\Bqty{ l m }{\braces#1{\lbrace}{\rbrace}{#2}}
 \DeclareDocumentCommand\vqty{ l m }{\braces#1{\lvert}{\rvert}{#2}}
+\DeclareDocumentCommand\Vqty{ l m }{\braces#1{\lVert}{\rVert}{#2}}
+\DeclareDocumentCommand\aqty{ l m }{\braces#1{\langle}{\rangle}{#2}}
 
 \DeclareDocumentCommand\pqtfr{mm}{\pqty{\frac{#1}{#2}}}
 \DeclareDocumentCommand\bqtfr{mm}{\bqty{\frac{#1}{#2}}}
 \DeclareDocumentCommand\Bqtfr{mm}{\Bqty{\frac{#1}{#2}}}
 \DeclareDocumentCommand\vqtfr{mm}{\vqty{\frac{#1}{#2}}}
-\let\absfr\vqtfr
+\DeclareDocumentCommand\absfr{mm}{\vqty{\frac{#1}{#2}}}
 \DeclareDocumentCommand\Vqtfr{mm}{\Vqty{\frac{#1}{#2}}}
-\let\normfr\Vqtfr
+\DeclareDocumentCommand\normfr{mm}{\Vqty{\frac{#1}{#2}}}
 
 \let\originalmid\mid
 \DeclareDocumentCommand\mid{}{\nonscript\;\ifnum\currentgrouptype=16\middle|\else\originalmid\fi\nonscript\;}
