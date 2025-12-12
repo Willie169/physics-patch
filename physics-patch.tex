@@ -1,7 +1,7 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage[margin=1.27cm,foot=0.77cm]{geometry}
 \usepackage{amsmath,amssymb,array,etoolbox,fontspec,longtable,listings,multirow,needspace,parskip,setspace,verbatim,titling,xcolor,xparse,xstring}
-\usepackage[shorttextgreek,shortvargreek,shortupgreek,shortupvargreek,shortboldgreek,shortmathrm,shorttext]{physics-patch}
+\usepackage[forcedefaultall]{physics-patch}
 \usepackage[colorlinks,urlcolor=blue]{hyperref}
 \setmainfont{TeX Gyre Termes}[Ligatures=TeX]
 \setsansfont{TeX Gyre Heros}[Ligatures=TeX]
@@ -13,8 +13,8 @@
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
-\newcolumntype{m}{>{$\displaystyle}c<{$}}
-\newcolumntype{M}[1]{>{$\displaystyle}p{#1}<{$}}
+\newcolumntype{m}{>{$}c<{$}}
+\newcolumntype{M}[1]{>{$}p{#1}<{$}}
 \setlength{\LTleft}{\fill}
 \setlength{\LTright}{\fill}
 \renewcommand{\maketitle}{
@@ -84,6 +84,7 @@ Options available in this package include:
 \item \verb|binaryrelation|: Define shorthands for binary relations. (default)
 \item \verb|alphabettrig|: Define alphabet operators with automatic bracing without curly brackets support. (default)
 \item \verb|alphabetop|: Define alphabet operators with automatic bracing with curly brackets support.
+\item \verb|nonicematrix|: Not define matrix macros for nicematrix.
 \item \verb|nicematrix|: Define matrix macros for nicematrix. (default)
 \item \verb|forcedefault|: Override the options above to their default ones.
 \item \verb|noshorttextgreek|: Not define shorthands for text Greek alphabet. (default)
@@ -106,7 +107,9 @@ Options available in this package include:
 \item \verb|shorttextbf|: Define shorthands for bold text alphabet.
 \item \verb|noshorttextit|: Not define shorthands for italic text alphabet. (default)
 \item \verb|shorttextit|: Define shorthands for italic text alphabet.
-\item \verb|forcedefaultall|: Same as \verb|forcedefault|, \verb|shortgreek|, \verb|shortmathrm|, \verb|shorttext|, \verb|shorttextbf|, and \verb|shorttextit| together.
+\item \verb|noshorttexttt|: Not define shorthands for monospaced text alphabet. (default)
+\item \verb|shorttexttt|: Define shorthands for monospaced text alphabet.
+\item \verb|forcedefaultall|: Same as \verb|forcedefault|, \verb|shortgreek|, \verb|shortmathrm|, \verb|shorttext|, \verb|shorttextbf|, \verb|shorttextit|, and \verb|shorttexttt| together.
 \end{itemize}
 \section{Communication Channels}
 \begin{itemize}
@@ -130,90 +133,127 @@ See \href{https://ctan.org/pkg/amsmath}{https://ctan.org/pkg/amsmath} for the de
 \section{List of Commands}
 In the commands listed below, the left column is long-form names (if any), the middle column is default shorthand commands with examples, and the right column is explanations.
 \subsection{Bracing}
-Null delimiter without \verb|\nulldelimiterspace|:
+Null delimiter without extra spaces:
+{\fontsize{8pt}{12pt}\selectfont
 \begin{longtable}[c]{|L{0.3\textwidth}|L{0.3\textwidth}|L{0.3\textwidth}|}
 \hline
-\verb|\lnull| and \verb|\rnull| & \verb+\displaystyle\lnull\typical\middle|\rnull+
-$\displaystyle\rightarrow\lnull\typical\middle|\rnull$ & \verb|\lnull| with \verb|\rpair| is the same as \verb|\left.| with \verb|\right.| but without \verb|\nulldelimiterspace| at them\\
-& \verb+\displaystyle\lnull\tall\middle|\rnull+
-$\displaystyle\rightarrow\lnull\tall\middle|\rnull$ & \\
-& \verb+\displaystyle\lnull\grande\middle|\rnull+
-$\displaystyle\rightarrow\lnull\grande\middle|\rnull$ & \\\hline
-\verb|\lnull| and \verb|\rpair| & \verb|\displaystyle\lnull\typical\rpair)|
-$\displaystyle\rightarrow\lnull\typical\rpair)$ & \verb|\lnull| with \verb|\rpair| is the same as \verb|\left.| with \verb|\right| but without \verb|\nulldelimiterspace| at \verb|\left.|\\
-& \verb|\displaystyle\lnull\tall\rpair)|
-$\displaystyle\rightarrow\lnull\tall\rpair)$ & \\
-& \verb|\displaystyle\lnull\grande\rpair)|
-$\displaystyle\rightarrow\lnull\grande\rpair)$  & \\\hline
-\verb|\lpair| and \verb|\rnull| & \verb|\displaystyle\lpair\typical\rnull)|
-$\displaystyle\rightarrow\lpair\typical\rnull)$ & \verb|\lpair| with \verb|\rnull| is the same as \verb|\left| with \verb|\right.| but without \verb|\nulldelimiterspace| at \verb|\right.|\\
-& \verb|\displaystyle\lnull\tall\rnull)|
-$\displaystyle\rightarrow\lpair\tall\rnull)$ & \\
-& \verb|\displaystyle\lpair\grande\rnull)|
-$\displaystyle\rightarrow\lpair\grande\rnull)$  & \\\hline
-\verb|\lpair| and \verb|\rpair| & \verb|\displaystyle\lpair(\typical\rpair)|
-$\displaystyle\rightarrow\lpair(\typical\rpair)$ & \verb|\lpair| with \verb|\rpair| ia the same as \verb|\left| with \verb|\right|\\
-& \verb|\displaystyle\lpair(\tall\rpair)|
-$\displaystyle\rightarrow\lpair(\tall\rpair)$ & \\
-& \verb|\displaystyle\lpair(\grande\rpair)|
-$\displaystyle\rightarrow\lpair(\grande\rpair)$  & \\\hline
+\verb|\lnull| and \verb|\rnull| & \verb+\lnull\typical\middle|\rnull+
+$\rightarrow\lnull\typical\middle|\rnull$ & \verb|\lnull| with \verb|\rpair| is the same as \verb|\left.| with \verb|\right.| but without extra spaces at them\\
+& \verb+\lnull\tall\middle|\rnull+
+$\rightarrow\lnull\tall\middle|\rnull$ & \\
+& \verb+\lnull\grande\middle|\rnull+
+$\rightarrow\lnull\grande\middle|\rnull$ & \\\hline
+\verb|\lnull| and \verb|\rpair| & \verb|\lnull\typical\rpair)|
+$\rightarrow\lnull\typical\rpair)$ & \verb|\lnull| with \verb|\rpair| is the same as \verb|\left.| with \verb|\right| but without \verb|\nulldelimiterspace| at \verb|\left.|\\
+& \verb|\lnull\tall\rpair)|
+$\rightarrow\lnull\tall\rpair)$ & \\
+& \verb|\lnull\grande\rpair)|
+$\rightarrow\lnull\grande\rpair)$  & \\\hline
+\verb|\lpair| and \verb|\rnull| & \verb|\lpair(\typical\rnull|
+$\rightarrow\lpair(\typical\rnull$ & \verb|\lpair| with \verb|\rnull| is the same as \verb|\left| with \verb|\right.| but without \verb|\nulldelimiterspace| at \verb|\right.|\\
+& \verb|\lnull(\tall\rnull|
+$\rightarrow\lpair(\tall\rnull$ & \\
+& \verb|\lpair(\grande\rnull|
+$\rightarrow\lpair(\grande\rnull$  & \\\hline
+\verb|\lpair| and \verb|\rpair| & \verb|\lpair(\typical\rpair)|
+$\rightarrow\lpair(\typical\rpair)$ & \verb|\lpair| with \verb|\rpair| is the same as \verb|\left| with \verb|\right|\\
+& \verb|\lpair(\tall\rpair)|
+$\rightarrow\lpair(\tall\rpair)$ & \\
+& \verb|\lpair(\grande\rpair)|
+$\rightarrow\lpair(\grande\rpair)$  & \\\hline
 \end{longtable}
+}
+Function argument delimiter:
+{\fontsize{8pt}{12pt}\selectfont
+\begin{longtable}[c]{|L{0.3\textwidth}|L{0.3\textwidth}|L{0.3\textwidth}|}
+\hline
+\verb|\argopen| and \verb|\argclose| & \verb|\argopen<optional: *><l><argument>\argclose<*><r>| & delimiter group for function argument between left delimiter token \verb|<l>| and right delimiter token \verb|<r>| (e.g., \verb|()|, \verb|\langle\rangle|), both with optional manual sizing for starred version and automatic sizing for unstarred version \\
+& \verb|f\argopen(\typical\argclose)| $\rightarrow f\argopen(\typical\argclose)$ & automatic sizing \\
+& \verb|f\argopen(\tall\argclose)| $\rightarrow f\argopen(\tall\argclose)$ & \\
+& \verb|f\argopen(\grande\argclose)| $\rightarrow f\argopen(\grande\argclose)$ & \\
+& \verb|f\argopen*(\grande\argclose*)| $\rightarrow f\argopen*(\grande\argclose*)$ & no resize \\
+& \verb|f\argopen*\bigl(\grande\argclose*\bigr)| $\rightarrow f\argopen*\bigl(\grande\argclose*\bigr)$ & manual sizing \\
+& \verb|f\argopen*\Bigl(\grande\argclose*\Bigr)| $\rightarrow f\argopen*\Bigl(\grande\argclose*\Bigr)$ & \\
+& \verb|f\argopen*\biggl(\grande\argclose*\biggr)| $\rightarrow f\argopen*\biggl(\grande\argclose*\biggr)$ & \\
+& \verb|f\argopen*\Biggl(\grande\argclose*\Biggr)| $\rightarrow f\argopen*\Biggl(\grande\argclose*\Biggr)$ & \\\hline
+\verb|\braces| & \verb|\braces<optional: */\big/\Big/\bigg/\Bigg>{<l>}{<r>}{<argument>}| & delimiter group for function argument between left delimiter token \verb|<l>| and right delimiter token \verb|<r>| (e.g., \verb|()|, \verb|\langle\rangle|) with optional manual sizing and automatic sizing as fall back for starred version and no resize for unstarred version \\
+& \verb|f\braces*{(}{)}{\typical}| $\rightarrow f\braces*{(}{)}{\typical}$ & no resize \\
+& \verb|f\braces{(}{)}{\typical}| $\rightarrow f\braces{(}{)}{\typical}$ & automatic sizing \\
+& \verb|f\braces{(}{)}{\tall}| $\rightarrow f\braces{(}{)}{\tall}$ & \\
+& \verb|f\braces{(}{)}{\grande}| $\rightarrow f\braces{(}{)}{\grande}$ & \\
+& \verb|f\braces\big{(}{)}{\grande}| $\rightarrow f\braces\big{(}{)}{\grande}$ & manual sizing \\
+& \verb|f\braces\Big{(}{)}{\grande}| $\rightarrow f\braces\Big{(}{)}{\grande}$ & \\
+& \verb|f\braces\bigg{(}{)}{\grande}| $\rightarrow f\braces\bigg{(}{)}{\grande}$ & \\
+& \verb|f\braces\Bigg{(}{)}{\grande}| $\rightarrow f\braces\Bigg{(}{)}{\grande}$ & \\\hline
+\verb|\fbraces| & \verb|\fbraces<optional: */\big/\Big/\bigg/\Bigg>{<l>}{<r>}{<function>}{<argument>}| & delimiter group for function argument between left delimiter token \verb|<l>| and right delimiter token \verb|<r>| (e.g., \verb|()|, \verb|\langle\rangle|) with optional manual sizing and automatic sizing as fall back for starred version and no resize for unstarred version \\
+& \verb|\fbraces*{(}{)}{f}{\typical}| $\rightarrow \fbraces*{(}{)}{f}{\typical}$ & no resize \\
+& \verb|\fbraces{(}{)}{f}{\typical}| $\rightarrow \fbraces{(}{)}{f}{\typical}$ & automatic sizing \\
+& \verb|\fbraces{(}{)}{f}{\tall}| $\rightarrow \fbraces{(}{)}{f}{\tall}$ & \\
+& \verb|\fbraces{(}{)}{f}{\grande}| $\rightarrow \fbraces{(}{)}{f}{\grande}$ & \\
+& \verb|\fbraces\big{(}{)}{f}{\grande}| $\rightarrow \fbraces\big{(}{)}{f}{\grande}$ & manual sizing \\
+& \verb|\fbraces\Big{(}{)}{f}{\grande}| $\rightarrow \fbraces\Big{(}{)}{f}{\grande}$ & \\
+& \verb|\fbraces\bigg{(}{)}{f}{\grande}| $\rightarrow \fbraces\bigg{(}{)}{f}{\grande}$ & \\
+& \verb|\fbraces\Bigg{(}{)}{f}{\grande}| $\rightarrow \fbraces\Bigg{(}{)}{f}{\grande}$ & \\\hline
+\end{longtable}
+}
 
 Auto Resizable Bracing:
 \begin{longtable}[c]{|L{0.2\textwidth}|L{0.35\textwidth}|L{0.35\textwidth}|}
 \hline
-\verb|\quantity| & \verb|\qty(\typical)| $\displaystyle\rightarrow \qty(\typical)$ & automatic $\qty(\;)$ braces \\
-& \verb|\qty(\tall)| $\displaystyle\rightarrow \qty(\tall)$ & \\
-& \verb|\qty(\grande)| $\displaystyle\rightarrow \qty(\grande)$ & \\
+\verb|\quantity| & \verb|\qty(\typical)| $\rightarrow \qty(\typical)$ & automatic $\qty(\;)$ braces \\
+& \verb|\qty(\tall)| $\rightarrow \qty(\tall)$ & \\
+& \verb|\qty(\grande)| $\rightarrow \qty(\grande)$ & \\
 & \verb|\qty[\typical]| $\rightarrow \qty[\typical]$ & automatic $\qty[\;]$ braces \\
 & \verb+\qty|\typical|+ $\rightarrow \qty|\typical|$ & automatic $\qty|\;|$ braces \\
 & \verb|\qty{\typical}| $\rightarrow \qty{\typical}$ & automatic $\qty{\;}$ braces \\
+& \verb|\qty<\typical>| $\rightarrow \qty<\typical>$ & automatic $\qty<\;>$ braces \\
 & \verb|\qty\big{}| $\rightarrow \qty\big{}$ & \multirow{4}{*}{\parbox{6cm}{manual sizing (works with any of the above bracket types)}} \\
 & \verb|\qty\Big{}| $\rightarrow \qty\Big{}$ & \\
 & \verb|\qty\bigg{}| $\rightarrow \qty\bigg{}$ & \\
 & \verb|\qty\Bigg{}| $\rightarrow \qty\Bigg{}$ & \\
 & \verb|\pqty{}| $\leftrightarrow$ \verb|\qty()| & \multirow{4}{*}{\parbox{6cm}{alternative syntax; robust and more \LaTeX-friendly}} \\
 & \verb|\bqty{}| $\leftrightarrow$ \verb|\qty[]| & \\
-& \verb+\vqty{}+ $\leftrightarrow$ \verb+\qty||+ & \\
 & \verb|\Bqty{}| $\leftrightarrow$ \verb|\qty{}| & \\\hline
+& \verb+\vqty{}+ $\leftrightarrow$ \verb+\qty||+ & \\
+& \verb+\aqty{}+ $\leftrightarrow$ \verb+\qty<>+ & \\
 \verb|\absolutevalue| & \verb|\abs{a}| $\rightarrow \abs{a}$ & automatic sizing; equivalent to \verb+\qty|a|+ \\
 & \verb|\abs\Big{a}| $\rightarrow \abs\Big{a}$ & inherits manual sizing syntax from \verb|\qty| \\
-& \verb|\abs*{\grande}| $\displaystyle\rightarrow \abs*{\grande}$ & star for no resize \\\hline
+& \verb|\abs*{\grande}| $\rightarrow \abs*{\grande}$ & star for no resize \\\hline
 \verb|Vqty| & \verb|\norm{a}| $\rightarrow \norm{a}$ & automatic sizing \\
 & \verb|\norm\Big{a}| $\rightarrow \norm\Big{a}$ & manual sizing \\
-& \verb|\norm*{\grande}| $\displaystyle\rightarrow \norm*{\grande}$ & star for no resize \\\hline
+& \verb|\norm*{\grande}| $\rightarrow \norm*{\grande}$ & star for no resize \\\hline
 \verb|\floor| & \verb|\floor{a}| $\rightarrow \floor{a}$ & automatic sizing \\
 & \verb|\floor\Big{a}| $\rightarrow \floor\Big{a}$ & manual sizing \\
-& \verb|\floor*{\grande}| $\displaystyle\rightarrow \floor*{\grande}$ & star for no resize \\\hline
+& \verb|\floor*{\grande}| $\rightarrow \floor*{\grande}$ & star for no resize \\\hline
 \verb|\ceil| & \verb|\ceil{a}| $\rightarrow \ceil{a}$ & automatic sizing \\
 & \verb|\ceil\Big{a}| $\rightarrow \ceil\Big{a}$ & manual sizing \\
-& \verb|\ceil*{\grande}| $\displaystyle\rightarrow \ceil*{\grande}$ & star for no resize \\\hline
-\verb|\evaluated| & \verb|\eval{x}_0^\infty| $\displaystyle\rightarrow \eval{x}_0^\infty$ & vertical bar for evaluation limits (originally provided in \verb|physics|, preserved for backward compatibility) \\
-& \verb+\eval[x|_0^\infty+ $\displaystyle\rightarrow \eval[x|_0^\infty$ & alternate form. DO NOT use \verb+[]+ and \verb+||+ inside, and DO NOT use it inside a \verb+[]+ or \verb+||+. \\
-& \verb+\eval(x|_0^\infty+ $\displaystyle\rightarrow \eval(x|_0^\infty$ & alternate form. DO NOT use \verb+()+ and \verb+||+ inside, and DO NOT use it inside a \verb+()+ or \verb+||+. \\ 
-& \verb+\eval[\venti|_0^\infty+ $\displaystyle\rightarrow \eval[\venti|_0^\infty$ & automatic sizing\\
-& \verb+\eval*[\venti|_0^\infty+ $\displaystyle\rightarrow \eval*[\venti|_0^\infty$ & star for no resize \\\hline
-\verb|\evaluatedvert| & \verb|\evlv{x}_0^\infty| $\displaystyle\rightarrow \eval{x}_0^\infty$ & vertical bar for evaluation limits (added in \verb|physics-patch|) \\
-& \verb+\evlv[x]_0^\infty+ $\displaystyle\rightarrow \evlv[x]_0^\infty$ & alternate form \\
-& \verb+\evlv(x)_0^\infty+ $\displaystyle\rightarrow \evlv(x)_0^\infty$ & alternate form \\
-& \verb+\evlv[\venti]_0^\infty+ $\displaystyle\rightarrow \evlv[\venti]_0^\infty$ & automatic sizing\\
-& \verb+\evlv*[\venti]_0^\infty+ $\displaystyle\rightarrow \evlv*[\venti]_0^\infty$ & star for no resize \\\hline
-\verb|\evaluatedpair| & \verb|\evlp{x}_0^\infty| $\displaystyle\rightarrow \eval{x}_0^\infty$ & vertical bar for evaluation limits with paired brackets (added in \verb|physics-patch|) \\
-& \verb+\evlp[x]_0^\infty+ $\displaystyle\rightarrow \evlp[x]_0^\infty$ & alternate form \\
-& \verb+\evlp(x)_0^\infty+ $\displaystyle\rightarrow \evlp(x)_0^\infty$ & alternate form \\
-& \verb+\evlp[\venti]_0^\infty+ $\displaystyle\rightarrow \evlp[\venti]_0^\infty$ & automatic sizing\\
-& \verb+\evlp*[\venti]_0^\infty+ $\displaystyle\rightarrow \evlp*[\venti]_0^\infty$ & star for no resize \\\hline
-\verb|\evaluatedbracket| & \verb|\evlb{x}_0^\infty| $\displaystyle\rightarrow \eval{x}_0^\infty$ & vertical right square bracket for evaluation limits (added in \verb|physics-patch|) \\
-& \verb+\evlb[x]_0^\infty+ $\displaystyle\rightarrow \evlb[x]_0^\infty$ & alternate form \\
-& \verb+\evlb(x)_0^\infty+ $\displaystyle\rightarrow \evlb(x)_0^\infty$ & alternate form \\
-& \verb+\evlb[\venti]_0^\infty+ $\displaystyle\rightarrow \evlb[\venti]_0^\infty$ & automatic sizing\\
-& \verb+\evlb*[\venti]_0^\infty+ $\displaystyle\rightarrow \evlb*[\venti]_0^\infty$ & star for no resize \\\hline
+& \verb|\ceil*{\grande}| $\rightarrow \ceil*{\grande}$ & star for no resize \\\hline
+\verb|\evaluated| & \verb|\eval{x}_0^\infty| $\rightarrow \eval{x}_0^\infty$ & vertical bar for evaluation limits (originally provided in \verb|physics|, preserved for backward compatibility) \\
+& \verb+\eval[x|_0^\infty+ $\rightarrow \eval[x|_0^\infty$ & alternate form. DO NOT use \verb+[]+ and \verb+||+ inside, and DO NOT use it inside a \verb+[]+ or \verb+||+. \\
+& \verb+\eval(x|_0^\infty+ $\rightarrow \eval(x|_0^\infty$ & alternate form. DO NOT use \verb+()+ and \verb+||+ inside, and DO NOT use it inside a \verb+()+ or \verb+||+. \\ 
+& \verb+\eval[\venti|_0^\infty+ $\rightarrow \eval[\venti|_0^\infty$ & automatic sizing\\
+& \verb+\eval*[\venti|_0^\infty+ $\rightarrow \eval*[\venti|_0^\infty$ & star for no resize \\\hline
+\verb|\evaluatedvert| & \verb|\evlv{x}_0^\infty| $\rightarrow \eval{x}_0^\infty$ & vertical bar for evaluation limits (added in \verb|physics-patch|) \\
+& \verb+\evlv[x]_0^\infty+ $\rightarrow \evlv[x]_0^\infty$ & alternate form \\
+& \verb+\evlv(x)_0^\infty+ $\rightarrow \evlv(x)_0^\infty$ & alternate form \\
+& \verb+\evlv[\venti]_0^\infty+ $\rightarrow \evlv[\venti]_0^\infty$ & automatic sizing\\
+& \verb+\evlv*[\venti]_0^\infty+ $\rightarrow \evlv*[\venti]_0^\infty$ & star for no resize \\\hline
+\verb|\evaluatedpair| & \verb|\evlp{x}_0^\infty| $\rightarrow \eval{x}_0^\infty$ & vertical bar for evaluation limits with paired brackets (added in \verb|physics-patch|) \\
+& \verb+\evlp[x]_0^\infty+ $\rightarrow \evlp[x]_0^\infty$ & alternate form \\
+& \verb+\evlp(x)_0^\infty+ $\rightarrow \evlp(x)_0^\infty$ & alternate form \\
+& \verb+\evlp[\venti]_0^\infty+ $\rightarrow \evlp[\venti]_0^\infty$ & automatic sizing\\
+& \verb+\evlp*[\venti]_0^\infty+ $\rightarrow \evlp*[\venti]_0^\infty$ & star for no resize \\\hline
+\verb|\evaluatedbracket| & \verb|\evlb{x}_0^\infty| $\rightarrow \eval{x}_0^\infty$ & vertical right square bracket for evaluation limits (added in \verb|physics-patch|) \\
+& \verb+\evlb[x]_0^\infty+ $\rightarrow \evlb[x]_0^\infty$ & alternate form \\
+& \verb+\evlb(x)_0^\infty+ $\rightarrow \evlb(x)_0^\infty$ & alternate form \\
+& \verb+\evlb[\venti]_0^\infty+ $\rightarrow \evlb[\venti]_0^\infty$ & automatic sizing\\
+& \verb+\evlb*[\venti]_0^\infty+ $\rightarrow \evlb*[\venti]_0^\infty$ & star for no resize \\\hline
 \verb|\order| & \verb|\order{x^2}| $\rightarrow \order{x^2}$ & order symbol; automatic sizing and space handling \\
 & \verb|\order\Big{x^2}| $\rightarrow \order\Big{x^2}$ & manual sizing \\
-& \verb|\order*{\grande}| $\displaystyle\rightarrow \order*{\grande}$ & star for no resize \\\hline
+& \verb|\order*{\grande}| $\rightarrow \order*{\grande}$ & star for no resize \\\hline
 \verb|\commutator| & \verb|\comm{A}{B}| $\rightarrow \comm{A}{B}$ & automatic sizing \\
 & \verb|\comm\Big{A}{B}| $\rightarrow \comm\Big{A}{B}$ & manual sizing \\
-& \verb|\comm*{A}{\grande}| $\displaystyle\rightarrow \comm*{A}{\grande}$ & star for no resize \\\hline
+& \verb|\comm*{A}{\grande}| $\rightarrow \comm*{A}{\grande}$ & star for no resize \\\hline
 \verb|\anticommutator| or \verb|\acommutator| & \verb|\acomm{A}{B}| $\rightarrow \acomm{A}{B}$ & same as \verb|\poissonbracket| \\\hline
 \verb|\poissonbracket| & \verb|\pb{A}{B}| $\rightarrow \pb{A}{B}$ & same as \verb|\anticommutator|\\\hline
 \verb|\mid| & \verb|\left\{x\mid x>0\right\}| $\rightarrow \left\{x\mid x>0\right\}$ & Expands to \verb+\middle|+ when inside a \verb|\left|...\verb|\right| group (\verb|\currentgrouptype=16|) \\
@@ -239,29 +279,32 @@ The default del symbol $\vnabla$ used in \texttt{physics-patch} vector notation 
 & \verb|\cp| $\rightarrow \cp$ as in $\vb{a} \cp \vb{b}$ & shorthand name \\\hline
 \verb|\gradient| & \verb|\grad| $\rightarrow \grad$ & \\
 & \verb|\grad{\Psi}| $\rightarrow \grad{\Psi}$ & default mode \\
-& \verb|\grad(\Psi+\tall)| $\displaystyle\rightarrow \grad(\Psi+\tall)$ & long-form (like \verb|\qty| but also handles spacing) \\
-& \verb|\grad[\Psi+\tall]| $\displaystyle\rightarrow \grad[\Psi+\tall]$ & \\\hline
+& \verb|\grad(\Psi+\tall)| $\rightarrow \grad(\Psi+\tall)$ & long-form (like \verb|\qty| but also handles spacing) \\
+& \verb|\grad[\Psi+\tall]| $\rightarrow \grad[\Psi+\tall]$ & \\\hline
 \verb|\divergence| & \verb|\divg| $\rightarrow \divg$ & Note: if \texttt{nooriginaldiv} option is used, \verb|\div| will be overriden as $\divg$ too (not recommended) \\
 & \verb|\divg{\vb{a}}| $\rightarrow \divg{\vb{a}}$ & default mode \\
-& \verb|\divg(\vb{a}+\tall)| $\displaystyle\rightarrow \divg(\vb{a}+\tall)$ & long-form \\
-& \verb|\divg[\vb{a}+\tall]| $\displaystyle\rightarrow \divg[\vb{a}+\tall]$ & \\\hline
+& \verb|\divg(\vb{a}+\tall)| $\rightarrow \divg(\vb{a}+\tall)$ & long-form \\
+& \verb|\divg[\vb{a}+\tall]| $\rightarrow \divg[\vb{a}+\tall]$ & \\\hline
 \verb|\curl| & \verb|\curl| $\rightarrow \curl$ & \\
 & \verb|\curl{\vb{a}}| $\rightarrow \curl{\vb{a}}$ & default mode \\
-& \verb|\curl(\vb{a}+\tall)| $\displaystyle\rightarrow \curl(\vb{a}+\tall)$ & long-form \\
-& \verb|\curl[\vb{a}+\tall]| $\displaystyle\rightarrow \curl[\vb{a}+\tall]$ & \\\hline
+& \verb|\curl(\vb{a}+\tall)| $\rightarrow \curl(\vb{a}+\tall)$ & long-form \\
+& \verb|\curl[\vb{a}+\tall]| $\rightarrow \curl[\vb{a}+\tall]$ & \\\hline
 \verb|\laplacian| & \verb|\laplacian| $\rightarrow \laplacian$ & \\
 & \verb|\laplacian{\Psi}| $\rightarrow \laplacian{\Psi}$ & default mode \\
-& \verb|\laplacian(\Psi+\tall)| $\displaystyle\rightarrow \laplacian(\Psi+\tall)$ & long-form \\
-& \verb|\laplacian[\Psi+\tall]| $\displaystyle\rightarrow \laplacian[\Psi+\tall]$ &\\\hline
+& \verb|\laplacian(\Psi+\tall)| $\rightarrow \laplacian(\Psi+\tall)$ & long-form \\
+& \verb|\laplacian[\Psi+\tall]| $\rightarrow \laplacian[\Psi+\tall]$ &\\\hline
 \end{longtable}
 \subsection{Operators}
-REWRITE with '^_
+REWRITE
+Operator system
+Operators
+
 The trig functions and some other functions are redefined in \texttt{physics-patch} to provide automatic braces that behave like \verb|\qty()|. In addition, an optional power argument is provided. This behavior can be switched off by including the option \texttt{notrig} in the preamble.
 
 Example redefinitions:
 \begin{longtable}[c]{|l|l|l|}
 \hline
-\verb|\sin| & \verb|\sin(\grande)| $\displaystyle\rightarrow \sin(\grande)$ & automatic braces; old \verb|\sin| renamed \verb|\sine| \\
+\verb|\sin| & \verb|\sin(\grande)| $\rightarrow \sin(\grande)$ & automatic braces; old \verb|\sin| renamed \verb|\sine| \\
 & \verb|\sin[2](x)| $\rightarrow \sin[2](x)$ & optional power \\
 & \verb|\sin x| $\rightarrow \sin x$ & can still use without an argument \\\hline
 \end{longtable}
@@ -406,25 +449,25 @@ and can be switched to:
 & \verb|\pdd{x}| $\rightarrow$ \textvisiblespace\,$\pdd{x}$\textvisiblespace & automatic spacing based on neighbors \\
 & \verb|\pdd[3]{x}| $\rightarrow \pdd[3]{x}$ & optional power \\
 & \verb|\pdd(\cos\theta)| $\rightarrow \pdd(\cos\theta)$ & long-form; automatic braces \\\hline
-\verb|\Derivative| & \verb|\Dv{x}| $\displaystyle\rightarrow \Dv{x}$ & one argument \\
-& \verb|\Dv{f}{x}| $\displaystyle\rightarrow \Dv{f}{x}$ & two arguments \\
-& \verb|\Dv[n]{f}{x}| $\displaystyle\rightarrow \Dv[n]{f}{x}$ & optional power \\
-& \verb|\Dv{x}(\grande)| $\displaystyle\rightarrow \Dv{x}(\grande)$ & long-form; automatic braces, spacing \\
-& \verb|\Dv*{f}{x}| $\displaystyle\rightarrow \Dv*{f}{x}$ & inline form using \verb|\flatfrac| \\\hline
-\verb|\partialderivative| or \verb|\pderivative| & \verb|\dv{f}{x}(\grande)| $\displaystyle\rightarrow \dv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\dv{f}{x}(\grande)| $\displaystyle\rightarrow \dv{f}{x}$\\
-& \verb|\pdv{x}| $\displaystyle\rightarrow \pdv{x}$ & shorthand name \\
-& \verb|\pdv{f}{x}| $\displaystyle\rightarrow \pdv{f}{x}$ & two arguments \\
-& \verb|\pdv[n]{f}{x}| $\displaystyle\rightarrow \pdv[n]{f}{x}$ & optional power \\
-& \verb|\pdv{x}(\grande)| $\displaystyle\rightarrow \pdv{x}(\grande)$ & long-form \\
-& \verb|\pdv{f}{x}{y}| $\displaystyle\rightarrow \pdv{f}{x}{y}$ & mixed partial \\
-& \verb|\pdv*{f}{x}| $\displaystyle\rightarrow \pdv*{f}{x}$ & inline form using \verb|\flatfrac| \\
-& \verb|\pdv{f}{x}(\grande)| $\displaystyle\rightarrow \pdv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\pdv{f}{x}(\grande)| $\displaystyle\rightarrow \pdv{f}{x}$ \\\hline
+\verb|\Derivative| & \verb|\Dv{x}| $\rightarrow \Dv{x}$ & one argument \\
+& \verb|\Dv{f}{x}| $\rightarrow \Dv{f}{x}$ & two arguments \\
+& \verb|\Dv[n]{f}{x}| $\rightarrow \Dv[n]{f}{x}$ & optional power \\
+& \verb|\Dv{x}(\grande)| $\rightarrow \Dv{x}(\grande)$ & long-form; automatic braces, spacing \\
+& \verb|\Dv*{f}{x}| $\rightarrow \Dv*{f}{x}$ & inline form using \verb|\flatfrac| \\\hline
+\verb|\partialderivative| or \verb|\pderivative| & \verb|\dv{f}{x}(\grande)| $\rightarrow \dv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\dv{f}{x}(\grande)| $\rightarrow \dv{f}{x}$\\
+& \verb|\pdv{x}| $\rightarrow \pdv{x}$ & shorthand name \\
+& \verb|\pdv{f}{x}| $\rightarrow \pdv{f}{x}$ & two arguments \\
+& \verb|\pdv[n]{f}{x}| $\rightarrow \pdv[n]{f}{x}$ & optional power \\
+& \verb|\pdv{x}(\grande)| $\rightarrow \pdv{x}(\grande)$ & long-form \\
+& \verb|\pdv{f}{x}{y}| $\rightarrow \pdv{f}{x}{y}$ & mixed partial \\
+& \verb|\pdv*{f}{x}| $\rightarrow \pdv*{f}{x}$ & inline form using \verb|\flatfrac| \\
+& \verb|\pdv{f}{x}(\grande)| $\rightarrow \pdv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\pdv{f}{x}(\grande)| $\rightarrow \pdv{f}{x}$ \\\hline
 \verb|\variation| & \verb|\var{F[g(x)]}| $\rightarrow \var{F[g(x)]}$ & functional variation (works like \verb|\dd|) \\
 & \verb|\var(E-TS)| $\rightarrow \var(E-TS)$ & long-form \\\hline
-\verb|\functionalderivative| & \verb|\fdv{g}| $\displaystyle\rightarrow \fdv{g}$ & functional derivative (works like \verb|\dv|) \\
-& \verb|\fdv{F}{g}| $\displaystyle\rightarrow \fdv{F}{g}$ & \\
-& \verb|\fdv{V}(E-TS)| $\displaystyle\rightarrow \fdv{V}(E-TS)$ & long-form \\
-& \verb|\fdv*{F}{x}| $\displaystyle\rightarrow \fdv*{F}{x}$ & inline form using \verb|\flatfrac| \\\hline
+\verb|\functionalderivative| & \verb|\fdv{g}| $\rightarrow \fdv{g}$ & functional derivative (works like \verb|\dv|) \\
+& \verb|\fdv{F}{g}| $\rightarrow \fdv{F}{g}$ & \\
+& \verb|\fdv{V}(E-TS)| $\rightarrow \fdv{V}(E-TS)$ & long-form \\
+& \verb|\fdv*{F}{x}| $\rightarrow \fdv*{F}{x}$ & inline form using \verb|\flatfrac| \\\hline
 \end{longtable}
 \subsection{Dirac Bra-Ket Notation}
 The following collection of macros for Dirac notation contains two fundamental commands, \verb|\bra| and \verb|\ket|, along with a set of more specialized macros which are essentially combinations of the fundamental pair. The fundamental commands are designed to contract with one another algebraically when appropriate and are thus suggested for general use. For instance, the following code renders correctly\footnote{Note the lack of a space between the bra and ket commands. This is necessary in order for the bra to find the corresponding ket and form a contraction.}
@@ -475,9 +518,8 @@ allowing the user to type out complicated quantum mechanical expressions without
 & \verb|\mel**{n}{\grande}{m}| $\rightarrow \mel**{n}{\grande}{m}$ & double star resizes based on all parts \\\hline
 \end{longtable}
 \subsection{Matrix Macros}
-Note: \verb|\mqty| and \verb|\smqty| in \texttt{physics} uses \verb|\mathord|, while \verb|\mqty| and \verb|\smqty| in \texttt{physics-patch} don't.
+The following matrix macros produce unformatted rows and columns of matrix elements for use as separate matrices as well as blocks within larger matrices. For example, the command \verb|\identitymatrix{2}| which has also has the shortcut \verb|\imat{2}| produces the elements of a $2 \times 2$ identity matrix $\smqty{\imat{2}}$ without braces or grouping. This allows the command to also be used within another matrix, as in:
 
-The following matrix macros produce unformatted rows and columns of matrix elements for use as separate matrices as well as blocks within larger matrices. For example, the command \verb|\identitymatrix{2}| which has also has the shortcut \verb|\imat{2}| produces the elements of a $2 \times 2$ identity matrix $\smqty{\imat{2}}$ without braces or grouping. This allows the command to also be used within another matrix, as in:\\
 \begin{minipage}{3cm}
 \begin{lstlisting}[language=TeX,basicstyle=\ttfamily\normalsize]
 \begin{pmatrix}
@@ -493,7 +535,9 @@ The following matrix macros produce unformatted rows and columns of matrix eleme
 \end{pmatrix}
 \end{displaymath}
 \end{minipage}
-To specify elements on the right of left sides of our \verb|\imat{2}| sub-matrix we use the grouping command \verb|\matrixquantity| or \verb|\mqty| to effectively convert \verb|\imat{2}| into a single matrix element of a larger matrix:\\
+
+To specify elements on the right of left sides of our \verb|\imat{2}| sub-matrix we use the grouping command \verb|\matrixquantity| or \verb|\mqty| to effectively convert \verb|\imat{2}| into a single matrix element of a larger matrix:
+
 \begin{minipage}{9cm}
 \begin{lstlisting}[language=TeX,basicstyle=\ttfamily\normalsize]
 \begin{pmatrix}
@@ -509,7 +553,9 @@ To specify elements on the right of left sides of our \verb|\imat{2}| sub-matrix
 \end{pmatrix}
 \end{displaymath}
 \end{minipage}
-The extra \verb|\mqty| groups were required in this case in order to get the $a$ and $b$ elements to behave as a single element, since \verb|\mqty{\imat{2}}| also acts like a single matrix element (the same can be said of the grouped $c$ and $d$ elements). Finally, the outermost \texttt{pmatrix} environment could have also been replaced with the \texttt{physics-patch} macro \verb|\mqty()|, allowing the above example to be written on one line:\\
+
+The extra \verb|\mqty| groups were required in this case in order to get the $a$ and $b$ elements to behave as a single element, since \verb|\mqty{\imat{2}}| also acts like a single matrix element (the same can be said of the grouped $c$ and $d$ elements). Finally, the outermost \texttt{pmatrix} environment could have also been replaced with the \texttt{physics-patch} macro \verb|\mqty()|, allowing the above example to be written on one line:
+
 \begin{minipage}{9cm}
 \begin{lstlisting}[language=TeX,basicstyle=\ttfamily\normalsize]
 \mqty(\mqty{\imat{2}} & \mqty{a\\b} \\ \mqty{c & d} & e)
@@ -521,6 +567,7 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 \mqty(\mqty{\imat{2}} & \mqty{a\\b} \\ \mqty{c & d} & e)
 \end{displaymath}
 \end{minipage}
+
 {\fontsize{8pt}{12pt}\selectfont
 \begin{longtable}[c]{|p{0.2\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|}
 \hline
@@ -595,8 +642,10 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 \verb|\antidiagonalmatrix| & \verb|\admat{a,b,c,...}| & same as syntax as \verb|\dmat| \\
 & \verb|\mqty(\admat{1,2,3})| $\rightarrow \mqty(\admat{1,2,3})$ & \\\hline
 \end{longtable}
+}
 
-Nicematrix macros, defined iff the option \verb|nicematrix| is used:
+Nicematrix macros, not defined if the option \verb|nonicematrix| is used:
+{\fontsize{8pt}{12pt}\selectfont
 \begin{longtable}[c]{|p{0.2\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|}
 \hline
 \verb|\nicematrixquantity| & \verb|\nmqty{a & b \\ c & d}| $\rightarrow \nmqty{a & b \\ c & d}$ & groups a set of matrix elements into a single object \\

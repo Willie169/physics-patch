@@ -49,6 +49,7 @@
 \DeclareOption{alphabetop}{\@alphabetoptrue\@alphabettrigfalse}
 \DeclareOption{alphabettrig}{\@alphabettrigtrue\@alphabetopfalse}
 \newif\if@nicematrix
+\DeclareOption{nonicematrix}{\@nicematrixfalse}
 \DeclareOption{nicematrix}{\@nicematrixtrue}
 \newif\if@forcedefault
 \DeclareOption{forcedefault}{\@forcedefaulttrue}
@@ -90,6 +91,9 @@
 \DeclareOption*{}
 \ProcessOptions\relax
 
+\newif\if@physics
+\IfPackageLoadedTF{physics}{\@physicstrue}{}
+
 \IfPackageLoadedTF{physics}{}{\@namedef{ver@physics.sty}{9999/99/99}}
 
 \if@nicematrix\RequirePackage{nicematrix}\fi
@@ -97,16 +101,16 @@
 \DeclareDocumentCommand\spaceflatfrac{ m m }{\left.#1\middle\slash#2\right.}
 \DeclareDocumentCommand\noresizeflatfrac{ m m }{#1\slash#2}
 \DeclareDocumentCommand\defaultflatfrac{ m m }{\mathopen{}\mathclose\bgroup\left.\kern-\nulldelimiterspace#1\middle\slash#2\aftergroup\egroup\right.\kern-\nulldelimiterspace}
-\DeclareDocumentCommand\flatfrac{ m m }{\@defaultflatfrac}
-\if@spaceflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\spaceflatfrac}\fi
-\if@noresizeflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\noresizeflatfrac}\fi
-\if@defaultflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac}\fi
+\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac{#1}{#2}}
+\if@spaceflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\spaceflatfrac{#1}{#2}}\fi
+\if@noresizeflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\noresizeflatfrac{#1}{#2}}\fi
+\if@defaultflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac{#1}{#2}}\fi
 
 \if@forcedefault
 \@originaldivtrue\@trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}\@defaultflatfractrue\@spaceflatfracfalse\@noresizeflatfracfalse\@binreltrue\@alphabettrigtrue\@alphabetopfalse\@nicematrixtrue
 \fi
 \if@forceoptional
-\@shorttextgreektrue\@shortvargreektrue\@shortupgreektrue\@shortupvargreektrue\@shortboldgreektrue\@shortmathrmtrue\@shorttexttrue\@shorttextbf\@shorttextit\@shorttexttt
+\@shorttextgreektrue\@shortvargreektrue\@shortupgreektrue\@shortupvargreektrue\@shortboldgreektrue\@shortmathrmtrue\@shorttexttrue\@shorttextbftrue\@shorttextittrue\@shorttexttttrue
 \fi
 
 % Utilities
@@ -307,7 +311,8 @@
 \DeclareDocumentCommand\norm{ l m }{\braces#1{\lVert}{\rVert}{#2}}
 \DeclareDocumentCommand\floor{ l m }{\braces#1{\lfloor}{\rfloor}{#2}}
 \DeclareDocumentCommand\ceil{ l m }{\braces#1{\lceil}{\rceil}{#2}}
-\DeclareDocumentCommand{\quantity}{ t\big t\Big t\bigg t\Bigg o d() d|| d<> g }
+\DeclareDocumentCommand\quantity{}{{\ifnum\z@=`}\fi\@quantity}
+\DeclareDocumentCommand{\@quantity}{ t\big t\Big t\bigg t\Bigg o d() d|| d<> g }
 { % Flexible automatic bracketing of an expression in [] or () or || or <> or {}
   % Handles manual override of sizing
   \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
@@ -354,9 +359,9 @@
     \IfNoValueTF{#8}{}{<#8>}
     \IfNoValueTF{#9}{}{{#9}}
   }
+  \ifnum\z@=`{\fi}
 }
 \DeclareDocumentCommand\qty{}{\quantity}
-
 \DeclareDocumentCommand\pqty{ l m }{\braces#1{\lparen}{\rparen}{#2}}
 \DeclareDocumentCommand\bqty{ l m }{\braces#1{\lbrack}{\rbrack}{#2}}
 \DeclareDocumentCommand\Bqty{ l m }{\braces#1{\lbrace}{\rbrace}{#2}}
@@ -382,42 +387,94 @@
 \DeclareDocumentCommand\Bmqty{m}{\begin{Bmatrix}#1\end{Bmatrix}}
 \DeclareDocumentCommand\vmqty{m}{\IfNoValueTF{#1}{\begin{vmatrix}#1\end{vmatrix}}{\begin{Vmatrix}#1\end{Vmatrix}}}
 \DeclareDocumentCommand\Vmqty{m}{\begin{Vmatrix}#1\end{Vmatrix}}
-\DeclareDocumentCommand\matrixquantity{ s g o d() d|| }
+\DeclareDocumentCommand\matrixquantity{}{{\ifnum\z@=`}\fi\@matrixquantity}
+\DeclareDocumentCommand\@matrixquantity{ s g o d() d|| }
 {
-  \IfNoValueTF{#2}
-  {
-    \IfNoValueTF{#3}
+  \mathord{
+    \IfNoValueTF{#2}
     {
-      \IfNoValueTF{#4}
+      \IfNoValueTF{#3}
       {
-        \IfBooleanTF{#1}
-        {\Vmqty{#5}}
-        {\vmqty{#5}}
+        \IfNoValueTF{#4}
+        {
+          \IfBooleanTF{#1}
+          {\Vmqty{#5}}
+          {\vmqty{#5}}
+        }
+        {
+          \IfBooleanTF{#1}
+          {\Pmqty{#4}}
+          {\pmqty{#4}}
+          \IfNoValueTF{#5}{}{|#5|}
+        }
       }
       {
-        \IfBooleanTF{#1}
-        {\Pmqty{#4}}
-        {\pmqty{#4}}
-        \IfNoValueTF{#5}{}{|#5|}
+         \IfBooleanTF{#1}
+          {\Bmqty{#3}}
+          {\bmqty{#3}}
+        \IfNoValueTF{#4}{}{(#4)}
+        \IfNoValueTF{#5}{}{|#5|}}
       }
-    }
     {
-      \IfBooleanTF{#1}
-        {\Bmqty{#3}}
-        {\bmqty{#3}}
+      \omqty{#2}
+      \IfNoValueTF{#3}{}{[#3]}
       \IfNoValueTF{#4}{}{(#4)}
-      \IfNoValueTF{#5}{}{|#5|}}
+      \IfNoValueTF{#5}{}{|#5|}
     }
-  {
-    \omqty{#2}
-    \IfNoValueTF{#3}{}{[#3]}
-    \IfNoValueTF{#4}{}{(#4)}
-    \IfNoValueTF{#5}{}{|#5|}
   }
+  \ifnum\z@=`{\fi}
 }
 \DeclareDocumentCommand\mqty{}{\matrixquantity}
 \DeclareDocumentCommand\matrixdeterminant{m}{\vmqty{#1}}
 \DeclareDocumentCommand\mdet{m}{\vmqty{#1}}
+
+\DeclareDocumentCommand\somqty{m}{\begin{smallmatrix}#1\end{smallmatrix}}
+\DeclareDocumentCommand\spmqty{s m}{\IfNoValueTF{#1}{\pqty{\begin{smallmatrix}#2\end{smallmatrix}}}{\left\lgroup\begin{smallmatrix}#2\end{smallmatrix}\right\rgroup}}
+\DeclareDocumentCommand\sPmqty{m}{\left\lgroup\begin{smallmatrix}#1\end{smallmatrix}\right\rgroup}
+\DeclareDocumentCommand\sbmqty{m}{\IfNoValueTF{#1}{\bqty{\begin{smallmatrix}#1\end{smallmatrix}}}{\Bqty{\begin{smallmatrix}#1\end{smallmatrix}}}}
+\DeclareDocumentCommand\sBmqty{m}{\Bqty{\begin{smallmatrix}#1\end{smallmatrix}}}
+\DeclareDocumentCommand\svmqty{m}{\IfNoValueTF{#1}{\vqty{\begin{smallmatrix}#1\end{smallmatrix}}}{\norm{\begin{smallmatrix}#1\end{smallmatrix}}}}
+\DeclareDocumentCommand\sVmqty{m}{\norm{\begin{smallmatrix}#1\end{smallmatrix}}}
+\DeclareDocumentCommand\smallmatrixquantity{}{{\ifnum\z@=`}\fi\@smallmatrixquantity}
+\DeclareDocumentCommand\@smallmatrixquantity{ s g o d() d|| }
+{
+  \mathord{
+    \IfNoValueTF{#2}
+    {
+      \IfNoValueTF{#3}
+      {
+        \IfNoValueTF{#4}
+        {
+          \IfBooleanTF{#1}
+          {\sVmqty{#5}}
+          {\svmqty{#5}}
+        }
+        {
+          \IfBooleanTF{#1}
+          {\sPmqty{#4}}
+          {\spmqty{#4}}
+          \IfNoValueTF{#5}{}{|#5|}
+        }
+      }
+      {
+        \IfBooleanTF{#1}
+        {\sBmqty{#3}}
+        {\sbmqty{#3}}
+        \IfNoValueTF{#4}{}{(#4)}
+        \IfNoValueTF{#5}{}{|#5|}}
+      }
+    {
+      \somqty{#2}
+      \IfNoValueTF{#3}{}{[#3]}
+      \IfNoValueTF{#4}{}{(#4)}
+      \IfNoValueTF{#5}{}{|#5|}
+    }
+  }
+  \ifnum\z@=`{\fi}
+}
+\DeclareDocumentCommand\smqty{}{\smallmatrixquantity}
+\DeclareDocumentCommand\smallmatrixdeterminant{m}{\svmqty{#1}}
+\DeclareDocumentCommand\smdet{m}{\svmqty{#1}}
 
 \if@nicematrix
 \DeclareDocumentCommand\nomqty{m}{\begin{NiceMatrix}#1\end{NiceMatrix}}
@@ -427,122 +484,88 @@
 \DeclareDocumentCommand\nBmqty{m}{\begin{BNiceMatrix}#1\end{BNiceMatrix}}
 \DeclareDocumentCommand\nvmqty{m}{\IfNoValueTF{#1}{\begin{vNiceMatrix}#1\end{vNiceMatrix}}{\begin{VNiceMatrix}#1\end{VNiceMatrix}}}
 \DeclareDocumentCommand\nVmqty{m}{\begin{VNiceMatrix}#1\end{VNiceMatrix}}
-\DeclareDocumentCommand\nicematrixquantity{ s g o d() d|| }
+\DeclareDocumentCommand\nicematrixquantity{}{{\ifnum\z@=`}\fi\@nicematrixquantity}
+\DeclareDocumentCommand\@nicematrixquantity{ s g o d() d|| }
 {
-  \IfNoValueTF{#2}
-  {
-    \IfNoValueTF{#3}
+  \mathord{
+    \IfNoValueTF{#2}
     {
-      \IfNoValueTF{#4}
+      \IfNoValueTF{#3}
       {
-        \IfBooleanTF{#1}
-        {\nVmqty{#5}}
-        {\nvmqty{#5}}
+        \IfNoValueTF{#4}
+        {
+          \IfBooleanTF{#1}
+          {\nVmqty{#5}}
+          {\nvmqty{#5}}
+        }
+        {
+          \IfBooleanTF{#1}
+          {\nPmqty{#4}}
+          {\npmqty{#4}}
+          \IfNoValueTF{#5}{}{|#5|}
+        }
       }
       {
         \IfBooleanTF{#1}
-        {\nPmqty{#4}}
-        {\npmqty{#4}}
-        \IfNoValueTF{#5}{}{|#5|}
+          {\nBmqty{#3}}
+          {\nbmqty{#3}}
+        \IfNoValueTF{#4}{}{(#4)}
+        \IfNoValueTF{#5}{}{|#5|}}
       }
-    }
     {
-      \IfBooleanTF{#1}
-        {\nBmqty{#3}}
-        {\nbmqty{#3}}
+      \nomqty{#2}
+      \IfNoValueTF{#3}{}{[#3]}
       \IfNoValueTF{#4}{}{(#4)}
-      \IfNoValueTF{#5}{}{|#5|}}
+      \IfNoValueTF{#5}{}{|#5|}
     }
-  {
-    \nomqty{#2}
-    \IfNoValueTF{#3}{}{[#3]}
-    \IfNoValueTF{#4}{}{(#4)}
-    \IfNoValueTF{#5}{}{|#5|}
   }
+  \ifnum\z@=`{\fi}
 }
 \DeclareDocumentCommand\nmqty{}{\nicematrixquantity}
 \DeclareDocumentCommand\nicematrixdeterminant{m}{\nvmqty{#1}}
 \DeclareDocumentCommand\nmdet{m}{\nvmqty{#1}}
 \fi
 
-\DeclareDocumentCommand\somqty{m}{\begin{smallmatrix}#1\end{smallmatrix}}
-\DeclareDocumentCommand\spmqty{s m}{\IfNoValueTF{#1}{\pqty{\begin{smallmatrix}#2\end{smallmatrix}}}{\left\lgroup\begin{smallmatrix}#2\end{smallmatrix}\right\rgroup}}
-\DeclareDocumentCommand\sPmqty{m}{\left\lgroup\begin{smallmatrix}#1\end{smallmatrix}\right\rgroup}
-\DeclareDocumentCommand\sbmqty{m}{\IfNoValueTF{#1}{\bqty{\begin{smallmatrix}#1\end{smallmatrix}}}{\Bqty{\begin{smallmatrix}#1\end{smallmatrix}}}}
-\DeclareDocumentCommand\sBmqty{m}{\Bqty{\begin{smallmatrix}#1\end{smallmatrix}}}
-\DeclareDocumentCommand\svmqty{m}{\IfNoValueTF{#1}{\vqty{\begin{smallmatrix}#1\end{smallmatrix}}}{\norm{\begin{smallmatrix}#1\end{smallmatrix}}}}
-\DeclareDocumentCommand\sVmqty{m}{\norm{\begin{smallmatrix}#1\end{smallmatrix}}}
-\DeclareDocumentCommand\smallmatrixquantity{ s g o d() d|| }
-{
-  \IfNoValueTF{#2}
-  {
-    \IfNoValueTF{#3}
-    {
-      \IfNoValueTF{#4}
-      {
-        \IfBooleanTF{#1}
-        {\sVmqty{#5}}
-        {\svmqty{#5}}
-      }
-      {
-        \IfBooleanTF{#1}
-        {\sPmqty{#4}}
-        {\spmqty{#4}}
-        \IfNoValueTF{#5}{}{|#5|}
-      }
-    }
-    {
-      \IfBooleanTF{#1}
-      {\sBmqty{#3}}
-      {\sbmqty{#3}}
-      \IfNoValueTF{#4}{}{(#4)}
-      \IfNoValueTF{#5}{}{|#5|}}
-    }
-  {
-    \somqty{#2}
-    \IfNoValueTF{#3}{}{[#3]}
-    \IfNoValueTF{#4}{}{(#4)}
-    \IfNoValueTF{#5}{}{|#5|}
-  }
-}
-\DeclareDocumentCommand\smqty{}{\smallmatrixquantity}
-\DeclareDocumentCommand\smallmatrixdeterminant{m}{\svmqty{#1}}
-\DeclareDocumentCommand\smdet{m}{\svmqty{#1}}
-
 \DeclareDocumentCommand\argopen{s}{\IfBooleanTF{#1}{\mathopen{}\mathclose\bgroup}{\mathopen{}\mathclose\bgroup\left}} % Special open grouping for argument of a function
 \DeclareDocumentCommand\argclose{s}{\IfBooleanTF{#1}{\egroup}{\aftergroup\egroup\right}} % Special close grouping for argument of a function
 
-\DeclareDocumentCommand\braces{ s t\big t\Big t\bigg t\Bigg m m m }
+\DeclareDocumentCommand\braces{}{{\ifnum\z@=`}\fi\@braces}
+\DeclareDocumentCommand\@braces{ s t\big t\Big t\bigg t\Bigg m m m }
 { % General braces with automatic and manual sizing
   \IfBooleanTF{#1}
   {\left#6\smash{#8}\right#7\vphantom{#8}}
   {
-  \IfBooleanTF{#2}{\bigl#6{#8}\bigr#7}{
-    \IfBooleanTF{#3}{\Bigl#6{#8}\Bigr#7}{
-    \IfBooleanTF{#4}{\biggl#6{#8}\biggr#7}{
-      \IfBooleanTF{#5}{\Biggl#6{#8}\Biggr#7}{\left#6{#8}\right#7}
-    }
+    \IfBooleanTF{#2}{\bigl#6{#8}\bigr#7}{
+      \IfBooleanTF{#3}{\Bigl#6{#8}\Bigr#7}{
+        \IfBooleanTF{#4}{\biggl#6{#8}\biggr#7}{
+          \IfBooleanTF{#5}
+          {\Biggl#6{#8}\Biggr#7}
+          {\left#6{#8}\right#7}
+        }
+      }
     }
   }
-  }
+  \ifnum\z@=`{\fi}
 }
 
-\DeclareDocumentCommand\fbraces{ s t\big t\Big t\bigg t\Bigg m m m m }
+\DeclareDocumentCommand\fbraces{}{{\ifnum\z@=`}\fi\@fbraces}
+\DeclareDocumentCommand\@fbraces{ s t\big t\Big t\bigg t\Bigg m m m m }
 { % Function braces with automatic and manual sizing
   #8
   \IfBooleanTF{#1}
   {\argopen#6\smash{#9}\argclose#7\vphantom{#9}}
   {
-  \IfBooleanTF{#2}{\argopen*\bigl#6{#9}\argclose*\bigr#7}{
-    \IfBooleanTF{#3}{\argopen*\Bigl#6{#9}\argclose*\Bigr#7}{
-    \IfBooleanTF{#4}{\argopen*\biggl#6{#9}\argclose*\biggr#7}{
-      \IfBooleanTF{#5}
-      {\argopen*\Biggl#6{#9}\argclose*\Biggr#7}
-      {\argopen#6{#9}\argclose#7}
-    }
+    \IfBooleanTF{#2}{\argopen*\bigl#6{#9}\argclose*\bigr#7}{
+      \IfBooleanTF{#3}{\argopen*\Bigl#6{#9}\argclose*\Bigr#7}{
+        \IfBooleanTF{#4}{\argopen*\biggl#6{#9}\argclose*\biggr#7}{
+          \IfBooleanTF{#5}
+          {\argopen*\Biggl#6{#9}\argclose*\Biggr#7}
+          {\argopen#6{#9}\argclose#7}
+        }
+      }
     }
   }
-  }
+  \ifnum\z@=`{\fi}
 }
 
 \DeclareDocumentCommand\order{ l m }{\fbraces#1{\lparen}{\rparen}{\ordersymbol}{#2}} % Order notation -> O(x^2)
@@ -714,13 +737,13 @@
 }
 \DeclareDocumentCommand\divg{}{\divergence}
 \if@originaldiv
-  \ifphysics
+  \if@physics
     \DeclareDocumentCommand\div{}{\divisionsymbol}
   \else
     \DeclareDocumentCommand\divisionsymbol{}{\div}
   \fi
 \else
-  \ifphysics
+  \if@physics
     \DeclareDocumentCommand\div{}{\divergence}
   \else
     \DeclareDocumentCommand\divisionsymbol{}{\div} % Rename \div [division symbol] in order to free up control sequence for \divergence
@@ -955,41 +978,41 @@
 \DeclareDocumentCommand\prtriglimitsqty{m}{\prtrigbraces{\operatornamewithlimits{#1}}}
 
 \ExplSyntaxOn
-\DeclareDocumentCommand\provideop{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\operatorname{#1}}}}
-\DeclareDocumentCommand\declareop{m}{\cs_set_protected:cn{#1}{\operatorname{#1}}}
-\DeclareDocumentCommand\provideoplimits{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#1}}}}
-\DeclareDocumentCommand\declareoplimits{m}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#1}}}
-\DeclareDocumentCommand\provideopqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\opqty{#1}}}}
-\DeclareDocumentCommand\declareopqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\opqty{#2}}}
-\DeclareDocumentCommand\providetrigqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\trigqty{#1}}}}
-\DeclareDocumentCommand\declaretrigqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\trigqty{#2}}}
-\DeclareDocumentCommand\providepropqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\propqty{#1}}}}
-\DeclareDocumentCommand\declarepropqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\propqty{#2}}}
-\DeclareDocumentCommand\provideprtrigqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\prtrigqty{#1}}}}
-\DeclareDocumentCommand\declareprtrigqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\prtrigqty{#2}}}
-\DeclareDocumentCommand\provideoplimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\oplimitsqty{#1}}}}
-\DeclareDocumentCommand\declareoplimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\oplimitsqty{#2}}}
-\DeclareDocumentCommand\providetriglimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\triglimitsqty{#1}}}}
-\DeclareDocumentCommand\declaretriglimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\triglimitsqty{#2}}}
-\DeclareDocumentCommand\provideproplimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\proplimitsqty{#1}}}}
-\DeclareDocumentCommand\declareproplimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\proplimitsqty{#2}}}
-\DeclareDocumentCommand\provideprtriglimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cn{#1}{\prtriglimitsqty{#1}}}}
-\DeclareDocumentCommand\declareprtriglimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\prtriglimitsqty{#2}}}
-\DeclareDocumentCommand\renewop{om}{\cs_if_exist:cF{#2}{\cs_set_protected:cn{#2}{\operatorname{#2}}}\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}}
-\DeclareDocumentCommand\renewoplimits{om}{\cs_if_exist:cF{#2}{\cs_set_protected:cn{#2}{\operatornamewithlimits{#2}}}\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}}
-\DeclareDocumentCommand\renewopqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\opqty{#2}}}}
-\DeclareDocumentCommand\renewtrigqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\trigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\trigqty{#2}}}}
-\DeclareDocumentCommand\renewpropqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\propbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\propqty{#2}}}}
-\DeclareDocumentCommand\renewprtrigqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\prtrigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatorname{#2}}}\cs_set_protected:cn{#2}{\prtrigqty{#2}}}}
-\DeclareDocumentCommand\renewoplimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\oplimitsqty{#2}}}}
-\DeclareDocumentCommand\renewtriglimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\trigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\triglimitsqty{#2}}}}
-\DeclareDocumentCommand\renewproplimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\propbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\proplimitsqty{#2}}}}
-\DeclareDocumentCommand\renewprtriglimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cn{#2}{\prtrigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cn{#2}{\prtriglimitsqty{#2}}}}
-\DeclareDocumentCommand\declareopas{mm}{\cs_set_protected:cn{#1}{#2}}
-\DeclareDocumentCommand\declareopqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{#3}}\cs_set_protected:cn{#2}{\opbraces{#3}}}
-\DeclareDocumentCommand\declaretrigqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{#3}}\cs_set_protected:cn{#2}{\trigbraces{#3}}}
-\DeclareDocumentCommand\declarepropqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{#3}}\cs_set_protected:cn{#2}{\propbraces{#3}}}
-\DeclareDocumentCommand\declareprtrigqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cn{#1}{#3}}\cs_set_protected:cn{#2}{\prtrigbraces{#3}}}
+\DeclareDocumentCommand\provideop{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#1}}}}
+\DeclareDocumentCommand\declareop{m}{\cs_set_protected:cpn{#1}{\operatorname{#1}}}
+\DeclareDocumentCommand\provideoplimits{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#1}}}}
+\DeclareDocumentCommand\declareoplimits{m}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#1}}}
+\DeclareDocumentCommand\provideopqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\opqty{#1}}}}
+\DeclareDocumentCommand\declareopqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\opqty{#2}}}
+\DeclareDocumentCommand\providetrigqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\trigqty{#1}}}}
+\DeclareDocumentCommand\declaretrigqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\trigqty{#2}}}
+\DeclareDocumentCommand\providepropqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\propqty{#1}}}}
+\DeclareDocumentCommand\declarepropqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\propqty{#2}}}
+\DeclareDocumentCommand\provideprtrigqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\prtrigqty{#1}}}}
+\DeclareDocumentCommand\declareprtrigqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\prtrigqty{#2}}}
+\DeclareDocumentCommand\provideoplimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\oplimitsqty{#1}}}}
+\DeclareDocumentCommand\declareoplimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\oplimitsqty{#2}}}
+\DeclareDocumentCommand\providetriglimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\triglimitsqty{#1}}}}
+\DeclareDocumentCommand\declaretriglimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\triglimitsqty{#2}}}
+\DeclareDocumentCommand\provideproplimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\proplimitsqty{#1}}}}
+\DeclareDocumentCommand\declareproplimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\proplimitsqty{#2}}}
+\DeclareDocumentCommand\provideprtriglimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\prtriglimitsqty{#1}}}}
+\DeclareDocumentCommand\declareprtriglimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\prtriglimitsqty{#2}}}
+\DeclareDocumentCommand\renewop{om}{\cs_if_exist:cF{#2}{\cs_set_protected:cpn{#2}{\operatorname{#2}}}\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}}
+\DeclareDocumentCommand\renewoplimits{om}{\cs_if_exist:cF{#2}{\cs_set_protected:cpn{#2}{\operatornamewithlimits{#2}}}\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}}
+\DeclareDocumentCommand\renewopqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\opqty{#2}}}}
+\DeclareDocumentCommand\renewtrigqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\trigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\trigqty{#2}}}}
+\DeclareDocumentCommand\renewpropqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\propbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\propqty{#2}}}}
+\DeclareDocumentCommand\renewprtrigqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\prtrigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\prtrigqty{#2}}}}
+\DeclareDocumentCommand\renewoplimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\oplimitsqty{#2}}}}
+\DeclareDocumentCommand\renewtriglimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\trigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\triglimitsqty{#2}}}}
+\DeclareDocumentCommand\renewproplimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\propbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\proplimitsqty{#2}}}}
+\DeclareDocumentCommand\renewprtriglimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\prtrigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\prtriglimitsqty{#2}}}}
+\DeclareDocumentCommand\declareopas{mm}{\cs_set_protected:cpn{#1}{#2}}
+\DeclareDocumentCommand\declareopqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\opbraces{#3}}}
+\DeclareDocumentCommand\declaretrigqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\trigbraces{#3}}}
+\DeclareDocumentCommand\declarepropqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\propbraces{#3}}}
+\DeclareDocumentCommand\declareprtrigqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\prtrigbraces{#3}}}
 \ExplSyntaxOff
 
 % Internal commands
@@ -1108,13 +1131,13 @@
 \@declarephysicsoplimits[Residue]{Res}
 
 \@declarephysicstrigas[atangenttwo]{atantwo}{\operatorname{atan2}}
-\@declarephysicstrigas[arctangenttwo]{aarctantwo}{\operatorname{arctan2}}
+\@declarephysicstrigas[arctangenttwo]{arctantwo}{\operatorname{arctan2}}
 
-\@renewphysicstrig{\pi}
+\@renewphysicstrig{pi}
 
 \@renewphysicsop[real]{Re}
 \@renewphysicsop[imaginary]{Im}
-\@renewphysicsop{\in}
+\@renewphysicsop{in}
 
 \@renewphysicsoplimits{lim}
 \@renewphysicsoplimits{limsup}
