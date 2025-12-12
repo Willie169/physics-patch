@@ -147,6 +147,8 @@
 % Symbols
 \DeclareDocumentCommand\lparen{}{(}
 \DeclareDocumentCommand\rparen{}{)}
+\DeclareDocumentCommand\less{}{<}
+\DeclareDocumentCommand\greater{}{>}
 \DeclareDocumentCommand\lnull{}{\mathopen{}\mathclose\bgroup\left.\kern-\nulldelimiterspace}
 \DeclareDocumentCommand\rnull{}{\aftergroup\egroup\right.\kern-\nulldelimiterspace}
 \DeclareDocumentCommand\lpair{}{\mathopen{}\mathclose\bgroup\left}
@@ -547,6 +549,7 @@
   }
   \ifnum\z@=`{\fi}
 }
+\DeclareDocumentCommand\brc{}{\braces}
 
 \DeclareDocumentCommand\fbraces{}{{\ifnum\z@=`}\fi\@fbraces}
 \DeclareDocumentCommand\@fbraces{ s t\big t\Big t\bigg t\Bigg m m m m }

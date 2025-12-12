@@ -176,15 +176,15 @@ Function argument delimiter:
 & \verb|f\argopen*\Bigl(\grande\argclose*\Bigr)| $\rightarrow f\argopen*\Bigl(\grande\argclose*\Bigr)$ & \\
 & \verb|f\argopen*\biggl(\grande\argclose*\biggr)| $\rightarrow f\argopen*\biggl(\grande\argclose*\biggr)$ & \\
 & \verb|f\argopen*\Biggl(\grande\argclose*\Biggr)| $\rightarrow f\argopen*\Biggl(\grande\argclose*\Biggr)$ & \\\hline
-\verb|\braces| & \verb|\braces<optional: */\big/\Big/\bigg/\Bigg>{<l>}{<r>}{<argument>}| & delimiter group for function argument between left delimiter token \verb|<l>| and right delimiter token \verb|<r>| (e.g., \verb|()|, \verb|\langle\rangle|) with optional manual sizing and automatic sizing as fall back for starred version and no resize for unstarred version \\
-& \verb|f\braces*{(}{)}{\typical}| $\rightarrow f\braces*{(}{)}{\typical}$ & no resize \\
-& \verb|f\braces{(}{)}{\typical}| $\rightarrow f\braces{(}{)}{\typical}$ & automatic sizing \\
-& \verb|f\braces{(}{)}{\tall}| $\rightarrow f\braces{(}{)}{\tall}$ & \\
-& \verb|f\braces{(}{)}{\grande}| $\rightarrow f\braces{(}{)}{\grande}$ & \\
-& \verb|f\braces\big{(}{)}{\grande}| $\rightarrow f\braces\big{(}{)}{\grande}$ & manual sizing \\
-& \verb|f\braces\Big{(}{)}{\grande}| $\rightarrow f\braces\Big{(}{)}{\grande}$ & \\
-& \verb|f\braces\bigg{(}{)}{\grande}| $\rightarrow f\braces\bigg{(}{)}{\grande}$ & \\
-& \verb|f\braces\Bigg{(}{)}{\grande}| $\rightarrow f\braces\Bigg{(}{)}{\grande}$ & \\\hline
+\verb|\braces| & \verb|\brc<optional: */\big/\Big/\bigg/\Bigg>{<l>}{<r>}{<argument>}| & delimiter group for function argument between left delimiter token \verb|<l>| and right delimiter token \verb|<r>| (e.g., \verb|()|, \verb|\langle\rangle|) with optional manual sizing and automatic sizing as fall back for starred version and no resize for unstarred version \\
+& \verb|f\brc*{(}{)}{\typical}| $\rightarrow f\brc*{(}{)}{\typical}$ & no resize \\
+& \verb|f\brc{(}{)}{\typical}| $\rightarrow f\brc{(}{)}{\typical}$ & automatic sizing \\
+& \verb|f\brc{(}{)}{\tall}| $\rightarrow f\brc{(}{)}{\tall}$ & \\
+& \verb|f\brc{(}{)}{\grande}| $\rightarrow f\brc{(}{)}{\grande}$ & \\
+& \verb|f\brc\big{(}{)}{\grande}| $\rightarrow f\brc\big{(}{)}{\grande}$ & manual sizing \\
+& \verb|f\brc\Big{(}{)}{\grande}| $\rightarrow f\brc\Big{(}{)}{\grande}$ & \\
+& \verb|f\brc\bigg{(}{)}{\grande}| $\rightarrow f\brc\bigg{(}{)}{\grande}$ & \\
+& \verb|f\brc\Bigg{(}{)}{\grande}| $\rightarrow f\brc\Bigg{(}{)}{\grande}$ & \\\hline
 \verb|\fbraces| & \verb|\fbraces<optional: */\big/\Big/\bigg/\Bigg>{<l>}{<r>}{<function>}{<argument>}| & delimiter group for function argument between left delimiter token \verb|<l>| and right delimiter token \verb|<r>| (e.g., \verb|()|, \verb|\langle\rangle|) with optional manual sizing and automatic sizing as fall back for starred version and no resize for unstarred version \\
 & \verb|\fbraces*{(}{)}{f}{\typical}| $\rightarrow \fbraces*{(}{)}{f}{\typical}$ & no resize \\
 & \verb|\fbraces{(}{)}{f}{\typical}| $\rightarrow \fbraces{(}{)}{f}{\typical}$ & automatic sizing \\
@@ -644,7 +644,7 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 \end{longtable}
 }
 
-Nicematrix macros, not defined if the option \verb|nonicematrix| is used:
+Nicematrix macros, defined if the option \verb|nonicematrix| is not used:
 {\fontsize{8pt}{12pt}\selectfont
 \begin{longtable}[c]{|p{0.2\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|}
 \hline
@@ -673,6 +673,8 @@ Nicematrix macros, not defined if the option \verb|nonicematrix| is used:
 \hline
 \verb|\lparen| $\rightarrow\lparen$ \\\hline
 \verb|\rparen| $\rightarrow\rparen$ \\\hline
+\verb|\less| $\rightarrow\less$ \\\hline
+\verb|\greater| $\rightarrow\greater$ \\\hline
 \verb|\divisionsymbol| & \verb|\divisionsymbol| $\rightarrow \divisionsymbol$ & division symbol \\\hline
 \verb|\ordersymbol| $\rightarrow \ordersymbol$ & order symbol \\\hline
 \verb|\typical| $\rightarrow \typical$ & \\\hline
@@ -687,11 +689,11 @@ Nicematrix macros, not defined if the option \verb|nonicematrix| is used:
 \verb|\bbN|$\rightarrow$\verb|\mathbb{N}| & \\\hline
 \verb|\bbZ|$\rightarrow$\verb|\mathbb{Z}| & \\\hline
 \verb|\bell|$\rightarrow$\verb|\boldsymbol{\ell}| & \\\hline
-\verb|\Bell|$\rightarrow$\verb|\char"1F514| & the \verb|\bell| command in wasysym, which is a bell symbol \\\hline
+\verb|\Bell|$\rightarrow$\verb|\char"1F514| & bell symbol, same as the \verb|\bell| command in package \verb|wasysym| \\\hline
 \verb|\Vtextvisiblespace[width]| $\rightarrow$ \Vtextvisiblespace & a visible space character, where the optional argument, defaulting to \verb|.3em|, sets the width of the horizontal rule \\\hline
 \verb|\kernnull| & negate the space next to null delimiters, implemented with \verb|\kern-\nulldelimiterspace| \\\hline
 \verb|\NewLine| & \verb|\mbox{}\\|\\\hline
-\verb|\ST| $\rightarrow \ST$ & such that with space before and after it \\\hline
+\verb|\ST| $\rightarrow \ST$ & s.t. with space before and after it in math environment \\\hline
 \end{longtable}
 \subsection{Utilities}
 \begin{longtable}[c]{|L{0.25\textwidth}|L{0.4\textwidth}|L{0.25\textwidth}|}
