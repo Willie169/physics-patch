@@ -1001,16 +1001,6 @@
 \DeclareDocumentCommand\declareproplimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\proplimitsqty{#2}}}
 \DeclareDocumentCommand\provideprtriglimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\prtriglimitsqty{#1}}}}
 \DeclareDocumentCommand\declareprtriglimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\prtriglimitsqty{#2}}}
-\DeclareDocumentCommand\renewop{om}{\cs_if_exist:cF{#2}{\cs_set_protected:cpn{#2}{\operatorname{#2}}}\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}}
-\DeclareDocumentCommand\renewoplimits{om}{\cs_if_exist:cF{#2}{\cs_set_protected:cpn{#2}{\operatornamewithlimits{#2}}}\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}}
-\DeclareDocumentCommand\renewopqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\opqty{#2}}}}
-\DeclareDocumentCommand\renewtrigqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\trigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\trigqty{#2}}}}
-\DeclareDocumentCommand\renewpropqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\propbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\propqty{#2}}}}
-\DeclareDocumentCommand\renewprtrigqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\prtrigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\prtrigqty{#2}}}}
-\DeclareDocumentCommand\renewoplimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\opbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\oplimitsqty{#2}}}}
-\DeclareDocumentCommand\renewtriglimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\trigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\triglimitsqty{#2}}}}
-\DeclareDocumentCommand\renewproplimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\propbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\proplimitsqty{#2}}}}
-\DeclareDocumentCommand\renewprtriglimitsqty{om}{\cs_if_exist:cTF{#2}{\IfNoValueF{#1}{\cs_set_eq:cc{#1}{#2}}\cs_set_protected:cpn{#2}{\prtrigbraces{#2}}}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\prtriglimitsqty{#2}}}}
 \DeclareDocumentCommand\declareopas{mm}{\cs_set_protected:cpn{#1}{#2}}
 \DeclareDocumentCommand\declareopqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\opbraces{#3}}}
 \DeclareDocumentCommand\declaretrigqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\trigbraces{#3}}}
@@ -1023,10 +1013,6 @@
 \DeclareDocumentCommand\@declarephysicstrig{om}{\IfNoValueTF{#1}{\if@trig\declaretrigqty{#2}\else\declareop{#2}\fi}{\if@trig\declaretrigqty[#1]{#2}\else\declareop{#1}\declareop{#2}\fi}}
 \DeclareDocumentCommand\@declarephysicsoplimits{om}{\IfNoValueTF{#1}{\if@trig\declareoplimitsqty{#2}\else\declareoplimits{#2}\fi}{\if@trig\declareoplimitsqty[#1]{#2}\else\declareoplimits{#1}\declareoplimits{#2}\fi}}
 \DeclareDocumentCommand\@declarephysicstriglimits{om}{\IfNoValueTF{#1}{\if@trig\declaretriglimitsqty{#2}\else\declareoplimits{#2}\fi}{\if@trig\declaretriglimitsqty[#1]{#2}\else\declareoplimits{#1}\declareoplimits{#2}\fi}}
-\DeclareDocumentCommand\@renewphysicsop{om}{\IfNoValueTF{#1}{\if@trig\renewopqty{#2}\fi}{\if@trig\renewopqty[#1]{#2}\else\renewop[#1]{#2}\fi}}
-\DeclareDocumentCommand\@renewphysicstrig{om}{\IfNoValueTF{#1}{\if@trig\renewtrigqty{#2}\fi}{\if@trig\renewtrigqty[#1]{#2}\else\renewop[#1]{#2}\fi}}
-\DeclareDocumentCommand\@renewphysicsoplimits{om}{\IfNoValueTF{#1}{\if@trig\renewoplimitsqty{#2}\fi}{\if@trig\renewoplimitsqty[#1]{#2}\else\renewoplimits[#1]{#2}\fi}}
-\DeclareDocumentCommand\@renewphysicstriglimits{om}{\IfNoValueTF{#1}{\if@trig\renewtriglimitsqty{#2}\fi}{\if@trig\renewtriglimitsqty[#1]{#2}\else\renewoplimits[#1]{#2}\fi}}
 \DeclareDocumentCommand\@declarephysicsopas{omm}{\if@trig\declareopqtyas[#1]{#2}{#3}\else\declareopas{#1}{#3}\declareopas{#2}{#3}\fi}
 \DeclareDocumentCommand\@declarephysicstrigas{omm}{\if@trig\declaretrigqtyas[#1]{#2}{#3}\else\declareopas{#1}{#3}\declareopas{#2}{#3}\fi}
 \DeclareDocumentCommand\@declarephysicsalphabetfunction{mm}{\if@alphabetop\declarepropqtyas{#1}{#2}\fi\if@alphabettrig\declareprtrigqtyas{#1}{#2}\fi}
@@ -1132,35 +1118,34 @@
 \@declarephysicsop{UnitVector}
 
 \@declarephysicsoplimits[Residue]{Res}
+\@declarephysicsoplimits{lim}
+\@declarephysicsoplimits{limsup}
+\@declarephysicsoplimits{liminf}
+\@declarephysicsoplimits{max}
+\@declarephysicsoplimits{min}
+\@declarephysicsoplimits{sup}
+\@declarephysicsoplimits{inf}
+\@declarephysicsoplimits{sum}
+\@declarephysicsoplimits{prod}
+\@declarephysicsoplimits{coprod}
+\@declarephysicsoplimits{bigcup}
+\@declarephysicsoplimits{bigcap}
+\@declarephysicsoplimits{bigsqcup}
+\@declarephysicsoplimits{biguplus}
+\@declarephysicsoplimits{bigvee}
+\@declarephysicsoplimits{bigwedge}
+\@declarephysicsoplimits{bigoplus}
+\@declarephysicsoplimits{bigotimes}
+\@declarephysicsoplimits{bigodot}
 
 \@declarephysicstrigas[atangenttwo]{atantwo}{\operatorname{atan2}}
 \@declarephysicstrigas[arctangenttwo]{arctantwo}{\operatorname{arctan2}}
 
-\@renewphysicstrig{pi}
+\@declarephysicstrigas{pi}{\pi}
 
-\@renewphysicsop[real]{Re}
-\@renewphysicsop[imaginary]{Im}
-\@renewphysicsop{in}
-
-\@renewphysicsoplimits{lim}
-\@renewphysicsoplimits{limsup}
-\@renewphysicsoplimits{liminf}
-\@renewphysicsoplimits{max}
-\@renewphysicsoplimits{min}
-\@renewphysicsoplimits{sup}
-\@renewphysicsoplimits{inf}
-\@renewphysicsoplimits{sum}
-\@renewphysicsoplimits{prod}
-\@renewphysicsoplimits{coprod}
-\@renewphysicsoplimits{bigcup}
-\@renewphysicsoplimits{bigcap}
-\@renewphysicsoplimits{bigsqcup}
-\@renewphysicsoplimits{biguplus}
-\@renewphysicsoplimits{bigvee}
-\@renewphysicsoplimits{bigwedge}
-\@renewphysicsoplimits{bigoplus}
-\@renewphysicsoplimits{bigotimes}
-\@renewphysicsoplimits{bigodot}
+\@declarephysicsopas[real]{Re}{\Re}
+\@declarephysicsopas[imaginary]{Im}{\Im}
+\@declarephysicsopas{in}{\in}
 
 % Alphabet functions
 \@declarephysicsalphabetfunction{aQty}{\operatorname{a}}
