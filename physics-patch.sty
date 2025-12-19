@@ -785,14 +785,14 @@
       {
         \IfNoValueTF{#7}
         {
-          #1
+          \mathop{#1}
           \IfNoValueTF{#2}{}{^{#2}}
           \IfNoValueTF{#3}{}{_{#3}}
         }
         {
           \fbraces{\lvert}{\rvert}
           {
-            #1
+            \mathop{#1}
             \IfNoValueTF{#2}{}{^{#2}}
             \IfNoValueTF{#3}{}{_{#3}}
           }{#7}
@@ -801,7 +801,7 @@
       {
         \fbraces{\lparen}{\rparen}
         {
-          #1
+          \mathop{#1}
           \IfNoValueTF{#2}{}{^{#2}}
           \IfNoValueTF{#3}{}{_{#3}}
         }{#6}
@@ -811,7 +811,7 @@
     {
       \fbraces{\lbrack}{\rbrack}
       {
-        #1
+        \mathop{#1}
         \IfNoValueTF{#2}{}{^{#2}}
         \IfNoValueTF{#3}{}{_{#3}}
       }{#5}
@@ -822,7 +822,7 @@
   {
     \fbraces{\lbrace}{\rbrace}
     {
-      #1
+      \mathop{#1}
       \IfNoValueTF{#2}{}{^{#2}}
       \IfNoValueTF{#3}{}{_{#3}}
     }{#4}
@@ -840,14 +840,14 @@
     {
       \IfNoValueTF{#6}
       {
-        #1
+        \mathop{#1}
         \IfNoValueTF{#2}{}{^{#2}}
         \IfNoValueTF{#3}{}{_{#3}}
       }
       {
         \fbraces{\lvert}{\rvert}
         {
-          #1
+          \mathop{#1}
           \IfNoValueTF{#2}{}{^{#2}}
           \IfNoValueTF{#3}{}{_{#3}}
         }{#6}
@@ -856,7 +856,7 @@
     {
       \fbraces{\lparen}{\rparen}
       {
-        #1
+        \mathop{#1}
         \IfNoValueTF{#2}{}{^{#2}}
         \IfNoValueTF{#3}{}{_{#3}}
       }{#5}
@@ -866,7 +866,7 @@
   {
     \fbraces{\lbrack}{\rbrack}
     {
-      #1
+      \mathop{#1}
       \IfNoValueTF{#2}{}{^{#2}}
       \IfNoValueTF{#3}{}{_{#3}}
     }{#4}
@@ -883,7 +883,7 @@
     {
       \IfNoValueTF{#9}
       {
-        #1
+        \mathop{#1}
         \IfBooleanT{#2}{'}
         \IfBooleanT{#3}{'}
         \IfBooleanT{#4}{'}
@@ -893,7 +893,7 @@
       {
         \fbraces{\lparen}{\rparen}
         {
-          #1
+          \mathop{#1}
           \IfBooleanT{#2}{'}
           \IfBooleanT{#3}{'}
           \IfBooleanT{#4}{'}
@@ -906,7 +906,7 @@
     {
       \fbraces{\lbrack}{\rbrack}
       {
-        #1
+        \mathop{#1}
         \IfBooleanT{#2}{'}
         \IfBooleanT{#3}{'}
         \IfBooleanT{#4}{'}
@@ -919,7 +919,7 @@
   {
     \fbraces{\lbrace}{\rbrace}
     {
-      #1
+      \mathop{#1}
       \IfBooleanT{#2}{'}
       \IfBooleanT{#3}{'}
       \IfBooleanT{#4}{'}
@@ -937,7 +937,7 @@
   {
     \IfNoValueTF{#8}
     {
-      #1
+      \mathop{#1}
       \IfBooleanT{#2}{'}
       \IfBooleanT{#3}{'}
       \IfBooleanT{#4}{'}
@@ -947,7 +947,7 @@
     {
       \fbraces{\lparen}{\rparen}
       {
-        #1
+        \mathop{#1}
         \IfBooleanT{#2}{'}
         \IfBooleanT{#3}{'}
         \IfBooleanT{#4}{'}
@@ -960,7 +960,7 @@
   {
     \fbraces{\lbrack}{\rbrack}
     {
-      #1
+      \mathop{#1}
       \IfBooleanT{#2}{'}
       \IfBooleanT{#3}{'}
       \IfBooleanT{#4}{'}
