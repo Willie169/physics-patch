@@ -313,8 +313,7 @@
 \DeclareDocumentCommand\norm{ l m }{\braces#1{\lVert}{\rVert}{#2}}
 \DeclareDocumentCommand\floor{ l m }{\braces#1{\lfloor}{\rfloor}{#2}}
 \DeclareDocumentCommand\ceil{ l m }{\braces#1{\lceil}{\rceil}{#2}}
-\DeclareDocumentCommand\quantity{}{{\ifnum\z@=`}\fi\@quantity}
-\DeclareDocumentCommand{\@quantity}{ t\big t\Big t\bigg t\Bigg o d() d|| d<> g }
+\DeclareDocumentCommand{\quantity}{ t\big t\Big t\bigg t\Bigg o d() d|| d<> g }
 { % Flexible automatic bracketing of an expression in [] or () or || or <> or {}
   % Handles manual override of sizing
   \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
@@ -361,7 +360,6 @@
     \IfNoValueTF{#8}{}{<#8>}
     \IfNoValueTF{#9}{}{{#9}}
   }
-  \ifnum\z@=`{\fi}
 }
 \DeclareDocumentCommand\qty{}{\quantity}
 \DeclareDocumentCommand\pqty{ l m }{\braces#1{\lparen}{\rparen}{#2}}
@@ -389,8 +387,7 @@
 \DeclareDocumentCommand\Bmqty{m}{\begin{Bmatrix}#1\end{Bmatrix}}
 \DeclareDocumentCommand\vmqty{m}{\IfNoValueTF{#1}{\begin{vmatrix}#1\end{vmatrix}}{\begin{Vmatrix}#1\end{Vmatrix}}}
 \DeclareDocumentCommand\Vmqty{m}{\begin{Vmatrix}#1\end{Vmatrix}}
-\DeclareDocumentCommand\matrixquantity{}{{\ifnum\z@=`}\fi\@matrixquantity}
-\DeclareDocumentCommand\@matrixquantity{ s g o d() d|| }
+\DeclareDocumentCommand\matrixquantity{ s g o d() d|| }
 {
   \mathord{
     \IfNoValueTF{#2}
@@ -424,7 +421,6 @@
       \IfNoValueTF{#5}{}{|#5|}
     }
   }
-  \ifnum\z@=`{\fi}
 }
 \DeclareDocumentCommand\mqty{}{\matrixquantity}
 \DeclareDocumentCommand\matrixdeterminant{m}{\vmqty{#1}}
@@ -437,8 +433,7 @@
 \DeclareDocumentCommand\sBmqty{m}{\Bqty{\begin{smallmatrix}#1\end{smallmatrix}}}
 \DeclareDocumentCommand\svmqty{m}{\IfNoValueTF{#1}{\vqty{\begin{smallmatrix}#1\end{smallmatrix}}}{\norm{\begin{smallmatrix}#1\end{smallmatrix}}}}
 \DeclareDocumentCommand\sVmqty{m}{\norm{\begin{smallmatrix}#1\end{smallmatrix}}}
-\DeclareDocumentCommand\smallmatrixquantity{}{{\ifnum\z@=`}\fi\@smallmatrixquantity}
-\DeclareDocumentCommand\@smallmatrixquantity{ s g o d() d|| }
+\DeclareDocumentCommand\smallmatrixquantity{ s g o d() d|| }
 {
   \mathord{
     \IfNoValueTF{#2}
@@ -472,7 +467,6 @@
       \IfNoValueTF{#5}{}{|#5|}
     }
   }
-  \ifnum\z@=`{\fi}
 }
 \DeclareDocumentCommand\smqty{}{\smallmatrixquantity}
 \DeclareDocumentCommand\smallmatrixdeterminant{m}{\svmqty{#1}}
@@ -486,8 +480,7 @@
 \DeclareDocumentCommand\nBmqty{m}{\begin{BNiceMatrix}#1\end{BNiceMatrix}}
 \DeclareDocumentCommand\nvmqty{m}{\IfNoValueTF{#1}{\begin{vNiceMatrix}#1\end{vNiceMatrix}}{\begin{VNiceMatrix}#1\end{VNiceMatrix}}}
 \DeclareDocumentCommand\nVmqty{m}{\begin{VNiceMatrix}#1\end{VNiceMatrix}}
-\DeclareDocumentCommand\nicematrixquantity{}{{\ifnum\z@=`}\fi\@nicematrixquantity}
-\DeclareDocumentCommand\@nicematrixquantity{ s g o d() d|| }
+\DeclareDocumentCommand\nicematrixquantity{ s g o d() d|| }
 {
   \mathord{
     \IfNoValueTF{#2}
@@ -521,7 +514,6 @@
       \IfNoValueTF{#5}{}{|#5|}
     }
   }
-  \ifnum\z@=`{\fi}
 }
 \DeclareDocumentCommand\nmqty{}{\nicematrixquantity}
 \DeclareDocumentCommand\nicematrixdeterminant{m}{\nvmqty{#1}}
