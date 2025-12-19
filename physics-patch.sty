@@ -531,8 +531,7 @@
 \DeclareDocumentCommand\argopen{s}{\IfBooleanTF{#1}{\mathopen{}\mathclose\bgroup}{\mathopen{}\mathclose\bgroup\left}} % Special open grouping for argument of a function
 \DeclareDocumentCommand\argclose{s}{\IfBooleanTF{#1}{\egroup}{\aftergroup\egroup\right}} % Special close grouping for argument of a function
 
-\DeclareDocumentCommand\braces{}{{\ifnum\z@=`}\fi\@braces}
-\DeclareDocumentCommand\@braces{ s t\big t\Big t\bigg t\Bigg m m m }
+\DeclareDocumentCommand\braces{ s t\big t\Big t\bigg t\Bigg m m m }
 { % General braces with automatic and manual sizing
   \IfBooleanTF{#1}
   {\left#6\smash{#8}\right#7\vphantom{#8}}
@@ -547,12 +546,10 @@
       }
     }
   }
-  \ifnum\z@=`{\fi}
 }
 \DeclareDocumentCommand\brc{}{\braces}
 
-\DeclareDocumentCommand\fbraces{}{{\ifnum\z@=`}\fi\@fbraces}
-\DeclareDocumentCommand\@fbraces{ s t\big t\Big t\bigg t\Bigg m m m m }
+\DeclareDocumentCommand\fbraces{ s t\big t\Big t\bigg t\Bigg m m m m }
 { % Function braces with automatic and manual sizing
   #8
   \IfBooleanTF{#1}
@@ -568,7 +565,6 @@
       }
     }
   }
-  \ifnum\z@=`{\fi}
 }
 
 \DeclareDocumentCommand\order{ l m }{\fbraces#1{\lparen}{\rparen}{\ordersymbol}{#2}} % Order notation -> O(x^2)
@@ -785,14 +781,14 @@
       {
         \IfNoValueTF{#7}
         {
-          \mathop{#1}
+          #1
           \IfNoValueTF{#2}{}{^{#2}}
           \IfNoValueTF{#3}{}{_{#3}}
         }
         {
           \fbraces{\lvert}{\rvert}
           {
-            \mathop{#1}
+            #1
             \IfNoValueTF{#2}{}{^{#2}}
             \IfNoValueTF{#3}{}{_{#3}}
           }{#7}
@@ -801,7 +797,7 @@
       {
         \fbraces{\lparen}{\rparen}
         {
-          \mathop{#1}
+          #1
           \IfNoValueTF{#2}{}{^{#2}}
           \IfNoValueTF{#3}{}{_{#3}}
         }{#6}
@@ -811,7 +807,7 @@
     {
       \fbraces{\lbrack}{\rbrack}
       {
-        \mathop{#1}
+        #1
         \IfNoValueTF{#2}{}{^{#2}}
         \IfNoValueTF{#3}{}{_{#3}}
       }{#5}
@@ -822,7 +818,7 @@
   {
     \fbraces{\lbrace}{\rbrace}
     {
-      \mathop{#1}
+      #1
       \IfNoValueTF{#2}{}{^{#2}}
       \IfNoValueTF{#3}{}{_{#3}}
     }{#4}
@@ -840,14 +836,14 @@
     {
       \IfNoValueTF{#6}
       {
-        \mathop{#1}
+        #1
         \IfNoValueTF{#2}{}{^{#2}}
         \IfNoValueTF{#3}{}{_{#3}}
       }
       {
         \fbraces{\lvert}{\rvert}
         {
-          \mathop{#1}
+          #1
           \IfNoValueTF{#2}{}{^{#2}}
           \IfNoValueTF{#3}{}{_{#3}}
         }{#6}
@@ -856,7 +852,7 @@
     {
       \fbraces{\lparen}{\rparen}
       {
-        \mathop{#1}
+        #1
         \IfNoValueTF{#2}{}{^{#2}}
         \IfNoValueTF{#3}{}{_{#3}}
       }{#5}
@@ -866,7 +862,7 @@
   {
     \fbraces{\lbrack}{\rbrack}
     {
-      \mathop{#1}
+      #1
       \IfNoValueTF{#2}{}{^{#2}}
       \IfNoValueTF{#3}{}{_{#3}}
     }{#4}
@@ -883,7 +879,7 @@
     {
       \IfNoValueTF{#9}
       {
-        \mathop{#1}
+        #1
         \IfBooleanT{#2}{'}
         \IfBooleanT{#3}{'}
         \IfBooleanT{#4}{'}
@@ -893,7 +889,7 @@
       {
         \fbraces{\lparen}{\rparen}
         {
-          \mathop{#1}
+          #1
           \IfBooleanT{#2}{'}
           \IfBooleanT{#3}{'}
           \IfBooleanT{#4}{'}
@@ -906,7 +902,7 @@
     {
       \fbraces{\lbrack}{\rbrack}
       {
-        \mathop{#1}
+        #1
         \IfBooleanT{#2}{'}
         \IfBooleanT{#3}{'}
         \IfBooleanT{#4}{'}
@@ -919,7 +915,7 @@
   {
     \fbraces{\lbrace}{\rbrace}
     {
-      \mathop{#1}
+      #1
       \IfBooleanT{#2}{'}
       \IfBooleanT{#3}{'}
       \IfBooleanT{#4}{'}
@@ -937,7 +933,7 @@
   {
     \IfNoValueTF{#8}
     {
-      \mathop{#1}
+      #1
       \IfBooleanT{#2}{'}
       \IfBooleanT{#3}{'}
       \IfBooleanT{#4}{'}
@@ -947,7 +943,7 @@
     {
       \fbraces{\lparen}{\rparen}
       {
-        \mathop{#1}
+        #1
         \IfBooleanT{#2}{'}
         \IfBooleanT{#3}{'}
         \IfBooleanT{#4}{'}
@@ -960,7 +956,7 @@
   {
     \fbraces{\lbrack}{\rbrack}
     {
-      \mathop{#1}
+      #1
       \IfBooleanT{#2}{'}
       \IfBooleanT{#3}{'}
       \IfBooleanT{#4}{'}
