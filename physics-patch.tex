@@ -611,7 +611,7 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 & \verb|\mqty(\xmat{x}{5}{3}[3])| $\rightarrow \mqty(\xmat{x}{5}{3}[3])$ & \\
 & \verb|\mqty(\xmat{x}{3}{3}[3])| $\rightarrow \mqty(\xmat{x}{3}{3}[3])$ & \\
 & \verb|\mqty(\xmat{x}{}{3}[3])| $\rightarrow \mqty(\xmat{x}{}{3}[3])$ & \\
-& \verb|\xmat{x}{n}{m}[p][q]| & \multirow{6}{*}{\parbox{6cm}{only show $p$ rows (including \texttt{\textbackslash vdots} row) and $q$ columns (including \texttt{\textbackslash ldots} column) with skipped rows indicated by \texttt{\textbackslash vdots}, skipped columns indicated by \texttt{\textbackslash ldots}, intersection of \texttt{\textbackslash vdots} row and \texttt{\textbackslash ldots} column being \texttt{\textbackslash ddots}. If $n$/$m$ isn't provided, $p$/$q$ is used. No indices will be added for ellipses even if star is given}} \\
+& \verb|\xmat{x}{n}{m}[p][q]| & \multirow{6}{*}{\parbox{6cm}{Only show $p$ rows (including \texttt{\textbackslash vdots} row) and $q$ columns (including \texttt{\textbackslash ldots} column) with skipped rows indicated by \texttt{\textbackslash vdots}, skipped columns indicated by \texttt{\textbackslash ldots}, intersection of \texttt{\textbackslash vdots} row and \texttt{\textbackslash ldots} column being \texttt{\textbackslash ddots}. If $n$ isn't provided, $p$ is used. If $m$ isn't provided, $q$ is used. No indices will be added for ellipses even if star is given}} \\
 & \verb|\mqty(\xmat{x}{5}{5}[3][3])| $\rightarrow \mqty(\xmat{x}{5}{5}[3][3])$ & \\
 & \verb|\mqty(\xmat{x}{5}{3}[3][3])| $\rightarrow \mqty(\xmat{x}{5}{3}[3][3])$ & \\
 & \verb|\mqty(\xmat{x}{3}{3}[3][3])| $\rightarrow \mqty(\xmat{x}{3}{3}[3][3])$ & \\
@@ -623,7 +623,7 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 & \verb|\xmat*{x}{n}{m}{g}{h}| & \multirow{3}{*}{\parbox{6cm}{customize last row's element indices to $g$ and last column's element indices to $h$}} \\
 & \verb|\mqty(\xmat*{x}{3}{3}{A}{B})| $\rightarrow \mqty(\xmat*{x}{3}{3}{A}{B})$ & \\
 & \verb|\mqty(\xmat*{x}{5}{5}[3][3]{A}{B})| $\rightarrow \mqty(\xmat*{x}{5}{5}[3][3]{A}{B})$ & \\
-& \verb|\xmat[0 or 1 or 2]{x}{n}{m}[p][q]| & \multirow{4}{*}{\parbox{6cm}{Change the \texttt{\textbackslash vdots} row/\texttt{\textbackslash ldots} column from the second last one to last one, 0 for both, 1 for row only, 2 for column only. Only work when corresponding $p$/$q$ is provided and do not change the behavior of element indices}} \\
+& \verb|\xmat[0 or 1 or 2]{x}{n}{m}[p][q]| & \multirow{4}{*}{\parbox{6cm}{Change the \texttt{\textbackslash vdots} row/\texttt{\textbackslash ldots} column from the second last one to last one, 0 for both, 1 for row only, 2 for column only. Only work when corresponding $p$ or $q$ is provided and do not change the behavior of element indices}} \\
 & \verb|\mqty(\xmat[0]{x}{5}{5}[3][3])| $\rightarrow \mqty(\xmat[0]{x}{5}{5}[3][3])$ & \\
 & \verb|\mqty(\xmat[1]{x}{5}{5}[3][3])| $\rightarrow \mqty(\xmat[1]{x}{5}{5}[3][3])$ & \\
 & \verb|\mqty(\xmat[2]{x}{5}{5}[3][3])| $\rightarrow \mqty(\xmat[2]{x}{5}{5}[3][3])$ & \\\hline
@@ -688,6 +688,7 @@ Nicematrix macros, defined if the option \verb|nonicematrix| is not used:
 \verb|\bbQ|$\rightarrow$\verb|\mathbb{Q}| & \\\hline
 \verb|\bbN|$\rightarrow$\verb|\mathbb{N}| & \\\hline
 \verb|\bbZ|$\rightarrow$\verb|\mathbb{Z}| & \\\hline
+\verb|\bbF|$\rightarrow$\verb|\mathbb{F}| & \\\hline
 \verb|\bell|$\rightarrow$\verb|\boldsymbol{\ell}| & \\\hline
 \verb|\Bell|$\rightarrow$\verb|\char"1F514| & bell symbol, same as the \verb|\bell| command in package \verb|wasysym| \\\hline
 \verb|\Vtextvisiblespace[width]| $\rightarrow$ \Vtextvisiblespace & a visible space character, where the optional argument, defaulting to \verb|.3em|, sets the width of the horizontal rule \\\hline
