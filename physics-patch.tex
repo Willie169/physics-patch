@@ -599,31 +599,31 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 & \verb|\smdet{a & b \\ c & d}| $\rightarrow {\smdet{a & b \\ c & d}}$ & small matrix determinant \\\hline
 \verb|\identitymatrix| & \verb|\imat{n}| & elements of $n \times n$ identity matrix \\
 & \verb|\mqty(\imat{3})| $\rightarrow \mqty(\imat{3})$ & formatted with \verb|\mqty| or \verb|\smqty| \\\hline
-\verb|\xmatrix| & \verb|\xmat{x}{n}{m}| & \multirow{4}{*}{\parbox{6cm}{elements of $n \times m$ matrix filled with $x$, if not provided, $1$ is used}} \\
+\verb|\xmatrix| & \verb|\xmat{x}{n}{m}| & \multirow{4}{*}{\parbox{6cm}{elements of $n\times m$ matrix filled with $x$. If $n$ or $m$ is not provided, $1$ is used.}} \\
 & \verb|\mqty(\xmat{x}{3}{3})| $\rightarrow \mqty(\xmat{x}{3}{3})$ & \\
 & \verb|\mqty(\xmat{x}{}{3})| $\rightarrow \mqty(\xmat{x}{}{3})$ & \\
 & \verb|\mqty(\xmat{x}{3}{})| $\rightarrow \mqty(\xmat{x}{3}{})$ & \\
-& \verb|\xmat*{x}{n}{m}| & \multirow{4}{*}{\parbox{6cm}{star for element indices, skip row/column indices $n=1$/$m=1$}} \\
+& \verb|\xmat*{x}{n}{m}| & \multirow{4}{*}{\parbox{6cm}{star for element indices, with row indices skipped if $n=1$ and column indices skipped if $m=1$}} \\
 & \verb|\mqty(\xmat*{x}{3}{3})| $\rightarrow \mqty(\xmat*{x}{3}{3})$ & \\
 & \verb|\mqty(\xmat*{x}{1}{3})| $\rightarrow \mqty(\xmat*{x}{1}{3})$ & \\
 & \verb|\mqty(\xmat*{x}{3}{1})| $\rightarrow \mqty(\xmat*{x}{3}{1})$ & \\
-& \verb|\xmat{x}{n}{m}[p]| & \multirow{4}{*}{\parbox{6cm}{only show $p$ rows (including \texttt{\textbackslash vdots} row) with skipped rows indicated by \texttt{\textbackslash vdots}. If $n$ isn't provided, $p$ is used}} \\
+& \verb|\xmat{x}{n}{m}[p]| & \multirow{4}{*}{\parbox{6cm}{Only show $p$ rows (including \texttt{\textbackslash vdots} row) with skipped rows indicated by \texttt{\textbackslash vdots} in the second last row. If $n$ isn't provided, $p$ is used. No indices will be added to ellipses even if star is given.}} \\
 & \verb|\mqty(\xmat{x}{5}{3}[3])| $\rightarrow \mqty(\xmat{x}{5}{3}[3])$ & \\
 & \verb|\mqty(\xmat{x}{3}{3}[3])| $\rightarrow \mqty(\xmat{x}{3}{3}[3])$ & \\
 & \verb|\mqty(\xmat{x}{}{3}[3])| $\rightarrow \mqty(\xmat{x}{}{3}[3])$ & \\
-& \verb|\xmat{x}{n}{m}[p][q]| & \multirow{6}{*}{\parbox{6cm}{Only show $p$ rows (including \texttt{\textbackslash vdots} row) and $q$ columns (including \texttt{\textbackslash ldots} column) with skipped rows indicated by \texttt{\textbackslash vdots}, skipped columns indicated by \texttt{\textbackslash ldots}, intersection of \texttt{\textbackslash vdots} row and \texttt{\textbackslash ldots} column being \texttt{\textbackslash ddots}. If $n$ isn't provided, $p$ is used. If $m$ isn't provided, $q$ is used. No indices will be added for ellipses even if star is given}} \\
+& \verb|\xmat{x}{n}{m}[p][q]| & \multirow{6}{*}{\parbox{6cm}{Only show $p$ rows (including \texttt{\textbackslash vdots} row) and $q$ columns (including \texttt{\textbackslash ldots} column) with skipped rows indicated by \texttt{\textbackslash vdots} in the second last row, skipped columns indicated by \texttt{\textbackslash ldots} in the second last column, and intersection of \texttt{\textbackslash vdots} row and \texttt{\textbackslash ldots} column indicated by \texttt{\textbackslash ddots}. If $n$ isn't provided, $p$ is used. If $m$ isn't provided, $q$ is used. No indices will be added to ellipses even if star is given.}} \\
 & \verb|\mqty(\xmat{x}{5}{5}[3][3])| $\rightarrow \mqty(\xmat{x}{5}{5}[3][3])$ & \\
 & \verb|\mqty(\xmat{x}{5}{3}[3][3])| $\rightarrow \mqty(\xmat{x}{5}{3}[3][3])$ & \\
 & \verb|\mqty(\xmat{x}{3}{3}[3][3])| $\rightarrow \mqty(\xmat{x}{3}{3}[3][3])$ & \\
 & \verb|\mqty(\xmat{x}{5}{}[3][3])| $\rightarrow \mqty(\xmat{x}{5}{}[3][3])$ & \\
 & \verb|\mqty(\xmat{x}{}{}[3][3])| $\rightarrow \mqty(\xmat{x}{}{}[3][3])$ & \\
-& \verb|\xmat*{x}{n}{m}{g}| & \multirow{3}{*}{\parbox{6cm}{customize last row's element indices to $g$}} \\
+& \verb|\xmat*{x}{n}{m}{g}| & \multirow{3}{*}{\parbox{6cm}{Customize last row's element indices to $g$.}} \\
 & \verb|\mqty(\xmat*{x}{3}{3}{A})| $\rightarrow \mqty(\xmat*{x}{3}{3}{A})$ & \\
 & \verb|\mqty(\xmat*{x}{5}{5}[3][3]{A})| $\rightarrow \mqty(\xmat*{x}{5}{5}[3][3]{A})$ & \\
-& \verb|\xmat*{x}{n}{m}{g}{h}| & \multirow{3}{*}{\parbox{6cm}{customize last row's element indices to $g$ and last column's element indices to $h$}} \\
+& \verb|\xmat*{x}{n}{m}{g}{h}| & \multirow{3}{*}{\parbox{6cm}{Customize last row's element indices to $g$ and last column's element indices to $h$.}} \\
 & \verb|\mqty(\xmat*{x}{3}{3}{A}{B})| $\rightarrow \mqty(\xmat*{x}{3}{3}{A}{B})$ & \\
 & \verb|\mqty(\xmat*{x}{5}{5}[3][3]{A}{B})| $\rightarrow \mqty(\xmat*{x}{5}{5}[3][3]{A}{B})$ & \\
-& \verb|\xmat[0 or 1 or 2]{x}{n}{m}[p][q]| & \multirow{4}{*}{\parbox{6cm}{Change the \texttt{\textbackslash vdots} row/\texttt{\textbackslash ldots} column from the second last one to last one, 0 for both, 1 for row only, 2 for column only. Only work when corresponding $p$ or $q$ is provided and do not change the behavior of element indices}} \\
+& \verb|\xmat[0| or \verb|1| or \verb|2]{x}{n}{m}[p][q]| & \multirow{4}{*}{\parbox{6cm}{Change the \texttt{\textbackslash vdots} row/\texttt{\textbackslash ldots} column from the second last row/column to last row/column, 0 for both, 1 for row only, 2 for column only. Only work when corresponding $p$ or $q$ is provided. Do not change the behavior of element indices.}} \\
 & \verb|\mqty(\xmat[0]{x}{5}{5}[3][3])| $\rightarrow \mqty(\xmat[0]{x}{5}{5}[3][3])$ & \\
 & \verb|\mqty(\xmat[1]{x}{5}{5}[3][3])| $\rightarrow \mqty(\xmat[1]{x}{5}{5}[3][3])$ & \\
 & \verb|\mqty(\xmat[2]{x}{5}{5}[3][3])| $\rightarrow \mqty(\xmat[2]{x}{5}{5}[3][3])$ & \\\hline
