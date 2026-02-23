@@ -113,6 +113,10 @@
 \@shorttextgreektrue\@shortvargreektrue\@shortupgreektrue\@shortupvargreektrue\@shortboldgreektrue\@shortmathrmtrue\@shorttexttrue\@shorttextbftrue\@shorttextittrue\@shorttexttttrue
 \fi
 
+% Fix \,
+\renewcommand\;{\tmspace+\thickmuskip{.2777em}}
+\let\thickspace\;
+
 % Utilities
 \DeclareDocumentCommand\pv{g}{\IfNoValueTF{#1}{\mathcal{P}}{\mathcal{P}\mathord{#1}}}
 \DeclareDocumentCommand\principalvalue{g}{\IfNoValueTF{#1}{\mathcal{P}}{\mathcal{P}\mathord{#1}}}
@@ -153,25 +157,18 @@
 \DeclareDocumentCommand\rnull{}{\aftergroup\egroup\right.\kern-\nulldelimiterspace}
 \DeclareDocumentCommand\lpair{}{\mathopen{}\mathclose\bgroup\left}
 \DeclareDocumentCommand\rpair{}{\aftergroup\egroup\right}
-\DeclareDocumentCommand\ordersymbol{}{\mathcal{O}}
 \DeclareDocumentCommand{\typical}{}{\cbox{cyan}{\phantom{A}}}
 \DeclareDocumentCommand{\tall}{}{\cbox{cyan}{\phantom{A^{\vphantom{x^x}}_x}}}
 \DeclareDocumentCommand{\grande}{}{\cbox{cyan}{\phantom{\frac{1}{xx}}}}
 \DeclareDocumentCommand{\venti}{}{\cbox{cyan}{\phantom{\sum_x^x}}}
 \DeclareDocumentCommand\Vtextvisiblespace{O{.3em}}{\mbox{\kern.06em\vrule height.3ex}\vbox{\hrule width#1}\hbox{\vrule height.3ex}}
 \DeclareDocumentCommand{\parallelsum}{}{\mathbin{\!/\mkern-5mu/\!}}
-\DeclareDocumentCommand{\calE}{}{\mathcal{E}}
-\DeclareDocumentCommand{\bbR}{}{\mathbb{R}}
-\DeclareDocumentCommand{\bbC}{}{\mathbb{C}}
-\DeclareDocumentCommand{\bbQ}{}{\mathbb{Q}}
-\DeclareDocumentCommand{\bbN}{}{\mathbb{N}}
-\DeclareDocumentCommand{\bbZ}{}{\mathbb{Z}}
-\DeclareDocumentCommand{\bbF}{}{\mathbb{F}}
 \DeclareDocumentCommand{\Bell}{}{\char"1F514}
 \DeclareDocumentCommand{\bell}{}{\boldsymbol{\ell}}
 \DeclareDocumentCommand\kernnull{}{\kern-\nulldelimiterspace}
 \DeclareDocumentCommand\NewLine{}{\mbox{}\\}
 \DeclareDocumentCommand\ST{}{\;\text{s.t.}\;}
+\DeclareDocumentCommand\loc{}{\text{loc}}
 
 % Binary Relations
 \if@binrel
@@ -370,6 +367,77 @@
 \DeclareDocumentCommand\Vqty{ l m }{\braces#1{\lVert}{\rVert}{#2}}
 \DeclareDocumentCommand\aqty{ l m }{\braces#1{\langle}{\rangle}{#2}}
 
+\DeclareDocumentCommand{\quantityfrac}{ t\big t\Big t\bigg t\Bigg o o d() d() d|| d|| d<> d<> g g }
+{ % Flexible automatic bracketing of a fraction in [] or () or || or <> or {}
+  % Handles manual override of sizing
+  \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
+    \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
+      \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
+        \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
+      }
+    }
+  }
+  % Handles actual bracketing
+  \IfNoValueTF{#5}{
+    \IfNoValueTF{#7}{
+      \IfNoValueTF{#9}{
+        \IfNoValueTF{#11}{
+          \IfNoValueTF{#13}{
+            \IfBooleanTF{#1}{\big}{
+              \IfBooleanTF{#2}{\Big}{
+                \IfBooleanTF{#3}{\bigg}{
+                  \IfBooleanTF{#4}{\Bigg}{}
+                }
+              }
+            }
+          }
+          {
+            \IfNoValueTF{#14}{
+              \PackageError{physics-patch}{Second \{\} argument missing}{Both \{\} arguments required}
+            }{
+              \ltag\lbrace\frac{#13}{#14}\rtag\rbrace
+            }
+          }
+        }{
+          \IfNoValueTF{#12}{
+            \PackageError{physics-patch}{Second <> argument missing}{Both <> arguments required}
+          }{
+            \ltag\langle\frac{#11}{#12}\rtag\rangle
+          }
+          \IfNoValueTF{#13}{}{{#13}\IfNoValueTF{#14}{}{{#14}}}
+        }
+      }{
+        \IfNoValueTF{#10}{
+          \PackageError{physics-patch}{Second || argument missing}{Both || arguments required}
+        }{
+          \ltag\lvert\frac{#9}{#10}\rtag\rvert
+        }
+        \IfNoValueTF{#11}{}{<#11>\IfNoValueTF{#12}{}{<#12>}}
+        \IfNoValueTF{#13}{}{{#13}\IfNoValueTF{#14}{}{{#14}}}
+      }
+    }{
+      \IfNoValueTF{#8}{
+        \PackageError{physics-patch}{Second () argument missing}{Both () arguments required}
+      }{
+        \ltag(\frac{#7}{#8}\rtag)
+      }
+      \IfNoValueTF{#9}{}{|#9|\IfNoValueTF{#10}{}{|#10|}}
+      \IfNoValueTF{#11}{}{<#11>\IfNoValueTF{#12}{}{<#12>}}
+      \IfNoValueTF{#13}{}{{#13}\IfNoValueTF{#14}{}{{#14}}}
+    }
+  }{
+    \IfNoValueTF{#6}{
+      \PackageError{physics-patch}{Second [] argument missing}{Both [] arguments required}
+    }{
+      \ltag[\frac{#5}{#6}\rtag]
+    }
+    \IfNoValueTF{#7}{}{(#7)\IfNoValueTF{#8}{}{(#8)}}
+    \IfNoValueTF{#9}{}{|#9|\IfNoValueTF{#10}{}{|#10|}}
+    \IfNoValueTF{#11}{}{<#11>\IfNoValueTF{#12}{}{<#12>}}
+    \IfNoValueTF{#13}{}{{#13}\IfNoValueTF{#14}{}{{#14}}}
+  }
+}
+\DeclareDocumentCommand\qtfr{}{\quantityfrac}
 \DeclareDocumentCommand\pqtfr{mm}{\pqty{\frac{#1}{#2}}}
 \DeclareDocumentCommand\bqtfr{mm}{\bqty{\frac{#1}{#2}}}
 \DeclareDocumentCommand\Bqtfr{mm}{\Bqty{\frac{#1}{#2}}}
@@ -377,6 +445,87 @@
 \DeclareDocumentCommand\absfr{mm}{\vqty{\frac{#1}{#2}}}
 \DeclareDocumentCommand\Vqtfr{mm}{\Vqty{\frac{#1}{#2}}}
 \DeclareDocumentCommand\normfr{mm}{\Vqty{\frac{#1}{#2}}}
+
+\DeclareDocumentCommand\invertedfrac{mm}{\frac{#2}{#1}}
+\DeclareDocumentCommand\invfr{}{\invertedfrac}
+\DeclareDocumentCommand{\quantityinvertedfrac}{ t\big t\Big t\bigg t\Bigg o o d() d() d|| d|| d<> d<> g g }
+{ % Flexible automatic bracketing of a fraction in [] or () or || or <> or {}
+  % Handles manual override of sizing
+  \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
+    \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
+      \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
+        \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
+      }
+    }
+  }
+  % Handles actual bracketing
+  \IfNoValueTF{#5}{
+    \IfNoValueTF{#7}{
+      \IfNoValueTF{#9}{
+        \IfNoValueTF{#11}{
+          \IfNoValueTF{#13}{
+            \IfBooleanTF{#1}{\big}{
+              \IfBooleanTF{#2}{\Big}{
+                \IfBooleanTF{#3}{\bigg}{
+                  \IfBooleanTF{#4}{\Bigg}{}
+                }
+              }
+            }
+          }
+          {
+            \IfNoValueTF{#14}{
+              \PackageError{physics-patch}{Second \{\} argument missing}{Both \{\} arguments required}
+            }{
+              \ltag\lbrace\invertedfrac{#13}{#14}\rtag\rbrace
+            }
+          }
+        }{
+          \IfNoValueTF{#12}{
+            \PackageError{physics-patch}{Second <> argument missing}{Both <> arguments required}
+          }{
+            \ltag\langle\invertedfrac{#11}{#12}\rtag\rangle
+          }
+          \IfNoValueTF{#13}{}{{#13}\IfNoValueTF{#14}{}{{#14}}}
+        }
+      }{
+        \IfNoValueTF{#10}{
+          \PackageError{physics-patch}{Second || argument missing}{Both || arguments required}
+        }{
+          \ltag\lvert\invertedfrac{#9}{#10}\rtag\rvert
+        }
+        \IfNoValueTF{#11}{}{<#11>\IfNoValueTF{#12}{}{<#12>}}
+        \IfNoValueTF{#13}{}{{#13}\IfNoValueTF{#14}{}{{#14}}}
+      }
+    }{
+      \IfNoValueTF{#8}{
+        \PackageError{physics-patch}{Second () argument missing}{Both () arguments required}
+      }{
+        \ltag(\invertedfrac{#7}{#8}\rtag)
+      }
+      \IfNoValueTF{#9}{}{|#9|\IfNoValueTF{#10}{}{|#10|}}
+      \IfNoValueTF{#11}{}{<#11>\IfNoValueTF{#12}{}{<#12>}}
+      \IfNoValueTF{#13}{}{{#13}\IfNoValueTF{#14}{}{{#14}}}
+    }
+  }{
+    \IfNoValueTF{#6}{
+      \PackageError{physics-patch}{Second [] argument missing}{Both [] arguments required}
+    }{
+      \ltag[\invertedfrac{#5}{#6}\rtag]
+    }
+    \IfNoValueTF{#7}{}{(#7)\IfNoValueTF{#8}{}{(#8)}}
+    \IfNoValueTF{#9}{}{|#9|\IfNoValueTF{#10}{}{|#10|}}
+    \IfNoValueTF{#11}{}{<#11>\IfNoValueTF{#12}{}{<#12>}}
+    \IfNoValueTF{#13}{}{{#13}\IfNoValueTF{#14}{}{{#14}}}
+  }
+}
+\DeclareDocumentCommand\qtinvfr{}{\quantityinvertedfrac}
+\DeclareDocumentCommand\pqtinvfr{mm}{\pqty{\invfr{#1}{#2}}}
+\DeclareDocumentCommand\bqtinvfr{mm}{\bqty{\invfr{#1}{#2}}}
+\DeclareDocumentCommand\Bqtinvfr{mm}{\Bqty{\invfr{#1}{#2}}}
+\DeclareDocumentCommand\vqtinvfr{mm}{\vqty{\invfr{#1}{#2}}}
+\DeclareDocumentCommand\absinvfr{mm}{\vqty{\invfr{#1}{#2}}}
+\DeclareDocumentCommand\Vqtinvfr{mm}{\Vqty{\invfr{#1}{#2}}}
+\DeclareDocumentCommand\norminvfr{mm}{\Vqty{\invfr{#1}{#2}}}
 
 \let\originalmid\mid
 \DeclareDocumentCommand\mid{}{\nonscript\;\ifnum\currentgrouptype=16\middle|\else\originalmid\fi\nonscript\;}
@@ -1057,6 +1206,7 @@
 \@declarephysicstrig{Ci}
 \@declarephysicstrig{Shi}
 \@declarephysicstrig{Chi}
+\@declarephysicstrig{sinc}
 \@declarephysicstrig{round}
 \@declarephysicstrig{truncate}
 \@declarephysicstrig{roundhalfup}
@@ -1066,6 +1216,7 @@
 \@declarephysicstrig{SO}
 \@declarephysicstrig{GL}
 \@declarephysicstrig{BV}
+\@declarephysicstrig{ann}
 
 \@declarephysicsop[exponential]{exp}
 \@declarephysicsop[determinant]{det}
@@ -1102,8 +1253,11 @@
 \@declarephysicsop{erfi}
 \@declarephysicsop{Dist}
 \@declarephysicsop{dist}
+\@declarephysicsop{Def}
+\@declarephysicsop{def}
 \@declarephysicsop{Distance}
 \@declarephysicsop{distance}
+\@declarephysicsop{supp}
 \@declarephysicsop{UnitVector}
 
 \@declarephysicsoplimits[Residue]{Res}
@@ -1129,6 +1283,7 @@
 
 \@declarephysicstrigas[atangenttwo]{atantwo}{\operatorname{atan2}}
 \@declarephysicstrigas[arctangenttwo]{arctantwo}{\operatorname{arctan2}}
+\@declarephysicstrigas{ordersymbol}{\mathcal{O}}
 
 \@declarephysicstrigas{pi}{\pi}
 

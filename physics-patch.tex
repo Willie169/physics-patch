@@ -258,6 +258,10 @@ Auto Resizable Bracing:
 \verb|\poissonbracket| & \verb|\pb{A}{B}| $\rightarrow \pb{A}{B}$ & same as \verb|\anticommutator|\\\hline
 \verb|\mid| & \verb|\left\{x\mid x>0\right\}| $\rightarrow \left\{x\mid x>0\right\}$ & Expands to \verb+\middle|+ when inside a \verb|\left|...\verb|\right| group (\verb|\currentgrouptype=16|) \\
 & \verb|\{x\mid x>0\}| $\rightarrow \{x\mid x>0\}$ & Falls back to original \\\hline
+
+Mb move to flatfrac there with invfrs
+add qtfr
+
 \verb|\pqtfr| & \verb|\pqtfr{A}{B}| $\leftrightarrow$ \verb|\pqty{\frac{A}{B}}| & Shorthands for fraction with bracing \\
 \verb|\bqtfr| & \verb|\bqtfr{A}{B}| $\leftrightarrow$ \verb|\bqty{\frac{A}{B}}| & \\
 \verb|\Bqtfr| & \verb|\Bqtfr{A}{B}| $\leftrightarrow$ \verb|\Bqty{\frac{A}{B}}| & \\
@@ -676,25 +680,18 @@ Nicematrix macros, defined if the option \verb|nonicematrix| is not used:
 \verb|\less| $\rightarrow\less$ \\\hline
 \verb|\greater| $\rightarrow\greater$ \\\hline
 \verb|\divisionsymbol| & \verb|\divisionsymbol| $\rightarrow \divisionsymbol$ & division symbol \\\hline
-\verb|\ordersymbol| $\rightarrow \ordersymbol$ & order symbol \\\hline
 \verb|\typical| $\rightarrow \typical$ & \\\hline
 \verb|\tall| $\rightarrow \tall$ & \\\hline
 \verb|\grande| $\rightarrow \grande$ & \\\hline
 \verb|\venti| $\rightarrow \venti$ & \\\hline
 \verb|\parallelsum| $\rightarrow \parallelsum$ & \\\hline
-\verb|\calE|$\rightarrow$\verb|\mathcal{E}| & \\\hline
-\verb|\bbR|$\rightarrow$\verb|\mathbb{R}| & \\\hline
-\verb|\bbC|$\rightarrow$\verb|\mathbb{C}| & \\\hline
-\verb|\bbQ|$\rightarrow$\verb|\mathbb{Q}| & \\\hline
-\verb|\bbN|$\rightarrow$\verb|\mathbb{N}| & \\\hline
-\verb|\bbZ|$\rightarrow$\verb|\mathbb{Z}| & \\\hline
-\verb|\bbF|$\rightarrow$\verb|\mathbb{F}| & \\\hline
-\verb|\bell|$\rightarrow$\verb|\boldsymbol{\ell}| & \\\hline
 \verb|\Bell|$\rightarrow$\verb|\char"1F514| & bell symbol, same as the \verb|\bell| command in package \verb|wasysym| \\\hline
+\verb|\bell|$\rightarrow$\verb|\boldsymbol{\ell}| & \\\hline
 \verb|\Vtextvisiblespace[width]| $\rightarrow$ \Vtextvisiblespace & a visible space character, where the optional argument, defaulting to \verb|.3em|, sets the width of the horizontal rule \\\hline
 \verb|\kernnull| & negate the space next to null delimiters, implemented with \verb|\kern-\nulldelimiterspace| \\\hline
 \verb|\NewLine| & \verb|\mbox{}\\|\\\hline
 \verb|\ST| $\rightarrow \ST$ & s.t. with space before and after it in math environment \\\hline
+\verb|\loc|$\rightarrow$\verb|\text{loc}| & \\\hline
 \end{longtable}
 \subsection{Utilities}
 \begin{longtable}[c]{|L{0.25\textwidth}|L{0.4\textwidth}|L{0.25\textwidth}|}
