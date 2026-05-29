@@ -185,7 +185,6 @@
 \DeclareDocumentCommand\kernnull{}{\kern-\nulldelimiterspace}
 \DeclareDocumentCommand\NewLine{}{\mbox{}\\}
 \DeclareDocumentCommand\ST{}{\;\text{s.t.}\;}
-\DeclareDocumentCommand\AS{}{\;\text{as}\;}
 \DeclareDocumentCommand\loc{}{\text{loc}}
 \DeclareDocumentCommand\otherwise{}{\text{otherwise}}
 \DeclareDocumentCommand\eps{}{\varepsilon}
@@ -1476,13 +1475,14 @@
 \DeclareDocumentCommand\qqtext{ s m }{\IfBooleanTF{#1}{}{\quad}\text{#2}\quad}
 \DeclareDocumentCommand\qq{}{\qqtext}
 
-\DeclareDocumentCommand\qcomma{}{,\quad}
+\DeclareDocumentCommand\qcomma{g}{,\quad\IfNoValueTF{#1}{}{\text{#1}}}
 \DeclareDocumentCommand\qc{}{\qcomma}
 
 \DeclareDocumentCommand\qif{s}{\IfBooleanTF{#1}{}{\quad}\text{if}\quad}
 \DeclareDocumentCommand\qthen{s}{\IfBooleanTF{#1}{}{\quad}\text{then}\quad}
 \DeclareDocumentCommand\qelse{s}{\IfBooleanTF{#1}{}{\quad}\text{else}\quad}
 \DeclareDocumentCommand\qotherwise{s}{\IfBooleanTF{#1}{}{\quad}\text{otherwise}\quad}
+\DeclareDocumentCommand\qotherwisee{s}{\IfBooleanTF{#1}{}{\quad}\text{otherwise}}
 \DeclareDocumentCommand\qunless{s}{\IfBooleanTF{#1}{}{\quad}\text{unless}\quad}
 \DeclareDocumentCommand\qgiven{s}{\IfBooleanTF{#1}{}{\quad}\text{given}\quad}
 \DeclareDocumentCommand\qusing{s}{\IfBooleanTF{#1}{}{\quad}\text{using}\quad}
