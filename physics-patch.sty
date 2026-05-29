@@ -1474,31 +1474,52 @@
 % Quick quad text (math-mode text with \quad spacing)
 \DeclareDocumentCommand\qqtext{ s m }{\IfBooleanTF{#1}{}{\quad}\text{#2}\quad}
 \DeclareDocumentCommand\qq{}{\qqtext}
+\DeclareDocumentCommand\qqtexte{ s m }{\IfBooleanTF{#1}{}{\quad}\text{#2}}
+\DeclareDocumentCommand\qqe{}{\qqtexte}
 
 \DeclareDocumentCommand\qcomma{g}{,\quad\IfNoValueTF{#1}{}{\text{#1}}}
 \DeclareDocumentCommand\qc{}{\qcomma}
 
 \DeclareDocumentCommand\qif{s}{\IfBooleanTF{#1}{}{\quad}\text{if}\quad}
+\DeclareDocumentCommand\qife{s}{\IfBooleanTF{#1}{}{\quad}\text{if}}
 \DeclareDocumentCommand\qthen{s}{\IfBooleanTF{#1}{}{\quad}\text{then}\quad}
+\DeclareDocumentCommand\qthene{s}{\IfBooleanTF{#1}{}{\quad}\text{then}}
 \DeclareDocumentCommand\qelse{s}{\IfBooleanTF{#1}{}{\quad}\text{else}\quad}
+\DeclareDocumentCommand\qelsee{s}{\IfBooleanTF{#1}{}{\quad}\text{else}}
 \DeclareDocumentCommand\qotherwise{s}{\IfBooleanTF{#1}{}{\quad}\text{otherwise}\quad}
 \DeclareDocumentCommand\qotherwisee{s}{\IfBooleanTF{#1}{}{\quad}\text{otherwise}}
 \DeclareDocumentCommand\qunless{s}{\IfBooleanTF{#1}{}{\quad}\text{unless}\quad}
+\DeclareDocumentCommand\qunlesse{s}{\IfBooleanTF{#1}{}{\quad}\text{unless}}
 \DeclareDocumentCommand\qgiven{s}{\IfBooleanTF{#1}{}{\quad}\text{given}\quad}
+\DeclareDocumentCommand\qgivene{s}{\IfBooleanTF{#1}{}{\quad}\text{given}}
 \DeclareDocumentCommand\qusing{s}{\IfBooleanTF{#1}{}{\quad}\text{using}\quad}
+\DeclareDocumentCommand\qusinge{s}{\IfBooleanTF{#1}{}{\quad}\text{using}}
 \DeclareDocumentCommand\qassume{s}{\IfBooleanTF{#1}{}{\quad}\text{assume}\quad}
+\DeclareDocumentCommand\qassumee{s}{\IfBooleanTF{#1}{}{\quad}\text{assume}}
 \DeclareDocumentCommand\qsince{s}{\IfBooleanTF{#1}{}{\quad}\text{since}\quad}
+\DeclareDocumentCommand\qsincee{s}{\IfBooleanTF{#1}{}{\quad}\text{since}}
 \DeclareDocumentCommand\qlet{s}{\IfBooleanTF{#1}{}{\quad}\text{let}\quad}
+\DeclareDocumentCommand\qlete{s}{\IfBooleanTF{#1}{}{\quad}\text{let}}
 \DeclareDocumentCommand\qfor{s}{\IfBooleanTF{#1}{}{\quad}\text{for}\quad}
+\DeclareDocumentCommand\qfore{s}{\IfBooleanTF{#1}{}{\quad}\text{for}}
 \DeclareDocumentCommand\qall{s}{\IfBooleanTF{#1}{}{\quad}\text{all}\quad}
+\DeclareDocumentCommand\qalle{s}{\IfBooleanTF{#1}{}{\quad}\text{all}}
 \DeclareDocumentCommand\qeven{s}{\IfBooleanTF{#1}{}{\quad}\text{even}\quad}
+\DeclareDocumentCommand\qevene{s}{\IfBooleanTF{#1}{}{\quad}\text{even}}
 \DeclareDocumentCommand\qodd{s}{\IfBooleanTF{#1}{}{\quad}\text{odd}\quad}
+\DeclareDocumentCommand\qodde{s}{\IfBooleanTF{#1}{}{\quad}\text{odd}}
 \DeclareDocumentCommand\qinteger{s}{\IfBooleanTF{#1}{}{\quad}\text{integer}\quad}
+\DeclareDocumentCommand\qintegere{s}{\IfBooleanTF{#1}{}{\quad}\text{integer}}
 \DeclareDocumentCommand\qand{s}{\IfBooleanTF{#1}{}{\quad}\text{and}\quad}
+\DeclareDocumentCommand\qande{s}{\IfBooleanTF{#1}{}{\quad}\text{and}}
 \DeclareDocumentCommand\qor{s}{\IfBooleanTF{#1}{}{\quad}\text{or}\quad}
+\DeclareDocumentCommand\qore{s}{\IfBooleanTF{#1}{}{\quad}\text{or}}
 \DeclareDocumentCommand\qas{s}{\IfBooleanTF{#1}{}{\quad}\text{as}\quad}
+\DeclareDocumentCommand\qase{s}{\IfBooleanTF{#1}{}{\quad}\text{as}}
 \DeclareDocumentCommand\qin{s}{\IfBooleanTF{#1}{}{\quad}\text{in}\quad}
+\DeclareDocumentCommand\qine{s}{\IfBooleanTF{#1}{}{\quad}\text{in}}
 \DeclareDocumentCommand\qcc{s}{\IfBooleanTF{#1}{}{\quad}\text{c.c.}\quad}
+\DeclareDocumentCommand\qcce{s}{\IfBooleanTF{#1}{}{\quad}\text{c.c.}}
 
 % Derivatives
 \DeclareDocumentCommand\differential{ o g d() }{ % Differential 'd'
