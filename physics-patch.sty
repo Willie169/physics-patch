@@ -1280,8 +1280,10 @@
   {\fractype{\dfd \IfNoValueTF{#2}{}{^{#2}}}{\dfd #3\IfNoValueTF{#2}{}{^{#2}}}}
   {\fractype{\dfd \IfNoValueTF{#2}{}{^{#2}}}{\dfd #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
   }
+  {
   {\fractype{\dfd \IfNoValueTF{#2}{}{^{#2}} #3}{\dfd #4\IfNoValueTF{#2}{}{^{#2}}}}
   \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+  }
 }
 \DeclareDocumentCommand\PTdv{}{\PTderivative}
 \ifoverride\DeclareDocumentCommand\derivative{}{\PTderivative}\DeclareDocumentCommand\dv{}{\PTderivative}\fi
@@ -1314,8 +1316,10 @@
   {\fractype{\dfD \IfNoValueTF{#2}{}{^{#2}}}{\dfD #3\IfNoValueTF{#2}{}{^{#2}}}}
   {\fractype{\dfD \IfNoValueTF{#2}{}{^{#2}}}{\dfD #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
   }
+  {
   {\fractype{\dfD \IfNoValueTF{#2}{}{^{#2}} #3}{\dfD #4\IfNoValueTF{#2}{}{^{#2}}}}
   \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+  }
 }
 \DeclareDocumentCommand\Dv{}{\Derivative}
 \DeclareDocumentCommand\PTpartialderivative{ s o m g g d() }
