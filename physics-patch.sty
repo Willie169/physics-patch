@@ -1547,12 +1547,13 @@
   {\let\fractype\frac}
   \IfNoValueTF{#4}
   {
-  \IfNoValueTF{#5}
-  {\fractype{\dfd \IfNoValueTF{#2}{}{^{#2}}}{\dfd #3\IfNoValueTF{#2}{}{^{#2}}}}
-  {\fractype{\dfd \IfNoValueTF{#2}{}{^{#2}}}{\dfd #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
+    \fractype{\dfd \IfNoValueTF{#2}{}{^{#2}}}{\dfd #3\IfNoValueTF{#2}{}{^{#2}}}}
+    \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
   }
-  {\fractype{\dfd \IfNoValueTF{#2}{}{^{#2}} #3}{\dfd #4\IfNoValueTF{#2}{}{^{#2}}}}
-  \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+  {
+    \fractype{\dfd \IfNoValueTF{#2}{}{^{#2}} #3}{\dfd #4\IfNoValueTF{#2}{}{^{#2}}}
+    \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+  }
 }
 \DeclareDocumentCommand\dv{}{\derivative}
 \DeclareDocumentCommand\Differential{ o g d() }{ % Uppercase differential 'D'
@@ -1580,12 +1581,13 @@
   {\let\fractype\frac}
   \IfNoValueTF{#4}
   {
-  \IfNoValueTF{#5}
-  {\fractype{\dfD \IfNoValueTF{#2}{}{^{#2}}}{\dfD #3\IfNoValueTF{#2}{}{^{#2}}}}
-  {\fractype{\dfD \IfNoValueTF{#2}{}{^{#2}}}{\dfD #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
+    \fractype{\dfD \IfNoValueTF{#2}{}{^{#2}}}{\dfD #3\IfNoValueTF{#2}{}{^{#2}}}}
+    \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
   }
-  {\fractype{\dfD \IfNoValueTF{#2}{}{^{#2}} #3}{\dfD #4\IfNoValueTF{#2}{}{^{#2}}}}
-  \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+  {
+    \fractype{\dfD \IfNoValueTF{#2}{}{^{#2}} #3}{\dfD #4\IfNoValueTF{#2}{}{^{#2}}}
+    \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+  }
 }
 \DeclareDocumentCommand\Dv{}{\Derivative}
 
@@ -1616,15 +1618,14 @@
   {\let\fractype\frac}
   \IfNoValueTF{#4}
   {
-  \IfNoValueTF{#6}
-  {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}}}
-  {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#6\argclose)}
+    \fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}}
+    \IfNoValueTF{#6}{}{\argopen(#6\argclose)}
   }
   {
-  \IfNoValueTF{#5}
-  {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}} #3}{\partial #4\IfNoValueTF{#2}{}{^{#2}}}}
-  {\fractype{\partial^2 #3}{\partial #4 \partial #5}}
-  \IfNoValueTF{#6}{}{\argopen(#6\argclose)}
+    \IfNoValueTF{#5}
+    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}} #3}{\partial #4\IfNoValueTF{#2}{}{^{#2}}}}
+    {\fractype{\partial^2 #3}{\partial #4 \partial #5}}
+    \IfNoValueTF{#6}{}{\argopen(#6\argclose)}
   }
 }
 \DeclareDocumentCommand\pdv{}{\partialderivative}
