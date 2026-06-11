@@ -951,13 +951,13 @@
 \DeclareDocumentCommand\acomm{}{\anticommutator} % Shorthand for \anticommutator
 
 % Vector notation
-\DeclareDocumentCommand\vectorbold{ s m }{\IfBooleanTF{#1}{\boldsymbol{#2}}{\symbf{#2}}} % Vector bold [star for Greek and italic Roman]
+\DeclareDocumentCommand\vectorbold{ s m }{\IfBooleanTF{#1}{\boldsymbol{#2}}{\mathbf{#2}}} % Vector bold [star for Greek and italic Roman]
 \DeclareDocumentCommand\vb{}{\vectorbold} % Shorthand for \vectorbold
 
-\DeclareDocumentCommand\vectorarrow{ s m }{\IfBooleanTF{#1}{\vec{\boldsymbol{#2}}}{\vec{\symbf{#2}}}} % Vector arrow + bold [star for Greek and italic Roman]
+\DeclareDocumentCommand\vectorarrow{ s m }{\IfBooleanTF{#1}{\vec{\boldsymbol{#2}}}{\vec{\mathbf{#2}}}} % Vector arrow + bold [star for Greek and italic Roman]
 \DeclareDocumentCommand\va{}{\vectorarrow} % Shorthand for \vectorarrow
 
-\DeclareDocumentCommand\vectorunit{ s m }{\IfBooleanTF{#1}{\boldsymbol{\hat{#2}}}{\symbf{\hat{#2}}}} % Unit vector [star for Greek and italic Roman]
+\DeclareDocumentCommand\vectorunit{ s m }{\IfBooleanTF{#1}{\boldsymbol{\hat{#2}}}{\mathbf{\hat{#2}}}} % Unit vector [star for Greek and italic Roman]
 \DeclareDocumentCommand\vu{}{\vectorunit} % Shorthand for \vectorunit
 
 \DeclareDocumentCommand\vdot{}{\dotproduct}
