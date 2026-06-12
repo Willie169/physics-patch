@@ -45,10 +45,9 @@
 \newif\if@binrel\@binreltrue
 \DeclareOption{nobinaryrelation}{\@binrelfalse}
 \DeclareOption{binaryrelation}{\@binreltrue}
-\newif\if@alphabetop
-\newif\if@alphabettrig\@alphabettrigtrue
-\DeclareOption{alphabetop}{\@alphabetoptrue\@alphabettrigfalse}
-\DeclareOption{alphabettrig}{\@alphabettrigtrue\@alphabetopfalse}
+\newif\if@alphabet
+\DeclareOption{alphabet}{\@alphabettrue}
+\DeclareOption{noalphabet}{\@alphabetfalse}
 \newif\if@nicematrix
 \DeclareOption{nonicematrix}{\@nicematrixfalse}
 \DeclareOption{nicematrix}{\@nicematrixtrue}
@@ -1080,50 +1079,14 @@
   }
 }
 
-\DeclareDocumentCommand\trigbraces{ m e{^_} o d() d|| }
+\DeclareDocumentCommand\trigbraces{ m o d() }
 {
-  \IfNoValueTF{#4}
-  {
-    \IfNoValueTF{#5}
-    {
-      \IfNoValueTF{#6}
-      {
-        #1
-        \IfNoValueTF{#2}{}{^{#2}}
-        \IfNoValueTF{#3}{}{_{#3}}
-      }
-      {
-        \fbraces{\lvert}{\rvert}
-        {
-          #1
-          \IfNoValueTF{#2}{}{^{#2}}
-          \IfNoValueTF{#3}{}{_{#3}}
-        }{#6}
-      }
-    }
-    {
-      \fbraces{\lparen}{\rparen}
-      {
-        #1
-        \IfNoValueTF{#2}{}{^{#2}}
-        \IfNoValueTF{#3}{}{_{#3}}
-      }{#5}
-      \IfNoValueTF{#6}{}{|#6|}
-    }
-  }
-  {
-    \fbraces{\lbrack}{\rbrack}
-    {
-      #1
-      \IfNoValueTF{#2}{}{^{#2}}
-      \IfNoValueTF{#3}{}{_{#3}}
-    }{#4}
-    \IfNoValueTF{#5}{}{(#5)}
-    \IfNoValueTF{#6}{}{|#6|}
-  }
+  \IfNoValueTF{#3}
+  {#1 \IfNoValueTF{#2}{}{[#2]}}
+  {#1 \IfNoValueTF{#2}{}{^{#2}} \argopen(#3\argclose)}
 }
 
-\DeclareDocumentCommand\propbraces{ m t' t' t' e{^_} g o d() }
+\DeclareDocumentCommand\prbraces{ m t' t' t' e{^_} g o d() }
 {
   \IfNoValueTF{#7}
   {
@@ -1179,54 +1142,12 @@
   }
 }
 
-\DeclareDocumentCommand\prtrigbraces{ m t' t' t' e{^_} o d() }
-{
-  \IfNoValueTF{#7}
-  {
-    \IfNoValueTF{#8}
-    {
-      #1
-      \IfBooleanT{#2}{'}
-      \IfBooleanT{#3}{'}
-      \IfBooleanT{#4}{'}
-      \IfNoValueTF{#5}{}{^{#5}}
-      \IfNoValueTF{#6}{}{_{#6}}
-    }
-    {
-      \fbraces{\lparen}{\rparen}
-      {
-        #1
-        \IfBooleanT{#2}{'}
-        \IfBooleanT{#3}{'}
-        \IfBooleanT{#4}{'}
-        \IfNoValueTF{#5}{}{^{#5}}
-        \IfNoValueTF{#6}{}{_{#6}}
-      }
-      {#8}
-    }
-  }
-  {
-    \fbraces{\lbrack}{\rbrack}
-    {
-      #1
-      \IfBooleanT{#2}{'}
-      \IfBooleanT{#3}{'}
-      \IfBooleanT{#4}{'}
-      \IfNoValueTF{#5}{}{^{#5}}
-      \IfNoValueTF{#6}{}{_{#6}}
-    }{#7}
-    \IfNoValueTF{#8}{}{(#8)}
-  }
-}
-
 \DeclareDocumentCommand\opqty{m}{\opbraces{\operatorname{#1}}}
 \DeclareDocumentCommand\trigqty{m}{\trigbraces{\operatorname{#1}}}
-\DeclareDocumentCommand\propqty{m}{\propbraces{\operatorname{#1}}}
-\DeclareDocumentCommand\prtrigqty{m}{\prtrigbraces{\operatorname{#1}}}
+\DeclareDocumentCommand\prqty{m}{\prbraces{\operatorname{#1}}}
 \DeclareDocumentCommand\oplimitsqty{m}{\opbraces{\operatornamewithlimits{#1}}}
 \DeclareDocumentCommand\triglimitsqty{m}{\trigbraces{\operatornamewithlimits{#1}}}
-\DeclareDocumentCommand\proplimitsqty{m}{\propbraces{\operatornamewithlimits{#1}}}
-\DeclareDocumentCommand\prtriglimitsqty{m}{\prtrigbraces{\operatornamewithlimits{#1}}}
+\DeclareDocumentCommand\prlimitsqty{m}{\prbraces{\operatornamewithlimits{#1}}}
 
 \ExplSyntaxOn
 \DeclareDocumentCommand\provideop{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#1}}}}
@@ -1237,23 +1158,19 @@
 \DeclareDocumentCommand\declareopqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\opqty{#2}}}
 \DeclareDocumentCommand\providetrigqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\trigqty{#1}}}}
 \DeclareDocumentCommand\declaretrigqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\trigqty{#2}}}
-\DeclareDocumentCommand\providepropqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\propqty{#1}}}}
-\DeclareDocumentCommand\declarepropqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\propqty{#2}}}
-\DeclareDocumentCommand\provideprtrigqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\prtrigqty{#1}}}}
-\DeclareDocumentCommand\declareprtrigqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\prtrigqty{#2}}}
+\DeclareDocumentCommand\provideprqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\prqty{#1}}}}
+\DeclareDocumentCommand\declareprqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatorname{#2}}}\cs_set_protected:cpn{#2}{\prqty{#2}}}
 \DeclareDocumentCommand\provideoplimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\oplimitsqty{#1}}}}
 \DeclareDocumentCommand\declareoplimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\oplimitsqty{#2}}}
 \DeclareDocumentCommand\providetriglimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\triglimitsqty{#1}}}}
 \DeclareDocumentCommand\declaretriglimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\triglimitsqty{#2}}}
-\DeclareDocumentCommand\provideproplimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\proplimitsqty{#1}}}}
-\DeclareDocumentCommand\declareproplimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\proplimitsqty{#2}}}
-\DeclareDocumentCommand\provideprtriglimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\prtriglimitsqty{#1}}}}
-\DeclareDocumentCommand\declareprtriglimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\prtriglimitsqty{#2}}}
+\DeclareDocumentCommand\provideprlimitsqty{m}{\cs_if_exist:cF{#1}{\cs_set_protected:cpn{#1}{\prlimitsqty{#1}}}}
+\DeclareDocumentCommand\declareprlimitsqty{om}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{\operatornamewithlimits{#2}}}\cs_set_protected:cpn{#2}{\prlimitsqty{#2}}}
 \DeclareDocumentCommand\declareopas{mm}{\cs_set_protected:cpn{#1}{#2}}
 \DeclareDocumentCommand\declareopqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\opbraces{#3}}}
 \DeclareDocumentCommand\declaretrigqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\trigbraces{#3}}}
-\DeclareDocumentCommand\declarepropqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\propbraces{#3}}}
-\DeclareDocumentCommand\declareprtrigqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\prtrigbraces{#3}}}
+\DeclareDocumentCommand\declareprqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\prbraces{#3}}}
+
 \ExplSyntaxOff
 
 % Internal commands
@@ -1263,7 +1180,6 @@
 \DeclareDocumentCommand\@declarephysicstriglimits{om}{\IfNoValueTF{#1}{\if@trig\declaretriglimitsqty{#2}\else\declareoplimits{#2}\fi}{\if@trig\declaretriglimitsqty[#1]{#2}\else\declareoplimits{#1}\declareoplimits{#2}\fi}}
 \DeclareDocumentCommand\@declarephysicsopas{omm}{\if@trig\declareopqtyas[#1]{#2}{#3}\else\declareopas{#1}{#3}\declareopas{#2}{#3}\fi}
 \DeclareDocumentCommand\@declarephysicstrigas{omm}{\if@trig\declaretrigqtyas[#1]{#2}{#3}\else\declareopas{#1}{#3}\declareopas{#2}{#3}\fi}
-\DeclareDocumentCommand\@declarephysicsalphabetfunction{mm}{\if@alphabetop\declarepropqtyas{#1}{#2}\fi\if@alphabettrig\declareprtrigqtyas{#1}{#2}\fi}
 
 % Operators
 \@declarephysicstrig[sine]{sin}
@@ -1308,38 +1224,38 @@
 \@declarephysicstrig[archypcotangent]{arccoth}
 \@declarephysicstrig[archypsecant]{arcsech}
 \@declarephysicstrig[archypcosecant]{arccsch}
-\@declarephysicstrig[logarithm]{log}
-\@declarephysicstrig[naturallogarithm]{ln}
-\@declarephysicstrig{Si}
-\@declarephysicstrig{si}
-\@declarephysicstrig{Cin}
-\@declarephysicstrig{Ci}
-\@declarephysicstrig{Shi}
-\@declarephysicstrig{Chi}
-\@declarephysicstrig{sinc}
-\@declarephysicstrig{round}
-\@declarephysicstrig{truncate}
-\@declarephysicstrig{roundhalfup}
-\@declarephysicstrig{roundhalfdown}
-\@declarephysicstrig{roundhalftoeven}
-\@declarephysicstrig{roundhaldtoodd}
-\@declarephysicstrig{SO}
-\@declarephysicstrig{GL}
-\@declarephysicstrig{BV}
-\@declarephysicstrig{ann}
-\@declarephysicstrig{proj}
-\@declarephysicstrig{comp}
-\@declarephysicstrig{diag}
-\@declarephysicstrig{diam}
 
+\@declarephysicsop[logarithm]{log}
+\@declarephysicsop[naturallogarithm]{ln}
 \@declarephysicsop[exponential]{exp}
 \@declarephysicsop[Exponential]{Exp}
 \@declarephysicsop[determinant]{det}
 \@declarephysicsop[Probability]{Pr}
-\@declarephysicsop{Tr}
-\@declarephysicsop{tr}
 \@declarephysicsop[Dimension]{Dim}
 \@declarephysicsop[dimension]{dim}
+\@declarephysicsop{Si}
+\@declarephysicsop{si}
+\@declarephysicsop{Cin}
+\@declarephysicsop{Ci}
+\@declarephysicsop{Shi}
+\@declarephysicsop{Chi}
+\@declarephysicsop{sinc}
+\@declarephysicsop{round}
+\@declarephysicsop{truncate}
+\@declarephysicsop{roundhalfup}
+\@declarephysicsop{roundhalfdown}
+\@declarephysicsop{roundhalftoeven}
+\@declarephysicsop{roundhaldtoodd}
+\@declarephysicsop{SO}
+\@declarephysicsop{GL}
+\@declarephysicsop{BV}
+\@declarephysicsop{ann}
+\@declarephysicsop{proj}
+\@declarephysicsop{comp}
+\@declarephysicsop{diag}
+\@declarephysicsop{diam}
+\@declarephysicsop{Tr}
+\@declarephysicsop{tr}
 \@declarephysicsop{Col}
 \@declarephysicsop{col}
 \@declarephysicsop{Row}
@@ -1433,58 +1349,60 @@
 \@declarephysicsopas{ograd}{\operatorname{grad}}
 
 % Alphabet functions
-\@declarephysicsalphabetfunction{aQty}{\operatorname{a}}
-\@declarephysicsalphabetfunction{bQty}{\operatorname{b}}
-\@declarephysicsalphabetfunction{cQty}{\operatorname{c}}
-\@declarephysicsalphabetfunction{dQty}{\operatorname{d}}
-\@declarephysicsalphabetfunction{eQty}{\operatorname{e}}
-\@declarephysicsalphabetfunction{fQty}{\operatorname{f}}
-\@declarephysicsalphabetfunction{gQty}{\operatorname{g}}
-\@declarephysicsalphabetfunction{hQty}{\operatorname{h}}
-\@declarephysicsalphabetfunction{iQty}{\operatorname{i}}
-\@declarephysicsalphabetfunction{jQty}{\operatorname{j}}
-\@declarephysicsalphabetfunction{kQty}{\operatorname{k}}
-\@declarephysicsalphabetfunction{lQty}{\operatorname{l}}
-\@declarephysicsalphabetfunction{mQty}{\operatorname{m}}
-\@declarephysicsalphabetfunction{nQty}{\operatorname{n}}
-\@declarephysicsalphabetfunction{oQty}{\operatorname{o}}
-\@declarephysicsalphabetfunction{pQty}{\operatorname{p}}
-\@declarephysicsalphabetfunction{qQty}{\operatorname{q}}
-\@declarephysicsalphabetfunction{rQty}{\operatorname{r}}
-\@declarephysicsalphabetfunction{sQty}{\operatorname{s}}
-\@declarephysicsalphabetfunction{tQty}{\operatorname{t}}
-\@declarephysicsalphabetfunction{uQty}{\operatorname{u}}
-\@declarephysicsalphabetfunction{vQty}{\operatorname{v}}
-\@declarephysicsalphabetfunction{wQty}{\operatorname{w}}
-\@declarephysicsalphabetfunction{xQty}{\operatorname{x}}
-\@declarephysicsalphabetfunction{yQty}{\operatorname{y}}
-\@declarephysicsalphabetfunction{zQty}{\operatorname{z}}
-\@declarephysicsalphabetfunction{AQty}{\operatorname{A}}
-\@declarephysicsalphabetfunction{BQty}{\operatorname{B}}
-\@declarephysicsalphabetfunction{CQty}{\operatorname{C}}
-\@declarephysicsalphabetfunction{DQty}{\operatorname{D}}
-\@declarephysicsalphabetfunction{EQty}{\operatorname{E}}
-\@declarephysicsalphabetfunction{FQty}{\operatorname{F}}
-\@declarephysicsalphabetfunction{GQty}{\operatorname{G}}
-\@declarephysicsalphabetfunction{HQty}{\operatorname{H}}
-\@declarephysicsalphabetfunction{IQty}{\operatorname{I}}
-\@declarephysicsalphabetfunction{JQty}{\operatorname{J}}
-\@declarephysicsalphabetfunction{KQty}{\operatorname{K}}
-\@declarephysicsalphabetfunction{LQty}{\operatorname{L}}
-\@declarephysicsalphabetfunction{MQty}{\operatorname{M}}
-\@declarephysicsalphabetfunction{NQty}{\operatorname{N}}
-\@declarephysicsalphabetfunction{OQty}{\operatorname{O}}
-\@declarephysicsalphabetfunction{PQty}{\operatorname{P}}
-\@declarephysicsalphabetfunction{QQty}{\operatorname{Q}}
-\@declarephysicsalphabetfunction{RQty}{\operatorname{R}}
-\@declarephysicsalphabetfunction{SQty}{\operatorname{S}}
-\@declarephysicsalphabetfunction{TQty}{\operatorname{T}}
-\@declarephysicsalphabetfunction{UQty}{\operatorname{U}}
-\@declarephysicsalphabetfunction{VQty}{\operatorname{V}}
-\@declarephysicsalphabetfunction{WQty}{\operatorname{W}}
-\@declarephysicsalphabetfunction{XQty}{\operatorname{X}}
-\@declarephysicsalphabetfunction{YQty}{\operatorname{Y}}
-\@declarephysicsalphabetfunction{ZQty}{\operatorname{Z}}
+\if@alphabet
+\@declareprqtyas{aQty}{\operatorname{a}}
+\@declareprqtyas{bQty}{\operatorname{b}}
+\@declareprqtyas{cQty}{\operatorname{c}}
+\@declareprqtyas{dQty}{\operatorname{d}}
+\@declareprqtyas{eQty}{\operatorname{e}}
+\@declareprqtyas{fQty}{\operatorname{f}}
+\@declareprqtyas{gQty}{\operatorname{g}}
+\@declareprqtyas{hQty}{\operatorname{h}}
+\@declareprqtyas{iQty}{\operatorname{i}}
+\@declareprqtyas{jQty}{\operatorname{j}}
+\@declareprqtyas{kQty}{\operatorname{k}}
+\@declareprqtyas{lQty}{\operatorname{l}}
+\@declareprqtyas{mQty}{\operatorname{m}}
+\@declareprqtyas{nQty}{\operatorname{n}}
+\@declareprqtyas{oQty}{\operatorname{o}}
+\@declareprqtyas{pQty}{\operatorname{p}}
+\@declareprqtyas{qQty}{\operatorname{q}}
+\@declareprqtyas{rQty}{\operatorname{r}}
+\@declareprqtyas{sQty}{\operatorname{s}}
+\@declareprqtyas{tQty}{\operatorname{t}}
+\@declareprqtyas{uQty}{\operatorname{u}}
+\@declareprqtyas{vQty}{\operatorname{v}}
+\@declareprqtyas{wQty}{\operatorname{w}}
+\@declareprqtyas{xQty}{\operatorname{x}}
+\@declareprqtyas{yQty}{\operatorname{y}}
+\@declareprqtyas{zQty}{\operatorname{z}}
+\@declareprqtyas{AQty}{\operatorname{A}}
+\@declareprqtyas{BQty}{\operatorname{B}}
+\@declareprqtyas{CQty}{\operatorname{C}}
+\@declareprqtyas{DQty}{\operatorname{D}}
+\@declareprqtyas{EQty}{\operatorname{E}}
+\@declareprqtyas{FQty}{\operatorname{F}}
+\@declareprqtyas{GQty}{\operatorname{G}}
+\@declareprqtyas{HQty}{\operatorname{H}}
+\@declareprqtyas{IQty}{\operatorname{I}}
+\@declareprqtyas{JQty}{\operatorname{J}}
+\@declareprqtyas{KQty}{\operatorname{K}}
+\@declareprqtyas{LQty}{\operatorname{L}}
+\@declareprqtyas{MQty}{\operatorname{M}}
+\@declareprqtyas{NQty}{\operatorname{N}}
+\@declareprqtyas{OQty}{\operatorname{O}}
+\@declareprqtyas{PQty}{\operatorname{P}}
+\@declareprqtyas{QQty}{\operatorname{Q}}
+\@declareprqtyas{RQty}{\operatorname{R}}
+\@declareprqtyas{SQty}{\operatorname{S}}
+\@declareprqtyas{TQty}{\operatorname{T}}
+\@declareprqtyas{UQty}{\operatorname{U}}
+\@declareprqtyas{VQty}{\operatorname{V}}
+\@declareprqtyas{WQty}{\operatorname{W}}
+\@declareprqtyas{XQty}{\operatorname{X}}
+\@declareprqtyas{YQty}{\operatorname{Y}}
+\@declareprqtyas{ZQty}{\operatorname{Z}}
+\fi
 
 % Quick quad text (math-mode text with \quad spacing)
 \DeclareDocumentCommand\qqtext{ s m }{\IfBooleanTF{#1}{}{\quad}\text{#2}\quad}
