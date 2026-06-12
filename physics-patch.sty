@@ -1092,11 +1092,16 @@
     #1
     \IfNoValueTF{#2}{
       \IfNoValueTF{#3}{}{^{#3}}
+      \argopen(#4\argclose)
     }{
       ^{#2}
-      \IfNoValueTF{#3}{}{[#3]}
+      \IfNoValueTF{#3}{
+        \argopen(#4\argclose)
+      }{
+        [#3]
+        (#4)
+      }
     }
-    \argopen(#4\argclose)
   }
 }
 
