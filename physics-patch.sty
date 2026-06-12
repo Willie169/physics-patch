@@ -178,6 +178,7 @@
 \DeclareDocumentCommand{\grande}{}{\cbox{cyan}{\phantom{\frac{1}{xx}}}}
 \DeclareDocumentCommand{\venti}{}{\cbox{cyan}{\phantom{\sum_x^x}}}
 \DeclareDocumentCommand\Vtextvisiblespace{O{.3em}}{\mbox{\kern.06em\vrule height.3ex}\vbox{\hrule width#1}\hbox{\vrule height.3ex}}
+\DeclareDocumentCommand\ordersymbol{}{\mathcal{O}} % Order symbol --> O(x^2)
 \DeclareDocumentCommand{\parallelsum}{}{\mathbin{\!/\mkern-5mu/\!}}
 \DeclareDocumentCommand{\Bell}{}{\char"1F514}
 \DeclareDocumentCommand{\bell}{}{\boldsymbol{\ell}}
@@ -1079,11 +1080,24 @@
   }
 }
 
-\DeclareDocumentCommand\trigbraces{ m o d() }
+\DeclareDocumentCommand\trigbraces{ m e{^} o d() }
 {
-  \IfNoValueTF{#3}
-  {#1 \IfNoValueTF{#2}{}{[#2]}}
-  {#1 \IfNoValueTF{#2}{}{^{#2}} \argopen(#3\argclose)}
+  \IfNoValueTF{#4}
+  {
+    #1
+    \IfNoValueTF{#2}{}{^{#2}}
+    \IfNoValueTF{#3}{}{[#3]}
+  }
+  {
+    #1
+    \IfNoValueTF{#2}{
+      \IfNoValueTF{#3}{}{^{#3}}
+    }{
+      ^{#2}
+      \IfNoValueTF{#3}{}{[#3]}
+    }
+    \argopen(#4\argclose)
+  }
 }
 
 \DeclareDocumentCommand\prbraces{ m t' t' t' e{^_} g o d() }
@@ -1170,7 +1184,6 @@
 \DeclareDocumentCommand\declareopqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\opbraces{#3}}}
 \DeclareDocumentCommand\declaretrigqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\trigbraces{#3}}}
 \DeclareDocumentCommand\declareprqtyas{omm}{\IfNoValueF{#1}{\cs_set_protected:cpn{#1}{#3}}\cs_set_protected:cpn{#2}{\prbraces{#3}}}
-
 \ExplSyntaxOff
 
 % Internal commands
@@ -1336,7 +1349,6 @@
 
 \@declarephysicsopas[atangenttwo]{atantwo}{\operatorname{atan2}}
 \@declarephysicsopas[arctangenttwo]{arctantwo}{\operatorname{arctan2}}
-\@declarephysicsopas{ordersymbol}{\mathcal{O}}
 
 \let\originalRe\Re
 \@declarephysicsopas[real]{Re}{\originalRe}
@@ -1347,6 +1359,36 @@
 \@declarephysicsopas{odiv}{\operatorname{div}}
 \@declarephysicsopas{ocurl}{\operatorname{curl}}
 \@declarephysicsopas{ograd}{\operatorname{grad}}
+
+% Shortmathcal
+\if@shortmathcal
+\declareprqtyas{calA}{\mathcal{A}}
+\declareprqtyas{calB}{\mathcal{B}}
+\declareprqtyas{calC}{\mathcal{C}}
+\declareprqtyas{calD}{\mathcal{D}}
+\declareprqtyas{calE}{\mathcal{E}}
+\declareprqtyas{calF}{\mathcal{F}}
+\declareprqtyas{calG}{\mathcal{G}}
+\declareprqtyas{calH}{\mathcal{H}}
+\declareprqtyas{calI}{\mathcal{I}}
+\declareprqtyas{calJ}{\mathcal{J}}
+\declareprqtyas{calK}{\mathcal{K}}
+\declareprqtyas{calL}{\mathcal{L}}
+\declareprqtyas{calM}{\mathcal{M}}
+\declareprqtyas{calN}{\mathcal{N}}
+\declareprqtyas{calO}{\mathcal{O}}
+\declareprqtyas{calP}{\mathcal{P}}
+\declareprqtyas{calQ}{\mathcal{Q}}
+\declareprqtyas{calR}{\mathcal{R}}
+\declareprqtyas{calS}{\mathcal{S}}
+\declareprqtyas{calT}{\mathcal{T}}
+\declareprqtyas{calU}{\mathcal{U}}
+\declareprqtyas{calV}{\mathcal{V}}
+\declareprqtyas{calW}{\mathcal{W}}
+\declareprqtyas{calX}{\mathcal{X}}
+\declareprqtyas{calY}{\mathcal{Y}}
+\declareprqtyas{calZ}{\mathcal{Z}}
+\fi
 
 % Alphabet functions
 \if@alphabet
@@ -2392,36 +2434,6 @@
 \DeclareDocumentCommand{\bbX}{e{_^}}{\ensuremath{\mathbb{X}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
 \DeclareDocumentCommand{\bbY}{e{_^}}{\ensuremath{\mathbb{Y}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
 \DeclareDocumentCommand{\bbZ}{e{_^}}{\ensuremath{\mathbb{Z}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\fi
-
-% Shortmathcal
-\if@shortmathcal
-\DeclareDocumentCommand{\calA}{e{_^}}{\ensuremath{\mathcal{A}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calB}{e{_^}}{\ensuremath{\mathcal{B}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calC}{e{_^}}{\ensuremath{\mathcal{C}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calD}{e{_^}}{\ensuremath{\mathcal{D}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calE}{e{_^}}{\ensuremath{\mathcal{E}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calF}{e{_^}}{\ensuremath{\mathcal{F}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calG}{e{_^}}{\ensuremath{\mathcal{G}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calH}{e{_^}}{\ensuremath{\mathcal{H}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calI}{e{_^}}{\ensuremath{\mathcal{I}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calJ}{e{_^}}{\ensuremath{\mathcal{J}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calK}{e{_^}}{\ensuremath{\mathcal{K}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calL}{e{_^}}{\ensuremath{\mathcal{L}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calM}{e{_^}}{\ensuremath{\mathcal{M}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calN}{e{_^}}{\ensuremath{\mathcal{N}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calO}{e{_^}}{\ensuremath{\mathcal{O}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calP}{e{_^}}{\ensuremath{\mathcal{P}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calQ}{e{_^}}{\ensuremath{\mathcal{Q}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calR}{e{_^}}{\ensuremath{\mathcal{R}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calS}{e{_^}}{\ensuremath{\mathcal{S}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calT}{e{_^}}{\ensuremath{\mathcal{T}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calU}{e{_^}}{\ensuremath{\mathcal{U}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calV}{e{_^}}{\ensuremath{\mathcal{V}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calW}{e{_^}}{\ensuremath{\mathcal{W}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calX}{e{_^}}{\ensuremath{\mathcal{X}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calY}{e{_^}}{\ensuremath{\mathcal{Y}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\calZ}{e{_^}}{\ensuremath{\mathcal{Z}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
 \fi
 
 % Shortmathscr
