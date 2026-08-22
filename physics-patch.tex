@@ -48,14 +48,16 @@ breakatwhitespace=false
 }
 \title{The \texttt{physics-patch} package\\\mbox{}\\\textnormal{\large Improved version of the physics package}}
 \author{\mbox{}\\Willie Shen (Willie169)}
-\date{Version 4.0\\\textnormal{Last update: Mar 30, 2025}}
+\date{Version 4.0}
 \begin{document}
 \onehalfspacing\thispagestyle{empty}\Needspace{1\textheight}\maketitle\setcounter{page}{1}\Needspace{1\textheight}\tableofcontents\Needspace{1\textheight}\setcounter{page}{1}
 \section{Preface}
-Since version 2.0, the \texttt{physics-patch} package has evolved from merely patching the \texttt{physics} package to fully replacing it. While preserving the original goal—simplifying mathematical and physics typesetting for greater readability and efficiency—this package refines the design by addressing unintuitive behaviors, extending commands, and introducing additional macros. For instance, in the original package, parentheses and their contents after \verb|\dv{f}{x}| are ignored. This package also extends commands for broader applicability such as enabling \verb|\xmat| to support ellipses and introducing entirely new macros such as \verb|\omat|.
+Since version 2.0, the \texttt{physics-patch} package has evolved from a collection of patches for the \texttt{physics} package into a complete replacement for it. While retaining the original goal of simplifying mathematical and physics typesetting for improved readability and efficiency, this package refines the design by addressing unintuitive behavior, extending existing commands, and introducing new commands. For example, parentheses and their contents following \verb|\dv{f}{x}| are ignored in the original package and fixed in this package, ellipses supported are added to \verb|\xmat| now supports, and new command \verb|\omat| is introduced.
+
+Version 4.0 introduces substantial improvements across the package, including new features, enhancements to existing functionality, and numerous bug fixes. However, it also introduces several backward-incompatible changes. For example, the \texttt{nooverride}, \texttt{nopretend}, and \verb|siintegrate| options have been removed, and unintuitive behaviors of \texttt{flatfrac}, derivative commands, and some operators have been fixed.
 \section{Usage}
 \subsection{Required Packages}
-The \texttt{physics-patch} package requires \texttt{amsmath}, \texttt{etoolbox}, \texttt{xcolor}, \texttt{xparse}, and \texttt{xstring} package, and, If the option \texttt{nicematrix} is used, \texttt{nicematrix} package.
+The \texttt{physics-patch} package requires \texttt{amsmath}, \texttt{etoolbox}, \texttt{stmaryrd}, \texttt{xcolor}, \texttt{xparse}, and \texttt{xstring} package, and, if the option \texttt{nicematrix} is used, \texttt{nicematrix} package.
 
 If you are unsure whether you've had them installed, you can either install it again using your local package manager (comes with most distributions) or by visiting the \href{http://www.ctan.org}{CTAN} online package database, or even just try to use \texttt{physics-patch} package without worrying about it. Many modern \LaTeX compilers will locate and offer to download missing required packages for you.
 \subsection{Using \texttt{physics-patch} in Your \LaTeX~Document}
@@ -63,11 +65,11 @@ To use \texttt{physics-patch} in your \LaTeX~document, simply insert \verb|\usep
 
 This package will silently override the commands that have been defined before this package is loaded.
 
-This package pretends that \texttt{physics} is loaded so that this package won't be overriden if loading \texttt{physics} is called afterward and that packages that depend on \texttt{physics} work correctly.
+This package pretends that \texttt{physics} is loaded to ensure that this package won't be overridden if loading \texttt{physics} is called afterward and that packages that depend on \texttt{physics} work correctly.
 \subsection{Options}
 Options available in this package include:
 \begin{itemize}
-\item \verb|nooriginaldiv|: Let \verb|\div| be \verb|\divergence|. (not recommended)
+\item \verb|nooriginaldiv|: Let \verb|\div| be \verb|\divergence|.
 \item \verb|originaldiv|: Let \verb|\div| be division symbol. (default)
 \item \verb|notrig|: Not define operators with automatic bracing.
 \item \verb|trig|: Define operators with automatic bracing. (default)
@@ -80,35 +82,35 @@ Options available in this package include:
 \item \verb|spaceflatfrac|: Define \verb|\flatfrac| as flat fraction with resizable slash with extra space.
 \item \verb|noresizeflatfrac|: Define \verb|\flatfrac| as flat fraction with non-resizable slash without extra space.
 \item \verb|defaultflatfrac|: Define \verb|\flatfrac| as flat fraction with resizable slash without extra space. (default)
-\item \verb|nobinaryrelation|: Not define shorthands for binary relations.
-\item \verb|binaryrelation|: Define shorthands for binary relations. (default)
+\item \verb|nobinaryrelation|: Not define abbreviations for binary relations.
+\item \verb|binaryrelation|: Define abbreviations for binary relations. (default)
 \item \verb|alphabettrig|: Define alphabet operators with automatic bracing without curly brackets support. (default)
 \item \verb|alphabetop|: Define alphabet operators with automatic bracing with curly brackets support.
-\item \verb|nonicematrix|: Not define matrix macros for nicematrix.
-\item \verb|nicematrix|: Define matrix macros for nicematrix. (default)
+\item \verb|nonicematrix|: Not define matrix commands for \texttt{nicematrix}.
+\item \verb|nicematrix|: Define matrix commands for \texttt{nicematrix}. (default)
 \item \verb|forcedefault|: Override the options above to their default ones.
-\item \verb|noshorttextgreek|: Not define shorthands for text Greek alphabet. (default)
-\item \verb|shorttextgreek|: Define shorthands for text Greek alphabet.
-\item \verb|noshortvargreek|: Not define shorthands for variant Greek alphabet. (default)
-\item \verb|shortvargreek|: Define shorthands for variant Greek alphabet.
-\item \verb|noshortupgreek|: Not define shorthands for upright Greek alphabet. (default)
-\item \verb|shortupgreek|: Define shorthands for upright Greek alphabet.
-\item \verb|noshortupvargreek|: Not define shorthands for upright variant Greek alphabet. (default)
-\item \verb|shortupvargreek|: Define shorthands for upright variant Greek alphabet.
-\item \verb|noshortboldgreek|: Not define shorthands for bold Greek alphabet. (default)
-\item \verb|shortboldgreek|: Define shorthands for bold Greek alphabet.
-\item \verb|noshortgreek|: Not define all shorthands for Greek alphabet. (default)
-\item \verb|shortgreek|: Define all shorthands for Greek alphabet.
-\item \verb|noshortmathrm|: Not define shorthands for mathrm alphabet and chemical element symbols. (default)
-\item \verb|shortmathrm|: Define shorthands for mathrm alphabet and chemical element symbols.
-\item \verb|noshorttext|: Not define shorthands for normal text alphabet. (default)
-\item \verb|shorttext|: Define shorthands for normal text alphabet.
-\item \verb|noshorttextbf|: Not define shorthands for bold text alphabet. (default)
-\item \verb|shorttextbf|: Define shorthands for bold text alphabet.
-\item \verb|noshorttextit|: Not define shorthands for italic text alphabet. (default)
-\item \verb|shorttextit|: Define shorthands for italic text alphabet.
-\item \verb|noshorttexttt|: Not define shorthands for monospaced text alphabet. (default)
-\item \verb|shorttexttt|: Define shorthands for monospaced text alphabet.
+\item \verb|noshorttextgreek|: Not define abbreviations for text Greek alphabet. (default)
+\item \verb|shorttextgreek|: Define abbreviations for text Greek alphabet.
+\item \verb|noshortvargreek|: Not define abbreviations for variant Greek alphabet. (default)
+\item \verb|shortvargreek|: Define abbreviations for variant Greek alphabet.
+\item \verb|noshortupgreek|: Not define abbreviations for upright Greek alphabet. (default)
+\item \verb|shortupgreek|: Define abbreviations for upright Greek alphabet.
+\item \verb|noshortupvargreek|: Not define abbreviations for upright variant Greek alphabet. (default)
+\item \verb|shortupvargreek|: Define abbreviations for upright variant Greek alphabet.
+\item \verb|noshortboldgreek|: Not define abbreviations for bold Greek alphabet. (default)
+\item \verb|shortboldgreek|: Define abbreviations for bold Greek alphabet.
+\item \verb|noshortgreek|: Not define any of the above abbreviations for Greek alphabet. (default)
+\item \verb|shortgreek|: Define all of the above abbreviations for Greek alphabet.
+\item \verb|noshortmathrm|: Not define abbreviations for mathrm alphabet and chemical element symbols. (default)
+\item \verb|shortmathrm|: Define abbreviations for mathrm alphabet and chemical element symbols.
+\item \verb|noshorttext|: Not define abbreviations for normal text alphabet. (default)
+\item \verb|shorttext|: Define abbreviations for normal text alphabet.
+\item \verb|noshorttextbf|: Not define abbreviations for bold text alphabet. (default)
+\item \verb|shorttextbf|: Define abbreviations for bold text alphabet.
+\item \verb|noshorttextit|: Not define abbreviations for italic text alphabet. (default)
+\item \verb|shorttextit|: Define abbreviations for italic text alphabet.
+\item \verb|noshorttexttt|: Not define abbreviations for monospaced text alphabet. (default)
+\item \verb|shorttexttt|: Define abbreviations for monospaced text alphabet.
 \item \verb|forcedefaultall|: Same as \verb|forcedefault|, \verb|shortgreek|, \verb|shortmathrm|, \verb|shorttext|, \verb|shorttextbf|, \verb|shorttextit|, and \verb|shorttexttt| together.
 \end{itemize}
 \section{Communication Channels}
@@ -131,7 +133,7 @@ See \href{https://ctan.org/pkg/physics}{https://ctan.org/pkg/physics} for the de
 See \href{https://ctan.org/pkg/amsmath}{https://ctan.org/pkg/amsmath} for the details of that package.
 \end{itemize}
 \section{List of Commands}
-In the commands listed below, the left column is long-form names (if any), the middle column is default shorthand commands with examples, and the right column is explanations.
+In the commands listed below, the left column is long-form names (if any), the middle column is default abbreviation commands with examples, and the right column is explanations.
 \subsection{Bracing}
 Null delimiter without extra spaces:
 {\fontsize{8pt}{12pt}\selectfont
@@ -262,7 +264,7 @@ Auto Resizable Bracing:
 Mb move to flatfrac there with invfrs
 add qtfr
 
-\verb|\pqtfr| & \verb|\pqtfr{A}{B}| $\leftrightarrow$ \verb|\pqty{\frac{A}{B}}| & Shorthands for fraction with bracing \\
+\verb|\pqtfr| & \verb|\pqtfr{A}{B}| $\leftrightarrow$ \verb|\pqty{\frac{A}{B}}| & abbreviations for fraction with bracing \\
 \verb|\bqtfr| & \verb|\bqtfr{A}{B}| $\leftrightarrow$ \verb|\bqty{\frac{A}{B}}| & \\
 \verb|\Bqtfr| & \verb|\Bqtfr{A}{B}| $\leftrightarrow$ \verb|\Bqty{\frac{A}{B}}| & \\
 \verb|\vqtfr| & \verb|\absfr{A}{B}| $\leftrightarrow$ \verb|\absfr{\frac{A}{B}}| & \\
@@ -280,7 +282,7 @@ The default del symbol $\vnabla$ used in \texttt{physics-patch} vector notation 
 & \verb|\vu*{a}|, \verb|\vu*{\theta}| $\rightarrow \vu*{a}$, $\vu*{\theta}$ & italic/Greek \\\hline
 \verb|\dotproduct| & \verb|\vdot| $\rightarrow \vdot$ as in $\vb{a} \vdot \vb{b}$ & note: \verb|\dp| is a protected \TeX\ primitive \\\hline
 \verb|\crossproduct| & \verb|\cross| $\rightarrow \cross$ as in $\vb{a} \cross \vb{b}$ & alternate name \\
-& \verb|\cp| $\rightarrow \cp$ as in $\vb{a} \cp \vb{b}$ & shorthand name \\\hline
+& \verb|\cp| $\rightarrow \cp$ as in $\vb{a} \cp \vb{b}$ & abbreviation name \\\hline
 \verb|\gradient| & \verb|\grad| $\rightarrow \grad$ & \\
 & \verb|\grad{\Psi}| $\rightarrow \grad{\Psi}$ & default mode \\
 & \verb|\grad(\Psi+\tall)| $\rightarrow \grad(\Psi+\tall)$ & long-form (like \verb|\qty| but also handles spacing) \\
@@ -401,7 +403,7 @@ General text:
 & \verb|\qq{word or phrase}| $\rightarrow$\Vtextvisiblespace[1em]$\text{word or phrase}$\Vtextvisiblespace[1em] & normal mode; left and right \verb|\quad| \\
 & \verb|\qq*{word or phrase}| $\rightarrow \text{word or phrase}$\Vtextvisiblespace[1em] & starred mode; right \verb|\quad| only\\\hline
 \end{longtable}
-Special macros:
+Special commands:
 \begin{longtable}[c]{|l|l|}
 \hline
 \verb|\qcomma| or \verb|\qc| $\rightarrow ,$\Vtextvisiblespace[1em] & right \verb|\quad| only \\\hline
@@ -458,7 +460,7 @@ and can be switched to:
 & \verb|\Dv{x}(\grande)| $\rightarrow \Dv{x}(\grande)$ & long-form; automatic braces, spacing \\
 & \verb|\Dv*{f}{x}| $\rightarrow \Dv*{f}{x}$ & inline form using \verb|\flatfrac| \\\hline
 \verb|\partialderivative| or \verb|\pderivative| & \verb|\dv{f}{x}(\grande)| $\rightarrow \dv{f}{x}(\grande)$ & note: in original \texttt{physics} package, \verb|\dv{f}{x}(\grande)| $\rightarrow \dv{f}{x}$\\
-& \verb|\pdv{x}| $\rightarrow \pdv{x}$ & shorthand name \\
+& \verb|\pdv{x}| $\rightarrow \pdv{x}$ & abbreviation name \\
 & \verb|\pdv{f}{x}| $\rightarrow \pdv{f}{x}$ & two arguments \\
 & \verb|\pdv[n]{f}{x}| $\rightarrow \pdv[n]{f}{x}$ & optional power \\
 & \verb|\pdv{x}(\grande)| $\rightarrow \pdv{x}(\grande)$ & long-form \\
@@ -473,11 +475,11 @@ and can be switched to:
 & \verb|\fdv*{F}{x}| $\rightarrow \fdv*{F}{x}$ & inline form using \verb|\flatfrac| \\\hline
 \end{longtable}
 \subsection{Dirac Bra-Ket Notation}
-The following collection of macros for Dirac notation contains two fundamental commands, \verb|\bra| and \verb|\ket|, along with a set of more specialized macros which are essentially combinations of the fundamental pair. The fundamental commands are designed to contract with one another algebraically when appropriate and are thus suggested for general use. For instance, the following code renders correctly\footnote{Note the lack of a space between the bra and ket commands. This is necessary in order for the bra to find the corresponding ket and form a contraction.}
+The following collection of commands for Dirac notation contains two fundamental commands, \verb|\bra| and \verb|\ket|, along with a set of more specialized commands which are essentially combinations of the fundamental pair. The fundamental commands are designed to contract with one another algebraically when appropriate and are thus suggested for general use. For instance, the following code renders correctly\footnote{Note the lack of a space between the bra and ket commands. This is necessary in order for the bra to find the corresponding ket and form a contraction.}
 \begin{displaymath}
 \verb|\bra{\phi}\ket{\psi}| \rightarrow \bra{\phi}\ket{\psi} \qq{as opposed to} \bra{\phi} \ket{\psi}
 \end{displaymath}
-whereas a similar construction with higher-level macros will not contract in a robust manner
+whereas a similar construction with higher-level commands will not contract in a robust manner
 \begin{displaymath}
 \verb|\bra{\phi}\dyad{\psi}{\xi}| \rightarrow \bra{\phi}\dyad{\psi}{\xi}.
 \end{displaymath}
@@ -485,7 +487,7 @@ On the other hand, the correct output can be generated by sticking to the fundam
 \begin{displaymath}
 \verb|\bra{\phi}\ket{\psi}\bra{\xi}| \rightarrow \bra{\phi}\ket{\psi}\bra{\xi}
 \end{displaymath}
-allowing the user to type out complicated quantum mechanical expressions without worrying about bra-ket contractions. That being said, the high-level macros do have a place in convenience and readability, as long as the user is aware of rendering issues that may arise due to an absence of automatic contractions.
+allowing the user to type out complicated quantum mechanical expressions without worrying about bra-ket contractions. That being said, the high-level commands do have a place in convenience and readability, as long as the user is aware of rendering issues that may arise due to an absence of automatic contractions.
 \begin{longtable}[c]{|L{0.25\textwidth}|L{0.35\textwidth}|L{0.3\textwidth}|}
 \hline
 \verb|\ket| & \verb|\ket{\tall}| $\rightarrow \ket{\tall}$ & automatic sizing \\
@@ -501,27 +503,27 @@ allowing the user to type out complicated quantum mechanical expressions without
 & \verb|\braket{a}| $\rightarrow \braket{a}$ & one-argument (norm) \\
 & \verb|\braket{a}{\tall}| $\rightarrow \braket{a}{\tall}$ & automatic sizing \\
 & \verb|\braket*{a}{\tall}| $\rightarrow \braket*{a}{\tall}$ & no resize \\
-& \verb|\ip{a}{b}| $\rightarrow \ip{a}{b}$ & shorthand name \\\hline
+& \verb|\ip{a}{b}| $\rightarrow \ip{a}{b}$ & abbreviation name \\\hline
 \verb|\outerproduct| & \verb|\dyad{a}{b}| $\rightarrow \dyad{a}{b}$ & two-argument dyad \\
 & \verb|\dyad{a}| $\rightarrow \dyad{a}$ & one-argument (projector) \\
 & \verb|\dyad{a}{\tall}| $\rightarrow \dyad{a}{\tall}$ & automatic sizing \\
 & \verb|\dyad*{a}{\tall}| $\rightarrow \dyad*{a}{\tall}$ & no resize \\
 & \verb|\ketbra{a}{b}| $\rightarrow \ketbra{a}{b}$ & alternative name \\
-& \verb|\op{a}{b}| $\rightarrow \op{a}{b}$ & shorthand name \\\hline
+& \verb|\op{a}{b}| $\rightarrow \op{a}{b}$ & abbreviation name \\\hline
 \verb|\expectationvalue| & \verb|\expval{A}| $\rightarrow \expval{A}$ & implicit form \\
 & \verb|\expval{A}{\Psi}| $\rightarrow \expval{A}{\Psi}$ & explicit form \\
-& \verb|\ev{A}{\Psi}| $\rightarrow \ev{A}{\Psi}$ & shorthand name \\
+& \verb|\ev{A}{\Psi}| $\rightarrow \ev{A}{\Psi}$ & abbreviation name \\
 & \verb|\ev{\grande}{\Psi}| $\rightarrow \ev{\grande}{\Psi}$ & default sizing ignores middle argument \\
 & \verb|\ev*{\grande}{\tall}| $\rightarrow \ev*{\grande}{\tall}$ & single star does no resizing whatsoever \\
 & \verb|\ev**{\grande}{\Psi}| $\rightarrow \ev**{\grande}{\Psi}$ & double star resizes based on all parts \\\hline
 \verb|\matrixelement| & \verb|\matrixel{n}{A}{m}| $\rightarrow \matrixel{n}{A}{m}$ & requires all three arguments \\
-& \verb|\mel{n}{A}{m}| $\rightarrow \mel{n}{A}{m}$ & shorthand name \\
+& \verb|\mel{n}{A}{m}| $\rightarrow \mel{n}{A}{m}$ & abbreviation name \\
 & \verb|\mel{n}{\grande}{m}| $\rightarrow \mel{n}{\grande}{m}$ & default sizing ignores middle argument \\
 & \verb|\mel*{n}{\grande}{\tall}| $\rightarrow \mel*{n}{\grande}{\tall}$ & single star does no resizing whatsoever \\
 & \verb|\mel**{n}{\grande}{m}| $\rightarrow \mel**{n}{\grande}{m}$ & double star resizes based on all parts \\\hline
 \end{longtable}
-\subsection{Matrix Macros}
-The following matrix macros produce unformatted rows and columns of matrix elements for use as separate matrices as well as blocks within larger matrices. For example, the command \verb|\identitymatrix{2}| which has also has the shortcut \verb|\imat{2}| produces the elements of a $2 \times 2$ identity matrix $\smqty{\imat{2}}$ without braces or grouping. This allows the command to also be used within another matrix, as in:
+\subsection{Matrix commands}
+The following matrix commands produce unformatted rows and columns of matrix elements for use as separate matrices as well as blocks within larger matrices. For example, the command \verb|\identitymatrix{2}| which has also has the shortcut \verb|\imat{2}| produces the elements of a $2 \times 2$ identity matrix $\smqty{\imat{2}}$ without braces or grouping. This allows the command to also be used within another matrix, as in:
 
 \begin{minipage}{3cm}
 \begin{lstlisting}[language=TeX,basicstyle=\ttfamily\normalsize]
@@ -557,7 +559,7 @@ To specify elements on the right of left sides of our \verb|\imat{2}| sub-matrix
 \end{displaymath}
 \end{minipage}
 
-The extra \verb|\mqty| groups were required in this case in order to get the $a$ and $b$ elements to behave as a single element, since \verb|\mqty{\imat{2}}| also acts like a single matrix element (the same can be said of the grouped $c$ and $d$ elements). Finally, the outermost \texttt{pmatrix} environment could have also been replaced with the \texttt{physics-patch} macro \verb|\mqty()|, allowing the above example to be written on one line:
+The extra \verb|\mqty| groups were required in this case in order to get the $a$ and $b$ elements to behave as a single element, since \verb|\mqty{\imat{2}}| also acts like a single matrix element (the same can be said of the grouped $c$ and $d$ elements). Finally, the outermost \texttt{pmatrix} environment could have also been replaced with the \texttt{physics-patch} command \verb|\mqty()|, allowing the above example to be written on one line:
 
 \begin{minipage}{9cm}
 \begin{lstlisting}[language=TeX,basicstyle=\ttfamily\normalsize]
@@ -647,7 +649,7 @@ The extra \verb|\mqty| groups were required in this case in order to get the $a$
 \end{longtable}
 }
 
-Nicematrix macros, defined if the option \verb|nonicematrix| is not used:
+Nicematrix commands, defined if the option \verb|nonicematrix| is not used:
 {\fontsize{8pt}{12pt}\selectfont
 \begin{longtable}[c]{|p{0.2\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|}
 \hline
@@ -703,12 +705,12 @@ Nicematrix macros, defined if the option \verb|nonicematrix| is not used:
 \verb|\tentothepowerof| & \verb|\tenpow{n}| $\rightarrow \tenpow{n}$ & work in both math mode and text mode \\\hline
 \verb|\scientificnotation| & \verb|\scinote{3.00}{8}| $\rightarrow \scinote{3.00}{8}$ & work in both math mode and text mode\\\hline
 \verb|\numbercircled| & \verb|\numcir{1}| $\rightarrow$ \numcir{1} & patched \verb|\textcircled| for numbers \\\hline
-\verb|\boldsymbol| & \verb|\bsb{\tau}| $\rightarrow\bsb{\tau}$ & shorthand for \verb|\boldsymbol| \\\hline
+\verb|\boldsymbol| & \verb|\bsb{\tau}| $\rightarrow\bsb{\tau}$ & abbreviation for \verb|\boldsymbol| \\\hline
 \verb|\RNum| & \verb|\RNum{1}| $\rightarrow$ \RNum{1} & uppercase roman numeral\\\hline
 \verb|\piover| & \verb|\piover{2}|$\rightarrow\piover{2}$ & fraction of $\pi$ over the argument \\\hline
 \end{longtable}
 \subsection{Binary Relations}
-These shorthands are defined if \verb|nobinaryrelation| is not used.
+These abbreviations are defined if \verb|nobinaryrelation| is not used.
 
 REWRITE
 
@@ -766,8 +768,8 @@ Work in both math mode and text mode:
 
 
 
-\subsection{Shorthands for Greek Alphabet}
-If the corresponding options are used, the following shorthands will be defined for every uppercase and lowercase Greek letter. Note that these don’t ensure those commands are defined. Take Alpha for example.
+\subsection{abbreviations for Greek Alphabet}
+If the corresponding options are used, the following abbreviations will be defined for every uppercase and lowercase Greek letter. Note that these don’t ensure those commands are defined. Take Alpha for example.
 \begin{longtable}[c]{|p{0.3\textwidth}|p{0.2\textwidth}|p{0.3\textwidth}|}
 \hline
 Command & Option & Note \\\hline
@@ -777,15 +779,15 @@ Command & Option & Note \\\hline
 \verb|\uvAlpha| $\rightarrow$ \verb|\upvarAlpha| & shortupvargreek & \\\hline
 \verb|\bAlpha| $\rightarrow$ \verb|\boldsymbol{\Alpha}| & shortboldgreek & \\\hline
 \end{longtable}
-\subsection{Shorthands for Mathrm Alphabet and Chemical Elements}
-If option \texttt{shortmathrm} is used, the following shorthand will be defined for every uppercase and lowercase English letter and every chemical element symbol, which work in both math mode and text mode and allow superscript and/or subscript. Take A for example.
+\subsection{abbreviations for Mathrm Alphabet and Chemical Elements}
+If option \texttt{shortmathrm} is used, the following abbreviation will be defined for every uppercase and lowercase English letter and every chemical element symbol, which work in both math mode and text mode and allow superscript and/or subscript. Take A for example.
 \begin{longtable}[c]{|p{0.4\textwidth}|p{0.4\textwidth}|}
 \hline
 \verb|\rmA_a^b| $\rightarrow\mathrm{A}_a^b$ & \verb|\rmA^a_b| $\rightarrow\mathrm{A}^a_b$ \\\hline
 \end{longtable}
-\subsection{Shorthands for Alphabet}
+\subsection{abbreviations for Alphabet}
 REWRITE
-If option \texttt{shorttext} is used, the following shorthands will be defined for every uppercase and lowercase English letter. Take A for example.
+If option \texttt{shorttext} is used, the following abbreviations will be defined for every uppercase and lowercase English letter. Take A for example.
 \begin{longtable}[c]{|c|}
 \hline
 \verb|\txA| $\rightarrow$ \verb|\textnormal{A}|
