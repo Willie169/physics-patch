@@ -1821,154 +1821,153 @@
 % Matrix macros
 \DeclareDocumentCommand\identitymatrix{m}
 {
-{
-\newtoks\matrixtoks
-\global\matrixtoks = {}
-\newcount\rowcount
-\newcount\colcount
-\loop
-\colcount = 0
-\advance \rowcount by 1
   {
-  \loop
-  \advance \colcount by 1
-  \edef\addtoks
-  {
-    \ifnum \colcount = 1 \else & \fi
-    \ifnum \colcount = \rowcount 1 \else 0 \fi
+    \newtoks\matrixtoks
+    \global\matrixtoks = {}
+    \newcount\rowcount
+    \newcount\colcount
+    \loop
+    \colcount = 0
+    \advance \rowcount by 1
+    {
+      \loop
+      \advance \colcount by 1
+      \edef\addtoks{
+        \ifnum \colcount = 1 \else & \fi
+        \ifnum \colcount = \rowcount 1 \else 0 \fi
+      }
+      \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks\addtoks}
+      \ifnum \colcount < #1
+      \repeat
+    }
+    \ifnum \rowcount < #1
+      \global\matrixtoks = \expandafter{\the\matrixtoks \\ }
+    \repeat
   }
-  \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks\addtoks}
-  \ifnum \colcount < #1
-  \repeat
-  }
-\ifnum \rowcount < #1
-\global\matrixtoks = \expandafter{\the\matrixtoks \\ }
-\repeat
-}
-\the\matrixtoks
+  \the\matrixtoks
 }
 \DeclareDocumentCommand\imat{}{\identitymatrix}
 
 \DeclareDocumentCommand\xmatrix{ s o m m m o o g g }
 {
-  {
-    \newtoks\matrixtoks
-    \global\matrixtoks = {}
-
-    \newcount\rowcount
-    \newcount\actualrow
-    \newcount\rowdots
-    \IfValueTF{#6}{
-      \actualrow = #6
-      \IfValueTF{#2}{
-        \IfStrEq{#2}{1}{\rowdots = \numexpr\actualrow\relax}{
-          \IfStrEq{#2}{0}{\rowdots = \numexpr\actualrow\relax}{\rowdots = \numexpr\actualrow-1\relax}
-        }
-      }{
-        \IfBlankTF{#4}
-        {\rowdots = \numexpr\actualrow-1\relax}
-        {
-          \ifnum\actualrow = #4
-            \rowdots = 0
-          \else
-            \rowdots = \numexpr\actualrow-1\relax
-          \fi
-        }
+  \newtoks\matrixtoks
+  \global\matrixtoks = {}
+  \newcount\rowcount
+  \newcount\actualrow
+  \newcount\rowdots
+  \IfValueTF{#6}{
+    \actualrow = #6
+    \IfValueTF{#2}{
+      \IfStrEq{#2}{1}{\rowdots = \numexpr\actualrow\relax}{
+        \IfStrEq{#2}{0}{\rowdots = \numexpr\actualrow\relax}{\rowdots = \numexpr\actualrow-1\relax}
       }
     }{
-      \IfBlankTF{#4}{
-        \actualrow = 1
-      }{
-        \actualrow = #4
-      }
-      \rowdots = 0
-    }
-
-    \newcount\colcount
-    \newcount\actualcol
-    \newcount\coldots
-    \IfValueTF{#7}{
-      \actualcol = #7
-      \IfValueTF{#2}{
-        \IfStrEq{#2}{2}{\coldots = \numexpr\actualcol\relax}{
-          \IfStrEq{#2}{0}{\coldots = \numexpr\actualcol\relax}{\coldots = \numexpr\actualcol-1\relax}
-        }
-      }{
-        \IfBlankTF{#5}
-        {\coldots = \numexpr\actualcol-1\relax}
-        {
-          \ifnum\actualcol = #5
-            \coldots = 0
-          \else
-            \coldots = \numexpr\actualcol-1\relax
-          \fi
-        }
-      }
-    }{
-      \IfBlankTF{#5}{
-        \actualcol = 1
-      }{
-        \actualcol = #5
-      }
-      \coldots = 0
-    }
-
-    \loop
-      \colcount = 0
-      \advance \rowcount by 1
+      \IfBlankTF{#4}
+      {\rowdots = \numexpr\actualrow-1\relax}
       {
-        \loop
-          \advance \colcount by 1
-          \edef\addtoks{
-            \ifnum\colcount = 1
-            \else
-              &
-            \fi
-            \ifnum\colcount = \coldots
-              \ifnum\rowcount = \rowdots
-                \ddots
-              \else
-                \ldots
-              \fi
-            \else
-              \ifnum\rowcount = \rowdots
-                \vdots
-              \else
-                #3
-                \IfBooleanTF{#1}{_{
-                  \ifnum\actualrow = \rowcount
-                    \IfValueTF{#8}{#8}{
-                      \IfBlankTF{#4}{}{
-                        \ifnum #4 > 1
-                          #4
-                        \fi
-                      }
-                    }
-                  \else
-                    \the\rowcount
-                  \fi
-                  \ifnum\actualcol = \colcount
-                    \IfValueTF{#9}{#9}{
-                      \IfBlankTF{#5}{}{
-                        \ifnum #5 > 1
-                          #5
-                        \fi
-                      }
-                    }
-                  \else
-                    \the\colcount
-                  \fi
-                }}{}
-              \fi
-            \fi
-          }
-        \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks\addtoks}
-        \ifnum \colcount < \actualcol
-          \repeat
+        \ifnum\actualrow = #4
+          \rowdots = 0
+        \else
+          \rowdots = \numexpr\actualrow-1\relax
+        \fi
       }
+    }
+  }{
+    \IfBlankTF{#4}{
+      \actualrow = 1
+    }{
+      \actualrow = #4
+    }
+    \rowdots = 0
+  }
+
+  \newcount\colcount
+  \newcount\actualcol
+  \newcount\coldots
+  \IfValueTF{#7}{
+    \actualcol = #7
+    \IfValueTF{#2}{
+      \IfStrEq{#2}{2}{\coldots = \numexpr\actualcol\relax}{
+        \IfStrEq{#2}{0}{\coldots = \numexpr\actualcol\relax}{\coldots = \numexpr\actualcol-1\relax}
+      }
+    }{
+      \IfBlankTF{#5}
+      {\coldots = \numexpr\actualcol-1\relax}
+      {
+        \ifnum\actualcol = #5
+          \coldots = 0
+        \else
+          \coldots = \numexpr\actualcol-1\relax
+        \fi
+      }
+    }
+  }{
+    \IfBlankTF{#5}{
+      \actualcol = 1
+    }{
+      \actualcol = #5
+    }
+    \coldots = 0
+  }
+
+  \loop
+  \colcount = 0
+  \advance \rowcount by 1
+  {
+    \loop
+    \advance \colcount by 1
+    {
+      \edef\addtoks{
+        \ifnum\colcount = 1
+        \else
+          &
+        \fi
+        \ifnum\colcount = \coldots
+          \ifnum\rowcount = \rowdots
+            \ddots
+          \else
+            \ldots
+          \fi
+        \else
+          \ifnum\rowcount = \rowdots
+            \vdots
+          \else
+            #3
+            \IfBooleanTF{#1}{_{
+              \ifnum\actualrow = \rowcount
+                \IfValueTF{#8}{#8}{
+                  \IfBlankTF{#4}{}{
+                    \ifnum #4 > 1
+                      #4
+                    \fi
+                  }
+                }
+              \else
+                \the\rowcount
+              \fi
+              \ifnum\actualcol = \colcount
+                \IfValueTF{#9}{#9}{
+                  \IfBlankTF{#5}{}{
+                    \ifnum #5 > 1
+                      #5
+                    \fi
+                  }
+                }
+              \else
+                \the\colcount
+              \fi
+            }}
+            {}
+          \fi
+        \fi
+      }
+      \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks\addtoks}
+      \ifnum \colcount < \actualcol
+      \repeat
+    }
     \ifnum \rowcount < \actualrow
       \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks \\}
-      \repeat
+    \repeat
   }
   \the\matrixtoks
 }
