@@ -96,6 +96,9 @@
 \newif\if@forceoptional
 \DeclareOption{forceoptional}{\@forceoptionaltrue}
 \DeclareOption{forcedefaultall}{\@forcedefaulttrue\@forceoptionaltrue}
+\newif\if@siintegrate
+\DeclareOption{nosiintegrate}{\@siintegratefalse}
+\DeclareOption{siintegrate}{\@siintegratetrue}
 \DeclareOption*{}
 \ProcessOptions\relax
 
@@ -425,8 +428,8 @@
 \DeclareDocumentCommand\Vqty{ l m }{\braces#1{\lVert}{\rVert}{#2}}
 \DeclareDocumentCommand\aqty{ l m }{\braces#1{\langle}{\rangle}{#2}}
 
-\IfPackageLoadedTF{siunitx}
-{
+\if@siintegrate
+  \RequirePackage{siunitx}
   \DeclareDocumentCommand{\ITquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g g }
   { % integrate \qty from siunitx into \qty
     \IfValueTF{#9}
@@ -475,7 +478,7 @@
     }
   }
   \DeclareDocumentCommand\ITqty{}{\ITquantity}
-}{}
+\fi
 
 \ExplSyntaxOn
 \cs_new_protected:Npn \__qf_set_size:n #1
