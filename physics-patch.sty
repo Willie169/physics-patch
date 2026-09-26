@@ -100,9 +100,7 @@
 \ProcessOptions\relax
 
 \newif\if@physics
-\IfPackageLoadedTF{physics}{\@physicstrue}{}
-
-\IfPackageLoadedTF{physics}{}{\@namedef{ver@physics.sty}{9999/99/99}}
+\IfPackageLoadedTF{physics}{\@physicstrue}{\@physicsfalse\@namedef{ver@physics.sty}{9999/99/99}}
 
 \if@nicematrix\RequirePackage{nicematrix}\fi
 
