@@ -116,10 +116,10 @@
 \if@defaultflatfrac\DeclareDocumentCommand\flatfrac{ m m }{\defaultflatfrac{#1}{#2}}\fi
 
 \if@forcedefault
-\@originaldivtrue\@trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}\@defaultflatfractrue\@spaceflatfracfalse\@noresizeflatfracfalse\@binreltrue\@alphabettrue\@nicematrixtrue
+	\@originaldivtrue\@trigtrue\def\dfd{\mathrm{d}}\def\dfD{\mathrm{D}}\DeclareDocumentCommand\vnabla{}{\boldsymbol\nabla}\DeclareDocumentCommand\dotproduct{}{\cdot}\@defaultflatfractrue\@spaceflatfracfalse\@noresizeflatfracfalse\@binreltrue\@alphabettrue\@nicematrixtrue
 \fi
 \if@forceoptional
-\@shorttextgreektrue\@shortvargreektrue\@shortupgreektrue\@shortupvargreektrue\@shortboldgreektrue\@shortmathrmtrue\@shortmathbbtrue\@shortmathcaltrue\@shortmathscrtrue\@shorttexttrue\@shorttextbftrue\@shorttextittrue\@shorttexttttrue
+	\@shorttextgreektrue\@shortvargreektrue\@shortupgreektrue\@shortupvargreektrue\@shortboldgreektrue\@shortmathrmtrue\@shortmathbbtrue\@shortmathcaltrue\@shortmathscrtrue\@shorttexttrue\@shorttextbftrue\@shorttextittrue\@shorttexttttrue
 \fi
 
 % Fix \;
@@ -139,18 +139,18 @@
 \DeclareDocumentCommand\PV{g}{\IfNoValueTF{#1}{\mathrm{P.V.}}{\mathrm{P.V.}\mathord{#1}}}
 \DeclareDocumentCommand\PrincipalValue{g}{\IfNoValueTF{#1}{\mathrm{P.V.}}{\mathrm{P.V.}\mathord{#1}}}
 \DeclareDocumentCommand{\mathcolorbox}{ m m }{
-  \begingroup
-  \setlength{\fboxsep}{0pt}
-  \mathchoice
-    {\colorbox{#1}{$\displaystyle#2$}}
-    {\colorbox{#1}{$\textstyle#2$}}
-    {\colorbox{#1}{$\scriptstyle#2$}}
-    {\colorbox{#1}{$\scriptscriptstyle#2$}}
-  \endgroup
+	\begingroup
+	\setlength{\fboxsep}{0pt}
+	\mathchoice
+	{\colorbox{#1}{$\displaystyle#2$}}
+	{\colorbox{#1}{$\textstyle#2$}}
+	{\colorbox{#1}{$\scriptstyle#2$}}
+	{\colorbox{#1}{$\scriptscriptstyle#2$}}
+	\endgroup
 }
 \DeclareDocumentCommand\mcbox{}{\mathcolorbox}
 \DeclareDocumentCommand{\autocolorbox}{m m}{
-  \relax\ifmmode \mathcolorbox{#1}{#2}\else\colorbox{#1}{#2}\fi
+	\relax\ifmmode \mathcolorbox{#1}{#2}\else\colorbox{#1}{#2}\fi
 }
 \DeclareDocumentCommand\acbox{}{\autocolorbox}
 \DeclareDocumentCommand\cbox{}{\autocolorbox}
@@ -198,167 +198,167 @@
 
 % Binary Relations
 \if@binrel
-\let\originalequiv\equiv
-\DeclareDocumentCommand\equiv{}{\ensuremath{\originalequiv}}
-\DeclareDocumentCommand\eqv{}{\ensuremath{\originalequiv}}
-\let\originalneq\neq
-\DeclareDocumentCommand\neq{}{\ensuremath{\originalneq}}
-\let\originalgeq\geq
-\DeclareDocumentCommand\geq{}{\ensuremath{\originalgeq}}
-\let\originalleq\leq
-\DeclareDocumentCommand\leq{}{\ensuremath{\originalleq}}
-\let\originalgg\gg
-\DeclareDocumentCommand\gg{}{\ensuremath{\originalgg}}
-\let\originalll\ll
-\DeclareDocumentCommand\ll{}{\ensuremath{\originalll}}
-\let\originalapprox\approx
-\DeclareDocumentCommand\approx{}{\ensuremath{\originalapprox}}
-\DeclareDocumentCommand\apx{}{\ensuremath{\originalapprox}}
-\let\originallessapprox\gtrapprox
-\DeclareDocumentCommand\gtrapprox{}{\ensuremath{\originalgtrapprox}}
-\DeclareDocumentCommand\gapx{}{\ensuremath{\originalgtrapprox}}
-\let\originallessapprox\lessapprox
-\DeclareDocumentCommand\lessapprox{}{\ensuremath{\originallessapprox}}
-\DeclareDocumentCommand\lapx{}{\ensuremath{\originallessapprox}}
-\let\originalsim\sim
-\DeclareDocumentCommand\sim{}{\ensuremath{\originalsim}}
-\let\originalrightarrow\rightarrow
-\DeclareDocumentCommand\rightarrow{}{\ensuremath{\originalrightarrow}}
-\DeclareDocumentCommand\ra{}{\ensuremath{\originalrightarrow}}
-\let\originalleftarrow\leftarrow
-\DeclareDocumentCommand\leftarrow{}{\ensuremath{\originalleftarrow}}
-\DeclareDocumentCommand\la{}{\ensuremath{\originalleftarrow}}
-\let\originalleftrightarrow\leftrightarrow
-\DeclareDocumentCommand\leftrightarrow{}{\ensuremath{\originalleftrightarrow}}
-\DeclareDocumentCommand\lra{}{\ensuremath{\originalleftrightarrow}}
-\let\originalRightarrow\Rightarrow
-\DeclareDocumentCommand\Rightarrow{}{\ensuremath{\originalRightarrow}}
-\DeclareDocumentCommand\Ra{}{\ensuremath{\originalRightarrow}}
-\let\originalLeftarrow\Leftarrow
-\DeclareDocumentCommand\Leftarrow{}{\ensuremath{\originalLeftarrow}}
-\DeclareDocumentCommand\La{}{\ensuremath{\originalLeftarrow}}
-\let\originalLeftrightarrow\Leftrightarrow
-\DeclareDocumentCommand\Leftrightarrow{}{\ensuremath{\originalLeftrightarrow}}
-\DeclareDocumentCommand\Lra{}{\ensuremath{\originalLeftrightarrow}}
-\let\originallongrightarrow\longrightarrow
-\DeclareDocumentCommand\longrightarrow{}{\ensuremath{\originallongrightarrow}}
-\DeclareDocumentCommand\lRa{}{\ensuremath{\originallongrightarrow}}
-\let\originallongleftarrow\longleftarrow
-\DeclareDocumentCommand\longleftarrow{}{\ensuremath{\originallongleftarrow}}
-\DeclareDocumentCommand\lLa{}{\ensuremath{\originallongleftarrow}}
-\let\originallongleftrightarrow\longleftrightarrow
-\DeclareDocumentCommand\longleftrightarrow{}{\ensuremath{\originallongleftrightarrow}}
-\DeclareDocumentCommand\lLra{}{\ensuremath{\originallongleftrightarrow}}
-\let\originalLongrightarrow\Longrightarrow
-\DeclareDocumentCommand\Longrightarrow{}{\ensuremath{\originalLongrightarrow}}
-\DeclareDocumentCommand\LRa{}{\ensuremath{\originalLongrightarrow}}
-\let\originalLongleftarrow\Longleftarrow
-\DeclareDocumentCommand\Longleftarrow{}{\ensuremath{\originalLongleftarrow}}
-\DeclareDocumentCommand\LLa{}{\ensuremath{\originalLongleftarrow}}
-\let\originalLongleftrightarrow\Longleftrightarrow
-\DeclareDocumentCommand\Longleftrightarrow{}{\ensuremath{\originalLongleftrightarrow}}
-\DeclareDocumentCommand\LLra{}{\ensuremath{\originalLongleftrightarrow}}
-\let\originalhookleftarrow\hookleftarrow
-\DeclareDocumentCommand\hookleftarrow{}{\ensuremath{\originalhookleftarrow}}
-\DeclareDocumentCommand\hkla{}{\ensuremath{\originalhookleftarrow}}
-\let\originalhookrightarrow\hookrightarrow
-\DeclareDocumentCommand\hookrightarrow{}{\ensuremath{\originalhookrightarrow}}
-\DeclareDocumentCommand\hkra{}{\ensuremath{\originalhookrightarrow}}
-\let\originalrightharpoondown\rightharpoondown
-\DeclareDocumentCommand\rightharpoondown{}{\ensuremath{\originalrightharpoondown}}
-\DeclareDocumentCommand\rhd{}{\ensuremath{\originalrightharpoondown}}
-\let\originalrightharpoonup\rightharpoonup
-\DeclareDocumentCommand\rightharpoonup{}{\ensuremath{\originalrightharpoonup}}
-\DeclareDocumentCommand\rhu{}{\ensuremath{\originalrightharpoonup}}
-\let\originalleftharpoondown\leftharpoondown
-\DeclareDocumentCommand\leftharpoondown{}{\ensuremath{\originalleftharpoondown}}
-\DeclareDocumentCommand\lhd{}{\ensuremath{\originalleftharpoondown}}
-\let\originalleftharpoonup\leftharpoonup
-\DeclareDocumentCommand\leftharpoonup{}{\ensuremath{\originalleftharpoonup}}
-\DeclareDocumentCommand\lhu{}{\ensuremath{\originalleftharpoonup}}
-\let\originalrightleftharpoons\rightleftharpoons
-\DeclareDocumentCommand\rightleftharpoons{}{\ensuremath{\originalrightleftharpoons}}
-\DeclareDocumentCommand\rlh{}{\ensuremath{\originalrightleftharpoons}}
-\let\originalleftrightharpoons\leftrightharpoons
-\DeclareDocumentCommand\leftrightharpoons{}{\ensuremath{\originalleftrightharpoons}}
-\DeclareDocumentCommand\lrh{}{\ensuremath{\originalleftrightharpoons}}
-\let\originallongrightarrow\longrightarrow
-\DeclareDocumentCommand\longrightarrow{}{\ensuremath{\originallongrightarrow}}
-\DeclareDocumentCommand\lgra{}{\ensuremath{\originallongrightarrow}}
-\let\originallongleftarrow\longleftarrow
-\DeclareDocumentCommand\longleftarrow{}{\ensuremath{\originallongleftarrow}}
-\DeclareDocumentCommand\lgla{}{\ensuremath{\originallongleftarrow}}
-\let\originalLongrightarrow\Longrightarrow
-\DeclareDocumentCommand\Longrightarrow{}{\ensuremath{\originalLongrightarrow}}
-\DeclareDocumentCommand\Lgra{}{\ensuremath{\originalLongrightarrow}}
-\let\originalLongleftarrow\Longleftarrow
-\DeclareDocumentCommand\Longleftarrow{}{\ensuremath{\originalLongleftarrow}}
-\DeclareDocumentCommand\Lgla{}{\ensuremath{\originalLongleftarrow}}
+	\let\originalequiv\equiv
+	\DeclareDocumentCommand\equiv{}{\ensuremath{\originalequiv}}
+	\DeclareDocumentCommand\eqv{}{\ensuremath{\originalequiv}}
+	\let\originalneq\neq
+	\DeclareDocumentCommand\neq{}{\ensuremath{\originalneq}}
+	\let\originalgeq\geq
+	\DeclareDocumentCommand\geq{}{\ensuremath{\originalgeq}}
+	\let\originalleq\leq
+	\DeclareDocumentCommand\leq{}{\ensuremath{\originalleq}}
+	\let\originalgg\gg
+	\DeclareDocumentCommand\gg{}{\ensuremath{\originalgg}}
+	\let\originalll\ll
+	\DeclareDocumentCommand\ll{}{\ensuremath{\originalll}}
+	\let\originalapprox\approx
+	\DeclareDocumentCommand\approx{}{\ensuremath{\originalapprox}}
+	\DeclareDocumentCommand\apx{}{\ensuremath{\originalapprox}}
+	\let\originallessapprox\gtrapprox
+	\DeclareDocumentCommand\gtrapprox{}{\ensuremath{\originalgtrapprox}}
+	\DeclareDocumentCommand\gapx{}{\ensuremath{\originalgtrapprox}}
+	\let\originallessapprox\lessapprox
+	\DeclareDocumentCommand\lessapprox{}{\ensuremath{\originallessapprox}}
+	\DeclareDocumentCommand\lapx{}{\ensuremath{\originallessapprox}}
+	\let\originalsim\sim
+	\DeclareDocumentCommand\sim{}{\ensuremath{\originalsim}}
+	\let\originalrightarrow\rightarrow
+	\DeclareDocumentCommand\rightarrow{}{\ensuremath{\originalrightarrow}}
+	\DeclareDocumentCommand\ra{}{\ensuremath{\originalrightarrow}}
+	\let\originalleftarrow\leftarrow
+	\DeclareDocumentCommand\leftarrow{}{\ensuremath{\originalleftarrow}}
+	\DeclareDocumentCommand\la{}{\ensuremath{\originalleftarrow}}
+	\let\originalleftrightarrow\leftrightarrow
+	\DeclareDocumentCommand\leftrightarrow{}{\ensuremath{\originalleftrightarrow}}
+	\DeclareDocumentCommand\lra{}{\ensuremath{\originalleftrightarrow}}
+	\let\originalRightarrow\Rightarrow
+	\DeclareDocumentCommand\Rightarrow{}{\ensuremath{\originalRightarrow}}
+	\DeclareDocumentCommand\Ra{}{\ensuremath{\originalRightarrow}}
+	\let\originalLeftarrow\Leftarrow
+	\DeclareDocumentCommand\Leftarrow{}{\ensuremath{\originalLeftarrow}}
+	\DeclareDocumentCommand\La{}{\ensuremath{\originalLeftarrow}}
+	\let\originalLeftrightarrow\Leftrightarrow
+	\DeclareDocumentCommand\Leftrightarrow{}{\ensuremath{\originalLeftrightarrow}}
+	\DeclareDocumentCommand\Lra{}{\ensuremath{\originalLeftrightarrow}}
+	\let\originallongrightarrow\longrightarrow
+	\DeclareDocumentCommand\longrightarrow{}{\ensuremath{\originallongrightarrow}}
+	\DeclareDocumentCommand\lRa{}{\ensuremath{\originallongrightarrow}}
+	\let\originallongleftarrow\longleftarrow
+	\DeclareDocumentCommand\longleftarrow{}{\ensuremath{\originallongleftarrow}}
+	\DeclareDocumentCommand\lLa{}{\ensuremath{\originallongleftarrow}}
+	\let\originallongleftrightarrow\longleftrightarrow
+	\DeclareDocumentCommand\longleftrightarrow{}{\ensuremath{\originallongleftrightarrow}}
+	\DeclareDocumentCommand\lLra{}{\ensuremath{\originallongleftrightarrow}}
+	\let\originalLongrightarrow\Longrightarrow
+	\DeclareDocumentCommand\Longrightarrow{}{\ensuremath{\originalLongrightarrow}}
+	\DeclareDocumentCommand\LRa{}{\ensuremath{\originalLongrightarrow}}
+	\let\originalLongleftarrow\Longleftarrow
+	\DeclareDocumentCommand\Longleftarrow{}{\ensuremath{\originalLongleftarrow}}
+	\DeclareDocumentCommand\LLa{}{\ensuremath{\originalLongleftarrow}}
+	\let\originalLongleftrightarrow\Longleftrightarrow
+	\DeclareDocumentCommand\Longleftrightarrow{}{\ensuremath{\originalLongleftrightarrow}}
+	\DeclareDocumentCommand\LLra{}{\ensuremath{\originalLongleftrightarrow}}
+	\let\originalhookleftarrow\hookleftarrow
+	\DeclareDocumentCommand\hookleftarrow{}{\ensuremath{\originalhookleftarrow}}
+	\DeclareDocumentCommand\hkla{}{\ensuremath{\originalhookleftarrow}}
+	\let\originalhookrightarrow\hookrightarrow
+	\DeclareDocumentCommand\hookrightarrow{}{\ensuremath{\originalhookrightarrow}}
+	\DeclareDocumentCommand\hkra{}{\ensuremath{\originalhookrightarrow}}
+	\let\originalrightharpoondown\rightharpoondown
+	\DeclareDocumentCommand\rightharpoondown{}{\ensuremath{\originalrightharpoondown}}
+	\DeclareDocumentCommand\rhd{}{\ensuremath{\originalrightharpoondown}}
+	\let\originalrightharpoonup\rightharpoonup
+	\DeclareDocumentCommand\rightharpoonup{}{\ensuremath{\originalrightharpoonup}}
+	\DeclareDocumentCommand\rhu{}{\ensuremath{\originalrightharpoonup}}
+	\let\originalleftharpoondown\leftharpoondown
+	\DeclareDocumentCommand\leftharpoondown{}{\ensuremath{\originalleftharpoondown}}
+	\DeclareDocumentCommand\lhd{}{\ensuremath{\originalleftharpoondown}}
+	\let\originalleftharpoonup\leftharpoonup
+	\DeclareDocumentCommand\leftharpoonup{}{\ensuremath{\originalleftharpoonup}}
+	\DeclareDocumentCommand\lhu{}{\ensuremath{\originalleftharpoonup}}
+	\let\originalrightleftharpoons\rightleftharpoons
+	\DeclareDocumentCommand\rightleftharpoons{}{\ensuremath{\originalrightleftharpoons}}
+	\DeclareDocumentCommand\rlh{}{\ensuremath{\originalrightleftharpoons}}
+	\let\originalleftrightharpoons\leftrightharpoons
+	\DeclareDocumentCommand\leftrightharpoons{}{\ensuremath{\originalleftrightharpoons}}
+	\DeclareDocumentCommand\lrh{}{\ensuremath{\originalleftrightharpoons}}
+	\let\originallongrightarrow\longrightarrow
+	\DeclareDocumentCommand\longrightarrow{}{\ensuremath{\originallongrightarrow}}
+	\DeclareDocumentCommand\lgra{}{\ensuremath{\originallongrightarrow}}
+	\let\originallongleftarrow\longleftarrow
+	\DeclareDocumentCommand\longleftarrow{}{\ensuremath{\originallongleftarrow}}
+	\DeclareDocumentCommand\lgla{}{\ensuremath{\originallongleftarrow}}
+	\let\originalLongrightarrow\Longrightarrow
+	\DeclareDocumentCommand\Longrightarrow{}{\ensuremath{\originalLongrightarrow}}
+	\DeclareDocumentCommand\Lgra{}{\ensuremath{\originalLongrightarrow}}
+	\let\originalLongleftarrow\Longleftarrow
+	\DeclareDocumentCommand\Longleftarrow{}{\ensuremath{\originalLongleftarrow}}
+	\DeclareDocumentCommand\Lgla{}{\ensuremath{\originalLongleftarrow}}
 
-\DeclareDocumentCommand\nra{}{\nrightarrow}
-\DeclareDocumentCommand\nla{}{\nleftarrow}
-\DeclareDocumentCommand\nlra{}{\nleftrightarrow}
-\DeclareDocumentCommand\nRa{}{\nRightarrow}
-\DeclareDocumentCommand\nLa{}{\nLeftarrow}
-\DeclareDocumentCommand\nLra{}{\nLeftrightarrow}
-\DeclareDocumentCommand\nlRa{}{\longarrownot\longrightarrow}
-\DeclareDocumentCommand\nlongrightarrow{}{\longarrownot\longrightarrow}
-\DeclareDocumentCommand\nlLa{}{\longarrownot\longleftarrow}
-\DeclareDocumentCommand\nlongleftarrow{}{\longarrownot\longleftarrow}
-\DeclareDocumentCommand\nlLra{}{\longarrownot\longleftrightarrow}
-\DeclareDocumentCommand\nlongleftrightarrow{}{\longarrownot\longleftrightarrow}
-\DeclareDocumentCommand\nLRa{}{\Longarrownot\Longrightarrow}
-\DeclareDocumentCommand\nLongrightarrow{}{\Longarrownot\Longrightarrow}
-\DeclareDocumentCommand\nLLa{}{\Longarrownot\Longleftarrow}
-\DeclareDocumentCommand\nLongleftarrow{}{\Longarrownot\Longleftarrow}
-\DeclareDocumentCommand\nLLra{}{\Longarrownot\Longleftrightarrow}
-\DeclareDocumentCommand\nLongleftrightarrow{}{\Longarrownot\Longleftrightarrow}
-\DeclareDocumentCommand\mpto{}{\mapsto}
-\DeclareDocumentCommand\mpfr{}{\mapsfrom}
-\DeclareDocumentCommand\upa{}{\uparrow}
-\DeclareDocumentCommand\Upa{}{\Uparrow}
-\DeclareDocumentCommand\dna{}{\downarrow}
-\DeclareDocumentCommand\Dna{}{\Downarrow}
-\DeclareDocumentCommand\uhr{}{\upharpoonright}
-\DeclareDocumentCommand\uhl{}{\upharpoonleft}
-\DeclareDocumentCommand\dhr{}{\downharpoonright}
-\DeclareDocumentCommand\dhl{}{\downharpoonleft}
-\DeclareDocumentCommand\nea{}{\nearrow}
-\DeclareDocumentCommand\nwa{}{\nwarrow}
-\DeclareDocumentCommand\sea{}{\searrow}
-\DeclareDocumentCommand\swa{}{\swarrow}
-\DeclareDocumentCommand\prl{}{\parallel}
-\DeclareDocumentCommand\nprl{}{\nparallel}
-\DeclareDocumentCommand\sbs{}{\subset}
-\DeclareDocumentCommand\sbse{}{\subseteq}
-\DeclareDocumentCommand\nsbse{}{\nsubseteq}
-\DeclareDocumentCommand\sbsne{}{\subsetneq}
-\DeclareDocumentCommand\sps{}{\supset}
-\DeclareDocumentCommand\spse{}{\supseteq}
-\DeclareDocumentCommand\nspse{}{\nsupseteq}
-\DeclareDocumentCommand\spsne{}{\supsetneq}
-\DeclareDocumentCommand\ceq{}{\coloneq}
-\DeclareDocumentCommand\defeq{}{\stackrel{\mathrm{def}}{=}}
+	\DeclareDocumentCommand\nra{}{\nrightarrow}
+	\DeclareDocumentCommand\nla{}{\nleftarrow}
+	\DeclareDocumentCommand\nlra{}{\nleftrightarrow}
+	\DeclareDocumentCommand\nRa{}{\nRightarrow}
+	\DeclareDocumentCommand\nLa{}{\nLeftarrow}
+	\DeclareDocumentCommand\nLra{}{\nLeftrightarrow}
+	\DeclareDocumentCommand\nlRa{}{\longarrownot\longrightarrow}
+	\DeclareDocumentCommand\nlongrightarrow{}{\longarrownot\longrightarrow}
+	\DeclareDocumentCommand\nlLa{}{\longarrownot\longleftarrow}
+	\DeclareDocumentCommand\nlongleftarrow{}{\longarrownot\longleftarrow}
+	\DeclareDocumentCommand\nlLra{}{\longarrownot\longleftrightarrow}
+	\DeclareDocumentCommand\nlongleftrightarrow{}{\longarrownot\longleftrightarrow}
+	\DeclareDocumentCommand\nLRa{}{\Longarrownot\Longrightarrow}
+	\DeclareDocumentCommand\nLongrightarrow{}{\Longarrownot\Longrightarrow}
+	\DeclareDocumentCommand\nLLa{}{\Longarrownot\Longleftarrow}
+	\DeclareDocumentCommand\nLongleftarrow{}{\Longarrownot\Longleftarrow}
+	\DeclareDocumentCommand\nLLra{}{\Longarrownot\Longleftrightarrow}
+	\DeclareDocumentCommand\nLongleftrightarrow{}{\Longarrownot\Longleftrightarrow}
+	\DeclareDocumentCommand\mpto{}{\mapsto}
+	\DeclareDocumentCommand\mpfr{}{\mapsfrom}
+	\DeclareDocumentCommand\upa{}{\uparrow}
+	\DeclareDocumentCommand\Upa{}{\Uparrow}
+	\DeclareDocumentCommand\dna{}{\downarrow}
+	\DeclareDocumentCommand\Dna{}{\Downarrow}
+	\DeclareDocumentCommand\uhr{}{\upharpoonright}
+	\DeclareDocumentCommand\uhl{}{\upharpoonleft}
+	\DeclareDocumentCommand\dhr{}{\downharpoonright}
+	\DeclareDocumentCommand\dhl{}{\downharpoonleft}
+	\DeclareDocumentCommand\nea{}{\nearrow}
+	\DeclareDocumentCommand\nwa{}{\nwarrow}
+	\DeclareDocumentCommand\sea{}{\searrow}
+	\DeclareDocumentCommand\swa{}{\swarrow}
+	\DeclareDocumentCommand\prl{}{\parallel}
+	\DeclareDocumentCommand\nprl{}{\nparallel}
+	\DeclareDocumentCommand\sbs{}{\subset}
+	\DeclareDocumentCommand\sbse{}{\subseteq}
+	\DeclareDocumentCommand\nsbse{}{\nsubseteq}
+	\DeclareDocumentCommand\sbsne{}{\subsetneq}
+	\DeclareDocumentCommand\sps{}{\supset}
+	\DeclareDocumentCommand\spse{}{\supseteq}
+	\DeclareDocumentCommand\nspse{}{\nsupseteq}
+	\DeclareDocumentCommand\spsne{}{\supsetneq}
+	\DeclareDocumentCommand\ceq{}{\coloneq}
+	\DeclareDocumentCommand\defeq{}{\stackrel{\mathrm{def}}{=}}
 
-\DeclareDocumentCommand\xra{}{\xrightarrow}
-\DeclareDocumentCommand\xla{}{\xleftarrow}
-\DeclareDocumentCommand\xlra{}{\xleftrightarrow}
-\DeclareDocumentCommand\xRa{}{\xRightarrow}
-\DeclareDocumentCommand\xLa{}{\xLeftarrow}
-\DeclareDocumentCommand\xLra{}{\xLeftrightarrow}
-\DeclareDocumentCommand\xhkla{}{\xhookleftarrow}
-\DeclareDocumentCommand\xhkra{}{\xhookrightarrow}
-\DeclareDocumentCommand\xmpto{}{\xmapsto}
-\DeclareDocumentCommand\xrhd{}{\xrightharpoondown}
-\DeclareDocumentCommand\xrhu{}{\xrightharpoonup}
-\DeclareDocumentCommand\xlhd{}{\xleftharpoondown}
-\DeclareDocumentCommand\xlhu{}{\xleftharpoonup}
-\DeclareDocumentCommand\xrlh{}{\xrightleftharpoons}
-\DeclareDocumentCommand\xlrh{}{\xleftrightharpoons}
-\DeclareDocumentCommand\xlgra{}{\xlongrightarrow}
-\DeclareDocumentCommand\xlgla{}{\xlongleftarrow}
-\DeclareDocumentCommand\xLgra{}{\xLongrightarrow}
-\DeclareDocumentCommand\xLgla{}{\xLongleftarrow}
+	\DeclareDocumentCommand\xra{}{\xrightarrow}
+	\DeclareDocumentCommand\xla{}{\xleftarrow}
+	\DeclareDocumentCommand\xlra{}{\xleftrightarrow}
+	\DeclareDocumentCommand\xRa{}{\xRightarrow}
+	\DeclareDocumentCommand\xLa{}{\xLeftarrow}
+	\DeclareDocumentCommand\xLra{}{\xLeftrightarrow}
+	\DeclareDocumentCommand\xhkla{}{\xhookleftarrow}
+	\DeclareDocumentCommand\xhkra{}{\xhookrightarrow}
+	\DeclareDocumentCommand\xmpto{}{\xmapsto}
+	\DeclareDocumentCommand\xrhd{}{\xrightharpoondown}
+	\DeclareDocumentCommand\xrhu{}{\xrightharpoonup}
+	\DeclareDocumentCommand\xlhd{}{\xleftharpoondown}
+	\DeclareDocumentCommand\xlhu{}{\xleftharpoonup}
+	\DeclareDocumentCommand\xrlh{}{\xrightleftharpoons}
+	\DeclareDocumentCommand\xlrh{}{\xleftrightharpoons}
+	\DeclareDocumentCommand\xlgra{}{\xlongrightarrow}
+	\DeclareDocumentCommand\xlgla{}{\xlongleftarrow}
+	\DeclareDocumentCommand\xLgra{}{\xLongrightarrow}
+	\DeclareDocumentCommand\xLgla{}{\xLongleftarrow}
 \fi
 
 % Bracing
@@ -369,51 +369,51 @@
 \DeclareDocumentCommand\ceil{ l m }{\braces#1{\lceil}{\rceil}{#2}}
 \DeclareDocumentCommand{\quantity}{ t\big t\Big t\bigg t\Bigg o d() d|| d<> g }
 { % Flexible automatic bracketing of an expression in [] or () or || or <> or {}
-  % Handles manual override of sizing
-  \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
-    \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
-      \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
-        \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
-      }
-    }
-  }
-  % Handles actual bracketing
-  \IfNoValueTF{#5}{
-    \IfNoValueTF{#6}{
-      \IfNoValueTF{#7}{
-        \IfNoValueTF{#8}{
-          \IfNoValueTF{#9}{
-            \IfBooleanTF{#1}{\big}{
-              \IfBooleanTF{#2}{\Big}{
-                \IfBooleanTF{#3}{\bigg}{
-                  \IfBooleanTF{#4}{\Bigg}{}
-                }
-              }
-            }
-          }
-          {\ltag\lbrace#9\rtag\rbrace}
-        }{
-          \ltag\langle#8\rtag\rangle
-          \IfNoValueTF{#9}{}{{#9}}
-        }
-      }{
-        \ltag\lvert{#7}\rtag\rvert
-        \IfNoValueTF{#8}{}{<#8>}
-        \IfNoValueTF{#9}{}{{#9}}
-      }
-    }{
-      \ltag(#6\rtag)
-      \IfNoValueTF{#7}{}{|#7|}
-      \IfNoValueTF{#8}{}{<#8>}
-      \IfNoValueTF{#9}{}{{#9}}
-    }
-  }{
-    \ltag[#5\rtag]
-    \IfNoValueTF{#6}{}{(#6)}
-    \IfNoValueTF{#7}{}{|#7|}
-    \IfNoValueTF{#8}{}{<#8>}
-    \IfNoValueTF{#9}{}{{#9}}
-  }
+	% Handles manual override of sizing
+	\IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
+		\IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
+			\IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
+				\IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
+			}
+		}
+	}
+	% Handles actual bracketing
+	\IfNoValueTF{#5}{
+		\IfNoValueTF{#6}{
+			\IfNoValueTF{#7}{
+				\IfNoValueTF{#8}{
+					\IfNoValueTF{#9}{
+						\IfBooleanTF{#1}{\big}{
+							\IfBooleanTF{#2}{\Big}{
+								\IfBooleanTF{#3}{\bigg}{
+									\IfBooleanTF{#4}{\Bigg}{}
+								}
+							}
+						}
+					}
+					{\ltag\lbrace#9\rtag\rbrace}
+				}{
+					\ltag\langle#8\rtag\rangle
+					\IfNoValueTF{#9}{}{{#9}}
+				}
+			}{
+				\ltag\lvert{#7}\rtag\rvert
+				\IfNoValueTF{#8}{}{<#8>}
+				\IfNoValueTF{#9}{}{{#9}}
+			}
+		}{
+			\ltag(#6\rtag)
+			\IfNoValueTF{#7}{}{|#7|}
+			\IfNoValueTF{#8}{}{<#8>}
+			\IfNoValueTF{#9}{}{{#9}}
+		}
+	}{
+		\ltag[#5\rtag]
+		\IfNoValueTF{#6}{}{(#6)}
+		\IfNoValueTF{#7}{}{|#7|}
+		\IfNoValueTF{#8}{}{<#8>}
+		\IfNoValueTF{#9}{}{{#9}}
+	}
 }
 \let\PTquantity\quantity
 \let\PHquantity\quantity
@@ -429,161 +429,161 @@
 \DeclareDocumentCommand\aqty{ l m }{\braces#1{\langle}{\rangle}{#2}}
 
 \if@siintegrate
-  \RequirePackage{siunitx}
-  \DeclareDocumentCommand{\ITquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g g }
-  { % integrate \qty from siunitx
-    \IfValueTF{#9}
-    { % \qty from siunitx
-      \IfValueTF{#5}
-      {\SI[#5]{#8}{#9}}
-      {\SI{#8}{#9}}
-    }{ % \qty from physics-patch
-    % Handles manual override of sizing
-      \IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
-        \IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
-          \IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
-            \IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
-          }
-        }
-      }
-      % Handles actual bracketing
-      \IfNoValueTF{#5}{
-        \IfNoValueTF{#6}{
-          \IfNoValueTF{#7}{
-            \IfNoValueTF{#8}{
-              \IfBooleanTF{#1}{\big}{
-                \IfBooleanTF{#2}{\Big}{
-                  \IfBooleanTF{#3}{\bigg}{
-                    \IfBooleanTF{#4}{\Bigg}{}
-                  }
-                }
-              }
-            }
-            {\ltag\lbrace#8\rtag\rbrace}
-          }{
-            \ltag\lvert{#7}\rtag\rvert
-            \IfNoValueTF{#8}{}{#8}
-          }
-        }{
-          \ltag(#6\rtag)
-          \IfNoValueTF{#7}{}{|#7|}
-          \IfNoValueTF{#8}{}{#8}
-        }
-      }{
-        \ltag[#5\rtag]
-        \IfNoValueTF{#6}{}{(#6)}
-        \IfNoValueTF{#7}{}{|#7|}
-        \IfNoValueTF{#8}{}{#8}
-      }
-    }
-  }
-  \let\ITqty\quantity
+	\RequirePackage{siunitx}
+	\DeclareDocumentCommand{\ITquantity}{ t\big t\Big t\bigg t\Bigg o d() d|| g g }
+	{ % integrate \qty from siunitx
+		\IfValueTF{#9}
+		{ % \qty from siunitx
+			\IfValueTF{#5}
+			{\SI[#5]{#8}{#9}}
+			{\SI{#8}{#9}}
+		}{ % \qty from physics-patch
+			% Handles manual override of sizing
+			\IfBooleanTF{#1}{\let\ltag\bigl \let\rtag\bigr}{
+				\IfBooleanTF{#2}{\let\ltag\Bigl \let\rtag\Bigr}{
+					\IfBooleanTF{#3}{\let\ltag\biggl \let\rtag\biggr}{
+						\IfBooleanTF{#4}{\let\ltag\Biggl \let\rtag\Biggr}{\let\ltag\left \let\rtag\right}
+					}
+				}
+			}
+			% Handles actual bracketing
+			\IfNoValueTF{#5}{
+				\IfNoValueTF{#6}{
+					\IfNoValueTF{#7}{
+						\IfNoValueTF{#8}{
+							\IfBooleanTF{#1}{\big}{
+								\IfBooleanTF{#2}{\Big}{
+									\IfBooleanTF{#3}{\bigg}{
+										\IfBooleanTF{#4}{\Bigg}{}
+									}
+								}
+							}
+						}
+						{\ltag\lbrace#8\rtag\rbrace}
+					}{
+						\ltag\lvert{#7}\rtag\rvert
+						\IfNoValueTF{#8}{}{#8}
+					}
+				}{
+					\ltag(#6\rtag)
+					\IfNoValueTF{#7}{}{|#7|}
+					\IfNoValueTF{#8}{}{#8}
+				}
+			}{
+				\ltag[#5\rtag]
+				\IfNoValueTF{#6}{}{(#6)}
+				\IfNoValueTF{#7}{}{|#7|}
+				\IfNoValueTF{#8}{}{#8}
+			}
+		}
+	}
+	\let\ITqty\quantity
 \fi
 
 \ExplSyntaxOn
 \cs_new_protected:Npn \__qf_set_size:n #1
-  {
-    \token_if_eq_meaning:NNTF #1 \big
-      { \let\ttag\big  \let\ltag\bigl  \let\rtag\bigr }
-      {
-        \token_if_eq_meaning:NNTF #1 \Big
-          { \let\ttag\Big  \let\ltag\Bigl  \let\rtag\Bigr }
-          {
-            \token_if_eq_meaning:NNTF #1 \bigg
-              { \let\ttag\bigg  \let\ltag\biggl  \let\rtag\biggr }
-              {
-                \token_if_eq_meaning:NNTF #1 \Bigg
-                  { \let\ttag\Bigg  \let\ltag\Biggl  \let\rtag\Biggr }
-                  {
-                    \let\ttag\empty \let\ltag\left \let\rtag\right
-                  }
-              }
-          }
-      }
-  }
+{
+	\token_if_eq_meaning:NNTF #1 \big
+	{ \let\ttag\big  \let\ltag\bigl  \let\rtag\bigr }
+	{
+		\token_if_eq_meaning:NNTF #1 \Big
+		{ \let\ttag\Big  \let\ltag\Bigl  \let\rtag\Bigr }
+		{
+			\token_if_eq_meaning:NNTF #1 \bigg
+			{ \let\ttag\bigg  \let\ltag\biggl  \let\rtag\biggr }
+			{
+				\token_if_eq_meaning:NNTF #1 \Bigg
+				{ \let\ttag\Bigg  \let\ltag\Biggl  \let\rtag\Biggr }
+				{
+					\let\ttag\empty \let\ltag\left \let\rtag\right
+				}
+			}
+		}
+	}
+}
 
 \DeclareDocumentCommand{\@quantityfrac}{m d|| d|| d<> d<> g g}
 {
-  \__qf_set_size:n { #1 }
-  \IfNoValueTF{#2}
-  {
-    \IfNoValueTF{#4}
-    {
-      \IfNoValueTF{#6}
-      {
-        \ttag
-      }
-      {
-        \IfNoValueTF{#7}
-        {
-          \PackageError{physics-patch}{Second \{\} argument missing}{Both \{\} arguments required}
-        }
-        {
-          \ltag\lbrace\frac{#6}{#7}\rtag\rbrace
-        }
-      }
-    }
-    {
-      \IfNoValueTF{#5}
-      {
-        \PackageError{physics-patch}{Second <> argument missing}{Both <> arguments required}
-      }
-      {
-        \ltag\langle\frac{#4}{#5}\rtag\rangle
-      }
-      \IfNoValueTF{#6}{}{{#6}\IfNoValueTF{#7}{}{{#7}}}
-    }
-  }
-  {
-    \IfNoValueTF{#3}
-    {
-      \PackageError{physics-patch}{Second || argument missing}{Both || arguments required}
-    }
-    {
-      \ltag\lvert\frac{#2}{#3}\rtag\rvert
-    }
-    \IfNoValueTF{#4}{}{<#4>\IfNoValueTF{#5}{}{<#5>}}
-    \IfNoValueTF{#6}{}{{#6}\IfNoValueTF{#7}{}{{#7}}}
-  }
+	\__qf_set_size:n { #1 }
+	\IfNoValueTF{#2}
+	{
+		\IfNoValueTF{#4}
+		{
+			\IfNoValueTF{#6}
+			{
+				\ttag
+			}
+			{
+				\IfNoValueTF{#7}
+				{
+					\PackageError{physics-patch}{Second \{\} argument missing}{Both \{\} arguments required}
+				}
+				{
+					\ltag\lbrace\frac{#6}{#7}\rtag\rbrace
+				}
+			}
+		}
+		{
+			\IfNoValueTF{#5}
+			{
+				\PackageError{physics-patch}{Second <> argument missing}{Both <> arguments required}
+			}
+			{
+				\ltag\langle\frac{#4}{#5}\rtag\rangle
+			}
+			\IfNoValueTF{#6}{}{{#6}\IfNoValueTF{#7}{}{{#7}}}
+		}
+	}
+	{
+		\IfNoValueTF{#3}
+		{
+			\PackageError{physics-patch}{Second || argument missing}{Both || arguments required}
+		}
+		{
+			\ltag\lvert\frac{#2}{#3}\rtag\rvert
+		}
+		\IfNoValueTF{#4}{}{<#4>\IfNoValueTF{#5}{}{<#5>}}
+		\IfNoValueTF{#6}{}{{#6}\IfNoValueTF{#7}{}{{#7}}}
+	}
 }
 \DeclareDocumentCommand{\quantityfrac}{ t\big t\Big t\bigg t\Bigg o o d() d() }
 { % Flexible automatic bracketing of a fraction in [] or () or || or <> or {}
-  % Handles manual override of sizing
-  \IfBooleanTF{#1}{\__qf_set_size:n{\big}}{
-    \IfBooleanTF{#2}{\__qf_set_size:n{\Big}}{
-      \IfBooleanTF{#3}{\__qf_set_size:n{\bigg}}{
-        \IfBooleanTF{#4}{\__qf_set_size:n{\Bigg}}{
-          \__qf_set_size:n{\relax}
-        }
-      }
-    }
-  }
-  \IfNoValueTF{#5}
-  {
-    \IfNoValueTF{#7}
-    {
-      \@quantityfrac{\ttag}
-    }
-    {
-      \IfNoValueTF{#8}
-      {
-        \PackageError{physics-patch}{Second () argument missing}{Both () arguments required}
-      }
-      {
-        \ltag(\frac{#7}{#8}\rtag)
-      }
-    }
-  }
-  {
-    \IfNoValueTF{#6}
-    {
-      \PackageError{physics-patch}{Second [] argument missing}{Both [] arguments required}
-    }
-    {
-      \ltag[\frac{#5}{#6}\rtag]
-    }
-    \IfNoValueTF{#7}{}{(#7)\IfNoValueTF{#8}{}{(#8)}}
-  }
+	% Handles manual override of sizing
+	\IfBooleanTF{#1}{\__qf_set_size:n{\big}}{
+		\IfBooleanTF{#2}{\__qf_set_size:n{\Big}}{
+			\IfBooleanTF{#3}{\__qf_set_size:n{\bigg}}{
+				\IfBooleanTF{#4}{\__qf_set_size:n{\Bigg}}{
+					\__qf_set_size:n{\relax}
+				}
+			}
+		}
+	}
+	\IfNoValueTF{#5}
+	{
+		\IfNoValueTF{#7}
+		{
+			\@quantityfrac{\ttag}
+		}
+		{
+			\IfNoValueTF{#8}
+			{
+				\PackageError{physics-patch}{Second () argument missing}{Both () arguments required}
+			}
+			{
+				\ltag(\frac{#7}{#8}\rtag)
+			}
+		}
+	}
+	{
+		\IfNoValueTF{#6}
+		{
+			\PackageError{physics-patch}{Second [] argument missing}{Both [] arguments required}
+		}
+		{
+			\ltag[\frac{#5}{#6}\rtag]
+		}
+		\IfNoValueTF{#7}{}{(#7)\IfNoValueTF{#8}{}{(#8)}}
+	}
 }
 \ExplSyntaxOff
 
@@ -602,86 +602,86 @@
 \ExplSyntaxOn
 \DeclareDocumentCommand{\@quantityinvertedfrac}{m d|| d|| d<> d<> g g}
 {
-  \__qf_set_size:n { #1 }
-  \IfNoValueTF{#2}
-  {
-    \IfNoValueTF{#4}
-    {
-      \IfNoValueTF{#6}
-      {
-        \ttag
-      }
-      {
-        \IfNoValueTF{#7}
-        {
-          \PackageError{physics-patch}{Second \{\} argument missing}{Both \{\} arguments required}
-        }
-        {
-          \ltag\lbrace\invertedfrac{#6}{#7}\rtag\rbrace
-        }
-      }
-    }
-    {
-      \IfNoValueTF{#5}
-      {
-        \PackageError{physics-patch}{Second <> argument missing}{Both <> arguments required}
-      }
-      {
-        \ltag\langle\invertedfrac{#4}{#5}\rtag\rangle
-      }
-      \IfNoValueTF{#6}{}{{#6}\IfNoValueTF{#7}{}{{#7}}}
-    }
-  }
-  {
-    \IfNoValueTF{#3}
-    {
-      \PackageError{physics-patch}{Second || argument missing}{Both || arguments required}
-    }
-    {
-      \ltag\lvert\invertedfrac{#2}{#3}\rtag\rvert
-    }
-    \IfNoValueTF{#4}{}{<#4>\IfNoValueTF{#5}{}{<#5>}}
-    \IfNoValueTF{#6}{}{{#6}\IfNoValueTF{#7}{}{{#7}}}
-  }
+	\__qf_set_size:n { #1 }
+	\IfNoValueTF{#2}
+	{
+		\IfNoValueTF{#4}
+		{
+			\IfNoValueTF{#6}
+			{
+				\ttag
+			}
+			{
+				\IfNoValueTF{#7}
+				{
+					\PackageError{physics-patch}{Second \{\} argument missing}{Both \{\} arguments required}
+				}
+				{
+					\ltag\lbrace\invertedfrac{#6}{#7}\rtag\rbrace
+				}
+			}
+		}
+		{
+			\IfNoValueTF{#5}
+			{
+				\PackageError{physics-patch}{Second <> argument missing}{Both <> arguments required}
+			}
+			{
+				\ltag\langle\invertedfrac{#4}{#5}\rtag\rangle
+			}
+			\IfNoValueTF{#6}{}{{#6}\IfNoValueTF{#7}{}{{#7}}}
+		}
+	}
+	{
+		\IfNoValueTF{#3}
+		{
+			\PackageError{physics-patch}{Second || argument missing}{Both || arguments required}
+		}
+		{
+			\ltag\lvert\invertedfrac{#2}{#3}\rtag\rvert
+		}
+		\IfNoValueTF{#4}{}{<#4>\IfNoValueTF{#5}{}{<#5>}}
+		\IfNoValueTF{#6}{}{{#6}\IfNoValueTF{#7}{}{{#7}}}
+	}
 }
 \DeclareDocumentCommand{\quantityinvertedfrac}{ t\big t\Big t\bigg t\Bigg o o d() d() }
 { % Flexible automatic bracketing of a invertedfraction in [] or () or || or <> or {}
-  % Handles manual override of sizing
-  \IfBooleanTF{#1}{\__qf_set_size:n{\big}}{
-    \IfBooleanTF{#2}{\__qf_set_size:n{\Big}}{
-      \IfBooleanTF{#3}{\__qf_set_size:n{\bigg}}{
-        \IfBooleanTF{#4}{\__qf_set_size:n{\Bigg}}{
-          \__qf_set_size:n{\relax}
-        }
-      }
-    }
-  }
-  \IfNoValueTF{#5}
-  {
-    \IfNoValueTF{#7}
-    {
-      \@quantityinvertedfrac{\ttag}
-    }
-    {
-      \IfNoValueTF{#8}
-      {
-        \PackageError{physics-patch}{Second () argument missing}{Both () arguments required}
-      }
-      {
-        \ltag(\invertedfrac{#7}{#8}\rtag)
-      }
-    }
-  }
-  {
-    \IfNoValueTF{#6}
-    {
-      \PackageError{physics-patch}{Second [] argument missing}{Both [] arguments required}
-    }
-    {
-      \ltag[\invertedfrac{#5}{#6}\rtag]
-    }
-    \IfNoValueTF{#7}{}{(#7)\IfNoValueTF{#8}{}{(#8)}}
-  }
+	% Handles manual override of sizing
+	\IfBooleanTF{#1}{\__qf_set_size:n{\big}}{
+		\IfBooleanTF{#2}{\__qf_set_size:n{\Big}}{
+			\IfBooleanTF{#3}{\__qf_set_size:n{\bigg}}{
+				\IfBooleanTF{#4}{\__qf_set_size:n{\Bigg}}{
+					\__qf_set_size:n{\relax}
+				}
+			}
+		}
+	}
+	\IfNoValueTF{#5}
+	{
+		\IfNoValueTF{#7}
+		{
+			\@quantityinvertedfrac{\ttag}
+		}
+		{
+			\IfNoValueTF{#8}
+			{
+				\PackageError{physics-patch}{Second () argument missing}{Both () arguments required}
+			}
+			{
+				\ltag(\invertedfrac{#7}{#8}\rtag)
+			}
+		}
+	}
+	{
+		\IfNoValueTF{#6}
+		{
+			\PackageError{physics-patch}{Second [] argument missing}{Both [] arguments required}
+		}
+		{
+			\ltag[\invertedfrac{#5}{#6}\rtag]
+		}
+		\IfNoValueTF{#7}{}{(#7)\IfNoValueTF{#8}{}{(#8)}}
+	}
 }
 \ExplSyntaxOff
 
@@ -707,38 +707,38 @@
 \DeclareDocumentCommand\Vmqty{m}{\begin{Vmatrix}#1\end{Vmatrix}}
 \DeclareDocumentCommand\matrixquantity{ s g o d() d|| }
 {
-  \mathord{
-    \IfNoValueTF{#2}
-    {
-      \IfNoValueTF{#3}
-      {
-        \IfNoValueTF{#4}
-        {
-          \IfBooleanTF{#1}
-          {\Vmqty{#5}}
-          {\vmqty{#5}}
-        }
-        {
-          \IfBooleanTF{#1}
-          {\Pmqty{#4}}
-          {\pmqty{#4}}
-          \IfNoValueTF{#5}{}{|#5|}
-        }
-      }
-      {
-         \IfBooleanTF{#1}
-          {\Bmqty{#3}}
-          {\bmqty{#3}}
-        \IfNoValueTF{#4}{}{(#4)}
-        \IfNoValueTF{#5}{}{|#5|}}
-      }
-    {
-      \omqty{#2}
-      \IfNoValueTF{#3}{}{[#3]}
-      \IfNoValueTF{#4}{}{(#4)}
-      \IfNoValueTF{#5}{}{|#5|}
-    }
-  }
+	\mathord{
+		\IfNoValueTF{#2}
+		{
+			\IfNoValueTF{#3}
+			{
+				\IfNoValueTF{#4}
+				{
+					\IfBooleanTF{#1}
+					{\Vmqty{#5}}
+					{\vmqty{#5}}
+				}
+				{
+					\IfBooleanTF{#1}
+					{\Pmqty{#4}}
+					{\pmqty{#4}}
+					\IfNoValueTF{#5}{}{|#5|}
+				}
+			}
+			{
+				\IfBooleanTF{#1}
+				{\Bmqty{#3}}
+				{\bmqty{#3}}
+				\IfNoValueTF{#4}{}{(#4)}
+				\IfNoValueTF{#5}{}{|#5|}}
+		}
+		{
+			\omqty{#2}
+			\IfNoValueTF{#3}{}{[#3]}
+			\IfNoValueTF{#4}{}{(#4)}
+			\IfNoValueTF{#5}{}{|#5|}
+		}
+	}
 }
 \DeclareDocumentCommand\PTmatrixquantity{}{\matrixquantity}
 \DeclareDocumentCommand\mqty{}{\matrixquantity}
@@ -756,38 +756,38 @@
 \DeclareDocumentCommand\sVmqty{m}{\norm{\begin{smallmatrix}#1\end{smallmatrix}}}
 \DeclareDocumentCommand\smallmatrixquantity{ s g o d() d|| }
 {
-  \mathord{
-    \IfNoValueTF{#2}
-    {
-      \IfNoValueTF{#3}
-      {
-        \IfNoValueTF{#4}
-        {
-          \IfBooleanTF{#1}
-          {\sVmqty{#5}}
-          {\svmqty{#5}}
-        }
-        {
-          \IfBooleanTF{#1}
-          {\sPmqty{#4}}
-          {\spmqty{#4}}
-          \IfNoValueTF{#5}{}{|#5|}
-        }
-      }
-      {
-        \IfBooleanTF{#1}
-        {\sBmqty{#3}}
-        {\sbmqty{#3}}
-        \IfNoValueTF{#4}{}{(#4)}
-        \IfNoValueTF{#5}{}{|#5|}}
-      }
-    {
-      \somqty{#2}
-      \IfNoValueTF{#3}{}{[#3]}
-      \IfNoValueTF{#4}{}{(#4)}
-      \IfNoValueTF{#5}{}{|#5|}
-    }
-  }
+	\mathord{
+		\IfNoValueTF{#2}
+		{
+			\IfNoValueTF{#3}
+			{
+				\IfNoValueTF{#4}
+				{
+					\IfBooleanTF{#1}
+					{\sVmqty{#5}}
+					{\svmqty{#5}}
+				}
+				{
+					\IfBooleanTF{#1}
+					{\sPmqty{#4}}
+					{\spmqty{#4}}
+					\IfNoValueTF{#5}{}{|#5|}
+				}
+			}
+			{
+				\IfBooleanTF{#1}
+				{\sBmqty{#3}}
+				{\sbmqty{#3}}
+				\IfNoValueTF{#4}{}{(#4)}
+				\IfNoValueTF{#5}{}{|#5|}}
+		}
+		{
+			\somqty{#2}
+			\IfNoValueTF{#3}{}{[#3]}
+			\IfNoValueTF{#4}{}{(#4)}
+			\IfNoValueTF{#5}{}{|#5|}
+		}
+	}
 }
 \DeclareDocumentCommand\PTsmallmatrixquantity{}{\smallmatrixquantity}
 \DeclareDocumentCommand\smqty{}{\smallmatrixquantity}
@@ -796,51 +796,51 @@
 \DeclareDocumentCommand\smdet{m}{\svmqty{#1}}
 
 \if@nicematrix
-\DeclareDocumentCommand\nomqty{m}{\begin{NiceMatrix}#1\end{NiceMatrix}}
-\DeclareDocumentCommand\npmqty{s m}{\IfNoValueTF{#1}{\begin{pNiceMatrix}#2\end{pNiceMatrix}}{\left\lgroup\begin{NiceMatrix}#2\end{NiceMatrix}\right\rgroup}}
-\DeclareDocumentCommand\nPmqty{m}{\left\lgroup\begin{NiceMatrix}#1\end{NiceMatrix}\right\rgroup}
-\DeclareDocumentCommand\nbmqty{m}{\IfNoValueTF{#1}{\begin{bNiceMatrix}#1\end{bNiceMatrix}}{\begin{BNiceMatrix}#1\end{BNiceMatrix}}}
-\DeclareDocumentCommand\nBmqty{m}{\begin{BNiceMatrix}#1\end{BNiceMatrix}}
-\DeclareDocumentCommand\nvmqty{m}{\IfNoValueTF{#1}{\begin{vNiceMatrix}#1\end{vNiceMatrix}}{\begin{VNiceMatrix}#1\end{VNiceMatrix}}}
-\DeclareDocumentCommand\nVmqty{m}{\begin{VNiceMatrix}#1\end{VNiceMatrix}}
-\DeclareDocumentCommand\nicematrixquantity{ s g o d() d|| }
-{
-  \mathord{
-    \IfNoValueTF{#2}
-    {
-      \IfNoValueTF{#3}
-      {
-        \IfNoValueTF{#4}
-        {
-          \IfBooleanTF{#1}
-          {\nVmqty{#5}}
-          {\nvmqty{#5}}
-        }
-        {
-          \IfBooleanTF{#1}
-          {\nPmqty{#4}}
-          {\npmqty{#4}}
-          \IfNoValueTF{#5}{}{|#5|}
-        }
-      }
-      {
-        \IfBooleanTF{#1}
-          {\nBmqty{#3}}
-          {\nbmqty{#3}}
-        \IfNoValueTF{#4}{}{(#4)}
-        \IfNoValueTF{#5}{}{|#5|}}
-      }
-    {
-      \nomqty{#2}
-      \IfNoValueTF{#3}{}{[#3]}
-      \IfNoValueTF{#4}{}{(#4)}
-      \IfNoValueTF{#5}{}{|#5|}
-    }
-  }
-}
-\DeclareDocumentCommand\nmqty{}{\nicematrixquantity}
-\DeclareDocumentCommand\nicematrixdeterminant{m}{\nvmqty{#1}}
-\DeclareDocumentCommand\nmdet{m}{\nvmqty{#1}}
+	\DeclareDocumentCommand\nomqty{m}{\begin{NiceMatrix}#1\end{NiceMatrix}}
+	\DeclareDocumentCommand\npmqty{s m}{\IfNoValueTF{#1}{\begin{pNiceMatrix}#2\end{pNiceMatrix}}{\left\lgroup\begin{NiceMatrix}#2\end{NiceMatrix}\right\rgroup}}
+	\DeclareDocumentCommand\nPmqty{m}{\left\lgroup\begin{NiceMatrix}#1\end{NiceMatrix}\right\rgroup}
+	\DeclareDocumentCommand\nbmqty{m}{\IfNoValueTF{#1}{\begin{bNiceMatrix}#1\end{bNiceMatrix}}{\begin{BNiceMatrix}#1\end{BNiceMatrix}}}
+	\DeclareDocumentCommand\nBmqty{m}{\begin{BNiceMatrix}#1\end{BNiceMatrix}}
+	\DeclareDocumentCommand\nvmqty{m}{\IfNoValueTF{#1}{\begin{vNiceMatrix}#1\end{vNiceMatrix}}{\begin{VNiceMatrix}#1\end{VNiceMatrix}}}
+	\DeclareDocumentCommand\nVmqty{m}{\begin{VNiceMatrix}#1\end{VNiceMatrix}}
+	\DeclareDocumentCommand\nicematrixquantity{ s g o d() d|| }
+	{
+		\mathord{
+			\IfNoValueTF{#2}
+			{
+				\IfNoValueTF{#3}
+				{
+					\IfNoValueTF{#4}
+					{
+						\IfBooleanTF{#1}
+						{\nVmqty{#5}}
+						{\nvmqty{#5}}
+					}
+					{
+						\IfBooleanTF{#1}
+						{\nPmqty{#4}}
+						{\npmqty{#4}}
+						\IfNoValueTF{#5}{}{|#5|}
+					}
+				}
+				{
+					\IfBooleanTF{#1}
+					{\nBmqty{#3}}
+					{\nbmqty{#3}}
+					\IfNoValueTF{#4}{}{(#4)}
+					\IfNoValueTF{#5}{}{|#5|}}
+			}
+			{
+				\nomqty{#2}
+				\IfNoValueTF{#3}{}{[#3]}
+				\IfNoValueTF{#4}{}{(#4)}
+				\IfNoValueTF{#5}{}{|#5|}
+			}
+		}
+	}
+	\DeclareDocumentCommand\nmqty{}{\nicematrixquantity}
+	\DeclareDocumentCommand\nicematrixdeterminant{m}{\nvmqty{#1}}
+	\DeclareDocumentCommand\nmdet{m}{\nvmqty{#1}}
 \fi
 
 \DeclareDocumentCommand\argopen{s}{\IfBooleanTF{#1}{\mathopen{}\mathclose\bgroup}{\mathopen{}\mathclose\bgroup\left}} % Special open grouping for argument of a function
@@ -848,38 +848,38 @@
 
 \DeclareDocumentCommand\braces{ s t\big t\Big t\bigg t\Bigg m m m }
 { % General braces with automatic and manual sizing
-  \IfBooleanTF{#1}
-  {\left#6\smash{#8}\right#7\vphantom{#8}}
-  {
-    \IfBooleanTF{#2}{\bigl#6{#8}\bigr#7}{
-      \IfBooleanTF{#3}{\Bigl#6{#8}\Bigr#7}{
-        \IfBooleanTF{#4}{\biggl#6{#8}\biggr#7}{
-          \IfBooleanTF{#5}
-          {\Biggl#6{#8}\Biggr#7}
-          {\left#6{#8}\right#7}
-        }
-      }
-    }
-  }
+	\IfBooleanTF{#1}
+	{\left#6\smash{#8}\right#7\vphantom{#8}}
+	{
+		\IfBooleanTF{#2}{\bigl#6{#8}\bigr#7}{
+			\IfBooleanTF{#3}{\Bigl#6{#8}\Bigr#7}{
+				\IfBooleanTF{#4}{\biggl#6{#8}\biggr#7}{
+					\IfBooleanTF{#5}
+					{\Biggl#6{#8}\Biggr#7}
+					{\left#6{#8}\right#7}
+				}
+			}
+		}
+	}
 }
 \DeclareDocumentCommand\brc{}{\braces}
 
 \DeclareDocumentCommand\fbraces{ s t\big t\Big t\bigg t\Bigg m m m m }
 { % Function braces with automatic and manual sizing
-  #8
-  \IfBooleanTF{#1}
-  {\argopen#6\smash{#9}\argclose#7\vphantom{#9}}
-  {
-    \IfBooleanTF{#2}{\argopen*\bigl#6{#9}\argclose*\bigr#7}{
-      \IfBooleanTF{#3}{\argopen*\Bigl#6{#9}\argclose*\Bigr#7}{
-        \IfBooleanTF{#4}{\argopen*\biggl#6{#9}\argclose*\biggr#7}{
-          \IfBooleanTF{#5}
-          {\argopen*\Biggl#6{#9}\argclose*\Biggr#7}
-          {\argopen#6{#9}\argclose#7}
-        }
-      }
-    }
-  }
+	#8
+	\IfBooleanTF{#1}
+	{\argopen#6\smash{#9}\argclose#7\vphantom{#9}}
+	{
+		\IfBooleanTF{#2}{\argopen*\bigl#6{#9}\argclose*\bigr#7}{
+			\IfBooleanTF{#3}{\argopen*\Bigl#6{#9}\argclose*\Bigr#7}{
+				\IfBooleanTF{#4}{\argopen*\biggl#6{#9}\argclose*\biggr#7}{
+					\IfBooleanTF{#5}
+					{\argopen*\Biggl#6{#9}\argclose*\Biggr#7}
+					{\argopen#6{#9}\argclose#7}
+				}
+			}
+		}
+	}
 }
 
 \DeclareDocumentCommand\order{ l m }{\fbraces#1{\lparen}{\rparen}{\ordersymbol}{#2}} % Order notation -> O(x^2)
@@ -887,118 +887,118 @@
 % Vertical evaluation bar
 \DeclareDocumentCommand\evaluated{ s g d[| d(| }
 {
-  \IfNoValueTF{#2}
-  {
-    \IfNoValueTF{#3}
-    {
-      \IfNoValueTF{#4}
-      {
-        \argopen.\vphantom{\int}\argclose\rvert
-      }
-      {
-        \IfBooleanTF{#1}{\vphantom{#4}}{}
-        \lnull\lpair(\IfBooleanTF{#1}{\smash{#4}}{#4}\vphantom{\int}\rnull\rpair\rvert
-      }
-    }
-    {
-      \IfBooleanTF{#1}{\vphantom{#3}}{}
-      \lnull\lpair[\IfBooleanTF{#1}{\smash{#3}}{#3}\vphantom{\int}\rnull\rpair\rvert
-      \IfNoValueTF{#4}{}{(#4|}
-    }
-  }
-  {
-    \IfBooleanTF{#1}{\vphantom{#2}}{}
-    \lnull\IfBooleanTF{#1}{\smash{#2}}{#2}\vphantom{\int}\rpair\rvert
-    \IfNoValueTF{#3}{}{[#3|}
-    \IfNoValueTF{#4}{}{(#4|}
-  }
+\IfNoValueTF{#2}
+{
+\IfNoValueTF{#3}
+{
+\IfNoValueTF{#4}
+{
+	\argopen.\vphantom{\int}\argclose\rvert
+}
+{
+	\IfBooleanTF{#1}{\vphantom{#4}}{}
+	\lnull\lpair(\IfBooleanTF{#1}{\smash{#4}}{#4}\vphantom{\int}\rnull\rpair\rvert
+}
+}
+{
+\IfBooleanTF{#1}{\vphantom{#3}}{}
+\lnull\lpair[\IfBooleanTF{#1}{\smash{#3}}{#3}\vphantom{\int}\rnull\rpair\rvert
+\IfNoValueTF{#4}{}{(#4|}
+}
+}
+{
+\IfBooleanTF{#1}{\vphantom{#2}}{}
+\lnull\IfBooleanTF{#1}{\smash{#2}}{#2}\vphantom{\int}\rpair\rvert
+\IfNoValueTF{#3}{}{[#3|}
+\IfNoValueTF{#4}{}{(#4|}
+}
 }
 \DeclareDocumentCommand\eval{}{\evaluated}
 \DeclareDocumentCommand\evaluatedvert{ s g o d() }
 {
-  \IfNoValueTF{#2}
-  {
-    \IfNoValueTF{#3}
-    {
-      \IfNoValueTF{#4}
-      {
-        \argopen.\vphantom{\int}\argclose\rvert
-      }
-      {
-        \IfBooleanTF{#1}{\vphantom{#4}}{}
-        \lnull\lpair(\IfBooleanTF{#1}{\smash{#4}}{#4}\vphantom{\int}\rnull\rpair\rvert
-      }
-    }
-    {
-      \IfBooleanTF{#1}{\vphantom{#3}}{}
-      \lnull\lpair[\IfBooleanTF{#1}{\smash{#3}}{#3}\vphantom{\int}\rnull\rpair\rvert
-      \IfNoValueTF{#4}{}{(#4)}
-    }
-  }
-  {
-    \IfBooleanTF{#1}{\vphantom{#2}}{}
-    \lnull\IfBooleanTF{#1}{\smash{#2}}{#2}\vphantom{\int}\rpair\rvert
-    \IfNoValueTF{#3}{}{[#3]}
-    \IfNoValueTF{#4}{}{(#4)}
-  }
+\IfNoValueTF{#2}
+{
+\IfNoValueTF{#3}
+{
+\IfNoValueTF{#4}
+{
+	\argopen.\vphantom{\int}\argclose\rvert
+}
+{
+	\IfBooleanTF{#1}{\vphantom{#4}}{}
+	\lnull\lpair(\IfBooleanTF{#1}{\smash{#4}}{#4}\vphantom{\int}\rnull\rpair\rvert
+}
+}
+{
+\IfBooleanTF{#1}{\vphantom{#3}}{}
+\lnull\lpair[\IfBooleanTF{#1}{\smash{#3}}{#3}\vphantom{\int}\rnull\rpair\rvert
+\IfNoValueTF{#4}{}{(#4)}
+}
+}
+{
+	\IfBooleanTF{#1}{\vphantom{#2}}{}
+	\lnull\IfBooleanTF{#1}{\smash{#2}}{#2}\vphantom{\int}\rpair\rvert
+	\IfNoValueTF{#3}{}{[#3]}
+	\IfNoValueTF{#4}{}{(#4)}
+}
 }
 \DeclareDocumentCommand\evlv{}{\evaluatedvert}
 \DeclareDocumentCommand\evaluatedpair{ s g o d() }
 {
-  \IfNoValueTF{#2}
-  {
-    \IfNoValueTF{#3}
-    {
-      \IfNoValueTF{#4}
-      {
-        \argopen.\vphantom{\int}\argclose\rvert
-      }
-      {
-        \IfBooleanTF{#1}{\vphantom{#4}}{}
-        \lnull\left(\IfBooleanTF{#1}{\smash{#4}}{#4}\vphantom{\int}\right)\rpair\rvert
-      }
-    }
-    {
-      \IfBooleanTF{#1}{\vphantom{#3}}{}
-      \lnull\left[\IfBooleanTF{#1}{\smash{#3}}{#3}\vphantom{\int}\right]\rpair\rvert
-      \IfNoValueTF{#4}{}{(#4)}
-    }
-  }
-  {
-    \IfBooleanTF{#1}{\vphantom{#2}}{}
-    \lnull\left\{\IfBooleanTF{#1}{\smash{#2}}{#2}\vphantom{\int}\right\}\rpair\rvert
-    \IfNoValueTF{#3}{}{[#3]}
-    \IfNoValueTF{#4}{}{(#4)}
-  }
+	\IfNoValueTF{#2}
+	{
+		\IfNoValueTF{#3}
+		{
+			\IfNoValueTF{#4}
+			{
+				\argopen.\vphantom{\int}\argclose\rvert
+			}
+			{
+				\IfBooleanTF{#1}{\vphantom{#4}}{}
+				\lnull\left(\IfBooleanTF{#1}{\smash{#4}}{#4}\vphantom{\int}\right)\rpair\rvert
+			}
+		}
+		{
+			\IfBooleanTF{#1}{\vphantom{#3}}{}
+			\lnull\left[\IfBooleanTF{#1}{\smash{#3}}{#3}\vphantom{\int}\right]\rpair\rvert
+			\IfNoValueTF{#4}{}{(#4)}
+		}
+	}
+	{
+		\IfBooleanTF{#1}{\vphantom{#2}}{}
+		\lnull\left\{\IfBooleanTF{#1}{\smash{#2}}{#2}\vphantom{\int}\right\}\rpair\rvert
+		\IfNoValueTF{#3}{}{[#3]}
+		\IfNoValueTF{#4}{}{(#4)}
+	}
 }
 \DeclareDocumentCommand\evlp{}{\evaluatedpair}
 \DeclareDocumentCommand\evaluatedbracket{ s g o d() }
 {
-  \IfNoValueTF{#2}
-  {
-    \IfNoValueTF{#3}
-    {
-      \IfNoValueTF{#4}
-      {
-        \argopen.\vphantom{\int}\argclose]
-      }
-      {
-        \IfBooleanTF{#1}{\vphantom{#4}}{}
-        \lnull\lpair(\IfBooleanTF{#1}{\smash{#4}}{#4}\vphantom{\int}\rnull\rpair]
-      }
-    }
-    {
-      \IfBooleanTF{#1}{\vphantom{#3}}{}
-      \left[\IfBooleanTF{#1}{\smash{#3}}{#3}\vphantom{\int}\right]
-      \IfNoValueTF{#4}{}{(#4)}
-    }
-  }
-  {
-    \IfBooleanTF{#1}{\vphantom{#2}}{}
-    \lnull\IfBooleanTF{#1}{\smash{#2}}{#2}\vphantom{\int}\rpair]
-    \IfNoValueTF{#3}{}{[#3]}
-    \IfNoValueTF{#4}{}{(#4)}
-  }
+\IfNoValueTF{#2}
+{
+\IfNoValueTF{#3}
+{
+\IfNoValueTF{#4}
+{
+\argopen.\vphantom{\int}\argclose]
+}
+{
+\IfBooleanTF{#1}{\vphantom{#4}}{}
+\lnull\lpair(\IfBooleanTF{#1}{\smash{#4}}{#4}\vphantom{\int}\rnull\rpair]
+}
+}
+{
+	\IfBooleanTF{#1}{\vphantom{#3}}{}
+	\left[\IfBooleanTF{#1}{\smash{#3}}{#3}\vphantom{\int}\right]
+	\IfNoValueTF{#4}{}{(#4)}
+}
+}
+{
+\IfBooleanTF{#1}{\vphantom{#2}}{}
+\lnull\IfBooleanTF{#1}{\smash{#2}}{#2}\vphantom{\int}\rpair]
+\IfNoValueTF{#3}{}{[#3]}
+\IfNoValueTF{#4}{}{(#4)}
+}
 }
 \DeclareDocumentCommand\evlb{}{\evaluatedbracket}
 
@@ -1030,198 +1030,198 @@
 \DeclareDocumentCommand\cp{}{\crossproduct} % Shorthand for \crossproduct
 
 \DeclareDocumentCommand\gradient{ g o d() }{ % Gradient
-  \IfNoValueTF{#1}{
-  \IfNoValueTF{#2}{
-    \IfNoValueTF{#3}{\vnabla}{\fbraces{\lparen}{\rparen}{\vnabla}{#3}}
-  }
-  {\fbraces{\lbrack}{\rbrack}{\vnabla}{#2} \IfNoValueTF{#3}{}{(#3)}}
-  }
-  {\vnabla #1 \IfNoValueTF{#2}{}{[#2]} \IfNoValueTF{#3}{}{(#3)}}
+	\IfNoValueTF{#1}{
+		\IfNoValueTF{#2}{
+			\IfNoValueTF{#3}{\vnabla}{\fbraces{\lparen}{\rparen}{\vnabla}{#3}}
+		}
+		{\fbraces{\lbrack}{\rbrack}{\vnabla}{#2} \IfNoValueTF{#3}{}{(#3)}}
+	}
+	{\vnabla #1 \IfNoValueTF{#2}{}{[#2]} \IfNoValueTF{#3}{}{(#3)}}
 }
 \DeclareDocumentCommand\grad{}{\gradient} % Shorthand for \gradient
 
 \DeclareDocumentCommand\divergence{ g o d() }{ % Divergence
-  \IfNoValueTF{#1}{
-  \IfNoValueTF{#2}{
-    \IfNoValueTF{#3}{\vnabla \dotproduct}{\vnabla \dotproduct \quantity(#3)}
-  }
-  {\vnabla \dotproduct \quantity[#2] \IfNoValueTF{#3}{}{(#3)}}
-  }
-  {\vnabla \dotproduct #1 \IfNoValueTF{#2}{}{[#2]} \IfNoValueTF{#3}{}{(#3)}}
+	\IfNoValueTF{#1}{
+		\IfNoValueTF{#2}{
+			\IfNoValueTF{#3}{\vnabla \dotproduct}{\vnabla \dotproduct \quantity(#3)}
+		}
+		{\vnabla \dotproduct \quantity[#2] \IfNoValueTF{#3}{}{(#3)}}
+	}
+	{\vnabla \dotproduct #1 \IfNoValueTF{#2}{}{[#2]} \IfNoValueTF{#3}{}{(#3)}}
 }
 \DeclareDocumentCommand\divg{}{\divergence}
 \if@originaldiv
-  \if@physics
-    \DeclareDocumentCommand\div{}{\divisionsymbol}
-  \else
-    \DeclareDocumentCommand\divisionsymbol{}{\div}
-  \fi
+	\if@physics
+		\DeclareDocumentCommand\div{}{\divisionsymbol}
+	\else
+		\DeclareDocumentCommand\divisionsymbol{}{\div}
+	\fi
 \else
-  \if@physics
-    \DeclareDocumentCommand\div{}{\divergence}
-  \else
-    \DeclareDocumentCommand\divisionsymbol{}{\div} % Rename \div [division symbol] in order to free up control sequence for \divergence
-    \DeclareDocumentCommand\div{}{\divergence}
-  \fi
+	\if@physics
+		\DeclareDocumentCommand\div{}{\divergence}
+	\else
+		\DeclareDocumentCommand\divisionsymbol{}{\div} % Rename \div [division symbol] in order to free up control sequence for \divergence
+		\DeclareDocumentCommand\div{}{\divergence}
+	\fi
 \fi
 
 \DeclareDocumentCommand\curl{ g o d() }{ % Curl
-  \IfNoValueTF{#1}{
-  \IfNoValueTF{#2}{
-    \IfNoValueTF{#3}{\vnabla \cross}{\vnabla \cross \quantity(#3)}
-  }
-  {\vnabla \cross \quantity[#2] \IfNoValueTF{#3}{}{(#3)}}
-  }
-  {\vnabla \cross #1 \IfNoValueTF{#2}{}{[#2]} \IfNoValueTF{#3}{}{(#3)}}
+	\IfNoValueTF{#1}{
+		\IfNoValueTF{#2}{
+			\IfNoValueTF{#3}{\vnabla \cross}{\vnabla \cross \quantity(#3)}
+		}
+		{\vnabla \cross \quantity[#2] \IfNoValueTF{#3}{}{(#3)}}
+	}
+	{\vnabla \cross #1 \IfNoValueTF{#2}{}{[#2]} \IfNoValueTF{#3}{}{(#3)}}
 }
 
 \DeclareDocumentCommand\laplacian{ g o d() }{ % Laplacian
-  \IfNoValueTF{#1}{
-  \IfNoValueTF{#2}{
-    \IfNoValueTF{#3}{\nabla^2}{\fbraces{\lparen}{\rparen}{\nabla^2}{#3}}
-  }
-  {\fbraces{\lbrack}{\rbrack}{\nabla^2}{#2} \IfNoValueTF{#3}{}{(#3)}}
-  }
-  {\nabla^2 #1 \IfNoValueTF{#2}{}{[#2]} \IfNoValueTF{#3}{}{(#3)}}
+	\IfNoValueTF{#1}{
+		\IfNoValueTF{#2}{
+			\IfNoValueTF{#3}{\nabla^2}{\fbraces{\lparen}{\rparen}{\nabla^2}{#3}}
+		}
+		{\fbraces{\lbrack}{\rbrack}{\nabla^2}{#2} \IfNoValueTF{#3}{}{(#3)}}
+	}
+	{\nabla^2 #1 \IfNoValueTF{#2}{}{[#2]} \IfNoValueTF{#3}{}{(#3)}}
 }
 
 % Operator system
 \DeclareDocumentCommand\opbraces{ m e{^_} g o d() d|| }
 {
-  \IfNoValueTF{#4}
-  {
-    \IfNoValueTF{#5}
-    {
-      \IfNoValueTF{#6}
-      {
-        \IfNoValueTF{#7}
-        {
-          #1
-          \IfNoValueTF{#2}{}{^{#2}}
-          \IfNoValueTF{#3}{}{_{#3}}
-        }
-        {
-          \fbraces{\lvert}{\rvert}
-          {
-            #1
-            \IfNoValueTF{#2}{}{^{#2}}
-            \IfNoValueTF{#3}{}{_{#3}}
-          }{#7}
-        }
-      }
-      {
-        \fbraces{\lparen}{\rparen}
-        {
-          #1
-          \IfNoValueTF{#2}{}{^{#2}}
-          \IfNoValueTF{#3}{}{_{#3}}
-        }{#6}
-        \IfNoValueTF{#7}{}{|#7|}
-      }
-    }
-    {
-      \fbraces{\lbrack}{\rbrack}
-      {
-        #1
-        \IfNoValueTF{#2}{}{^{#2}}
-        \IfNoValueTF{#3}{}{_{#3}}
-      }{#5}
-      \IfNoValueTF{#6}{}{(#6)}
-      \IfNoValueTF{#7}{}{|#7|}
-    }
-  }
-  {
-    \fbraces{\lbrace}{\rbrace}
-    {
-      #1
-      \IfNoValueTF{#2}{}{^{#2}}
-      \IfNoValueTF{#3}{}{_{#3}}
-    }{#4}
-    \IfNoValueTF{#5}{}{[#5]}
-    \IfNoValueTF{#6}{}{(#6)}
-    \IfNoValueTF{#7}{}{|#7|}
-  }
+	\IfNoValueTF{#4}
+	{
+		\IfNoValueTF{#5}
+		{
+			\IfNoValueTF{#6}
+			{
+				\IfNoValueTF{#7}
+				{
+					#1
+					\IfNoValueTF{#2}{}{^{#2}}
+					\IfNoValueTF{#3}{}{_{#3}}
+				}
+				{
+					\fbraces{\lvert}{\rvert}
+					{
+						#1
+						\IfNoValueTF{#2}{}{^{#2}}
+						\IfNoValueTF{#3}{}{_{#3}}
+					}{#7}
+				}
+			}
+			{
+				\fbraces{\lparen}{\rparen}
+				{
+					#1
+					\IfNoValueTF{#2}{}{^{#2}}
+					\IfNoValueTF{#3}{}{_{#3}}
+				}{#6}
+				\IfNoValueTF{#7}{}{|#7|}
+			}
+		}
+		{
+			\fbraces{\lbrack}{\rbrack}
+			{
+				#1
+				\IfNoValueTF{#2}{}{^{#2}}
+				\IfNoValueTF{#3}{}{_{#3}}
+			}{#5}
+			\IfNoValueTF{#6}{}{(#6)}
+			\IfNoValueTF{#7}{}{|#7|}
+		}
+	}
+	{
+		\fbraces{\lbrace}{\rbrace}
+		{
+			#1
+			\IfNoValueTF{#2}{}{^{#2}}
+			\IfNoValueTF{#3}{}{_{#3}}
+		}{#4}
+		\IfNoValueTF{#5}{}{[#5]}
+		\IfNoValueTF{#6}{}{(#6)}
+		\IfNoValueTF{#7}{}{|#7|}
+	}
 }
 
 \DeclareDocumentCommand\trigbraces{ m e{^} o d() }
 {
-  \IfNoValueTF{#4}
-  {
-    #1
-    \IfNoValueTF{#2}{}{^{#2}}
-    \IfNoValueTF{#3}{}{[#3]}
-  }
-  {
-    #1
-    \IfNoValueTF{#2}{
-      \IfNoValueTF{#3}{}{^{#3}}
-      \argopen(#4\argclose)
-    }{
-      ^{#2}
-      \IfNoValueTF{#3}{
-        \argopen(#4\argclose)
-      }{
-        [#3]
-        (#4)
-      }
-    }
-  }
+	\IfNoValueTF{#4}
+	{
+		#1
+		\IfNoValueTF{#2}{}{^{#2}}
+		\IfNoValueTF{#3}{}{[#3]}
+	}
+	{
+		#1
+		\IfNoValueTF{#2}{
+			\IfNoValueTF{#3}{}{^{#3}}
+			\argopen(#4\argclose)
+		}{
+			^{#2}
+			\IfNoValueTF{#3}{
+				\argopen(#4\argclose)
+			}{
+				[#3]
+				(#4)
+			}
+		}
+	}
 }
 
 \DeclareDocumentCommand\prbraces{ m t' t' t' e{^_} g o d() }
 {
-  \IfNoValueTF{#7}
-  {
-    \IfNoValueTF{#8}
-    {
-      \IfNoValueTF{#9}
-      {
-        #1
-        \IfBooleanT{#2}{'}
-        \IfBooleanT{#3}{'}
-        \IfBooleanT{#4}{'}
-        \IfNoValueTF{#5}{}{^{#5}}
-        \IfNoValueTF{#6}{}{_{#6}}
-      }
-      {
-        \fbraces{\lparen}{\rparen}
-        {
-          #1
-          \IfBooleanT{#2}{'}
-          \IfBooleanT{#3}{'}
-          \IfBooleanT{#4}{'}
-          \IfNoValueTF{#5}{}{^{#5}}
-          \IfNoValueTF{#6}{}{_{#6}}
-        }
-        {#9}
-      }
-    }
-    {
-      \fbraces{\lbrack}{\rbrack}
-      {
-        #1
-        \IfBooleanT{#2}{'}
-        \IfBooleanT{#3}{'}
-        \IfBooleanT{#4}{'}
-        \IfNoValueTF{#5}{}{^{#5}}
-        \IfNoValueTF{#6}{}{_{#6}}
-      }{#8}
-      \IfNoValueTF{#9}{}{(#9)}
-    }
-  }
-  {
-    \fbraces{\lbrace}{\rbrace}
-    {
-      #1
-      \IfBooleanT{#2}{'}
-      \IfBooleanT{#3}{'}
-      \IfBooleanT{#4}{'}
-      \IfNoValueTF{#5}{}{^{#5}}
-      \IfNoValueTF{#6}{}{_{#6}}
-    }{#7}
-    \IfNoValueTF{#8}{}{[#8]}
-    \IfNoValueTF{#9}{}{(#9)}
-  }
+	\IfNoValueTF{#7}
+	{
+		\IfNoValueTF{#8}
+		{
+			\IfNoValueTF{#9}
+			{
+				#1
+				\IfBooleanT{#2}{'}
+				\IfBooleanT{#3}{'}
+				\IfBooleanT{#4}{'}
+				\IfNoValueTF{#5}{}{^{#5}}
+				\IfNoValueTF{#6}{}{_{#6}}
+			}
+			{
+				\fbraces{\lparen}{\rparen}
+				{
+					#1
+					\IfBooleanT{#2}{'}
+					\IfBooleanT{#3}{'}
+					\IfBooleanT{#4}{'}
+					\IfNoValueTF{#5}{}{^{#5}}
+					\IfNoValueTF{#6}{}{_{#6}}
+				}
+				{#9}
+			}
+		}
+		{
+			\fbraces{\lbrack}{\rbrack}
+			{
+				#1
+				\IfBooleanT{#2}{'}
+				\IfBooleanT{#3}{'}
+				\IfBooleanT{#4}{'}
+				\IfNoValueTF{#5}{}{^{#5}}
+				\IfNoValueTF{#6}{}{_{#6}}
+			}{#8}
+			\IfNoValueTF{#9}{}{(#9)}
+		}
+	}
+	{
+		\fbraces{\lbrace}{\rbrace}
+		{
+			#1
+			\IfBooleanT{#2}{'}
+			\IfBooleanT{#3}{'}
+			\IfBooleanT{#4}{'}
+			\IfNoValueTF{#5}{}{^{#5}}
+			\IfNoValueTF{#6}{}{_{#6}}
+		}{#7}
+		\IfNoValueTF{#8}{}{[#8]}
+		\IfNoValueTF{#9}{}{(#9)}
+	}
 }
 
 \DeclareDocumentCommand\opqty{m}{\opbraces{\operatorname{#1}}}
@@ -1430,88 +1430,88 @@
 
 % Shortmathcal
 \if@shortmathcal
-\declareprqtyas{calA}{\mathcal{A}}
-\declareprqtyas{calB}{\mathcal{B}}
-\declareprqtyas{calC}{\mathcal{C}}
-\declareprqtyas{calD}{\mathcal{D}}
-\declareprqtyas{calE}{\mathcal{E}}
-\declareprqtyas{calF}{\mathcal{F}}
-\declareprqtyas{calG}{\mathcal{G}}
-\declareprqtyas{calH}{\mathcal{H}}
-\declareprqtyas{calI}{\mathcal{I}}
-\declareprqtyas{calJ}{\mathcal{J}}
-\declareprqtyas{calK}{\mathcal{K}}
-\declareprqtyas{calL}{\mathcal{L}}
-\declareprqtyas{calM}{\mathcal{M}}
-\declareprqtyas{calN}{\mathcal{N}}
-\declareprqtyas{calO}{\mathcal{O}}
-\declareprqtyas{calP}{\mathcal{P}}
-\declareprqtyas{calQ}{\mathcal{Q}}
-\declareprqtyas{calR}{\mathcal{R}}
-\declareprqtyas{calS}{\mathcal{S}}
-\declareprqtyas{calT}{\mathcal{T}}
-\declareprqtyas{calU}{\mathcal{U}}
-\declareprqtyas{calV}{\mathcal{V}}
-\declareprqtyas{calW}{\mathcal{W}}
-\declareprqtyas{calX}{\mathcal{X}}
-\declareprqtyas{calY}{\mathcal{Y}}
-\declareprqtyas{calZ}{\mathcal{Z}}
+	\declareprqtyas{calA}{\mathcal{A}}
+	\declareprqtyas{calB}{\mathcal{B}}
+	\declareprqtyas{calC}{\mathcal{C}}
+	\declareprqtyas{calD}{\mathcal{D}}
+	\declareprqtyas{calE}{\mathcal{E}}
+	\declareprqtyas{calF}{\mathcal{F}}
+	\declareprqtyas{calG}{\mathcal{G}}
+	\declareprqtyas{calH}{\mathcal{H}}
+	\declareprqtyas{calI}{\mathcal{I}}
+	\declareprqtyas{calJ}{\mathcal{J}}
+	\declareprqtyas{calK}{\mathcal{K}}
+	\declareprqtyas{calL}{\mathcal{L}}
+	\declareprqtyas{calM}{\mathcal{M}}
+	\declareprqtyas{calN}{\mathcal{N}}
+	\declareprqtyas{calO}{\mathcal{O}}
+	\declareprqtyas{calP}{\mathcal{P}}
+	\declareprqtyas{calQ}{\mathcal{Q}}
+	\declareprqtyas{calR}{\mathcal{R}}
+	\declareprqtyas{calS}{\mathcal{S}}
+	\declareprqtyas{calT}{\mathcal{T}}
+	\declareprqtyas{calU}{\mathcal{U}}
+	\declareprqtyas{calV}{\mathcal{V}}
+	\declareprqtyas{calW}{\mathcal{W}}
+	\declareprqtyas{calX}{\mathcal{X}}
+	\declareprqtyas{calY}{\mathcal{Y}}
+	\declareprqtyas{calZ}{\mathcal{Z}}
 \fi
 
 % Alphabet functions
 \if@alphabet
-\declareprqtyas{aQty}{\operatorname{a}}
-\declareprqtyas{bQty}{\operatorname{b}}
-\declareprqtyas{cQty}{\operatorname{c}}
-\declareprqtyas{dQty}{\operatorname{d}}
-\declareprqtyas{eQty}{\operatorname{e}}
-\declareprqtyas{fQty}{\operatorname{f}}
-\declareprqtyas{gQty}{\operatorname{g}}
-\declareprqtyas{hQty}{\operatorname{h}}
-\declareprqtyas{iQty}{\operatorname{i}}
-\declareprqtyas{jQty}{\operatorname{j}}
-\declareprqtyas{kQty}{\operatorname{k}}
-\declareprqtyas{lQty}{\operatorname{l}}
-\declareprqtyas{mQty}{\operatorname{m}}
-\declareprqtyas{nQty}{\operatorname{n}}
-\declareprqtyas{oQty}{\operatorname{o}}
-\declareprqtyas{pQty}{\operatorname{p}}
-\declareprqtyas{qQty}{\operatorname{q}}
-\declareprqtyas{rQty}{\operatorname{r}}
-\declareprqtyas{sQty}{\operatorname{s}}
-\declareprqtyas{tQty}{\operatorname{t}}
-\declareprqtyas{uQty}{\operatorname{u}}
-\declareprqtyas{vQty}{\operatorname{v}}
-\declareprqtyas{wQty}{\operatorname{w}}
-\declareprqtyas{xQty}{\operatorname{x}}
-\declareprqtyas{yQty}{\operatorname{y}}
-\declareprqtyas{zQty}{\operatorname{z}}
-\declareprqtyas{AQty}{\operatorname{A}}
-\declareprqtyas{BQty}{\operatorname{B}}
-\declareprqtyas{CQty}{\operatorname{C}}
-\declareprqtyas{DQty}{\operatorname{D}}
-\declareprqtyas{EQty}{\operatorname{E}}
-\declareprqtyas{FQty}{\operatorname{F}}
-\declareprqtyas{GQty}{\operatorname{G}}
-\declareprqtyas{HQty}{\operatorname{H}}
-\declareprqtyas{IQty}{\operatorname{I}}
-\declareprqtyas{JQty}{\operatorname{J}}
-\declareprqtyas{KQty}{\operatorname{K}}
-\declareprqtyas{LQty}{\operatorname{L}}
-\declareprqtyas{MQty}{\operatorname{M}}
-\declareprqtyas{NQty}{\operatorname{N}}
-\declareprqtyas{OQty}{\operatorname{O}}
-\declareprqtyas{PQty}{\operatorname{P}}
-\declareprqtyas{QQty}{\operatorname{Q}}
-\declareprqtyas{RQty}{\operatorname{R}}
-\declareprqtyas{SQty}{\operatorname{S}}
-\declareprqtyas{TQty}{\operatorname{T}}
-\declareprqtyas{UQty}{\operatorname{U}}
-\declareprqtyas{VQty}{\operatorname{V}}
-\declareprqtyas{WQty}{\operatorname{W}}
-\declareprqtyas{XQty}{\operatorname{X}}
-\declareprqtyas{YQty}{\operatorname{Y}}
-\declareprqtyas{ZQty}{\operatorname{Z}}
+	\declareprqtyas{aQty}{\operatorname{a}}
+	\declareprqtyas{bQty}{\operatorname{b}}
+	\declareprqtyas{cQty}{\operatorname{c}}
+	\declareprqtyas{dQty}{\operatorname{d}}
+	\declareprqtyas{eQty}{\operatorname{e}}
+	\declareprqtyas{fQty}{\operatorname{f}}
+	\declareprqtyas{gQty}{\operatorname{g}}
+	\declareprqtyas{hQty}{\operatorname{h}}
+	\declareprqtyas{iQty}{\operatorname{i}}
+	\declareprqtyas{jQty}{\operatorname{j}}
+	\declareprqtyas{kQty}{\operatorname{k}}
+	\declareprqtyas{lQty}{\operatorname{l}}
+	\declareprqtyas{mQty}{\operatorname{m}}
+	\declareprqtyas{nQty}{\operatorname{n}}
+	\declareprqtyas{oQty}{\operatorname{o}}
+	\declareprqtyas{pQty}{\operatorname{p}}
+	\declareprqtyas{qQty}{\operatorname{q}}
+	\declareprqtyas{rQty}{\operatorname{r}}
+	\declareprqtyas{sQty}{\operatorname{s}}
+	\declareprqtyas{tQty}{\operatorname{t}}
+	\declareprqtyas{uQty}{\operatorname{u}}
+	\declareprqtyas{vQty}{\operatorname{v}}
+	\declareprqtyas{wQty}{\operatorname{w}}
+	\declareprqtyas{xQty}{\operatorname{x}}
+	\declareprqtyas{yQty}{\operatorname{y}}
+	\declareprqtyas{zQty}{\operatorname{z}}
+	\declareprqtyas{AQty}{\operatorname{A}}
+	\declareprqtyas{BQty}{\operatorname{B}}
+	\declareprqtyas{CQty}{\operatorname{C}}
+	\declareprqtyas{DQty}{\operatorname{D}}
+	\declareprqtyas{EQty}{\operatorname{E}}
+	\declareprqtyas{FQty}{\operatorname{F}}
+	\declareprqtyas{GQty}{\operatorname{G}}
+	\declareprqtyas{HQty}{\operatorname{H}}
+	\declareprqtyas{IQty}{\operatorname{I}}
+	\declareprqtyas{JQty}{\operatorname{J}}
+	\declareprqtyas{KQty}{\operatorname{K}}
+	\declareprqtyas{LQty}{\operatorname{L}}
+	\declareprqtyas{MQty}{\operatorname{M}}
+	\declareprqtyas{NQty}{\operatorname{N}}
+	\declareprqtyas{OQty}{\operatorname{O}}
+	\declareprqtyas{PQty}{\operatorname{P}}
+	\declareprqtyas{QQty}{\operatorname{Q}}
+	\declareprqtyas{RQty}{\operatorname{R}}
+	\declareprqtyas{SQty}{\operatorname{S}}
+	\declareprqtyas{TQty}{\operatorname{T}}
+	\declareprqtyas{UQty}{\operatorname{U}}
+	\declareprqtyas{VQty}{\operatorname{V}}
+	\declareprqtyas{WQty}{\operatorname{W}}
+	\declareprqtyas{XQty}{\operatorname{X}}
+	\declareprqtyas{YQty}{\operatorname{Y}}
+	\declareprqtyas{ZQty}{\operatorname{Z}}
 \fi
 
 % Quick quad text (math-mode text with \quad spacing)
@@ -1566,86 +1566,86 @@
 
 % Derivatives
 \DeclareDocumentCommand\differential{ o g d() }{ % Differential 'd'
-  % o: optional n for nth differential
-  % g: optional argument for readability and to control spacing
-  % d: long-form as in d(cos x)
-  \IfNoValueTF{#2}{
-  \IfNoValueTF{#3}
-  {\dfd\IfNoValueTF{#1}{}{^{#1}}}
-  {\mathinner{\dfd\IfNoValueTF{#1}{}{^{#1}}\argopen(#3\argclose)}}
-  }
-  {\mathinner{\dfd\IfNoValueTF{#1}{}{^{#1}}#2} \IfNoValueTF{#3}{}{(#3)}}
+	% o: optional n for nth differential
+	% g: optional argument for readability and to control spacing
+	% d: long-form as in d(cos x)
+	\IfNoValueTF{#2}{
+		\IfNoValueTF{#3}
+		{\dfd\IfNoValueTF{#1}{}{^{#1}}}
+		{\mathinner{\dfd\IfNoValueTF{#1}{}{^{#1}}\argopen(#3\argclose)}}
+	}
+	{\mathinner{\dfd\IfNoValueTF{#1}{}{^{#1}}#2} \IfNoValueTF{#3}{}{(#3)}}
 }
 \DeclareDocumentCommand\dd{}{\differential} % Shorthand for \differential
 
 \DeclareDocumentCommand\derivative{ s o m g d() }
 { % Total derivative
-  % s: star for \flatfrac flat derivative
-  % o: optional n for nth derivative
-  % m: mandatory (x in df/dx)
-  % g: optional (f in df/dx)
-  % d: long-form d/dx(...)
-  \IfBooleanTF{#1}
-  {\let\fractype\flatfrac}
-  {\let\fractype\frac}
-  \IfNoValueTF{#4}
-  {
-    \fractype{\dfd \IfNoValueTF{#2}{}{^{#2}}}{\dfd #3\IfNoValueTF{#2}{}{^{#2}}}
-    \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
-  }
-  {
-    \fractype{\dfd \IfNoValueTF{#2}{}{^{#2}} #3}{\dfd #4\IfNoValueTF{#2}{}{^{#2}}}
-    \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
-  }
+	% s: star for \flatfrac flat derivative
+	% o: optional n for nth derivative
+	% m: mandatory (x in df/dx)
+	% g: optional (f in df/dx)
+	% d: long-form d/dx(...)
+	\IfBooleanTF{#1}
+	{\let\fractype\flatfrac}
+	{\let\fractype\frac}
+	\IfNoValueTF{#4}
+	{
+		\fractype{\dfd \IfNoValueTF{#2}{}{^{#2}}}{\dfd #3\IfNoValueTF{#2}{}{^{#2}}}
+		\IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+	}
+	{
+		\fractype{\dfd \IfNoValueTF{#2}{}{^{#2}} #3}{\dfd #4\IfNoValueTF{#2}{}{^{#2}}}
+		\IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+	}
 }
 \DeclareDocumentCommand\PTderivative{}{\derivative}
 \DeclareDocumentCommand\dv{}{\derivative}
 \DeclareDocumentCommand\PTdv{}{\derivative}
 \DeclareDocumentCommand\Differential{ o g d() }{ % Uppercase differential 'D'
-  % o: optional n for nth differential
-  % g: optional argument for readability and to control spacing
-  % d: long-form as in D(cos x)
-  \IfNoValueTF{#2}{
-  \IfNoValueTF{#3}
-  {\dfD\IfNoValueTF{#1}{}{^{#1}}}
-  {\mathinner{\dfD\IfNoValueTF{#1}{}{^{#1}}\argopen(#3\argclose)}}
-  }
-  {\mathinner{\dfD\IfNoValueTF{#1}{}{^{#1}}#2} \IfNoValueTF{#3}{}{(#3)}}
+	% o: optional n for nth differential
+	% g: optional argument for readability and to control spacing
+	% d: long-form as in D(cos x)
+	\IfNoValueTF{#2}{
+		\IfNoValueTF{#3}
+		{\dfD\IfNoValueTF{#1}{}{^{#1}}}
+		{\mathinner{\dfD\IfNoValueTF{#1}{}{^{#1}}\argopen(#3\argclose)}}
+	}
+	{\mathinner{\dfD\IfNoValueTF{#1}{}{^{#1}}#2} \IfNoValueTF{#3}{}{(#3)}}
 }
 \DeclareDocumentCommand\Dd{}{\Differential} % Shorthand for \Differential
 
 \DeclareDocumentCommand\Derivative{ s o m g d() }
 { % Uppercase total derivative
-  % s: star for \flatfrac flat derivative
-  % o: optional n for nth derivative
-  % m: mandatory (x in Df/Dx)
-  % g: optional (f in Df/Dx)
-  % d: long-form D/Dx(...)
-  \IfBooleanTF{#1}
-  {\let\fractype\flatfrac}
-  {\let\fractype\frac}
-  \IfNoValueTF{#4}
-  {
-    \fractype{\dfD \IfNoValueTF{#2}{}{^{#2}}}{\dfD #3\IfNoValueTF{#2}{}{^{#2}}}
-    \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
-  }
-  {
-    \fractype{\dfD \IfNoValueTF{#2}{}{^{#2}} #3}{\dfD #4\IfNoValueTF{#2}{}{^{#2}}}
-    \IfNoValueTF{#5}{}{\argopen(#5\argclose)}
-  }
+	% s: star for \flatfrac flat derivative
+	% o: optional n for nth derivative
+	% m: mandatory (x in Df/Dx)
+	% g: optional (f in Df/Dx)
+	% d: long-form D/Dx(...)
+	\IfBooleanTF{#1}
+	{\let\fractype\flatfrac}
+	{\let\fractype\frac}
+	\IfNoValueTF{#4}
+	{
+		\fractype{\dfD \IfNoValueTF{#2}{}{^{#2}}}{\dfD #3\IfNoValueTF{#2}{}{^{#2}}}
+		\IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+	}
+	{
+		\fractype{\dfD \IfNoValueTF{#2}{}{^{#2}} #3}{\dfD #4\IfNoValueTF{#2}{}{^{#2}}}
+		\IfNoValueTF{#5}{}{\argopen(#5\argclose)}
+	}
 }
 \DeclareDocumentCommand\Dv{}{\Derivative}
 
 \DeclareDocumentCommand\partialdifferential{ o g d() }{ % Partial Differential '\partial'
-  % o: optional n for nth differential
-  % g: optional argument for readability and to control spacing
-  % d: long-form as in \partial(cos x)
-  \IfNoValueTF{#2}{
-  \IfNoValueTF{#3}
-  {\partial\IfNoValueTF{#1}{}{^{#1}}}
-  {\mathinner{\partial\IfNoValueTF{#1}{}{^{#1}}\argopen(#3\argclose)}}
-  }
-  {\mathinner{\partial\IfNoValueTF{#1}{}{^{#1}}#2} \IfNoValueTF{#3}{}{(#3)}}
+	% o: optional n for nth differential
+	% g: optional argument for readability and to control spacing
+	% d: long-form as in \partial(cos x)
+	\IfNoValueTF{#2}{
+		\IfNoValueTF{#3}
+		{\partial\IfNoValueTF{#1}{}{^{#1}}}
+		{\mathinner{\partial\IfNoValueTF{#1}{}{^{#1}}\argopen(#3\argclose)}}
+	}
+	{\mathinner{\partial\IfNoValueTF{#1}{}{^{#1}}#2} \IfNoValueTF{#3}{}{(#3)}}
 }
 \DeclareDocumentCommand\PTpartialderivative{}{\partialdifferential}
 \DeclareDocumentCommand\pdd{}{\partialdifferential}
@@ -1654,60 +1654,60 @@
 
 \DeclareDocumentCommand\partialderivative{ s o m g g d() }
 { % Partial derivative
-  % s: star for \flatfrac flat derivative
-  % o: optional n for nth derivative
-  % m: mandatory (x in df/dx)
-  % g: optional (f in df/dx)
-  % g: optional (y in d^2f/dxdy)
-  % d: long-form d/dx(...)
-  \IfBooleanTF{#1}
-  {\let\fractype\flatfrac}
-  {\let\fractype\frac}
-  \IfNoValueTF{#4}
-  {
-    \fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}}
-    \IfNoValueTF{#6}{}{\argopen(#6\argclose)}
-  }
-  {
-    \IfNoValueTF{#5}
-    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}} #3}{\partial #4\IfNoValueTF{#2}{}{^{#2}}}}
-    {\fractype{\partial^2 #3}{\partial #4 \partial #5}}
-    \IfNoValueTF{#6}{}{\argopen(#6\argclose)}
-  }
+	% s: star for \flatfrac flat derivative
+	% o: optional n for nth derivative
+	% m: mandatory (x in df/dx)
+	% g: optional (f in df/dx)
+	% g: optional (y in d^2f/dxdy)
+	% d: long-form d/dx(...)
+	\IfBooleanTF{#1}
+	{\let\fractype\flatfrac}
+	{\let\fractype\frac}
+	\IfNoValueTF{#4}
+	{
+		\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}}
+		\IfNoValueTF{#6}{}{\argopen(#6\argclose)}
+	}
+	{
+		\IfNoValueTF{#5}
+		{\fractype{\partial \IfNoValueTF{#2}{}{^{#2}} #3}{\partial #4\IfNoValueTF{#2}{}{^{#2}}}}
+		{\fractype{\partial^2 #3}{\partial #4 \partial #5}}
+		\IfNoValueTF{#6}{}{\argopen(#6\argclose)}
+	}
 }
 \DeclareDocumentCommand\pdv{}{\partialderivative}
 \DeclareDocumentCommand\pderivative{}{\partialderivative}
 
 \DeclareDocumentCommand\variation{ o g d() }{ % Functional variation
-  % o: optional n for nth differential
-  % g: optional argument for readability and to control spacing
-  % d: long-form as in d(F(g))
-  \IfNoValueTF{#2}{
-  \IfNoValueTF{#3}
-  {\delta \IfNoValueTF{#1}{}{^{#1}}}
-  {\mathinner{\delta \IfNoValueTF{#1}{}{^{#1}}\argopen(#3\argclose)}}
-  }
-  {\mathinner{\delta \IfNoValueTF{#1}{}{^{#1}}#2} \IfNoValueTF{#3}{}{(#3)}}
+	% o: optional n for nth differential
+	% g: optional argument for readability and to control spacing
+	% d: long-form as in d(F(g))
+	\IfNoValueTF{#2}{
+		\IfNoValueTF{#3}
+		{\delta \IfNoValueTF{#1}{}{^{#1}}}
+		{\mathinner{\delta \IfNoValueTF{#1}{}{^{#1}}\argopen(#3\argclose)}}
+	}
+	{\mathinner{\delta \IfNoValueTF{#1}{}{^{#1}}#2} \IfNoValueTF{#3}{}{(#3)}}
 }
 \DeclareDocumentCommand\var{}{\variation} % Shorthand for \variation
 
 \DeclareDocumentCommand\functionalderivative{ s o m g d() }
 { % Functional derivative
-  % s: star for \flatfrac flat derivative
-  % o: optional n for nth derivative
-  % m: mandatory (g in dF/dg)
-  % g: optional (F in dF/dg)
-  % d: long-form d/dx(...)
-  \IfBooleanTF{#1}
-  {\let\fractype\flatfrac}
-  {\let\fractype\frac}
-  \IfNoValueTF{#4}
-  {
-  \IfNoValueTF{#5}
-  {\fractype{\variation \IfNoValueTF{#2}{}{^{#2}}}{\variation #3\IfNoValueTF{#2}{}{^{#2}}}}
-  {\fractype{\variation \IfNoValueTF{#2}{}{^{#2}}}{\variation #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
-  }
-  {\fractype{\variation \IfNoValueTF{#2}{}{^{#2}} #3}{\variation #4\IfNoValueTF{#2}{}{^{#2}}}}
+	% s: star for \flatfrac flat derivative
+	% o: optional n for nth derivative
+	% m: mandatory (g in dF/dg)
+	% g: optional (F in dF/dg)
+	% d: long-form d/dx(...)
+	\IfBooleanTF{#1}
+	{\let\fractype\flatfrac}
+	{\let\fractype\frac}
+	\IfNoValueTF{#4}
+	{
+		\IfNoValueTF{#5}
+		{\fractype{\variation \IfNoValueTF{#2}{}{^{#2}}}{\variation #3\IfNoValueTF{#2}{}{^{#2}}}}
+		{\fractype{\variation \IfNoValueTF{#2}{}{^{#2}}}{\variation #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#5\argclose)}
+	}
+	{\fractype{\variation \IfNoValueTF{#2}{}{^{#2}} #3}{\variation #4\IfNoValueTF{#2}{}{^{#2}}}}
 }
 \DeclareDocumentCommand\fderivative{}{\functionalderivative} % Shorthand for \functionalderivative
 \DeclareDocumentCommand\fdv{}{\functionalderivative} % Shorthand for \functionalderivative
@@ -1715,70 +1715,70 @@
 % Bra-ket notation
 \DeclareDocumentCommand\bra{ s m t\ket s g }
 { % Bra
-  \IfBooleanTF{#3}
-  { % Contraction
-  \IfBooleanTF{#1}
-  { % Bra has a star: no resize
-    \IfNoValueTF{#5}
-    {\braket*{#2}{} \IfBooleanTF{#4}{*}{}}
-    {\braket*{#2}{#5}}
-  }
-  {
-    \IfBooleanTF{#4}
-    { % Ket has a star: no resize
-    \IfNoValueTF{#5}
-    {\braket{#2}{} *}
-    {\braket*{#2}{#5}}
-    }
-    {\braket{#2}{\IfNoValueTF{#5}{}{#5}}} % Neither term is starred: auto sizing
-  }
-  }
-  { % No contraction
-  \IfBooleanTF{#1}
-  {\vphantom{#2}\left\langle\smash{#2}\right\rvert}
-  {\left\langle{#2}\right\rvert}
-  \IfBooleanTF{#4}{*}{}
-  \IfNoValueTF{#5}{}{#5}
-  }
+	\IfBooleanTF{#3}
+	{ % Contraction
+		\IfBooleanTF{#1}
+		{ % Bra has a star: no resize
+			\IfNoValueTF{#5}
+			{\braket*{#2}{} \IfBooleanTF{#4}{*}{}}
+			{\braket*{#2}{#5}}
+		}
+		{
+			\IfBooleanTF{#4}
+			{ % Ket has a star: no resize
+				\IfNoValueTF{#5}
+				{\braket{#2}{} *}
+				{\braket*{#2}{#5}}
+			}
+			{\braket{#2}{\IfNoValueTF{#5}{}{#5}}} % Neither term is starred: auto sizing
+		}
+	}
+	{ % No contraction
+		\IfBooleanTF{#1}
+		{\vphantom{#2}\left\langle\smash{#2}\right\rvert}
+		{\left\langle{#2}\right\rvert}
+		\IfBooleanTF{#4}{*}{}
+		\IfNoValueTF{#5}{}{#5}
+	}
 }
 
 \DeclareDocumentCommand\ket{ s m }
 { % Ket
-  \IfBooleanTF{#1}
-  {\vphantom{#2}\left\lvert\smash{#2}\right\rangle} % No resize
-  {\left\lvert{#2}\right\rangle} % Auto sizing
+	\IfBooleanTF{#1}
+	{\vphantom{#2}\left\lvert\smash{#2}\right\rangle} % No resize
+	{\left\lvert{#2}\right\rangle} % Auto sizing
 }
 
 \DeclareDocumentCommand\innerproduct{ s m g }
 { % Inner product
-  \IfBooleanTF{#1}
-  { % No resize
-  \IfNoValueTF{#3}
-  {\vphantom{#2}\left\langle\smash{#2}\middle\vert\smash{#2}\right\rangle}
-  {\vphantom{#2#3}\left\langle\smash{#2}\middle\vert\smash{#3}\right\rangle}
-  }
-  { % Auto resize
-  \IfNoValueTF{#3}
-  {\left\langle{#2}\middle\vert{#2}\right\rangle}
-  {\left\langle{#2}\middle\vert{#3}\right\rangle}
-  }
+	\IfBooleanTF{#1}
+	{ % No resize
+		\IfNoValueTF{#3}
+		{\vphantom{#2}\left\langle\smash{#2}\middle\vert\smash{#2}\right\rangle}
+		{\vphantom{#2#3}\left\langle\smash{#2}\middle\vert\smash{#3}\right\rangle}
+	}
+	{ % Auto resize
+		\IfNoValueTF{#3}
+		{\left\langle{#2}\middle\vert{#2}\right\rangle}
+		{\left\langle{#2}\middle\vert{#3}\right\rangle}
+	}
 }
 \DeclareDocumentCommand\braket{}{\innerproduct} % Alternative for \innerproduct
 \DeclareDocumentCommand\ip{}{\innerproduct} % Shorthand for \innerproduct
 
 \DeclareDocumentCommand\outerproduct{ s m g }
 { % Dyad
-  \IfBooleanTF{#1}
-  { % No resize
-  \IfNoValueTF{#3}
-  {\vphantom{#2}\left\lvert\smash{#2}\middle\rangle\!\middle\langle\smash{#2}\right\rvert}
-  {\vphantom{#2#3}\left\lvert\smash{#2}\middle\rangle\!\middle\langle\smash{#3}\right\rvert}
-  }
-  { % Auto resize
-  \IfNoValueTF{#3}
-  {\left\lvert{#2}\middle\rangle\!\middle\langle{#2}\right\rvert}
-  {\left\lvert{#2}\middle\rangle\!\middle\langle{#3}\right\rvert}
-  }
+	\IfBooleanTF{#1}
+	{ % No resize
+		\IfNoValueTF{#3}
+		{\vphantom{#2}\left\lvert\smash{#2}\middle\rangle\!\middle\langle\smash{#2}\right\rvert}
+		{\vphantom{#2#3}\left\lvert\smash{#2}\middle\rangle\!\middle\langle\smash{#3}\right\rvert}
+	}
+	{ % Auto resize
+		\IfNoValueTF{#3}
+		{\left\lvert{#2}\middle\rangle\!\middle\langle{#2}\right\rvert}
+		{\left\lvert{#2}\middle\rangle\!\middle\langle{#3}\right\rvert}
+	}
 }
 \DeclareDocumentCommand\dyad{}{\outerproduct} % Alternative for \outerproduct
 \DeclareDocumentCommand\op{}{\dyad} % Shorthand for \outerproduct
@@ -1786,21 +1786,21 @@
 
 \DeclareDocumentCommand\expectationvalue{ s s m g }
 { % Expectation value
-  \IfNoValueTF{#4}
-  {
-  \IfBooleanTF{#1}
-  {\vphantom{#3}\left\langle\smash{#3}\right\rangle} % Starred implicit form: no resizing
-  {\left\langle{#3}\right\rangle} % Normal implicit form: auto sizing
-  }
-  {
-  \IfBooleanTF{#1}
-  {
-    \IfBooleanTF{#2}
-    {\left\langle{#4}\middle\vert{#3}\middle\vert{#4}\right\rangle} % Double starred explicit form: total auto sizing
-    {\vphantom{#3#4}\left\langle\smash{#4}\middle\vert\smash{#3}\middle\vert\smash{#4}\right\rangle} % Starred explicit form: no resizing
-  }
-  {\vphantom{#3}\left\langle{#4}\middle\vert\smash{#3}\middle\vert{#4}\right\rangle} % Normal explicit form: only resize based on bra/ket arguments
-  }
+	\IfNoValueTF{#4}
+	{
+		\IfBooleanTF{#1}
+		{\vphantom{#3}\left\langle\smash{#3}\right\rangle} % Starred implicit form: no resizing
+		{\left\langle{#3}\right\rangle} % Normal implicit form: auto sizing
+	}
+	{
+		\IfBooleanTF{#1}
+		{
+			\IfBooleanTF{#2}
+			{\left\langle{#4}\middle\vert{#3}\middle\vert{#4}\right\rangle} % Double starred explicit form: total auto sizing
+			{\vphantom{#3#4}\left\langle\smash{#4}\middle\vert\smash{#3}\middle\vert\smash{#4}\right\rangle} % Starred explicit form: no resizing
+		}
+		{\vphantom{#3}\left\langle{#4}\middle\vert\smash{#3}\middle\vert{#4}\right\rangle} % Normal explicit form: only resize based on bra/ket arguments
+	}
 }
 \DeclareDocumentCommand\expval{}{\expectationvalue} % Shorthand for \expectationvalue
 \DeclareDocumentCommand\ev{}{\expectationvalue} % Shorthand for \expectationvalue
@@ -1808,13 +1808,13 @@
 
 \DeclareDocumentCommand\matrixelement{ s s m m m }
 { % Matrix element
-  \IfBooleanTF{#1}
-  {
-  \IfBooleanTF{#2}
-  {\left\langle{#3}\middle\vert{#4}\middle\vert{#5}\right\rangle} % Double starred: total resizing
-  {\vphantom{#3#4#5}\left\langle\smash{#3}\middle\vert\smash{#4}\middle\vert\smash{#5}\right\rangle} % Starred: no resizing
-  }
-  {\vphantom{#4}\left\langle{#3}\middle\vert\smash{#4}\middle\vert{#5}\right\rangle} % Normal: only resize based on bra/ket arguments
+	\IfBooleanTF{#1}
+	{
+		\IfBooleanTF{#2}
+		{\left\langle{#3}\middle\vert{#4}\middle\vert{#5}\right\rangle} % Double starred: total resizing
+		{\vphantom{#3#4#5}\left\langle\smash{#3}\middle\vert\smash{#4}\middle\vert\smash{#5}\right\rangle} % Starred: no resizing
+	}
+	{\vphantom{#4}\left\langle{#3}\middle\vert\smash{#4}\middle\vert{#5}\right\rangle} % Normal: only resize based on bra/ket arguments
 }
 \DeclareDocumentCommand\matrixel{}{\matrixelement} % Shorthand for \matrixelement
 \DeclareDocumentCommand\mel{}{\matrixelement} % Shorthand for \matrixelement
@@ -1822,156 +1822,156 @@
 % Matrix macros
 \DeclareDocumentCommand\identitymatrix{m}
 {
-{
-\newtoks\matrixtoks
-\global\matrixtoks = {}
-\newcount\rowcount
-\newcount\colcount
-\loop
-\colcount = 0
-\advance \rowcount by 1
-  {
-  \loop
-  \advance \colcount by 1
-  \edef\addtoks
-  {
-    \ifnum \colcount = 1 \else & \fi
-    \ifnum \colcount = \rowcount 1 \else 0 \fi
-  }
-  \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks\addtoks}
-  \ifnum \colcount < #1
-  \repeat
-  }
-\ifnum \rowcount < #1
-\global\matrixtoks = \expandafter{\the\matrixtoks \\ }
-\repeat
-}
-\the\matrixtoks
+	{
+		\newtoks\matrixtoks
+		\global\matrixtoks = {}
+		\newcount\rowcount
+		\newcount\colcount
+		\loop
+		\colcount = 0
+		\advance \rowcount by 1
+			{
+				\loop
+				\advance \colcount by 1
+				\edef\addtoks
+				{
+					\ifnum \colcount = 1 \else & \fi
+					\ifnum \colcount = \rowcount 1 \else 0 \fi
+				}
+				\global\matrixtoks = \expandafter{\the\expandafter\matrixtoks\addtoks}
+				\ifnum \colcount < #1
+				\repeat
+			}
+		\ifnum \rowcount < #1
+		\global\matrixtoks = \expandafter{\the\matrixtoks \\ }
+		\repeat
+	}
+	\the\matrixtoks
 }
 \DeclareDocumentCommand\imat{}{\identitymatrix}
 
 \DeclareDocumentCommand\xmatrix{ s o m m m o o g g }
 {
-  {
-    \newtoks\matrixtoks
-    \global\matrixtoks = {}
+	{
+		\newtoks\matrixtoks
+		\global\matrixtoks = {}
 
-    \newcount\rowcount
-    \newcount\actualrow
-    \newcount\rowdots
-    \IfValueTF{#6}{
-      \actualrow = #6
-      \IfValueTF{#2}{
-        \IfStrEq{#2}{1}{\rowdots = \numexpr\actualrow\relax}{
-          \IfStrEq{#2}{0}{\rowdots = \numexpr\actualrow\relax}{\rowdots = \numexpr\actualrow-1\relax}
-        }
-      }{
-        \IfBlankTF{#4}
-        {\rowdots = \numexpr\actualrow-1\relax}
-        {
-          \ifnum\actualrow = #4
-            \rowdots = 0
-          \else
-            \rowdots = \numexpr\actualrow-1\relax
-          \fi
-        }
-      }
-    }{
-      \IfBlankTF{#4}{
-        \actualrow = 1
-      }{
-        \actualrow = #4
-      }
-      \rowdots = 0
-    }
+		\newcount\rowcount
+		\newcount\actualrow
+		\newcount\rowdots
+		\IfValueTF{#6}{
+			\actualrow = #6
+			\IfValueTF{#2}{
+				\IfStrEq{#2}{1}{\rowdots = \numexpr\actualrow\relax}{
+					\IfStrEq{#2}{0}{\rowdots = \numexpr\actualrow\relax}{\rowdots = \numexpr\actualrow-1\relax}
+				}
+			}{
+				\IfBlankTF{#4}
+				{\rowdots = \numexpr\actualrow-1\relax}
+				{
+					\ifnum\actualrow = #4
+						\rowdots = 0
+					\else
+						\rowdots = \numexpr\actualrow-1\relax
+					\fi
+				}
+			}
+		}{
+			\IfBlankTF{#4}{
+				\actualrow = 1
+			}{
+				\actualrow = #4
+			}
+			\rowdots = 0
+		}
 
-    \newcount\colcount
-    \newcount\actualcol
-    \newcount\coldots
-    \IfValueTF{#7}{
-      \actualcol = #7
-      \IfValueTF{#2}{
-        \IfStrEq{#2}{2}{\coldots = \numexpr\actualcol\relax}{
-          \IfStrEq{#2}{0}{\coldots = \numexpr\actualcol\relax}{\coldots = \numexpr\actualcol-1\relax}
-        }
-      }{
-        \IfBlankTF{#5}
-        {\coldots = \numexpr\actualcol-1\relax}
-        {
-          \ifnum\actualcol = #5
-            \coldots = 0
-          \else
-            \coldots = \numexpr\actualcol-1\relax
-          \fi
-        }
-      }
-    }{
-      \IfBlankTF{#5}{
-        \actualcol = 1
-      }{
-        \actualcol = #5
-      }
-      \coldots = 0
-    }
+		\newcount\colcount
+		\newcount\actualcol
+		\newcount\coldots
+		\IfValueTF{#7}{
+			\actualcol = #7
+			\IfValueTF{#2}{
+				\IfStrEq{#2}{2}{\coldots = \numexpr\actualcol\relax}{
+					\IfStrEq{#2}{0}{\coldots = \numexpr\actualcol\relax}{\coldots = \numexpr\actualcol-1\relax}
+				}
+			}{
+				\IfBlankTF{#5}
+				{\coldots = \numexpr\actualcol-1\relax}
+				{
+					\ifnum\actualcol = #5
+						\coldots = 0
+					\else
+						\coldots = \numexpr\actualcol-1\relax
+					\fi
+				}
+			}
+		}{
+			\IfBlankTF{#5}{
+				\actualcol = 1
+			}{
+				\actualcol = #5
+			}
+			\coldots = 0
+		}
 
-    \loop
-      \colcount = 0
-      \advance \rowcount by 1
-      {
-        \loop
-          \advance \colcount by 1
-          \edef\addtoks{
-            \ifnum\colcount = 1
-            \else
-              &
-            \fi
-            \ifnum\colcount = \coldots
-              \ifnum\rowcount = \rowdots
-                \ddots
-              \else
-                \ldots
-              \fi
-            \else
-              \ifnum\rowcount = \rowdots
-                \vdots
-              \else
-                #3
-                \IfBooleanTF{#1}{_{
-                  \ifnum\actualrow = \rowcount
-                    \IfValueTF{#8}{#8}{
-                      \IfBlankTF{#4}{}{
-                        \ifnum #4 > 1
-                          #4
-                        \fi
-                      }
-                    }
-                  \else
-                    \the\rowcount
-                  \fi
-                  \ifnum\actualcol = \colcount
-                    \IfValueTF{#9}{#9}{
-                      \IfBlankTF{#5}{}{
-                        \ifnum #5 > 1
-                          #5
-                        \fi
-                      }
-                    }
-                  \else
-                    \the\colcount
-                  \fi
-                }}{}
-              \fi
-            \fi
-          }
-        \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks\addtoks}
-        \ifnum \colcount < \actualcol
-          \repeat
-      }
-    \ifnum \rowcount < \actualrow
-      \global\matrixtoks = \expandafter{\the\expandafter\matrixtoks \\}
-      \repeat
-  }
-  \the\matrixtoks
+		\loop
+		\colcount = 0
+		\advance \rowcount by 1
+			{
+				\loop
+				\advance \colcount by 1
+				\edef\addtoks{
+					\ifnum\colcount = 1
+					\else
+						&
+					\fi
+					\ifnum\colcount = \coldots
+						\ifnum\rowcount = \rowdots
+							\ddots
+						\else
+							\ldots
+						\fi
+					\else
+						\ifnum\rowcount = \rowdots
+							\vdots
+						\else
+							#3
+							\IfBooleanTF{#1}{_{
+									\ifnum\actualrow = \rowcount
+										\IfValueTF{#8}{#8}{
+											\IfBlankTF{#4}{}{
+												\ifnum #4 > 1
+													#4
+												\fi
+											}
+										}
+									\else
+										\the\rowcount
+									\fi
+									\ifnum\actualcol = \colcount
+										\IfValueTF{#9}{#9}{
+											\IfBlankTF{#5}{}{
+												\ifnum #5 > 1
+													#5
+												\fi
+											}
+										}
+									\else
+										\the\colcount
+									\fi
+								}}{}
+						\fi
+					\fi
+				}
+				\global\matrixtoks = \expandafter{\the\expandafter\matrixtoks\addtoks}
+				\ifnum \colcount < \actualcol
+				\repeat
+			}
+		\ifnum \rowcount < \actualrow
+		\global\matrixtoks = \expandafter{\the\expandafter\matrixtoks \\}
+		\repeat
+	}
+	\the\matrixtoks
 }
 \DeclareDocumentCommand\PTxmatrix{}{\xmatrix}
 \DeclareDocumentCommand\xmat{}{\xmatrix}
@@ -1985,49 +1985,49 @@
 \DeclareDocumentCommand\paulizmatrix{}{1&0\\0&-1}
 \DeclareDocumentCommand\paulimatrix{m}
 {
-  \let\argin=#1
-  \ifx\argin 0 \identitymatrix{2} \else
-  \ifx\argin 1 \paulixmatrix \else
-    \ifx\argin 2 \pauliymatrix \else
-    \ifx\argin 3 \paulizmatrix \else
-      \ifx\argin x \paulixmatrix \else
-      \ifx\argin y \pauliymatrix \else
-        \ifx\argin z \paulizmatrix \fi\fi\fi\fi\fi\fi\fi
+	\let\argin=#1
+	\ifx\argin 0 \identitymatrix{2} \else
+		\ifx\argin 1 \paulixmatrix \else
+			\ifx\argin 2 \pauliymatrix \else
+				\ifx\argin 3 \paulizmatrix \else
+					\ifx\argin x \paulixmatrix \else
+						\ifx\argin y \pauliymatrix \else
+							\ifx\argin z \paulizmatrix \fi\fi\fi\fi\fi\fi\fi
 }
 \DeclareDocumentCommand\pmat{}{\paulimatrix}
 
 \DeclareDocumentCommand\@dmat{ m m g g g g g g g }
 {
-\newtoks\matrixtoks
-\global\matrixtoks = {}
-\IfNoValueTF{#3}
-{#2}
-{
-  \IfNoValueTF{#4}
-  {\global\matrixtoks = \expandafter{\mqty{#2}&#1\\#1&\mqty{#3}}}
-  {
-  \IfNoValueTF{#5}
-  {\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1\\#1&\mqty{#3}&#1\\#1&#1&\mqty{#4}}}
-  {
-    \IfNoValueTF{#6}
-    {\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1\\#1&\mqty{#3}&#1&#1\\#1&#1&\mqty{#4}&#1\\#1&#1&#1&\mqty{#5}}}
-    {
-    \IfNoValueTF{#7}
-    {\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1&#1\\#1&\mqty{#3}&#1&#1&#1\\#1&#1&\mqty{#4}&#1&#1\\#1&#1&#1&\mqty{#5}&#1\\#1&#1&#1&#1&\mqty{#6}}}
-    {
-      \IfNoValueTF{#8}
-      {\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1&#1&#1\\#1&\mqty{#3}&#1&#1&#1&#1\\#1&#1&\mqty{#4}&#1&#1&#1\\#1&#1&#1&\mqty{#5}&#1&#1\\#1&#1&#1&#1&\mqty{#6}&#1\\#1&#1&#1&#1&#1&\mqty{#7}}}
-      {
-      \IfNoValueTF{#9}
-      {\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1&#1&#1&#1\\#1&\mqty{#3}&#1&#1&#1&#1&#1\\#1&#1&\mqty{#4}&#1&#1&#1&#1\\#1&#1&#1&\mqty{#5}&#1&#1&#1\\#1&#1&#1&#1&\mqty{#6}&#1&#1\\#1&#1&#1&#1&#1&\mqty{#7}&#1\\#1&#1&#1&#1&#1&#1&\mqty{#8}}}
-      {\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1&#1&#1&#1&#1\\#1&\mqty{#3}&#1&#1&#1&#1&#1&#1\\#1&#1&\mqty{#4}&#1&#1&#1&#1&#1\\#1&#1&#1&\mqty{#5}&#1&#1&#1&#1\\#1&#1&#1&#1&\mqty{#6}&#1&#1&#1\\#1&#1&#1&#1&#1&\mqty{#7}&#1&#1\\#1&#1&#1&#1&#1&#1&\mqty{#8}&#1\\#1&#1&#1&#1&#1&#1&#1&\mqty{#9}}}
-      }
-    }
-    }
-  }
-  }
-}
-\the\matrixtoks
+	\newtoks\matrixtoks
+	\global\matrixtoks = {}
+	\IfNoValueTF{#3}
+	{#2}
+	{
+		\IfNoValueTF{#4}
+		{\global\matrixtoks = \expandafter{\mqty{#2}&#1\\#1&\mqty{#3}}}
+		{
+			\IfNoValueTF{#5}
+			{\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1\\#1&\mqty{#3}&#1\\#1&#1&\mqty{#4}}}
+			{
+				\IfNoValueTF{#6}
+				{\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1\\#1&\mqty{#3}&#1&#1\\#1&#1&\mqty{#4}&#1\\#1&#1&#1&\mqty{#5}}}
+				{
+					\IfNoValueTF{#7}
+					{\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1&#1\\#1&\mqty{#3}&#1&#1&#1\\#1&#1&\mqty{#4}&#1&#1\\#1&#1&#1&\mqty{#5}&#1\\#1&#1&#1&#1&\mqty{#6}}}
+					{
+						\IfNoValueTF{#8}
+						{\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1&#1&#1\\#1&\mqty{#3}&#1&#1&#1&#1\\#1&#1&\mqty{#4}&#1&#1&#1\\#1&#1&#1&\mqty{#5}&#1&#1\\#1&#1&#1&#1&\mqty{#6}&#1\\#1&#1&#1&#1&#1&\mqty{#7}}}
+						{
+							\IfNoValueTF{#9}
+							{\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1&#1&#1&#1\\#1&\mqty{#3}&#1&#1&#1&#1&#1\\#1&#1&\mqty{#4}&#1&#1&#1&#1\\#1&#1&#1&\mqty{#5}&#1&#1&#1\\#1&#1&#1&#1&\mqty{#6}&#1&#1\\#1&#1&#1&#1&#1&\mqty{#7}&#1\\#1&#1&#1&#1&#1&#1&\mqty{#8}}}
+							{\global\matrixtoks = \expandafter{\mqty{#2}&#1&#1&#1&#1&#1&#1&#1\\#1&\mqty{#3}&#1&#1&#1&#1&#1&#1\\#1&#1&\mqty{#4}&#1&#1&#1&#1&#1\\#1&#1&#1&\mqty{#5}&#1&#1&#1&#1\\#1&#1&#1&#1&\mqty{#6}&#1&#1&#1\\#1&#1&#1&#1&#1&\mqty{#7}&#1&#1\\#1&#1&#1&#1&#1&#1&\mqty{#8}&#1\\#1&#1&#1&#1&#1&#1&#1&\mqty{#9}}}
+						}
+					}
+				}
+			}
+		}
+	}
+	\the\matrixtoks
 }
 \DeclareDocumentCommand\diagonalmatrix{O{} >{\SplitList{,}}m }{\@dmat{#1}#2}
 \DeclareDocumentCommand\dmat{}{\diagonalmatrix}
@@ -2035,36 +2035,36 @@
 
 \DeclareDocumentCommand\@admat{mmggggggg}
 {
-\newtoks\matrixtoks
-\global\matrixtoks = {}
-\IfNoValueTF{#3}
-{#2}
-{
-  \IfNoValueTF{#4}
-  {\global\matrixtoks = \expandafter{#1&\mqty{#2}\\\mqty{#3}&#1}}
-  {
-  \IfNoValueTF{#5}
-  {\global\matrixtoks = \expandafter{#1&#1&\mqty{#2}\\#1&\mqty{#3}&#1\\\mqty{#4}&#1&#1}}
-  {
-    \IfNoValueTF{#6}
-    {\global\matrixtoks = \expandafter{#1&#1&#1&\mqty{#2}\\#1&#1&\mqty{#3}&#1\\#1&\mqty{#4}&#1&#1\\\mqty{#5}&#1&#1&#1}}
-    {
-    \IfNoValueTF{#7}
-    {\global\matrixtoks = \expandafter{#1&#1&#1&#1&\mqty{#2}\\#1&#1&#1&\mqty{#3}&#1\\#1&#1&\mqty{#4}&#1&#1\\#1&\mqty{#5}&#1&#1&#1\\\mqty{#6}&#1&#1&#1&#1}}
-    {
-      \IfNoValueTF{#8}
-      {\global\matrixtoks = \expandafter{#1&#1&#1&#1&#1&\mqty{#2}\\#1&#1&#1&#1&\mqty{#3}&#1\\#1&#1&#1&\mqty{#4}&#1&#1\\#1&#1&\mqty{#5}&#1&#1&#1\\#1&\mqty{#6}&#1&#1&#1&#1\\\mqty{#7}&#1&#1&#1&#1&#1}}
-      {
-      \IfNoValueTF{#9}
-      {\global\matrixtoks = \expandafter{#1&#1&#1&#1&#1&#1&\mqty{#2}\\#1&#1&#1&#1&#1&\mqty{#3}&#1\\#1&#1&#1&#1&\mqty{#4}&#1&#1\\#1&#1&#1&\mqty{#5}&#1&#1&#1\\#1&#1&\mqty{#6}&#1&#1&#1&#1\\#1&\mqty{#7}&#1&#1&#1&#1&#1\\\mqty{#8}&#1&#1&#1&#1&#1&#1}}
-      {\global\matrixtoks = \expandafter{#1&#1&#1&#1&#1&#1&#1&\mqty{#2}\\#1&#1&#1&#1&#1&#1&\mqty{#3}&#1\\#1&#1&#1&#1&#1&\mqty{#4}&#1&#1\\#1&#1&#1&#1&\mqty{#5}&#1&#1&#1\\#1&#1&#1&\mqty{#6}&#1&#1&#1&#1\\#1&#1&\mqty{#7}&#1&#1&#1&#1&#1\\#1&\mqty{#8}&#1&#1&#1&#1&#1&#1\\\mqty{#9}&#1&#1&#1&#1&#1&#1&#1}}
-      }
-    }
-    }
-  }
-  }
-}
-\the\matrixtoks
+	\newtoks\matrixtoks
+	\global\matrixtoks = {}
+	\IfNoValueTF{#3}
+	{#2}
+	{
+		\IfNoValueTF{#4}
+		{\global\matrixtoks = \expandafter{#1&\mqty{#2}\\\mqty{#3}&#1}}
+		{
+			\IfNoValueTF{#5}
+			{\global\matrixtoks = \expandafter{#1&#1&\mqty{#2}\\#1&\mqty{#3}&#1\\\mqty{#4}&#1&#1}}
+			{
+				\IfNoValueTF{#6}
+				{\global\matrixtoks = \expandafter{#1&#1&#1&\mqty{#2}\\#1&#1&\mqty{#3}&#1\\#1&\mqty{#4}&#1&#1\\\mqty{#5}&#1&#1&#1}}
+				{
+					\IfNoValueTF{#7}
+					{\global\matrixtoks = \expandafter{#1&#1&#1&#1&\mqty{#2}\\#1&#1&#1&\mqty{#3}&#1\\#1&#1&\mqty{#4}&#1&#1\\#1&\mqty{#5}&#1&#1&#1\\\mqty{#6}&#1&#1&#1&#1}}
+					{
+						\IfNoValueTF{#8}
+						{\global\matrixtoks = \expandafter{#1&#1&#1&#1&#1&\mqty{#2}\\#1&#1&#1&#1&\mqty{#3}&#1\\#1&#1&#1&\mqty{#4}&#1&#1\\#1&#1&\mqty{#5}&#1&#1&#1\\#1&\mqty{#6}&#1&#1&#1&#1\\\mqty{#7}&#1&#1&#1&#1&#1}}
+						{
+							\IfNoValueTF{#9}
+							{\global\matrixtoks = \expandafter{#1&#1&#1&#1&#1&#1&\mqty{#2}\\#1&#1&#1&#1&#1&\mqty{#3}&#1\\#1&#1&#1&#1&\mqty{#4}&#1&#1\\#1&#1&#1&\mqty{#5}&#1&#1&#1\\#1&#1&\mqty{#6}&#1&#1&#1&#1\\#1&\mqty{#7}&#1&#1&#1&#1&#1\\\mqty{#8}&#1&#1&#1&#1&#1&#1}}
+							{\global\matrixtoks = \expandafter{#1&#1&#1&#1&#1&#1&#1&\mqty{#2}\\#1&#1&#1&#1&#1&#1&\mqty{#3}&#1\\#1&#1&#1&#1&#1&\mqty{#4}&#1&#1\\#1&#1&#1&#1&\mqty{#5}&#1&#1&#1\\#1&#1&#1&\mqty{#6}&#1&#1&#1&#1\\#1&#1&\mqty{#7}&#1&#1&#1&#1&#1\\#1&\mqty{#8}&#1&#1&#1&#1&#1&#1\\\mqty{#9}&#1&#1&#1&#1&#1&#1&#1}}
+						}
+					}
+				}
+			}
+		}
+	}
+	\the\matrixtoks
 }
 \DeclareDocumentCommand\antidiagonalmatrix{O{} >{\SplitList{,}}m }{\@admat{#1}#2}
 \DeclareDocumentCommand\admat{}{\antidiagonalmatrix}
@@ -2072,722 +2072,722 @@
 
 % Shortgreek
 \if@shorttextgreek
-\DeclareDocumentCommand{\tgAlpha}{g}{\text{\textAlpha}}
-\DeclareDocumentCommand{\tgBeta}{g}{\text{\textBeta}}
-\DeclareDocumentCommand{\tgGamma}{g}{\text{\textGamma}}
-\DeclareDocumentCommand{\tgDelta}{g}{\text{\textDelta}}
-\DeclareDocumentCommand{\tgEpsilon}{g}{\text{\textEpsilon}}
-\DeclareDocumentCommand{\tgZeta}{g}{\text{\textZeta}}
-\DeclareDocumentCommand{\tgEta}{g}{\text{\textEta}}
-\DeclareDocumentCommand{\tgTheta}{g}{\text{\textTheta}}
-\DeclareDocumentCommand{\tgIota}{g}{\text{\textIota}}
-\DeclareDocumentCommand{\tgKappa}{g}{\text{\textKappa}}
-\DeclareDocumentCommand{\tgLambda}{g}{\text{\textLambda}}
-\DeclareDocumentCommand{\tgMu}{g}{\text{\textMu}}
-\DeclareDocumentCommand{\tgNu}{g}{\text{\textNu}}
-\DeclareDocumentCommand{\tgXi}{g}{\text{\textXi}}
-\DeclareDocumentCommand{\tgOmicron}{g}{\text{\textOmicron}}
-\DeclareDocumentCommand{\tgPi}{g}{\text{\textPi}}
-\DeclareDocumentCommand{\tgRho}{g}{\text{\textRho}}
-\DeclareDocumentCommand{\tgSigma}{g}{\text{\textSigma}}
-\DeclareDocumentCommand{\tgTau}{g}{\text{\textTau}}
-\DeclareDocumentCommand{\tgUpsilon}{g}{\text{\textUpsilon}}
-\DeclareDocumentCommand{\tgPhi}{g}{\text{\textPhi}}
-\DeclareDocumentCommand{\tgChi}{g}{\text{\textChi}}
-\DeclareDocumentCommand{\tgPsi}{g}{\text{\textPsi}}
-\DeclareDocumentCommand{\tgOmega}{g}{\text{\textOmega}}
-\DeclareDocumentCommand{\tgalpha}{g}{\text{\textalpha}}
-\DeclareDocumentCommand{\tgbeta}{g}{\text{\textbeta}}
-\DeclareDocumentCommand{\tggamma}{g}{\text{\textgamma}}
-\DeclareDocumentCommand{\tgdelta}{g}{\text{\textdelta}}
-\DeclareDocumentCommand{\tgepsilon}{g}{\text{\textepsilon}}
-\DeclareDocumentCommand{\tgzeta}{g}{\text{\textzeta}}
-\DeclareDocumentCommand{\tgeta}{g}{\text{\texteta}}
-\DeclareDocumentCommand{\tgtheta}{g}{\text{\texttheta}}
-\DeclareDocumentCommand{\tgiota}{g}{\text{\textiota}}
-\DeclareDocumentCommand{\tgkappa}{g}{\text{\textkappa}}
-\DeclareDocumentCommand{\tglambda}{g}{\text{\textlambda}}
-\DeclareDocumentCommand{\tgmu}{g}{\text{\textmu}}
-\DeclareDocumentCommand{\tgnu}{g}{\text{\textnu}}
-\DeclareDocumentCommand{\tgxi}{g}{\text{\textxi}}
-\DeclareDocumentCommand{\tgomicron}{g}{\text{\textomicron}}
-\DeclareDocumentCommand{\tgpi}{g}{\text{\textpi}}
-\DeclareDocumentCommand{\tgrho}{g}{\text{\textrho}}
-\DeclareDocumentCommand{\tgsigma}{g}{\text{\textsigma}}
-\DeclareDocumentCommand{\tgtau}{g}{\text{\texttau}}
-\DeclareDocumentCommand{\tgupsilon}{g}{\text{\textupsilon}}
-\DeclareDocumentCommand{\tgphi}{g}{\text{\textphi}}
-\DeclareDocumentCommand{\tgchi}{g}{\text{\textchi}}
-\DeclareDocumentCommand{\tgpsi}{g}{\text{\textpsi}}
-\DeclareDocumentCommand{\tgomega}{g}{\text{\textomega}}
+	\DeclareDocumentCommand{\tgAlpha}{g}{\text{\textAlpha}}
+	\DeclareDocumentCommand{\tgBeta}{g}{\text{\textBeta}}
+	\DeclareDocumentCommand{\tgGamma}{g}{\text{\textGamma}}
+	\DeclareDocumentCommand{\tgDelta}{g}{\text{\textDelta}}
+	\DeclareDocumentCommand{\tgEpsilon}{g}{\text{\textEpsilon}}
+	\DeclareDocumentCommand{\tgZeta}{g}{\text{\textZeta}}
+	\DeclareDocumentCommand{\tgEta}{g}{\text{\textEta}}
+	\DeclareDocumentCommand{\tgTheta}{g}{\text{\textTheta}}
+	\DeclareDocumentCommand{\tgIota}{g}{\text{\textIota}}
+	\DeclareDocumentCommand{\tgKappa}{g}{\text{\textKappa}}
+	\DeclareDocumentCommand{\tgLambda}{g}{\text{\textLambda}}
+	\DeclareDocumentCommand{\tgMu}{g}{\text{\textMu}}
+	\DeclareDocumentCommand{\tgNu}{g}{\text{\textNu}}
+	\DeclareDocumentCommand{\tgXi}{g}{\text{\textXi}}
+	\DeclareDocumentCommand{\tgOmicron}{g}{\text{\textOmicron}}
+	\DeclareDocumentCommand{\tgPi}{g}{\text{\textPi}}
+	\DeclareDocumentCommand{\tgRho}{g}{\text{\textRho}}
+	\DeclareDocumentCommand{\tgSigma}{g}{\text{\textSigma}}
+	\DeclareDocumentCommand{\tgTau}{g}{\text{\textTau}}
+	\DeclareDocumentCommand{\tgUpsilon}{g}{\text{\textUpsilon}}
+	\DeclareDocumentCommand{\tgPhi}{g}{\text{\textPhi}}
+	\DeclareDocumentCommand{\tgChi}{g}{\text{\textChi}}
+	\DeclareDocumentCommand{\tgPsi}{g}{\text{\textPsi}}
+	\DeclareDocumentCommand{\tgOmega}{g}{\text{\textOmega}}
+	\DeclareDocumentCommand{\tgalpha}{g}{\text{\textalpha}}
+	\DeclareDocumentCommand{\tgbeta}{g}{\text{\textbeta}}
+	\DeclareDocumentCommand{\tggamma}{g}{\text{\textgamma}}
+	\DeclareDocumentCommand{\tgdelta}{g}{\text{\textdelta}}
+	\DeclareDocumentCommand{\tgepsilon}{g}{\text{\textepsilon}}
+	\DeclareDocumentCommand{\tgzeta}{g}{\text{\textzeta}}
+	\DeclareDocumentCommand{\tgeta}{g}{\text{\texteta}}
+	\DeclareDocumentCommand{\tgtheta}{g}{\text{\texttheta}}
+	\DeclareDocumentCommand{\tgiota}{g}{\text{\textiota}}
+	\DeclareDocumentCommand{\tgkappa}{g}{\text{\textkappa}}
+	\DeclareDocumentCommand{\tglambda}{g}{\text{\textlambda}}
+	\DeclareDocumentCommand{\tgmu}{g}{\text{\textmu}}
+	\DeclareDocumentCommand{\tgnu}{g}{\text{\textnu}}
+	\DeclareDocumentCommand{\tgxi}{g}{\text{\textxi}}
+	\DeclareDocumentCommand{\tgomicron}{g}{\text{\textomicron}}
+	\DeclareDocumentCommand{\tgpi}{g}{\text{\textpi}}
+	\DeclareDocumentCommand{\tgrho}{g}{\text{\textrho}}
+	\DeclareDocumentCommand{\tgsigma}{g}{\text{\textsigma}}
+	\DeclareDocumentCommand{\tgtau}{g}{\text{\texttau}}
+	\DeclareDocumentCommand{\tgupsilon}{g}{\text{\textupsilon}}
+	\DeclareDocumentCommand{\tgphi}{g}{\text{\textphi}}
+	\DeclareDocumentCommand{\tgchi}{g}{\text{\textchi}}
+	\DeclareDocumentCommand{\tgpsi}{g}{\text{\textpsi}}
+	\DeclareDocumentCommand{\tgomega}{g}{\text{\textomega}}
 \fi
 \if@shortvargreek
-\DeclareDocumentCommand{\vAlpha}{}{\varAlpha}
-\DeclareDocumentCommand{\vBeta}{}{\varBeta}
-\DeclareDocumentCommand{\vGamma}{}{\varGamma}
-\DeclareDocumentCommand{\vDelta}{}{\varDelta}
-\DeclareDocumentCommand{\vEpsilon}{}{\varEpsilon}
-\DeclareDocumentCommand{\vZeta}{}{\varZeta}
-\DeclareDocumentCommand{\vEta}{}{\varEta}
-\DeclareDocumentCommand{\vTheta}{}{\varTheta}
-\DeclareDocumentCommand{\vIota}{}{\varIota}
-\DeclareDocumentCommand{\vKappa}{}{\varKappa}
-\DeclareDocumentCommand{\vLambda}{}{\varLambda}
-\DeclareDocumentCommand{\vMu}{}{\varMu}
-\DeclareDocumentCommand{\vNu}{}{\varNu}
-\DeclareDocumentCommand{\vXi}{}{\varXi}
-\DeclareDocumentCommand{\vOmicron}{}{\varOmicron}
-\DeclareDocumentCommand{\vPi}{}{\varPi}
-\DeclareDocumentCommand{\vRho}{}{\varRho}
-\DeclareDocumentCommand{\vSigma}{}{\varSigma}
-\DeclareDocumentCommand{\vTau}{}{\varTau}
-\DeclareDocumentCommand{\vUpsilon}{}{\varUpsilon}
-\DeclareDocumentCommand{\vPhi}{}{\varPhi}
-\DeclareDocumentCommand{\vChi}{}{\varChi}
-\DeclareDocumentCommand{\vPsi}{}{\varPsi}
-\DeclareDocumentCommand{\vOmega}{}{\varOmega}
-\DeclareDocumentCommand{\valpha}{}{\varalpha}
-\DeclareDocumentCommand{\vbeta}{}{\varbeta}
-\DeclareDocumentCommand{\vgamma}{}{\vargamma}
-\DeclareDocumentCommand{\vdelta}{}{\vardelta}
-\DeclareDocumentCommand{\vepsilon}{}{\varepsilon}
-\DeclareDocumentCommand{\vzeta}{}{\varzeta}
-\DeclareDocumentCommand{\veta}{}{\vareta}
-\DeclareDocumentCommand{\vtheta}{}{\vartheta}
-\DeclareDocumentCommand{\viota}{}{\variota}
-\DeclareDocumentCommand{\vkappa}{}{\varkappa}
-\DeclareDocumentCommand{\vlambda}{}{\varlambda}
-\DeclareDocumentCommand{\vmu}{}{\varmu}
-\DeclareDocumentCommand{\vnu}{}{\varnu}
-\DeclareDocumentCommand{\vxi}{}{\varxi}
-\DeclareDocumentCommand{\vomicron}{}{\varomicron}
-\DeclareDocumentCommand{\vpi}{}{\varpi}
-\DeclareDocumentCommand{\vrho}{}{\varrho}
-\DeclareDocumentCommand{\vsigma}{}{\varsigma}
-\DeclareDocumentCommand{\vtau}{}{\vartau}
-\DeclareDocumentCommand{\vupsilon}{}{\varupsilon}
-\DeclareDocumentCommand{\vphi}{}{\varphi}
-\DeclareDocumentCommand{\vchi}{}{\varchi}
-\DeclareDocumentCommand{\vpsi}{}{\varpsi}
-\DeclareDocumentCommand{\vomega}{}{\varomega}
+	\DeclareDocumentCommand{\vAlpha}{}{\varAlpha}
+	\DeclareDocumentCommand{\vBeta}{}{\varBeta}
+	\DeclareDocumentCommand{\vGamma}{}{\varGamma}
+	\DeclareDocumentCommand{\vDelta}{}{\varDelta}
+	\DeclareDocumentCommand{\vEpsilon}{}{\varEpsilon}
+	\DeclareDocumentCommand{\vZeta}{}{\varZeta}
+	\DeclareDocumentCommand{\vEta}{}{\varEta}
+	\DeclareDocumentCommand{\vTheta}{}{\varTheta}
+	\DeclareDocumentCommand{\vIota}{}{\varIota}
+	\DeclareDocumentCommand{\vKappa}{}{\varKappa}
+	\DeclareDocumentCommand{\vLambda}{}{\varLambda}
+	\DeclareDocumentCommand{\vMu}{}{\varMu}
+	\DeclareDocumentCommand{\vNu}{}{\varNu}
+	\DeclareDocumentCommand{\vXi}{}{\varXi}
+	\DeclareDocumentCommand{\vOmicron}{}{\varOmicron}
+	\DeclareDocumentCommand{\vPi}{}{\varPi}
+	\DeclareDocumentCommand{\vRho}{}{\varRho}
+	\DeclareDocumentCommand{\vSigma}{}{\varSigma}
+	\DeclareDocumentCommand{\vTau}{}{\varTau}
+	\DeclareDocumentCommand{\vUpsilon}{}{\varUpsilon}
+	\DeclareDocumentCommand{\vPhi}{}{\varPhi}
+	\DeclareDocumentCommand{\vChi}{}{\varChi}
+	\DeclareDocumentCommand{\vPsi}{}{\varPsi}
+	\DeclareDocumentCommand{\vOmega}{}{\varOmega}
+	\DeclareDocumentCommand{\valpha}{}{\varalpha}
+	\DeclareDocumentCommand{\vbeta}{}{\varbeta}
+	\DeclareDocumentCommand{\vgamma}{}{\vargamma}
+	\DeclareDocumentCommand{\vdelta}{}{\vardelta}
+	\DeclareDocumentCommand{\vepsilon}{}{\varepsilon}
+	\DeclareDocumentCommand{\vzeta}{}{\varzeta}
+	\DeclareDocumentCommand{\veta}{}{\vareta}
+	\DeclareDocumentCommand{\vtheta}{}{\vartheta}
+	\DeclareDocumentCommand{\viota}{}{\variota}
+	\DeclareDocumentCommand{\vkappa}{}{\varkappa}
+	\DeclareDocumentCommand{\vlambda}{}{\varlambda}
+	\DeclareDocumentCommand{\vmu}{}{\varmu}
+	\DeclareDocumentCommand{\vnu}{}{\varnu}
+	\DeclareDocumentCommand{\vxi}{}{\varxi}
+	\DeclareDocumentCommand{\vomicron}{}{\varomicron}
+	\DeclareDocumentCommand{\vpi}{}{\varpi}
+	\DeclareDocumentCommand{\vrho}{}{\varrho}
+	\DeclareDocumentCommand{\vsigma}{}{\varsigma}
+	\DeclareDocumentCommand{\vtau}{}{\vartau}
+	\DeclareDocumentCommand{\vupsilon}{}{\varupsilon}
+	\DeclareDocumentCommand{\vphi}{}{\varphi}
+	\DeclareDocumentCommand{\vchi}{}{\varchi}
+	\DeclareDocumentCommand{\vpsi}{}{\varpsi}
+	\DeclareDocumentCommand{\vomega}{}{\varomega}
 \fi
 \if@shortupgreek
-\DeclareDocumentCommand{\uAlpha}{}{\upAlpha}
-\DeclareDocumentCommand{\uBeta}{}{\upBeta}
-\DeclareDocumentCommand{\uGamma}{}{\upGamma}
-\DeclareDocumentCommand{\uDelta}{}{\upDelta}
-\DeclareDocumentCommand{\uEpsilon}{}{\upEpsilon}
-\DeclareDocumentCommand{\uZeta}{}{\upZeta}
-\DeclareDocumentCommand{\uEta}{}{\upEta}
-\DeclareDocumentCommand{\uTheta}{}{\upTheta}
-\DeclareDocumentCommand{\uIota}{}{\upIota}
-\DeclareDocumentCommand{\uKappa}{}{\upKappa}
-\DeclareDocumentCommand{\uLambda}{}{\upLambda}
-\DeclareDocumentCommand{\uMu}{}{\upMu}
-\DeclareDocumentCommand{\uNu}{}{\upNu}
-\DeclareDocumentCommand{\uXi}{}{\upXi}
-\DeclareDocumentCommand{\uOmicron}{}{\upOmicron}
-\DeclareDocumentCommand{\uPi}{}{\upPi}
-\DeclareDocumentCommand{\uRho}{}{\upRho}
-\DeclareDocumentCommand{\uSigma}{}{\upSigma}
-\DeclareDocumentCommand{\uTau}{}{\upTau}
-\DeclareDocumentCommand{\uUpsilon}{}{\upUpsilon}
-\DeclareDocumentCommand{\uPhi}{}{\upPhi}
-\DeclareDocumentCommand{\uChi}{}{\upChi}
-\DeclareDocumentCommand{\uPsi}{}{\upPsi}
-\DeclareDocumentCommand{\uOmega}{}{\upOmega}
-\DeclareDocumentCommand{\ualpha}{}{\upalpha}
-\DeclareDocumentCommand{\ubeta}{}{\upbeta}
-\DeclareDocumentCommand{\ugamma}{}{\upgamma}
-\DeclareDocumentCommand{\udelta}{}{\updelta}
-\DeclareDocumentCommand{\uepsilon}{}{\upepsilon}
-\DeclareDocumentCommand{\uzeta}{}{\upzeta}
-\DeclareDocumentCommand{\ueta}{}{\upeta}
-\DeclareDocumentCommand{\utheta}{}{\uptheta}
-\DeclareDocumentCommand{\uiota}{}{\upiota}
-\DeclareDocumentCommand{\ukappa}{}{\upkappa}
-\DeclareDocumentCommand{\ulambda}{}{\uplambda}
-\DeclareDocumentCommand{\umu}{}{\upmu}
-\DeclareDocumentCommand{\unu}{}{\upnu}
-\DeclareDocumentCommand{\uxi}{}{\upxi}
-\DeclareDocumentCommand{\uomicron}{}{\upomicron}
-\DeclareDocumentCommand{\upi}{}{\uppi}
-\DeclareDocumentCommand{\urho}{}{\uprho}
-\DeclareDocumentCommand{\usigma}{}{\upsigma}
-\DeclareDocumentCommand{\utau}{}{\uptau}
-\DeclareDocumentCommand{\uupsilon}{}{\upupsilon}
-\DeclareDocumentCommand{\uphi}{}{\upphi}
-\DeclareDocumentCommand{\uchi}{}{\upchi}
-\DeclareDocumentCommand{\upsi}{}{\uppsi}
-\DeclareDocumentCommand{\uomega}{}{\upomega}
+	\DeclareDocumentCommand{\uAlpha}{}{\upAlpha}
+	\DeclareDocumentCommand{\uBeta}{}{\upBeta}
+	\DeclareDocumentCommand{\uGamma}{}{\upGamma}
+	\DeclareDocumentCommand{\uDelta}{}{\upDelta}
+	\DeclareDocumentCommand{\uEpsilon}{}{\upEpsilon}
+	\DeclareDocumentCommand{\uZeta}{}{\upZeta}
+	\DeclareDocumentCommand{\uEta}{}{\upEta}
+	\DeclareDocumentCommand{\uTheta}{}{\upTheta}
+	\DeclareDocumentCommand{\uIota}{}{\upIota}
+	\DeclareDocumentCommand{\uKappa}{}{\upKappa}
+	\DeclareDocumentCommand{\uLambda}{}{\upLambda}
+	\DeclareDocumentCommand{\uMu}{}{\upMu}
+	\DeclareDocumentCommand{\uNu}{}{\upNu}
+	\DeclareDocumentCommand{\uXi}{}{\upXi}
+	\DeclareDocumentCommand{\uOmicron}{}{\upOmicron}
+	\DeclareDocumentCommand{\uPi}{}{\upPi}
+	\DeclareDocumentCommand{\uRho}{}{\upRho}
+	\DeclareDocumentCommand{\uSigma}{}{\upSigma}
+	\DeclareDocumentCommand{\uTau}{}{\upTau}
+	\DeclareDocumentCommand{\uUpsilon}{}{\upUpsilon}
+	\DeclareDocumentCommand{\uPhi}{}{\upPhi}
+	\DeclareDocumentCommand{\uChi}{}{\upChi}
+	\DeclareDocumentCommand{\uPsi}{}{\upPsi}
+	\DeclareDocumentCommand{\uOmega}{}{\upOmega}
+	\DeclareDocumentCommand{\ualpha}{}{\upalpha}
+	\DeclareDocumentCommand{\ubeta}{}{\upbeta}
+	\DeclareDocumentCommand{\ugamma}{}{\upgamma}
+	\DeclareDocumentCommand{\udelta}{}{\updelta}
+	\DeclareDocumentCommand{\uepsilon}{}{\upepsilon}
+	\DeclareDocumentCommand{\uzeta}{}{\upzeta}
+	\DeclareDocumentCommand{\ueta}{}{\upeta}
+	\DeclareDocumentCommand{\utheta}{}{\uptheta}
+	\DeclareDocumentCommand{\uiota}{}{\upiota}
+	\DeclareDocumentCommand{\ukappa}{}{\upkappa}
+	\DeclareDocumentCommand{\ulambda}{}{\uplambda}
+	\DeclareDocumentCommand{\umu}{}{\upmu}
+	\DeclareDocumentCommand{\unu}{}{\upnu}
+	\DeclareDocumentCommand{\uxi}{}{\upxi}
+	\DeclareDocumentCommand{\uomicron}{}{\upomicron}
+	\DeclareDocumentCommand{\upi}{}{\uppi}
+	\DeclareDocumentCommand{\urho}{}{\uprho}
+	\DeclareDocumentCommand{\usigma}{}{\upsigma}
+	\DeclareDocumentCommand{\utau}{}{\uptau}
+	\DeclareDocumentCommand{\uupsilon}{}{\upupsilon}
+	\DeclareDocumentCommand{\uphi}{}{\upphi}
+	\DeclareDocumentCommand{\uchi}{}{\upchi}
+	\DeclareDocumentCommand{\upsi}{}{\uppsi}
+	\DeclareDocumentCommand{\uomega}{}{\upomega}
 \fi
 \if@shortupvargreek
-\DeclareDocumentCommand{\uvAlpha}{}{\upvarAlpha}
-\DeclareDocumentCommand{\uvBeta}{}{\upvarBeta}
-\DeclareDocumentCommand{\uvGamma}{}{\upvarGamma}
-\DeclareDocumentCommand{\uvDelta}{}{\upvarDelta}
-\DeclareDocumentCommand{\uvEpsilon}{}{\upvarEpsilon}
-\DeclareDocumentCommand{\uvZeta}{}{\upvarZeta}
-\DeclareDocumentCommand{\uvEta}{}{\upvarEta}
-\DeclareDocumentCommand{\uvTheta}{}{\upvarTheta}
-\DeclareDocumentCommand{\uvIota}{}{\upvarIota}
-\DeclareDocumentCommand{\uvKappa}{}{\upvarKappa}
-\DeclareDocumentCommand{\uvLambda}{}{\upvarLambda}
-\DeclareDocumentCommand{\uvMu}{}{\upvarMu}
-\DeclareDocumentCommand{\uvNu}{}{\upvarNu}
-\DeclareDocumentCommand{\uvXi}{}{\upvarXi}
-\DeclareDocumentCommand{\uvOmicron}{}{\upvarOmicron}
-\DeclareDocumentCommand{\uvPi}{}{\upvarPi}
-\DeclareDocumentCommand{\uvRho}{}{\upvarRho}
-\DeclareDocumentCommand{\uvSigma}{}{\upvarSigma}
-\DeclareDocumentCommand{\uvTau}{}{\upvarTau}
-\DeclareDocumentCommand{\uvUpsilon}{}{\upvarUpsilon}
-\DeclareDocumentCommand{\uvPhi}{}{\upvarPhi}
-\DeclareDocumentCommand{\uvChi}{}{\upvarChi}
-\DeclareDocumentCommand{\uvPsi}{}{\upvarPsi}
-\DeclareDocumentCommand{\uvOmega}{}{\upvarOmega}
-\DeclareDocumentCommand{\uvalpha}{}{\upvaralpha}
-\DeclareDocumentCommand{\uvbeta}{}{\upvarbeta}
-\DeclareDocumentCommand{\uvgamma}{}{\upvargamma}
-\DeclareDocumentCommand{\uvdelta}{}{\upvardelta}
-\DeclareDocumentCommand{\uvepsilon}{}{\upvarepsilon}
-\DeclareDocumentCommand{\uvzeta}{}{\upvarzeta}
-\DeclareDocumentCommand{\uveta}{}{\upvareta}
-\DeclareDocumentCommand{\uvtheta}{}{\upvartheta}
-\DeclareDocumentCommand{\uviota}{}{\upvariota}
-\DeclareDocumentCommand{\uvkappa}{}{\upvarkappa}
-\DeclareDocumentCommand{\uvlambda}{}{\upvarlambda}
-\DeclareDocumentCommand{\uvmu}{}{\upvarmu}
-\DeclareDocumentCommand{\uvnu}{}{\upvarnu}
-\DeclareDocumentCommand{\uvxi}{}{\upvarxi}
-\DeclareDocumentCommand{\uvomicron}{}{\upvaromicron}
-\DeclareDocumentCommand{\uvpi}{}{\upvarpi}
-\DeclareDocumentCommand{\uvrho}{}{\upvarrho}
-\DeclareDocumentCommand{\uvsigma}{}{\upvarsigma}
-\DeclareDocumentCommand{\uvtau}{}{\upvartau}
-\DeclareDocumentCommand{\uvupsilon}{}{\upvarupsilon}
-\DeclareDocumentCommand{\uvphi}{}{\upvarphi}
-\DeclareDocumentCommand{\uvchi}{}{\upvarchi}
-\DeclareDocumentCommand{\uvpsi}{}{\upvarpsi}
-\DeclareDocumentCommand{\uvomega}{}{\upvaromega}
+	\DeclareDocumentCommand{\uvAlpha}{}{\upvarAlpha}
+	\DeclareDocumentCommand{\uvBeta}{}{\upvarBeta}
+	\DeclareDocumentCommand{\uvGamma}{}{\upvarGamma}
+	\DeclareDocumentCommand{\uvDelta}{}{\upvarDelta}
+	\DeclareDocumentCommand{\uvEpsilon}{}{\upvarEpsilon}
+	\DeclareDocumentCommand{\uvZeta}{}{\upvarZeta}
+	\DeclareDocumentCommand{\uvEta}{}{\upvarEta}
+	\DeclareDocumentCommand{\uvTheta}{}{\upvarTheta}
+	\DeclareDocumentCommand{\uvIota}{}{\upvarIota}
+	\DeclareDocumentCommand{\uvKappa}{}{\upvarKappa}
+	\DeclareDocumentCommand{\uvLambda}{}{\upvarLambda}
+	\DeclareDocumentCommand{\uvMu}{}{\upvarMu}
+	\DeclareDocumentCommand{\uvNu}{}{\upvarNu}
+	\DeclareDocumentCommand{\uvXi}{}{\upvarXi}
+	\DeclareDocumentCommand{\uvOmicron}{}{\upvarOmicron}
+	\DeclareDocumentCommand{\uvPi}{}{\upvarPi}
+	\DeclareDocumentCommand{\uvRho}{}{\upvarRho}
+	\DeclareDocumentCommand{\uvSigma}{}{\upvarSigma}
+	\DeclareDocumentCommand{\uvTau}{}{\upvarTau}
+	\DeclareDocumentCommand{\uvUpsilon}{}{\upvarUpsilon}
+	\DeclareDocumentCommand{\uvPhi}{}{\upvarPhi}
+	\DeclareDocumentCommand{\uvChi}{}{\upvarChi}
+	\DeclareDocumentCommand{\uvPsi}{}{\upvarPsi}
+	\DeclareDocumentCommand{\uvOmega}{}{\upvarOmega}
+	\DeclareDocumentCommand{\uvalpha}{}{\upvaralpha}
+	\DeclareDocumentCommand{\uvbeta}{}{\upvarbeta}
+	\DeclareDocumentCommand{\uvgamma}{}{\upvargamma}
+	\DeclareDocumentCommand{\uvdelta}{}{\upvardelta}
+	\DeclareDocumentCommand{\uvepsilon}{}{\upvarepsilon}
+	\DeclareDocumentCommand{\uvzeta}{}{\upvarzeta}
+	\DeclareDocumentCommand{\uveta}{}{\upvareta}
+	\DeclareDocumentCommand{\uvtheta}{}{\upvartheta}
+	\DeclareDocumentCommand{\uviota}{}{\upvariota}
+	\DeclareDocumentCommand{\uvkappa}{}{\upvarkappa}
+	\DeclareDocumentCommand{\uvlambda}{}{\upvarlambda}
+	\DeclareDocumentCommand{\uvmu}{}{\upvarmu}
+	\DeclareDocumentCommand{\uvnu}{}{\upvarnu}
+	\DeclareDocumentCommand{\uvxi}{}{\upvarxi}
+	\DeclareDocumentCommand{\uvomicron}{}{\upvaromicron}
+	\DeclareDocumentCommand{\uvpi}{}{\upvarpi}
+	\DeclareDocumentCommand{\uvrho}{}{\upvarrho}
+	\DeclareDocumentCommand{\uvsigma}{}{\upvarsigma}
+	\DeclareDocumentCommand{\uvtau}{}{\upvartau}
+	\DeclareDocumentCommand{\uvupsilon}{}{\upvarupsilon}
+	\DeclareDocumentCommand{\uvphi}{}{\upvarphi}
+	\DeclareDocumentCommand{\uvchi}{}{\upvarchi}
+	\DeclareDocumentCommand{\uvpsi}{}{\upvarpsi}
+	\DeclareDocumentCommand{\uvomega}{}{\upvaromega}
 \fi
 \if@shortboldgreek
-\DeclareDocumentCommand{\bAlpha}{}{\boldsymbol{\Alpha}}
-\DeclareDocumentCommand{\bBeta}{}{\boldsymbol{\Beta}}
-\DeclareDocumentCommand{\bGamma}{}{\boldsymbol{\Gamma}}
-\DeclareDocumentCommand{\bDelta}{}{\boldsymbol{\Delta}}
-\DeclareDocumentCommand{\bEpsilon}{}{\boldsymbol{\Epsilon}}
-\DeclareDocumentCommand{\bZeta}{}{\boldsymbol{\Zeta}}
-\DeclareDocumentCommand{\bEta}{}{\boldsymbol{\Eta}}
-\DeclareDocumentCommand{\bTheta}{}{\boldsymbol{\Theta}}
-\DeclareDocumentCommand{\bIota}{}{\boldsymbol{\Iota}}
-\DeclareDocumentCommand{\bKappa}{}{\boldsymbol{\Kappa}}
-\DeclareDocumentCommand{\bLambda}{}{\boldsymbol{\Lambda}}
-\DeclareDocumentCommand{\bMu}{}{\boldsymbol{\Mu}}
-\DeclareDocumentCommand{\bNu}{}{\boldsymbol{\Nu}}
-\DeclareDocumentCommand{\bXi}{}{\boldsymbol{\Xi}}
-\DeclareDocumentCommand{\bOmicron}{}{\boldsymbol{\Omicron}}
-\DeclareDocumentCommand{\bPi}{}{\boldsymbol{\Pi}}
-\DeclareDocumentCommand{\bRho}{}{\boldsymbol{\Rho}}
-\DeclareDocumentCommand{\bSigma}{}{\boldsymbol{\Sigma}}
-\DeclareDocumentCommand{\bTau}{}{\boldsymbol{\Tau}}
-\DeclareDocumentCommand{\bUpsilon}{}{\boldsymbol{\Upsilon}}
-\DeclareDocumentCommand{\bPhi}{}{\boldsymbol{\Phi}}
-\DeclareDocumentCommand{\bChi}{}{\boldsymbol{\Chi}}
-\DeclareDocumentCommand{\bPsi}{}{\boldsymbol{\Psi}}
-\DeclareDocumentCommand{\bOmega}{}{\boldsymbol{\Omega}}
-\DeclareDocumentCommand{\balpha}{}{\boldsymbol{\alpha}}
-\DeclareDocumentCommand{\bbeta}{}{\boldsymbol{\beta}}
-\DeclareDocumentCommand{\bgamma}{}{\boldsymbol{\gamma}}
-\DeclareDocumentCommand{\bdelta}{}{\boldsymbol{\delta}}
-\DeclareDocumentCommand{\bepsilon}{}{\boldsymbol{\epsilon}}
-\DeclareDocumentCommand{\bzeta}{}{\boldsymbol{\zeta}}
-\DeclareDocumentCommand{\beta}{}{\boldsymbol{\eta}}
-\DeclareDocumentCommand{\btheta}{}{\boldsymbol{\theta}}
-\DeclareDocumentCommand{\biota}{}{\boldsymbol{\iota}}
-\DeclareDocumentCommand{\bkappa}{}{\boldsymbol{\kappa}}
-\DeclareDocumentCommand{\blambda}{}{\boldsymbol{\lambda}}
-\DeclareDocumentCommand{\bmu}{}{\boldsymbol{\mu}}
-\DeclareDocumentCommand{\bnu}{}{\boldsymbol{\nu}}
-\DeclareDocumentCommand{\bxi}{}{\boldsymbol{\xi}}
-\DeclareDocumentCommand{\bomicron}{}{\boldsymbol{\omicron}}
-\DeclareDocumentCommand{\bpi}{}{\boldsymbol{\pi}}
-\DeclareDocumentCommand{\brho}{}{\boldsymbol{\rho}}
-\DeclareDocumentCommand{\bsigma}{}{\boldsymbol{\sigma}}
-\DeclareDocumentCommand{\btau}{}{\boldsymbol{\tau}}
-\DeclareDocumentCommand{\bupsilon}{}{\boldsymbol{\upsilon}}
-\DeclareDocumentCommand{\bphi}{}{\boldsymbol{\phi}}
-\DeclareDocumentCommand{\bchi}{}{\boldsymbol{\chi}}
-\DeclareDocumentCommand{\bpsi}{}{\boldsymbol{\psi}}
-\DeclareDocumentCommand{\bomega}{}{\boldsymbol{\omega}}
+	\DeclareDocumentCommand{\bAlpha}{}{\boldsymbol{\Alpha}}
+	\DeclareDocumentCommand{\bBeta}{}{\boldsymbol{\Beta}}
+	\DeclareDocumentCommand{\bGamma}{}{\boldsymbol{\Gamma}}
+	\DeclareDocumentCommand{\bDelta}{}{\boldsymbol{\Delta}}
+	\DeclareDocumentCommand{\bEpsilon}{}{\boldsymbol{\Epsilon}}
+	\DeclareDocumentCommand{\bZeta}{}{\boldsymbol{\Zeta}}
+	\DeclareDocumentCommand{\bEta}{}{\boldsymbol{\Eta}}
+	\DeclareDocumentCommand{\bTheta}{}{\boldsymbol{\Theta}}
+	\DeclareDocumentCommand{\bIota}{}{\boldsymbol{\Iota}}
+	\DeclareDocumentCommand{\bKappa}{}{\boldsymbol{\Kappa}}
+	\DeclareDocumentCommand{\bLambda}{}{\boldsymbol{\Lambda}}
+	\DeclareDocumentCommand{\bMu}{}{\boldsymbol{\Mu}}
+	\DeclareDocumentCommand{\bNu}{}{\boldsymbol{\Nu}}
+	\DeclareDocumentCommand{\bXi}{}{\boldsymbol{\Xi}}
+	\DeclareDocumentCommand{\bOmicron}{}{\boldsymbol{\Omicron}}
+	\DeclareDocumentCommand{\bPi}{}{\boldsymbol{\Pi}}
+	\DeclareDocumentCommand{\bRho}{}{\boldsymbol{\Rho}}
+	\DeclareDocumentCommand{\bSigma}{}{\boldsymbol{\Sigma}}
+	\DeclareDocumentCommand{\bTau}{}{\boldsymbol{\Tau}}
+	\DeclareDocumentCommand{\bUpsilon}{}{\boldsymbol{\Upsilon}}
+	\DeclareDocumentCommand{\bPhi}{}{\boldsymbol{\Phi}}
+	\DeclareDocumentCommand{\bChi}{}{\boldsymbol{\Chi}}
+	\DeclareDocumentCommand{\bPsi}{}{\boldsymbol{\Psi}}
+	\DeclareDocumentCommand{\bOmega}{}{\boldsymbol{\Omega}}
+	\DeclareDocumentCommand{\balpha}{}{\boldsymbol{\alpha}}
+	\DeclareDocumentCommand{\bbeta}{}{\boldsymbol{\beta}}
+	\DeclareDocumentCommand{\bgamma}{}{\boldsymbol{\gamma}}
+	\DeclareDocumentCommand{\bdelta}{}{\boldsymbol{\delta}}
+	\DeclareDocumentCommand{\bepsilon}{}{\boldsymbol{\epsilon}}
+	\DeclareDocumentCommand{\bzeta}{}{\boldsymbol{\zeta}}
+	\DeclareDocumentCommand{\beta}{}{\boldsymbol{\eta}}
+	\DeclareDocumentCommand{\btheta}{}{\boldsymbol{\theta}}
+	\DeclareDocumentCommand{\biota}{}{\boldsymbol{\iota}}
+	\DeclareDocumentCommand{\bkappa}{}{\boldsymbol{\kappa}}
+	\DeclareDocumentCommand{\blambda}{}{\boldsymbol{\lambda}}
+	\DeclareDocumentCommand{\bmu}{}{\boldsymbol{\mu}}
+	\DeclareDocumentCommand{\bnu}{}{\boldsymbol{\nu}}
+	\DeclareDocumentCommand{\bxi}{}{\boldsymbol{\xi}}
+	\DeclareDocumentCommand{\bomicron}{}{\boldsymbol{\omicron}}
+	\DeclareDocumentCommand{\bpi}{}{\boldsymbol{\pi}}
+	\DeclareDocumentCommand{\brho}{}{\boldsymbol{\rho}}
+	\DeclareDocumentCommand{\bsigma}{}{\boldsymbol{\sigma}}
+	\DeclareDocumentCommand{\btau}{}{\boldsymbol{\tau}}
+	\DeclareDocumentCommand{\bupsilon}{}{\boldsymbol{\upsilon}}
+	\DeclareDocumentCommand{\bphi}{}{\boldsymbol{\phi}}
+	\DeclareDocumentCommand{\bchi}{}{\boldsymbol{\chi}}
+	\DeclareDocumentCommand{\bpsi}{}{\boldsymbol{\psi}}
+	\DeclareDocumentCommand{\bomega}{}{\boldsymbol{\omega}}
 \fi
 
 % Shortmathrm
 \if@shortmathrm
-\DeclareDocumentCommand{\rmA}{e{_^}}{\ensuremath{\mathrm{A}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmB}{e{_^}}{\ensuremath{\mathrm{B}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmC}{e{_^}}{\ensuremath{\mathrm{C}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmD}{e{_^}}{\ensuremath{\mathrm{D}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmE}{e{_^}}{\ensuremath{\mathrm{E}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmF}{e{_^}}{\ensuremath{\mathrm{F}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmG}{e{_^}}{\ensuremath{\mathrm{G}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmH}{e{_^}}{\ensuremath{\mathrm{H}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmI}{e{_^}}{\ensuremath{\mathrm{I}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmJ}{e{_^}}{\ensuremath{\mathrm{J}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmK}{e{_^}}{\ensuremath{\mathrm{K}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmL}{e{_^}}{\ensuremath{\mathrm{L}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmM}{e{_^}}{\ensuremath{\mathrm{M}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmN}{e{_^}}{\ensuremath{\mathrm{N}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmO}{e{_^}}{\ensuremath{\mathrm{O}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmP}{e{_^}}{\ensuremath{\mathrm{P}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmQ}{e{_^}}{\ensuremath{\mathrm{Q}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmR}{e{_^}}{\ensuremath{\mathrm{R}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmS}{e{_^}}{\ensuremath{\mathrm{S}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmT}{e{_^}}{\ensuremath{\mathrm{T}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmU}{e{_^}}{\ensuremath{\mathrm{U}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmV}{e{_^}}{\ensuremath{\mathrm{V}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmW}{e{_^}}{\ensuremath{\mathrm{W}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmX}{e{_^}}{\ensuremath{\mathrm{X}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmY}{e{_^}}{\ensuremath{\mathrm{Y}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmZ}{e{_^}}{\ensuremath{\mathrm{Z}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rma}{e{_^}}{\ensuremath{\mathrm{a}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmb}{e{_^}}{\ensuremath{\mathrm{b}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmc}{e{_^}}{\ensuremath{\mathrm{c}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmd}{e{_^}}{\ensuremath{\mathrm{d}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rme}{e{_^}}{\ensuremath{\mathrm{e}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmf}{e{_^}}{\ensuremath{\mathrm{f}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmg}{e{_^}}{\ensuremath{\mathrm{g}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmh}{e{_^}}{\ensuremath{\mathrm{h}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmi}{e{_^}}{\ensuremath{\mathrm{i}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmj}{e{_^}}{\ensuremath{\mathrm{j}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmk}{e{_^}}{\ensuremath{\mathrm{k}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rml}{e{_^}}{\ensuremath{\mathrm{l}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmm}{e{_^}}{\ensuremath{\mathrm{m}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmn}{e{_^}}{\ensuremath{\mathrm{n}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmo}{e{_^}}{\ensuremath{\mathrm{o}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmp}{e{_^}}{\ensuremath{\mathrm{p}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmq}{e{_^}}{\ensuremath{\mathrm{q}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmr}{e{_^}}{\ensuremath{\mathrm{r}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rms}{e{_^}}{\ensuremath{\mathrm{s}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmt}{e{_^}}{\ensuremath{\mathrm{t}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmu}{e{_^}}{\ensuremath{\mathrm{u}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmv}{e{_^}}{\ensuremath{\mathrm{v}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmw}{e{_^}}{\ensuremath{\mathrm{w}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmx}{e{_^}}{\ensuremath{\mathrm{x}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmy}{e{_^}}{\ensuremath{\mathrm{y}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmz}{e{_^}}{\ensuremath{\mathrm{z}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmHe}{e{_^}}{\ensuremath{\mathrm{He}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmLi}{e{_^}}{\ensuremath{\mathrm{Li}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmBe}{e{_^}}{\ensuremath{\mathrm{Be}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmNe}{e{_^}}{\ensuremath{\mathrm{Ne}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmNa}{e{_^}}{\ensuremath{\mathrm{Na}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmMg}{e{_^}}{\ensuremath{\mathrm{Mg}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmAl}{e{_^}}{\ensuremath{\mathrm{Al}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmSi}{e{_^}}{\ensuremath{\mathrm{Si}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmCl}{e{_^}}{\ensuremath{\mathrm{Cl}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmAr}{e{_^}}{\ensuremath{\mathrm{Ar}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmCa}{e{_^}}{\ensuremath{\mathrm{Ca}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmSc}{e{_^}}{\ensuremath{\mathrm{Sc}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmTi}{e{_^}}{\ensuremath{\mathrm{Ti}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmCr}{e{_^}}{\ensuremath{\mathrm{Cr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmMn}{e{_^}}{\ensuremath{\mathrm{Mn}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmFe}{e{_^}}{\ensuremath{\mathrm{Fe}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmCo}{e{_^}}{\ensuremath{\mathrm{Co}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmNi}{e{_^}}{\ensuremath{\mathrm{Ni}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmCu}{e{_^}}{\ensuremath{\mathrm{Cu}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmZn}{e{_^}}{\ensuremath{\mathrm{Zn}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmGa}{e{_^}}{\ensuremath{\mathrm{Ga}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmGe}{e{_^}}{\ensuremath{\mathrm{Ge}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmAs}{e{_^}}{\ensuremath{\mathrm{As}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmSe}{e{_^}}{\ensuremath{\mathrm{Se}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmBr}{e{_^}}{\ensuremath{\mathrm{Br}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmKr}{e{_^}}{\ensuremath{\mathrm{Kr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmRb}{e{_^}}{\ensuremath{\mathrm{Rb}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmSr}{e{_^}}{\ensuremath{\mathrm{Sr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmZr}{e{_^}}{\ensuremath{\mathrm{Zr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmNb}{e{_^}}{\ensuremath{\mathrm{Nb}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmMo}{e{_^}}{\ensuremath{\mathrm{Mo}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmTc}{e{_^}}{\ensuremath{\mathrm{Tc}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmRu}{e{_^}}{\ensuremath{\mathrm{Ru}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmRh}{e{_^}}{\ensuremath{\mathrm{Rh}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmPd}{e{_^}}{\ensuremath{\mathrm{Pd}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmAg}{e{_^}}{\ensuremath{\mathrm{Ag}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmCd}{e{_^}}{\ensuremath{\mathrm{Cd}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmIn}{e{_^}}{\ensuremath{\mathrm{In}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmSn}{e{_^}}{\ensuremath{\mathrm{Sn}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmSb}{e{_^}}{\ensuremath{\mathrm{Sb}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmTe}{e{_^}}{\ensuremath{\mathrm{Te}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmXe}{e{_^}}{\ensuremath{\mathrm{Xe}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmCs}{e{_^}}{\ensuremath{\mathrm{Cs}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmBa}{e{_^}}{\ensuremath{\mathrm{Ba}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmLa}{e{_^}}{\ensuremath{\mathrm{La}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmCe}{e{_^}}{\ensuremath{\mathrm{Ce}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmPr}{e{_^}}{\ensuremath{\mathrm{Pr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmNd}{e{_^}}{\ensuremath{\mathrm{Nd}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmPm}{e{_^}}{\ensuremath{\mathrm{Pm}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmSm}{e{_^}}{\ensuremath{\mathrm{Sm}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmEu}{e{_^}}{\ensuremath{\mathrm{Eu}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmGd}{e{_^}}{\ensuremath{\mathrm{Gd}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmTb}{e{_^}}{\ensuremath{\mathrm{Tb}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmDy}{e{_^}}{\ensuremath{\mathrm{Dy}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmHo}{e{_^}}{\ensuremath{\mathrm{Ho}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmEr}{e{_^}}{\ensuremath{\mathrm{Er}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmTm}{e{_^}}{\ensuremath{\mathrm{Tm}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmYb}{e{_^}}{\ensuremath{\mathrm{Yb}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmLu}{e{_^}}{\ensuremath{\mathrm{Lu}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmHf}{e{_^}}{\ensuremath{\mathrm{Hf}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmTa}{e{_^}}{\ensuremath{\mathrm{Ta}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmRe}{e{_^}}{\ensuremath{\mathrm{Re}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmOs}{e{_^}}{\ensuremath{\mathrm{Os}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmIr}{e{_^}}{\ensuremath{\mathrm{Ir}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmPt}{e{_^}}{\ensuremath{\mathrm{Pt}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmAu}{e{_^}}{\ensuremath{\mathrm{Au}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmHg}{e{_^}}{\ensuremath{\mathrm{Hg}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmTl}{e{_^}}{\ensuremath{\mathrm{Tl}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmPb}{e{_^}}{\ensuremath{\mathrm{Pb}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmBi}{e{_^}}{\ensuremath{\mathrm{Bi}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmPo}{e{_^}}{\ensuremath{\mathrm{Po}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmAt}{e{_^}}{\ensuremath{\mathrm{At}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmRn}{e{_^}}{\ensuremath{\mathrm{Rn}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmFr}{e{_^}}{\ensuremath{\mathrm{Fr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmRa}{e{_^}}{\ensuremath{\mathrm{Ra}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmAc}{e{_^}}{\ensuremath{\mathrm{Ac}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmTh}{e{_^}}{\ensuremath{\mathrm{Th}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmPa}{e{_^}}{\ensuremath{\mathrm{Pa}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmNp}{e{_^}}{\ensuremath{\mathrm{Np}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmPu}{e{_^}}{\ensuremath{\mathrm{Pu}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmAm}{e{_^}}{\ensuremath{\mathrm{Am}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmCm}{e{_^}}{\ensuremath{\mathrm{Cm}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmBk}{e{_^}}{\ensuremath{\mathrm{Bk}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmCf}{e{_^}}{\ensuremath{\mathrm{Cf}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmEs}{e{_^}}{\ensuremath{\mathrm{Es}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmFm}{e{_^}}{\ensuremath{\mathrm{Fm}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmMd}{e{_^}}{\ensuremath{\mathrm{Md}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmNo}{e{_^}}{\ensuremath{\mathrm{No}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmLr}{e{_^}}{\ensuremath{\mathrm{Lr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmRf}{e{_^}}{\ensuremath{\mathrm{Rf}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmDb}{e{_^}}{\ensuremath{\mathrm{Db}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmSg}{e{_^}}{\ensuremath{\mathrm{Sg}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmBh}{e{_^}}{\ensuremath{\mathrm{Bh}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmHs}{e{_^}}{\ensuremath{\mathrm{Hs}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmMt}{e{_^}}{\ensuremath{\mathrm{Mt}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmDs}{e{_^}}{\ensuremath{\mathrm{Ds}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmRg}{e{_^}}{\ensuremath{\mathrm{Rg}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmCn}{e{_^}}{\ensuremath{\mathrm{Cn}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmNh}{e{_^}}{\ensuremath{\mathrm{Nh}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmFl}{e{_^}}{\ensuremath{\mathrm{Fl}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmMc}{e{_^}}{\ensuremath{\mathrm{Mc}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmLv}{e{_^}}{\ensuremath{\mathrm{Lv}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmTs}{e{_^}}{\ensuremath{\mathrm{Ts}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\rmOg}{e{_^}}{\ensuremath{\mathrm{Og}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmA}{e{_^}}{\ensuremath{\mathrm{A}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmB}{e{_^}}{\ensuremath{\mathrm{B}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmC}{e{_^}}{\ensuremath{\mathrm{C}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmD}{e{_^}}{\ensuremath{\mathrm{D}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmE}{e{_^}}{\ensuremath{\mathrm{E}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmF}{e{_^}}{\ensuremath{\mathrm{F}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmG}{e{_^}}{\ensuremath{\mathrm{G}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmH}{e{_^}}{\ensuremath{\mathrm{H}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmI}{e{_^}}{\ensuremath{\mathrm{I}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmJ}{e{_^}}{\ensuremath{\mathrm{J}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmK}{e{_^}}{\ensuremath{\mathrm{K}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmL}{e{_^}}{\ensuremath{\mathrm{L}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmM}{e{_^}}{\ensuremath{\mathrm{M}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmN}{e{_^}}{\ensuremath{\mathrm{N}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmO}{e{_^}}{\ensuremath{\mathrm{O}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmP}{e{_^}}{\ensuremath{\mathrm{P}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmQ}{e{_^}}{\ensuremath{\mathrm{Q}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmR}{e{_^}}{\ensuremath{\mathrm{R}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmS}{e{_^}}{\ensuremath{\mathrm{S}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmT}{e{_^}}{\ensuremath{\mathrm{T}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmU}{e{_^}}{\ensuremath{\mathrm{U}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmV}{e{_^}}{\ensuremath{\mathrm{V}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmW}{e{_^}}{\ensuremath{\mathrm{W}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmX}{e{_^}}{\ensuremath{\mathrm{X}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmY}{e{_^}}{\ensuremath{\mathrm{Y}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmZ}{e{_^}}{\ensuremath{\mathrm{Z}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rma}{e{_^}}{\ensuremath{\mathrm{a}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmb}{e{_^}}{\ensuremath{\mathrm{b}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmc}{e{_^}}{\ensuremath{\mathrm{c}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmd}{e{_^}}{\ensuremath{\mathrm{d}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rme}{e{_^}}{\ensuremath{\mathrm{e}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmf}{e{_^}}{\ensuremath{\mathrm{f}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmg}{e{_^}}{\ensuremath{\mathrm{g}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmh}{e{_^}}{\ensuremath{\mathrm{h}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmi}{e{_^}}{\ensuremath{\mathrm{i}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmj}{e{_^}}{\ensuremath{\mathrm{j}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmk}{e{_^}}{\ensuremath{\mathrm{k}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rml}{e{_^}}{\ensuremath{\mathrm{l}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmm}{e{_^}}{\ensuremath{\mathrm{m}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmn}{e{_^}}{\ensuremath{\mathrm{n}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmo}{e{_^}}{\ensuremath{\mathrm{o}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmp}{e{_^}}{\ensuremath{\mathrm{p}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmq}{e{_^}}{\ensuremath{\mathrm{q}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmr}{e{_^}}{\ensuremath{\mathrm{r}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rms}{e{_^}}{\ensuremath{\mathrm{s}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmt}{e{_^}}{\ensuremath{\mathrm{t}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmu}{e{_^}}{\ensuremath{\mathrm{u}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmv}{e{_^}}{\ensuremath{\mathrm{v}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmw}{e{_^}}{\ensuremath{\mathrm{w}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmx}{e{_^}}{\ensuremath{\mathrm{x}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmy}{e{_^}}{\ensuremath{\mathrm{y}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmz}{e{_^}}{\ensuremath{\mathrm{z}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmHe}{e{_^}}{\ensuremath{\mathrm{He}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmLi}{e{_^}}{\ensuremath{\mathrm{Li}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmBe}{e{_^}}{\ensuremath{\mathrm{Be}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmNe}{e{_^}}{\ensuremath{\mathrm{Ne}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmNa}{e{_^}}{\ensuremath{\mathrm{Na}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmMg}{e{_^}}{\ensuremath{\mathrm{Mg}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmAl}{e{_^}}{\ensuremath{\mathrm{Al}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmSi}{e{_^}}{\ensuremath{\mathrm{Si}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmCl}{e{_^}}{\ensuremath{\mathrm{Cl}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmAr}{e{_^}}{\ensuremath{\mathrm{Ar}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmCa}{e{_^}}{\ensuremath{\mathrm{Ca}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmSc}{e{_^}}{\ensuremath{\mathrm{Sc}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmTi}{e{_^}}{\ensuremath{\mathrm{Ti}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmCr}{e{_^}}{\ensuremath{\mathrm{Cr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmMn}{e{_^}}{\ensuremath{\mathrm{Mn}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmFe}{e{_^}}{\ensuremath{\mathrm{Fe}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmCo}{e{_^}}{\ensuremath{\mathrm{Co}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmNi}{e{_^}}{\ensuremath{\mathrm{Ni}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmCu}{e{_^}}{\ensuremath{\mathrm{Cu}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmZn}{e{_^}}{\ensuremath{\mathrm{Zn}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmGa}{e{_^}}{\ensuremath{\mathrm{Ga}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmGe}{e{_^}}{\ensuremath{\mathrm{Ge}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmAs}{e{_^}}{\ensuremath{\mathrm{As}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmSe}{e{_^}}{\ensuremath{\mathrm{Se}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmBr}{e{_^}}{\ensuremath{\mathrm{Br}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmKr}{e{_^}}{\ensuremath{\mathrm{Kr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmRb}{e{_^}}{\ensuremath{\mathrm{Rb}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmSr}{e{_^}}{\ensuremath{\mathrm{Sr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmZr}{e{_^}}{\ensuremath{\mathrm{Zr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmNb}{e{_^}}{\ensuremath{\mathrm{Nb}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmMo}{e{_^}}{\ensuremath{\mathrm{Mo}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmTc}{e{_^}}{\ensuremath{\mathrm{Tc}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmRu}{e{_^}}{\ensuremath{\mathrm{Ru}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmRh}{e{_^}}{\ensuremath{\mathrm{Rh}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmPd}{e{_^}}{\ensuremath{\mathrm{Pd}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmAg}{e{_^}}{\ensuremath{\mathrm{Ag}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmCd}{e{_^}}{\ensuremath{\mathrm{Cd}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmIn}{e{_^}}{\ensuremath{\mathrm{In}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmSn}{e{_^}}{\ensuremath{\mathrm{Sn}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmSb}{e{_^}}{\ensuremath{\mathrm{Sb}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmTe}{e{_^}}{\ensuremath{\mathrm{Te}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmXe}{e{_^}}{\ensuremath{\mathrm{Xe}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmCs}{e{_^}}{\ensuremath{\mathrm{Cs}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmBa}{e{_^}}{\ensuremath{\mathrm{Ba}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmLa}{e{_^}}{\ensuremath{\mathrm{La}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmCe}{e{_^}}{\ensuremath{\mathrm{Ce}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmPr}{e{_^}}{\ensuremath{\mathrm{Pr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmNd}{e{_^}}{\ensuremath{\mathrm{Nd}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmPm}{e{_^}}{\ensuremath{\mathrm{Pm}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmSm}{e{_^}}{\ensuremath{\mathrm{Sm}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmEu}{e{_^}}{\ensuremath{\mathrm{Eu}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmGd}{e{_^}}{\ensuremath{\mathrm{Gd}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmTb}{e{_^}}{\ensuremath{\mathrm{Tb}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmDy}{e{_^}}{\ensuremath{\mathrm{Dy}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmHo}{e{_^}}{\ensuremath{\mathrm{Ho}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmEr}{e{_^}}{\ensuremath{\mathrm{Er}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmTm}{e{_^}}{\ensuremath{\mathrm{Tm}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmYb}{e{_^}}{\ensuremath{\mathrm{Yb}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmLu}{e{_^}}{\ensuremath{\mathrm{Lu}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmHf}{e{_^}}{\ensuremath{\mathrm{Hf}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmTa}{e{_^}}{\ensuremath{\mathrm{Ta}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmRe}{e{_^}}{\ensuremath{\mathrm{Re}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmOs}{e{_^}}{\ensuremath{\mathrm{Os}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmIr}{e{_^}}{\ensuremath{\mathrm{Ir}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmPt}{e{_^}}{\ensuremath{\mathrm{Pt}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmAu}{e{_^}}{\ensuremath{\mathrm{Au}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmHg}{e{_^}}{\ensuremath{\mathrm{Hg}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmTl}{e{_^}}{\ensuremath{\mathrm{Tl}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmPb}{e{_^}}{\ensuremath{\mathrm{Pb}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmBi}{e{_^}}{\ensuremath{\mathrm{Bi}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmPo}{e{_^}}{\ensuremath{\mathrm{Po}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmAt}{e{_^}}{\ensuremath{\mathrm{At}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmRn}{e{_^}}{\ensuremath{\mathrm{Rn}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmFr}{e{_^}}{\ensuremath{\mathrm{Fr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmRa}{e{_^}}{\ensuremath{\mathrm{Ra}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmAc}{e{_^}}{\ensuremath{\mathrm{Ac}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmTh}{e{_^}}{\ensuremath{\mathrm{Th}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmPa}{e{_^}}{\ensuremath{\mathrm{Pa}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmNp}{e{_^}}{\ensuremath{\mathrm{Np}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmPu}{e{_^}}{\ensuremath{\mathrm{Pu}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmAm}{e{_^}}{\ensuremath{\mathrm{Am}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmCm}{e{_^}}{\ensuremath{\mathrm{Cm}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmBk}{e{_^}}{\ensuremath{\mathrm{Bk}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmCf}{e{_^}}{\ensuremath{\mathrm{Cf}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmEs}{e{_^}}{\ensuremath{\mathrm{Es}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmFm}{e{_^}}{\ensuremath{\mathrm{Fm}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmMd}{e{_^}}{\ensuremath{\mathrm{Md}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmNo}{e{_^}}{\ensuremath{\mathrm{No}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmLr}{e{_^}}{\ensuremath{\mathrm{Lr}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmRf}{e{_^}}{\ensuremath{\mathrm{Rf}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmDb}{e{_^}}{\ensuremath{\mathrm{Db}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmSg}{e{_^}}{\ensuremath{\mathrm{Sg}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmBh}{e{_^}}{\ensuremath{\mathrm{Bh}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmHs}{e{_^}}{\ensuremath{\mathrm{Hs}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmMt}{e{_^}}{\ensuremath{\mathrm{Mt}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmDs}{e{_^}}{\ensuremath{\mathrm{Ds}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmRg}{e{_^}}{\ensuremath{\mathrm{Rg}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmCn}{e{_^}}{\ensuremath{\mathrm{Cn}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmNh}{e{_^}}{\ensuremath{\mathrm{Nh}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmFl}{e{_^}}{\ensuremath{\mathrm{Fl}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmMc}{e{_^}}{\ensuremath{\mathrm{Mc}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmLv}{e{_^}}{\ensuremath{\mathrm{Lv}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmTs}{e{_^}}{\ensuremath{\mathrm{Ts}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\rmOg}{e{_^}}{\ensuremath{\mathrm{Og}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
 \fi
 
 % Shortmathbb
 \if@shortmathbb
-\DeclareDocumentCommand{\bbA}{e{_^}}{\ensuremath{\mathbb{A}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbB}{e{_^}}{\ensuremath{\mathbb{B}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbC}{e{_^}}{\ensuremath{\mathbb{C}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbD}{e{_^}}{\ensuremath{\mathbb{D}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbE}{e{_^}}{\ensuremath{\mathbb{E}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbF}{e{_^}}{\ensuremath{\mathbb{F}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbG}{e{_^}}{\ensuremath{\mathbb{G}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbH}{e{_^}}{\ensuremath{\mathbb{H}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbI}{e{_^}}{\ensuremath{\mathbb{I}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbJ}{e{_^}}{\ensuremath{\mathbb{J}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbK}{e{_^}}{\ensuremath{\mathbb{K}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbL}{e{_^}}{\ensuremath{\mathbb{L}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbM}{e{_^}}{\ensuremath{\mathbb{M}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbN}{e{_^}}{\ensuremath{\mathbb{N}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbO}{e{_^}}{\ensuremath{\mathbb{O}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbP}{e{_^}}{\ensuremath{\mathbb{P}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbQ}{e{_^}}{\ensuremath{\mathbb{Q}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbR}{e{_^}}{\ensuremath{\mathbb{R}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbS}{e{_^}}{\ensuremath{\mathbb{S}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbT}{e{_^}}{\ensuremath{\mathbb{T}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbU}{e{_^}}{\ensuremath{\mathbb{U}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbV}{e{_^}}{\ensuremath{\mathbb{V}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbW}{e{_^}}{\ensuremath{\mathbb{W}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbX}{e{_^}}{\ensuremath{\mathbb{X}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbY}{e{_^}}{\ensuremath{\mathbb{Y}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\bbZ}{e{_^}}{\ensuremath{\mathbb{Z}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbA}{e{_^}}{\ensuremath{\mathbb{A}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbB}{e{_^}}{\ensuremath{\mathbb{B}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbC}{e{_^}}{\ensuremath{\mathbb{C}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbD}{e{_^}}{\ensuremath{\mathbb{D}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbE}{e{_^}}{\ensuremath{\mathbb{E}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbF}{e{_^}}{\ensuremath{\mathbb{F}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbG}{e{_^}}{\ensuremath{\mathbb{G}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbH}{e{_^}}{\ensuremath{\mathbb{H}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbI}{e{_^}}{\ensuremath{\mathbb{I}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbJ}{e{_^}}{\ensuremath{\mathbb{J}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbK}{e{_^}}{\ensuremath{\mathbb{K}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbL}{e{_^}}{\ensuremath{\mathbb{L}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbM}{e{_^}}{\ensuremath{\mathbb{M}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbN}{e{_^}}{\ensuremath{\mathbb{N}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbO}{e{_^}}{\ensuremath{\mathbb{O}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbP}{e{_^}}{\ensuremath{\mathbb{P}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbQ}{e{_^}}{\ensuremath{\mathbb{Q}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbR}{e{_^}}{\ensuremath{\mathbb{R}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbS}{e{_^}}{\ensuremath{\mathbb{S}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbT}{e{_^}}{\ensuremath{\mathbb{T}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbU}{e{_^}}{\ensuremath{\mathbb{U}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbV}{e{_^}}{\ensuremath{\mathbb{V}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbW}{e{_^}}{\ensuremath{\mathbb{W}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbX}{e{_^}}{\ensuremath{\mathbb{X}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbY}{e{_^}}{\ensuremath{\mathbb{Y}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\bbZ}{e{_^}}{\ensuremath{\mathbb{Z}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
 \fi
 
 % Shortmathscr
 \if@shortmathscr
-\DeclareDocumentCommand{\scrA}{e{_^}}{\ensuremath{\mathscr{A}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrB}{e{_^}}{\ensuremath{\mathscr{B}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrC}{e{_^}}{\ensuremath{\mathscr{C}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrD}{e{_^}}{\ensuremath{\mathscr{D}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrE}{e{_^}}{\ensuremath{\mathscr{E}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrF}{e{_^}}{\ensuremath{\mathscr{F}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrG}{e{_^}}{\ensuremath{\mathscr{G}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrH}{e{_^}}{\ensuremath{\mathscr{H}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrI}{e{_^}}{\ensuremath{\mathscr{I}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrJ}{e{_^}}{\ensuremath{\mathscr{J}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrK}{e{_^}}{\ensuremath{\mathscr{K}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrL}{e{_^}}{\ensuremath{\mathscr{L}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrM}{e{_^}}{\ensuremath{\mathscr{M}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrN}{e{_^}}{\ensuremath{\mathscr{N}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrO}{e{_^}}{\ensuremath{\mathscr{O}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrP}{e{_^}}{\ensuremath{\mathscr{P}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrQ}{e{_^}}{\ensuremath{\mathscr{Q}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrR}{e{_^}}{\ensuremath{\mathscr{R}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrS}{e{_^}}{\ensuremath{\mathscr{S}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrT}{e{_^}}{\ensuremath{\mathscr{T}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrU}{e{_^}}{\ensuremath{\mathscr{U}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrV}{e{_^}}{\ensuremath{\mathscr{V}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrW}{e{_^}}{\ensuremath{\mathscr{W}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrX}{e{_^}}{\ensuremath{\mathscr{X}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrY}{e{_^}}{\ensuremath{\mathscr{Y}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrZ}{e{_^}}{\ensuremath{\mathscr{Z}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scra}{e{_^}}{\ensuremath{\mathscr{a}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrb}{e{_^}}{\ensuremath{\mathscr{b}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrc}{e{_^}}{\ensuremath{\mathscr{c}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrd}{e{_^}}{\ensuremath{\mathscr{d}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scre}{e{_^}}{\ensuremath{\mathscr{e}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrf}{e{_^}}{\ensuremath{\mathscr{f}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrg}{e{_^}}{\ensuremath{\mathscr{g}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrh}{e{_^}}{\ensuremath{\mathscr{h}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scri}{e{_^}}{\ensuremath{\mathscr{i}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrj}{e{_^}}{\ensuremath{\mathscr{j}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrk}{e{_^}}{\ensuremath{\mathscr{k}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrl}{e{_^}}{\ensuremath{\mathscr{l}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrm}{e{_^}}{\ensuremath{\mathscr{m}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrn}{e{_^}}{\ensuremath{\mathscr{n}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scro}{e{_^}}{\ensuremath{\mathscr{o}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrp}{e{_^}}{\ensuremath{\mathscr{p}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrq}{e{_^}}{\ensuremath{\mathscr{q}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrr}{e{_^}}{\ensuremath{\mathscr{r}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrs}{e{_^}}{\ensuremath{\mathscr{s}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrt}{e{_^}}{\ensuremath{\mathscr{t}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scru}{e{_^}}{\ensuremath{\mathscr{u}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrv}{e{_^}}{\ensuremath{\mathscr{v}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrw}{e{_^}}{\ensuremath{\mathscr{w}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrx}{e{_^}}{\ensuremath{\mathscr{x}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scry}{e{_^}}{\ensuremath{\mathscr{y}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
-\DeclareDocumentCommand{\scrz}{e{_^}}{\ensuremath{\mathscr{z}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrA}{e{_^}}{\ensuremath{\mathscr{A}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrB}{e{_^}}{\ensuremath{\mathscr{B}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrC}{e{_^}}{\ensuremath{\mathscr{C}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrD}{e{_^}}{\ensuremath{\mathscr{D}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrE}{e{_^}}{\ensuremath{\mathscr{E}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrF}{e{_^}}{\ensuremath{\mathscr{F}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrG}{e{_^}}{\ensuremath{\mathscr{G}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrH}{e{_^}}{\ensuremath{\mathscr{H}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrI}{e{_^}}{\ensuremath{\mathscr{I}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrJ}{e{_^}}{\ensuremath{\mathscr{J}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrK}{e{_^}}{\ensuremath{\mathscr{K}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrL}{e{_^}}{\ensuremath{\mathscr{L}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrM}{e{_^}}{\ensuremath{\mathscr{M}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrN}{e{_^}}{\ensuremath{\mathscr{N}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrO}{e{_^}}{\ensuremath{\mathscr{O}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrP}{e{_^}}{\ensuremath{\mathscr{P}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrQ}{e{_^}}{\ensuremath{\mathscr{Q}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrR}{e{_^}}{\ensuremath{\mathscr{R}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrS}{e{_^}}{\ensuremath{\mathscr{S}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrT}{e{_^}}{\ensuremath{\mathscr{T}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrU}{e{_^}}{\ensuremath{\mathscr{U}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrV}{e{_^}}{\ensuremath{\mathscr{V}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrW}{e{_^}}{\ensuremath{\mathscr{W}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrX}{e{_^}}{\ensuremath{\mathscr{X}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrY}{e{_^}}{\ensuremath{\mathscr{Y}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrZ}{e{_^}}{\ensuremath{\mathscr{Z}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scra}{e{_^}}{\ensuremath{\mathscr{a}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrb}{e{_^}}{\ensuremath{\mathscr{b}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrc}{e{_^}}{\ensuremath{\mathscr{c}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrd}{e{_^}}{\ensuremath{\mathscr{d}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scre}{e{_^}}{\ensuremath{\mathscr{e}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrf}{e{_^}}{\ensuremath{\mathscr{f}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrg}{e{_^}}{\ensuremath{\mathscr{g}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrh}{e{_^}}{\ensuremath{\mathscr{h}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scri}{e{_^}}{\ensuremath{\mathscr{i}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrj}{e{_^}}{\ensuremath{\mathscr{j}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrk}{e{_^}}{\ensuremath{\mathscr{k}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrl}{e{_^}}{\ensuremath{\mathscr{l}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrm}{e{_^}}{\ensuremath{\mathscr{m}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrn}{e{_^}}{\ensuremath{\mathscr{n}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scro}{e{_^}}{\ensuremath{\mathscr{o}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrp}{e{_^}}{\ensuremath{\mathscr{p}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrq}{e{_^}}{\ensuremath{\mathscr{q}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrr}{e{_^}}{\ensuremath{\mathscr{r}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrs}{e{_^}}{\ensuremath{\mathscr{s}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrt}{e{_^}}{\ensuremath{\mathscr{t}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scru}{e{_^}}{\ensuremath{\mathscr{u}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrv}{e{_^}}{\ensuremath{\mathscr{v}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrw}{e{_^}}{\ensuremath{\mathscr{w}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrx}{e{_^}}{\ensuremath{\mathscr{x}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scry}{e{_^}}{\ensuremath{\mathscr{y}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
+	\DeclareDocumentCommand{\scrz}{e{_^}}{\ensuremath{\mathscr{z}\IfValueTF{#1}{_{#1}}{}\IfValueTF{#2}{^{#2}}{}}}
 \fi
 
 % Shorttext
 \if@shorttext
-\DeclareDocumentCommand{\TxA}{}{\textnormal{A}}
-\DeclareDocumentCommand{\TxB}{}{\textnormal{B}}
-\DeclareDocumentCommand{\TxC}{}{\textnormal{C}}
-\DeclareDocumentCommand{\TxD}{}{\textnormal{D}}
-\DeclareDocumentCommand{\TxE}{}{\textnormal{E}}
-\DeclareDocumentCommand{\TxF}{}{\textnormal{F}}
-\DeclareDocumentCommand{\TxG}{}{\textnormal{G}}
-\DeclareDocumentCommand{\TxH}{}{\textnormal{H}}
-\DeclareDocumentCommand{\TxI}{}{\textnormal{I}}
-\DeclareDocumentCommand{\TxJ}{}{\textnormal{J}}
-\DeclareDocumentCommand{\TxK}{}{\textnormal{K}}
-\DeclareDocumentCommand{\TxL}{}{\textnormal{L}}
-\DeclareDocumentCommand{\TxM}{}{\textnormal{M}}
-\DeclareDocumentCommand{\TxN}{}{\textnormal{N}}
-\DeclareDocumentCommand{\TxO}{}{\textnormal{O}}
-\DeclareDocumentCommand{\TxP}{}{\textnormal{P}}
-\DeclareDocumentCommand{\TxQ}{}{\textnormal{Q}}
-\DeclareDocumentCommand{\TxR}{}{\textnormal{R}}
-\DeclareDocumentCommand{\TxS}{}{\textnormal{S}}
-\DeclareDocumentCommand{\TxT}{}{\textnormal{T}}
-\DeclareDocumentCommand{\TxU}{}{\textnormal{U}}
-\DeclareDocumentCommand{\TxV}{}{\textnormal{V}}
-\DeclareDocumentCommand{\TxW}{}{\textnormal{W}}
-\DeclareDocumentCommand{\TxX}{}{\textnormal{X}}
-\DeclareDocumentCommand{\TxY}{}{\textnormal{Y}}
-\DeclareDocumentCommand{\TxZ}{}{\textnormal{Z}}
-\DeclareDocumentCommand{\Txa}{}{\textnormal{a}}
-\DeclareDocumentCommand{\Txb}{}{\textnormal{b}}
-\DeclareDocumentCommand{\Txc}{}{\textnormal{c}}
-\DeclareDocumentCommand{\Txd}{}{\textnormal{d}}
-\DeclareDocumentCommand{\Txe}{}{\textnormal{e}}
-\DeclareDocumentCommand{\Txf}{}{\textnormal{f}}
-\DeclareDocumentCommand{\Txg}{}{\textnormal{g}}
-\DeclareDocumentCommand{\Txh}{}{\textnormal{h}}
-\DeclareDocumentCommand{\Txi}{}{\textnormal{i}}
-\DeclareDocumentCommand{\Txj}{}{\textnormal{j}}
-\DeclareDocumentCommand{\Txk}{}{\textnormal{k}}
-\DeclareDocumentCommand{\Txl}{}{\textnormal{l}}
-\DeclareDocumentCommand{\Txm}{}{\textnormal{m}}
-\DeclareDocumentCommand{\Txn}{}{\textnormal{n}}
-\DeclareDocumentCommand{\Txo}{}{\textnormal{o}}
-\DeclareDocumentCommand{\Txp}{}{\textnormal{p}}
-\DeclareDocumentCommand{\Txq}{}{\textnormal{q}}
-\DeclareDocumentCommand{\Txr}{}{\textnormal{r}}
-\DeclareDocumentCommand{\Txs}{}{\textnormal{s}}
-\DeclareDocumentCommand{\Txt}{}{\textnormal{t}}
-\DeclareDocumentCommand{\Txu}{}{\textnormal{u}}
-\DeclareDocumentCommand{\Txv}{}{\textnormal{v}}
-\DeclareDocumentCommand{\Txw}{}{\textnormal{w}}
-\DeclareDocumentCommand{\Txx}{}{\textnormal{x}}
-\DeclareDocumentCommand{\Txy}{}{\textnormal{y}}
-\DeclareDocumentCommand{\Txz}{}{\textnormal{z}}
+	\DeclareDocumentCommand{\TxA}{}{\textnormal{A}}
+	\DeclareDocumentCommand{\TxB}{}{\textnormal{B}}
+	\DeclareDocumentCommand{\TxC}{}{\textnormal{C}}
+	\DeclareDocumentCommand{\TxD}{}{\textnormal{D}}
+	\DeclareDocumentCommand{\TxE}{}{\textnormal{E}}
+	\DeclareDocumentCommand{\TxF}{}{\textnormal{F}}
+	\DeclareDocumentCommand{\TxG}{}{\textnormal{G}}
+	\DeclareDocumentCommand{\TxH}{}{\textnormal{H}}
+	\DeclareDocumentCommand{\TxI}{}{\textnormal{I}}
+	\DeclareDocumentCommand{\TxJ}{}{\textnormal{J}}
+	\DeclareDocumentCommand{\TxK}{}{\textnormal{K}}
+	\DeclareDocumentCommand{\TxL}{}{\textnormal{L}}
+	\DeclareDocumentCommand{\TxM}{}{\textnormal{M}}
+	\DeclareDocumentCommand{\TxN}{}{\textnormal{N}}
+	\DeclareDocumentCommand{\TxO}{}{\textnormal{O}}
+	\DeclareDocumentCommand{\TxP}{}{\textnormal{P}}
+	\DeclareDocumentCommand{\TxQ}{}{\textnormal{Q}}
+	\DeclareDocumentCommand{\TxR}{}{\textnormal{R}}
+	\DeclareDocumentCommand{\TxS}{}{\textnormal{S}}
+	\DeclareDocumentCommand{\TxT}{}{\textnormal{T}}
+	\DeclareDocumentCommand{\TxU}{}{\textnormal{U}}
+	\DeclareDocumentCommand{\TxV}{}{\textnormal{V}}
+	\DeclareDocumentCommand{\TxW}{}{\textnormal{W}}
+	\DeclareDocumentCommand{\TxX}{}{\textnormal{X}}
+	\DeclareDocumentCommand{\TxY}{}{\textnormal{Y}}
+	\DeclareDocumentCommand{\TxZ}{}{\textnormal{Z}}
+	\DeclareDocumentCommand{\Txa}{}{\textnormal{a}}
+	\DeclareDocumentCommand{\Txb}{}{\textnormal{b}}
+	\DeclareDocumentCommand{\Txc}{}{\textnormal{c}}
+	\DeclareDocumentCommand{\Txd}{}{\textnormal{d}}
+	\DeclareDocumentCommand{\Txe}{}{\textnormal{e}}
+	\DeclareDocumentCommand{\Txf}{}{\textnormal{f}}
+	\DeclareDocumentCommand{\Txg}{}{\textnormal{g}}
+	\DeclareDocumentCommand{\Txh}{}{\textnormal{h}}
+	\DeclareDocumentCommand{\Txi}{}{\textnormal{i}}
+	\DeclareDocumentCommand{\Txj}{}{\textnormal{j}}
+	\DeclareDocumentCommand{\Txk}{}{\textnormal{k}}
+	\DeclareDocumentCommand{\Txl}{}{\textnormal{l}}
+	\DeclareDocumentCommand{\Txm}{}{\textnormal{m}}
+	\DeclareDocumentCommand{\Txn}{}{\textnormal{n}}
+	\DeclareDocumentCommand{\Txo}{}{\textnormal{o}}
+	\DeclareDocumentCommand{\Txp}{}{\textnormal{p}}
+	\DeclareDocumentCommand{\Txq}{}{\textnormal{q}}
+	\DeclareDocumentCommand{\Txr}{}{\textnormal{r}}
+	\DeclareDocumentCommand{\Txs}{}{\textnormal{s}}
+	\DeclareDocumentCommand{\Txt}{}{\textnormal{t}}
+	\DeclareDocumentCommand{\Txu}{}{\textnormal{u}}
+	\DeclareDocumentCommand{\Txv}{}{\textnormal{v}}
+	\DeclareDocumentCommand{\Txw}{}{\textnormal{w}}
+	\DeclareDocumentCommand{\Txx}{}{\textnormal{x}}
+	\DeclareDocumentCommand{\Txy}{}{\textnormal{y}}
+	\DeclareDocumentCommand{\Txz}{}{\textnormal{z}}
 \fi
 
 % Shorttextbf
 \if@shorttextbf
-\DeclareDocumentCommand{\TbA}{}{\textbf{A}}
-\DeclareDocumentCommand{\TbB}{}{\textbf{B}}
-\DeclareDocumentCommand{\TbC}{}{\textbf{C}}
-\DeclareDocumentCommand{\TbD}{}{\textbf{D}}
-\DeclareDocumentCommand{\TbE}{}{\textbf{E}}
-\DeclareDocumentCommand{\TbF}{}{\textbf{F}}
-\DeclareDocumentCommand{\TbG}{}{\textbf{G}}
-\DeclareDocumentCommand{\TbH}{}{\textbf{H}}
-\DeclareDocumentCommand{\TbI}{}{\textbf{I}}
-\DeclareDocumentCommand{\TbJ}{}{\textbf{J}}
-\DeclareDocumentCommand{\TbK}{}{\textbf{K}}
-\DeclareDocumentCommand{\TbL}{}{\textbf{L}}
-\DeclareDocumentCommand{\TbM}{}{\textbf{M}}
-\DeclareDocumentCommand{\TbN}{}{\textbf{N}}
-\DeclareDocumentCommand{\TbO}{}{\textbf{O}}
-\DeclareDocumentCommand{\TbP}{}{\textbf{P}}
-\DeclareDocumentCommand{\TbQ}{}{\textbf{Q}}
-\DeclareDocumentCommand{\TbR}{}{\textbf{R}}
-\DeclareDocumentCommand{\TbS}{}{\textbf{S}}
-\DeclareDocumentCommand{\TbT}{}{\textbf{T}}
-\DeclareDocumentCommand{\TbU}{}{\textbf{U}}
-\DeclareDocumentCommand{\TbV}{}{\textbf{V}}
-\DeclareDocumentCommand{\TbW}{}{\textbf{W}}
-\DeclareDocumentCommand{\TbX}{}{\textbf{X}}
-\DeclareDocumentCommand{\TbY}{}{\textbf{Y}}
-\DeclareDocumentCommand{\TbZ}{}{\textbf{Z}}
-\DeclareDocumentCommand{\Tba}{}{\textbf{a}}
-\DeclareDocumentCommand{\Tbb}{}{\textbf{b}}
-\DeclareDocumentCommand{\Tbc}{}{\textbf{c}}
-\DeclareDocumentCommand{\Tbd}{}{\textbf{d}}
-\DeclareDocumentCommand{\Tbe}{}{\textbf{e}}
-\DeclareDocumentCommand{\Tbf}{}{\textbf{f}}
-\DeclareDocumentCommand{\Tbg}{}{\textbf{g}}
-\DeclareDocumentCommand{\Tbh}{}{\textbf{h}}
-\DeclareDocumentCommand{\Tbi}{}{\textbf{i}}
-\DeclareDocumentCommand{\Tbj}{}{\textbf{j}}
-\DeclareDocumentCommand{\Tbk}{}{\textbf{k}}
-\DeclareDocumentCommand{\Tbl}{}{\textbf{l}}
-\DeclareDocumentCommand{\Tbm}{}{\textbf{m}}
-\DeclareDocumentCommand{\Tbn}{}{\textbf{n}}
-\DeclareDocumentCommand{\Tbo}{}{\textbf{o}}
-\DeclareDocumentCommand{\Tbp}{}{\textbf{p}}
-\DeclareDocumentCommand{\Tbq}{}{\textbf{q}}
-\DeclareDocumentCommand{\Tbr}{}{\textbf{r}}
-\DeclareDocumentCommand{\Tbs}{}{\textbf{s}}
-\DeclareDocumentCommand{\Tbt}{}{\textbf{t}}
-\DeclareDocumentCommand{\Tbu}{}{\textbf{u}}
-\DeclareDocumentCommand{\Tbv}{}{\textbf{v}}
-\DeclareDocumentCommand{\Tbw}{}{\textbf{w}}
-\DeclareDocumentCommand{\Tbx}{}{\textbf{x}}
-\DeclareDocumentCommand{\Tby}{}{\textbf{y}}
-\DeclareDocumentCommand{\Tbz}{}{\textbf{z}}
+	\DeclareDocumentCommand{\TbA}{}{\textbf{A}}
+	\DeclareDocumentCommand{\TbB}{}{\textbf{B}}
+	\DeclareDocumentCommand{\TbC}{}{\textbf{C}}
+	\DeclareDocumentCommand{\TbD}{}{\textbf{D}}
+	\DeclareDocumentCommand{\TbE}{}{\textbf{E}}
+	\DeclareDocumentCommand{\TbF}{}{\textbf{F}}
+	\DeclareDocumentCommand{\TbG}{}{\textbf{G}}
+	\DeclareDocumentCommand{\TbH}{}{\textbf{H}}
+	\DeclareDocumentCommand{\TbI}{}{\textbf{I}}
+	\DeclareDocumentCommand{\TbJ}{}{\textbf{J}}
+	\DeclareDocumentCommand{\TbK}{}{\textbf{K}}
+	\DeclareDocumentCommand{\TbL}{}{\textbf{L}}
+	\DeclareDocumentCommand{\TbM}{}{\textbf{M}}
+	\DeclareDocumentCommand{\TbN}{}{\textbf{N}}
+	\DeclareDocumentCommand{\TbO}{}{\textbf{O}}
+	\DeclareDocumentCommand{\TbP}{}{\textbf{P}}
+	\DeclareDocumentCommand{\TbQ}{}{\textbf{Q}}
+	\DeclareDocumentCommand{\TbR}{}{\textbf{R}}
+	\DeclareDocumentCommand{\TbS}{}{\textbf{S}}
+	\DeclareDocumentCommand{\TbT}{}{\textbf{T}}
+	\DeclareDocumentCommand{\TbU}{}{\textbf{U}}
+	\DeclareDocumentCommand{\TbV}{}{\textbf{V}}
+	\DeclareDocumentCommand{\TbW}{}{\textbf{W}}
+	\DeclareDocumentCommand{\TbX}{}{\textbf{X}}
+	\DeclareDocumentCommand{\TbY}{}{\textbf{Y}}
+	\DeclareDocumentCommand{\TbZ}{}{\textbf{Z}}
+	\DeclareDocumentCommand{\Tba}{}{\textbf{a}}
+	\DeclareDocumentCommand{\Tbb}{}{\textbf{b}}
+	\DeclareDocumentCommand{\Tbc}{}{\textbf{c}}
+	\DeclareDocumentCommand{\Tbd}{}{\textbf{d}}
+	\DeclareDocumentCommand{\Tbe}{}{\textbf{e}}
+	\DeclareDocumentCommand{\Tbf}{}{\textbf{f}}
+	\DeclareDocumentCommand{\Tbg}{}{\textbf{g}}
+	\DeclareDocumentCommand{\Tbh}{}{\textbf{h}}
+	\DeclareDocumentCommand{\Tbi}{}{\textbf{i}}
+	\DeclareDocumentCommand{\Tbj}{}{\textbf{j}}
+	\DeclareDocumentCommand{\Tbk}{}{\textbf{k}}
+	\DeclareDocumentCommand{\Tbl}{}{\textbf{l}}
+	\DeclareDocumentCommand{\Tbm}{}{\textbf{m}}
+	\DeclareDocumentCommand{\Tbn}{}{\textbf{n}}
+	\DeclareDocumentCommand{\Tbo}{}{\textbf{o}}
+	\DeclareDocumentCommand{\Tbp}{}{\textbf{p}}
+	\DeclareDocumentCommand{\Tbq}{}{\textbf{q}}
+	\DeclareDocumentCommand{\Tbr}{}{\textbf{r}}
+	\DeclareDocumentCommand{\Tbs}{}{\textbf{s}}
+	\DeclareDocumentCommand{\Tbt}{}{\textbf{t}}
+	\DeclareDocumentCommand{\Tbu}{}{\textbf{u}}
+	\DeclareDocumentCommand{\Tbv}{}{\textbf{v}}
+	\DeclareDocumentCommand{\Tbw}{}{\textbf{w}}
+	\DeclareDocumentCommand{\Tbx}{}{\textbf{x}}
+	\DeclareDocumentCommand{\Tby}{}{\textbf{y}}
+	\DeclareDocumentCommand{\Tbz}{}{\textbf{z}}
 \fi
 
 % Shorttextit
 \if@shorttextit
-\DeclareDocumentCommand{\TiA}{}{\textit{A}}
-\DeclareDocumentCommand{\TiB}{}{\textit{B}}
-\DeclareDocumentCommand{\TiC}{}{\textit{C}}
-\DeclareDocumentCommand{\TiD}{}{\textit{D}}
-\DeclareDocumentCommand{\TiE}{}{\textit{E}}
-\DeclareDocumentCommand{\TiF}{}{\textit{F}}
-\DeclareDocumentCommand{\TiG}{}{\textit{G}}
-\DeclareDocumentCommand{\TiH}{}{\textit{H}}
-\DeclareDocumentCommand{\TiI}{}{\textit{I}}
-\DeclareDocumentCommand{\TiJ}{}{\textit{J}}
-\DeclareDocumentCommand{\TiK}{}{\textit{K}}
-\DeclareDocumentCommand{\TiL}{}{\textit{L}}
-\DeclareDocumentCommand{\TiM}{}{\textit{M}}
-\DeclareDocumentCommand{\TiN}{}{\textit{N}}
-\DeclareDocumentCommand{\TiO}{}{\textit{O}}
-\DeclareDocumentCommand{\TiP}{}{\textit{P}}
-\DeclareDocumentCommand{\TiQ}{}{\textit{Q}}
-\DeclareDocumentCommand{\TiR}{}{\textit{R}}
-\DeclareDocumentCommand{\TiS}{}{\textit{S}}
-\DeclareDocumentCommand{\TiT}{}{\textit{T}}
-\DeclareDocumentCommand{\TiU}{}{\textit{U}}
-\DeclareDocumentCommand{\TiV}{}{\textit{V}}
-\DeclareDocumentCommand{\TiW}{}{\textit{W}}
-\DeclareDocumentCommand{\TiX}{}{\textit{X}}
-\DeclareDocumentCommand{\TiY}{}{\textit{Y}}
-\DeclareDocumentCommand{\TiZ}{}{\textit{Z}}
-\DeclareDocumentCommand{\Tia}{}{\textit{a}}
-\DeclareDocumentCommand{\Tib}{}{\textit{b}}
-\DeclareDocumentCommand{\Tic}{}{\textit{c}}
-\DeclareDocumentCommand{\Tid}{}{\textit{d}}
-\DeclareDocumentCommand{\Tie}{}{\textit{e}}
-\DeclareDocumentCommand{\Tit}{}{\textit{f}}
-\DeclareDocumentCommand{\Tig}{}{\textit{g}}
-\DeclareDocumentCommand{\Tih}{}{\textit{h}}
-\DeclareDocumentCommand{\Tii}{}{\textit{i}}
-\DeclareDocumentCommand{\Tij}{}{\textit{j}}
-\DeclareDocumentCommand{\Tik}{}{\textit{k}}
-\DeclareDocumentCommand{\Til}{}{\textit{l}}
-\DeclareDocumentCommand{\Tim}{}{\textit{m}}
-\DeclareDocumentCommand{\Tin}{}{\textit{n}}
-\DeclareDocumentCommand{\Tio}{}{\textit{o}}
-\DeclareDocumentCommand{\Tip}{}{\textit{p}}
-\DeclareDocumentCommand{\Tiq}{}{\textit{q}}
-\DeclareDocumentCommand{\Tir}{}{\textit{r}}
-\DeclareDocumentCommand{\Tis}{}{\textit{s}}
-\DeclareDocumentCommand{\Tit}{}{\textit{t}}
-\DeclareDocumentCommand{\Tiu}{}{\textit{u}}
-\DeclareDocumentCommand{\Tiv}{}{\textit{v}}
-\DeclareDocumentCommand{\Tiw}{}{\textit{w}}
-\DeclareDocumentCommand{\Tix}{}{\textit{x}}
-\DeclareDocumentCommand{\Tiy}{}{\textit{y}}
-\DeclareDocumentCommand{\Tiz}{}{\textit{z}}
+	\DeclareDocumentCommand{\TiA}{}{\textit{A}}
+	\DeclareDocumentCommand{\TiB}{}{\textit{B}}
+	\DeclareDocumentCommand{\TiC}{}{\textit{C}}
+	\DeclareDocumentCommand{\TiD}{}{\textit{D}}
+	\DeclareDocumentCommand{\TiE}{}{\textit{E}}
+	\DeclareDocumentCommand{\TiF}{}{\textit{F}}
+	\DeclareDocumentCommand{\TiG}{}{\textit{G}}
+	\DeclareDocumentCommand{\TiH}{}{\textit{H}}
+	\DeclareDocumentCommand{\TiI}{}{\textit{I}}
+	\DeclareDocumentCommand{\TiJ}{}{\textit{J}}
+	\DeclareDocumentCommand{\TiK}{}{\textit{K}}
+	\DeclareDocumentCommand{\TiL}{}{\textit{L}}
+	\DeclareDocumentCommand{\TiM}{}{\textit{M}}
+	\DeclareDocumentCommand{\TiN}{}{\textit{N}}
+	\DeclareDocumentCommand{\TiO}{}{\textit{O}}
+	\DeclareDocumentCommand{\TiP}{}{\textit{P}}
+	\DeclareDocumentCommand{\TiQ}{}{\textit{Q}}
+	\DeclareDocumentCommand{\TiR}{}{\textit{R}}
+	\DeclareDocumentCommand{\TiS}{}{\textit{S}}
+	\DeclareDocumentCommand{\TiT}{}{\textit{T}}
+	\DeclareDocumentCommand{\TiU}{}{\textit{U}}
+	\DeclareDocumentCommand{\TiV}{}{\textit{V}}
+	\DeclareDocumentCommand{\TiW}{}{\textit{W}}
+	\DeclareDocumentCommand{\TiX}{}{\textit{X}}
+	\DeclareDocumentCommand{\TiY}{}{\textit{Y}}
+	\DeclareDocumentCommand{\TiZ}{}{\textit{Z}}
+	\DeclareDocumentCommand{\Tia}{}{\textit{a}}
+	\DeclareDocumentCommand{\Tib}{}{\textit{b}}
+	\DeclareDocumentCommand{\Tic}{}{\textit{c}}
+	\DeclareDocumentCommand{\Tid}{}{\textit{d}}
+	\DeclareDocumentCommand{\Tie}{}{\textit{e}}
+	\DeclareDocumentCommand{\Tit}{}{\textit{f}}
+	\DeclareDocumentCommand{\Tig}{}{\textit{g}}
+	\DeclareDocumentCommand{\Tih}{}{\textit{h}}
+	\DeclareDocumentCommand{\Tii}{}{\textit{i}}
+	\DeclareDocumentCommand{\Tij}{}{\textit{j}}
+	\DeclareDocumentCommand{\Tik}{}{\textit{k}}
+	\DeclareDocumentCommand{\Til}{}{\textit{l}}
+	\DeclareDocumentCommand{\Tim}{}{\textit{m}}
+	\DeclareDocumentCommand{\Tin}{}{\textit{n}}
+	\DeclareDocumentCommand{\Tio}{}{\textit{o}}
+	\DeclareDocumentCommand{\Tip}{}{\textit{p}}
+	\DeclareDocumentCommand{\Tiq}{}{\textit{q}}
+	\DeclareDocumentCommand{\Tir}{}{\textit{r}}
+	\DeclareDocumentCommand{\Tis}{}{\textit{s}}
+	\DeclareDocumentCommand{\Tit}{}{\textit{t}}
+	\DeclareDocumentCommand{\Tiu}{}{\textit{u}}
+	\DeclareDocumentCommand{\Tiv}{}{\textit{v}}
+	\DeclareDocumentCommand{\Tiw}{}{\textit{w}}
+	\DeclareDocumentCommand{\Tix}{}{\textit{x}}
+	\DeclareDocumentCommand{\Tiy}{}{\textit{y}}
+	\DeclareDocumentCommand{\Tiz}{}{\textit{z}}
 \fi
 
 % Shorttexttt
 \if@shorttexttt
-\DeclareDocumentCommand{\TtA}{}{\texttt{A}}
-\DeclareDocumentCommand{\TtB}{}{\texttt{B}}
-\DeclareDocumentCommand{\TtC}{}{\texttt{C}}
-\DeclareDocumentCommand{\TtD}{}{\texttt{D}}
-\DeclareDocumentCommand{\TtE}{}{\texttt{E}}
-\DeclareDocumentCommand{\TtF}{}{\texttt{F}}
-\DeclareDocumentCommand{\TtG}{}{\texttt{G}}
-\DeclareDocumentCommand{\TtH}{}{\texttt{H}}
-\DeclareDocumentCommand{\TtI}{}{\texttt{I}}
-\DeclareDocumentCommand{\TtJ}{}{\texttt{J}}
-\DeclareDocumentCommand{\TtK}{}{\texttt{K}}
-\DeclareDocumentCommand{\TtL}{}{\texttt{L}}
-\DeclareDocumentCommand{\TtM}{}{\texttt{M}}
-\DeclareDocumentCommand{\TtN}{}{\texttt{N}}
-\DeclareDocumentCommand{\TtO}{}{\texttt{O}}
-\DeclareDocumentCommand{\TtP}{}{\texttt{P}}
-\DeclareDocumentCommand{\TtQ}{}{\texttt{Q}}
-\DeclareDocumentCommand{\TtR}{}{\texttt{R}}
-\DeclareDocumentCommand{\TtS}{}{\texttt{S}}
-\DeclareDocumentCommand{\TtT}{}{\texttt{T}}
-\DeclareDocumentCommand{\TtU}{}{\texttt{U}}
-\DeclareDocumentCommand{\TtV}{}{\texttt{V}}
-\DeclareDocumentCommand{\TtW}{}{\texttt{W}}
-\DeclareDocumentCommand{\TtX}{}{\texttt{X}}
-\DeclareDocumentCommand{\TtY}{}{\texttt{Y}}
-\DeclareDocumentCommand{\TtZ}{}{\texttt{Z}}
-\DeclareDocumentCommand{\Tta}{}{\texttt{a}}
-\DeclareDocumentCommand{\Ttb}{}{\texttt{b}}
-\DeclareDocumentCommand{\Ttc}{}{\texttt{c}}
-\DeclareDocumentCommand{\Ttd}{}{\texttt{d}}
-\DeclareDocumentCommand{\Tte}{}{\texttt{e}}
-\DeclareDocumentCommand{\Ttt}{}{\texttt{f}}
-\DeclareDocumentCommand{\Ttg}{}{\texttt{g}}
-\DeclareDocumentCommand{\Tth}{}{\texttt{h}}
-\DeclareDocumentCommand{\Tti}{}{\texttt{i}}
-\DeclareDocumentCommand{\Ttj}{}{\texttt{j}}
-\DeclareDocumentCommand{\Ttk}{}{\texttt{k}}
-\DeclareDocumentCommand{\Ttl}{}{\texttt{l}}
-\DeclareDocumentCommand{\Ttm}{}{\texttt{m}}
-\DeclareDocumentCommand{\Ttn}{}{\texttt{n}}
-\DeclareDocumentCommand{\Tto}{}{\texttt{o}}
-\DeclareDocumentCommand{\Ttp}{}{\texttt{p}}
-\DeclareDocumentCommand{\Ttq}{}{\texttt{q}}
-\DeclareDocumentCommand{\Ttr}{}{\texttt{r}}
-\DeclareDocumentCommand{\Tts}{}{\texttt{s}}
-\DeclareDocumentCommand{\Ttt}{}{\texttt{t}}
-\DeclareDocumentCommand{\Ttu}{}{\texttt{u}}
-\DeclareDocumentCommand{\Ttv}{}{\texttt{v}}
-\DeclareDocumentCommand{\Ttw}{}{\texttt{w}}
-\DeclareDocumentCommand{\Ttx}{}{\texttt{x}}
-\DeclareDocumentCommand{\Tty}{}{\texttt{y}}
-\DeclareDocumentCommand{\Ttz}{}{\texttt{z}}
+	\DeclareDocumentCommand{\TtA}{}{\texttt{A}}
+	\DeclareDocumentCommand{\TtB}{}{\texttt{B}}
+	\DeclareDocumentCommand{\TtC}{}{\texttt{C}}
+	\DeclareDocumentCommand{\TtD}{}{\texttt{D}}
+	\DeclareDocumentCommand{\TtE}{}{\texttt{E}}
+	\DeclareDocumentCommand{\TtF}{}{\texttt{F}}
+	\DeclareDocumentCommand{\TtG}{}{\texttt{G}}
+	\DeclareDocumentCommand{\TtH}{}{\texttt{H}}
+	\DeclareDocumentCommand{\TtI}{}{\texttt{I}}
+	\DeclareDocumentCommand{\TtJ}{}{\texttt{J}}
+	\DeclareDocumentCommand{\TtK}{}{\texttt{K}}
+	\DeclareDocumentCommand{\TtL}{}{\texttt{L}}
+	\DeclareDocumentCommand{\TtM}{}{\texttt{M}}
+	\DeclareDocumentCommand{\TtN}{}{\texttt{N}}
+	\DeclareDocumentCommand{\TtO}{}{\texttt{O}}
+	\DeclareDocumentCommand{\TtP}{}{\texttt{P}}
+	\DeclareDocumentCommand{\TtQ}{}{\texttt{Q}}
+	\DeclareDocumentCommand{\TtR}{}{\texttt{R}}
+	\DeclareDocumentCommand{\TtS}{}{\texttt{S}}
+	\DeclareDocumentCommand{\TtT}{}{\texttt{T}}
+	\DeclareDocumentCommand{\TtU}{}{\texttt{U}}
+	\DeclareDocumentCommand{\TtV}{}{\texttt{V}}
+	\DeclareDocumentCommand{\TtW}{}{\texttt{W}}
+	\DeclareDocumentCommand{\TtX}{}{\texttt{X}}
+	\DeclareDocumentCommand{\TtY}{}{\texttt{Y}}
+	\DeclareDocumentCommand{\TtZ}{}{\texttt{Z}}
+	\DeclareDocumentCommand{\Tta}{}{\texttt{a}}
+	\DeclareDocumentCommand{\Ttb}{}{\texttt{b}}
+	\DeclareDocumentCommand{\Ttc}{}{\texttt{c}}
+	\DeclareDocumentCommand{\Ttd}{}{\texttt{d}}
+	\DeclareDocumentCommand{\Tte}{}{\texttt{e}}
+	\DeclareDocumentCommand{\Ttt}{}{\texttt{f}}
+	\DeclareDocumentCommand{\Ttg}{}{\texttt{g}}
+	\DeclareDocumentCommand{\Tth}{}{\texttt{h}}
+	\DeclareDocumentCommand{\Tti}{}{\texttt{i}}
+	\DeclareDocumentCommand{\Ttj}{}{\texttt{j}}
+	\DeclareDocumentCommand{\Ttk}{}{\texttt{k}}
+	\DeclareDocumentCommand{\Ttl}{}{\texttt{l}}
+	\DeclareDocumentCommand{\Ttm}{}{\texttt{m}}
+	\DeclareDocumentCommand{\Ttn}{}{\texttt{n}}
+	\DeclareDocumentCommand{\Tto}{}{\texttt{o}}
+	\DeclareDocumentCommand{\Ttp}{}{\texttt{p}}
+	\DeclareDocumentCommand{\Ttq}{}{\texttt{q}}
+	\DeclareDocumentCommand{\Ttr}{}{\texttt{r}}
+	\DeclareDocumentCommand{\Tts}{}{\texttt{s}}
+	\DeclareDocumentCommand{\Ttt}{}{\texttt{t}}
+	\DeclareDocumentCommand{\Ttu}{}{\texttt{u}}
+	\DeclareDocumentCommand{\Ttv}{}{\texttt{v}}
+	\DeclareDocumentCommand{\Ttw}{}{\texttt{w}}
+	\DeclareDocumentCommand{\Ttx}{}{\texttt{x}}
+	\DeclareDocumentCommand{\Tty}{}{\texttt{y}}
+	\DeclareDocumentCommand{\Ttz}{}{\texttt{z}}
 \fi
